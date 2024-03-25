@@ -1,0 +1,17 @@
+.deco {
+  @include breakpoints-up(lg) {
+    width: 450px
+  }
+}
+
+.figure {
+  height: 460px;
+  display: flex;
+  align-items: flex-end;
+  transition: all 0.3s ease
+}
+
+.fade {
+  opacity: 0.5;
+  filter: blur(10px)
+}

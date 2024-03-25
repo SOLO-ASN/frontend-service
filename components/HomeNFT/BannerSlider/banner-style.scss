@@ -1,0 +1,355 @@
+$card-width: 220px;
+$card-height: 280px;
+$reduced-mobile: 40px;
+
+.banner-wrap {
+  position: relative;
+  display: block;
+  :deep(.v-container) {
+    @include breakpoints-down(lg) {
+      padding: 0
+    }
+  }
+}
+
+.btn-area {
+  display: flex;
+  @include breakpoints-down(lg) {
+    justify-content: center
+  }
+  @include breakpoints-down(sm) {
+    align-items: center;
+    &:not(.download) {
+      flex-direction: column
+    }
+  }
+  .button {
+    font-size: 18px;
+    min-width: 200px;
+    @include breakpoints-up(sm) {
+      @include margin-right($spacing2);
+    }
+    @include breakpoints-down(sm) {
+      width: 100%;
+      margin-bottom: $spacing2;
+    }
+  }
+  a {
+    display: inline-flex;
+    @include breakpoints-down(sm) {
+      margin: 4px;
+    }
+    img {
+      width: 160px;
+      @include breakpoints-down(sm) {
+        width: 100%
+      }
+    }
+  }
+}
+
+.art-wrap {
+  position: relative;
+  @include breakpoints-up(lg) {
+    overflow: hidden;
+  }
+  @include breakpoints-down(lg) {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.art-scene {
+  position: relative;
+  @include left($spacing2);
+  display: flex;
+  flex-wrap: wrap;
+  @include breakpoints-up(lg) {
+    margin-top: $spacing5
+  }
+  @include breakpoints-down(lg) {
+    width: 120%;
+    margin-top: $spacing5
+  }
+}
+
+.deco-line{
+  position: absolute;
+  top: 0;
+  @include left(16px);
+  border-radius: $rounded-big;
+  border: 1px solid transparent;
+  border-image-source: $gradient-double-main;
+  background-image: $gradient-double-main;
+  border-image-slice: 1;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  -mask-composite: exclude;
+  width: $card-width;
+  height: $card-height;
+  @include breakpoints-down(sm) {
+    display: none
+  }
+}
+
+.inner{
+  display: flex;
+  height: 100%;
+  position: relative;
+  padding-top: $spacing10;
+  @include breakpoints-up(lg) {
+    min-height: 640px;
+  }
+  @include breakpoints-down(lg) {
+    flex-direction: column;
+    justify-content: center
+  }
+}
+
+.text {
+  position: relative;
+  z-index: 99;
+  @include breakpoints-up(lg) {
+    margin-top: $spacing10
+  }
+  @include breakpoints-down(lg) {
+    text-align: center;
+    padding: spacing(0, 3)
+  }
+  & h4 {
+    font-weight: $font-bold;
+    margin-bottom: $spacing2
+  }
+  & h5 {
+    margin-bottom: $spacing4
+  }
+}
+
+.carousel {
+  @include margin-left($spacing4);
+  transform: rotate(7deg);
+  transform-origin: center center
+}
+
+.card-main {
+  > a {
+    width: $card-width;
+    height: $card-height;
+    @include breakpoints-down(sm) {
+      width: $card-width - $reduced-mobile;
+      height: $card-height - $reduced-mobile;
+    }
+  }
+}
+
+.fade-slider {
+  position: relative;
+  z-index: 3;
+  width: 50%;
+  @include breakpoints-between(md, lg) {
+    width: 25%
+  }
+  @include breakpoints-between(sm, md) {
+    width: 33%
+  }
+  .splide .splide__slide.is-active {
+    .card-main {
+      animation-name: flipInY;
+      animation-duration: 1s;
+      animation-fill-mode: both;
+    }
+  }
+}
+
+.search-banner {
+  margin-top: $spacing3;
+  font-size: 18px;
+  overflow: visible;
+  &.v-card:not(.v-sheet--tile):not(.v-card--shaped) {
+    border-radius: 75px;
+  }
+  @include breakpoints-up(md) {
+    max-width: none;
+  }
+  @include breakpoints-down(sm) {
+    margin-top: $spacing4
+  }
+  :deep(.v-field__overlay), :deep(.v-field__outline) {
+    display: none
+  }
+  :deep(.v-input__control) {
+    background: none !important;
+    min-height: 0;
+    padding: 0 !important;
+    .v-input__append-inner {
+      margin-top: 4px
+    }
+    &:before, &:after {
+      display: none;
+    }
+  }
+  :deep(.v-text-field--filled .v-label--active, .v-text-field--full-width .v-label--active) {
+    transform: translateY(-18px) scale(0.75);
+    transform-origin: top left;
+  }
+}
+
+.search {
+  font-size: 18px;
+  width: 100%;
+  @include breakpoints-down(sm) {
+    width: 70%
+  }
+  :deep(.v-field) {
+    border: none;
+    input {
+      margin: 0;
+      border-radius: 75px;
+      padding: $spacing1;
+      max-height: none;
+      height: 40px;
+      @include breakpoints-up(md) {
+        height: 75px;
+        padding: spacing(4, 22, 3, 3)
+      }
+      &:focus {
+        @include use-theme(box-shadow, $palette-primary-light 0 0 0 0.4rem, $palette-primary-dark 0 0 0 0.4rem)
+      }
+    }
+  }
+  :deep(.v-field__input) {
+    padding: 0;
+  }
+  :deep(label) {
+    @include left($spacing1 !important);
+    top: 28px;
+  }
+}
+
+.action {
+  position: absolute;
+  @include right(0);
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: $spacing2;
+}
+
+.button {
+  &.v-btn:not(.v-btn--round) {
+    height: 48px;
+    line-height: 48px;
+    align-items: center;
+    padding: 2px 28px;
+    box-sizing: content-box;
+    @include breakpoints-down(sm) {
+      padding: 2px;
+      width: 50px;
+      background: none !important;
+      box-shadow: none;
+      font-size: 24px;
+      color: $palette-primary-main !important;
+    }
+  }
+}
+
+.connect {
+  text-align: center;
+  margin-top: $spacing5;
+  h5 {
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    font-weight: $font-regular;
+    justify-content: center;
+    hr {
+      margin: spacing(0, 2);
+      border: 1px solid;
+      @include use-theme(border-color, $light-text-secondary, $dark-text-secondary);
+      width: 20%;
+      opacity: 0.3
+    }
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    li {
+      width: 25%;
+      margin-bottom: $spacing1;
+      list-style: none;
+      &:last-child {
+        width: 100%;
+        .btn {
+          text-transform: uppercase
+        }
+      }
+    }
+  }
+}
+
+.btn {
+  @include margin-right($spacing1);
+  width: 100%;
+  padding: $spacing1;
+  @include palette-text-primary;
+  text-transform: capitalize;
+  height: auto;
+  :deep(.v-btn__content) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    white-space: normal;
+    @include breakpoints-down(sm) {
+      line-height: 18px;
+    }
+  }
+  img {
+    width: 48px;
+    border-radius: 50%;
+    margin-bottom: $spacing1;
+    @include margin-right($spacing1)
+  }
+}
+
+.connect-popup {
+  width: 500px;
+  max-width: none;
+  padding: $spacing3;
+  &.v-card {
+    border-radius: $rounded-big;
+    overflow: hidden;
+  }
+}
+
+.content-popup {
+  overflow: auto;
+  height: 400px;
+}
+
+.wallet-list {
+  padding: spacing(1, 0);
+  margin: spacing(1, 0);
+  border-radius: $rounded-big;
+  @include text-align(left);
+  .v-avatar {
+    min-width: 0;
+    margin: spacing(0, 1)
+  }
+  img {
+    width: 48px;
+    border-radius: 50%;
+    @include breakpoints-down(sm) {
+      width: 36px;
+    }
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}

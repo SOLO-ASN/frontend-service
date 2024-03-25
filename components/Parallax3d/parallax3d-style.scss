@@ -1,0 +1,354 @@
+.parallax-wrap {
+  position: absolute;
+  width: 100%;
+  height: 99%;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  @include breakpoints-down(md) {
+    display: none;
+  }
+}
+
+.parallax-scene {
+  z-index: 10;
+  @include right(0);
+  top: 0px;
+  position: absolute;
+  width: 1200px;
+  height: 300px;
+  > div {
+    position: absolute;
+  }
+  @include breakpoints-down(lg) {
+    display: none
+  }
+}
+
+.parallax-wrap {
+  position: absolute;
+  width: 100%;
+  height: 30%;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  @include breakpoints-down(lg) {
+    display: none
+  }
+}
+
+.inner-parallax {
+  height: 500px;
+  width: 100%;
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  @include use-theme(opacity, 0.5, 1);
+}
+
+.obj-hover {
+  position: absolute;
+  :deep(img) {
+    width: 100%;
+    height: 100%;
+    display: block
+  }
+}
+
+.obj-scroll {
+  > div > div {
+    position: relative;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    display: block
+  }
+}
+
+.start {
+  width: 50%
+}
+
+.end {
+  width: 50%;
+  .obj-hover {
+    margin-left: auto
+  }
+  .obj-scroll {
+    > div > div {
+      margin-left: auto
+    }
+  }
+}
+
+.end-bottom {
+  width: 50%;
+  .obj-hover {
+    margin-left: auto
+  }
+  .obj-scroll {
+    > div > div {
+      margin-left: auto
+    }
+  }
+}
+
+.geometric {
+  width: 100%;
+  height: 100%;
+  .start {
+    top: 0;
+    left: 15px;
+  }
+  .end {
+    top: 0;
+    right: 0;
+  }
+  .ring-left {
+    width: 106px;
+    height: 106px;
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .box {
+    width: 150px;
+    height: 150px;
+  }
+  .ring-right {
+    width: 80px;
+    height: 80px;
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .ball {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+.flowers {
+  width: 100%;
+  height: 100%;
+  .start {
+    top: 100px;
+    left: -150px;
+  }
+  .end {
+    top: -20px;
+    right: 0px;
+  }
+  .end-bottom {
+    top: 250px;
+    right: 0px;
+  }
+  .tornado {
+    width: 80px;
+    height: 80px;
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .snail {
+    width: 232px;
+    height: 232px;
+  }
+  .bom {
+    width: 80px;
+    height: 80px;
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .flower {
+    width: 150px;
+    height: 150px;
+  }
+  .ring {
+    width: 80px;
+    height: 80px;
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .ball {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+.planet {
+  width: 100%;
+  height: 100%;
+  .start {
+    top: 100px;
+    left: -150px;
+  }
+  .end {
+    top: -20px;
+    right: 0px;
+  }
+  .end-bottom {
+    top: 250px;
+    right: 0px;
+  }
+  .noodle {
+    width: 156px;
+    height: 156px;
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .ufo {
+    width: 232px;
+    height: 232px;
+    left: 50px;
+    transform: rotate(-65deg);
+  }
+  .bom {
+    width: 80px;
+    height: 80px;
+    top: -100px;
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .flower {
+    width: 150px;
+    height: 150px;
+  }
+  .ring {
+    width: 80px;
+    height: 80px;
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .ball {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+.snail {
+  width: 100%;
+  height: 100%;
+  .start {
+    top: 50px;
+    left: -150px;
+  }
+  .end {
+    top: 200px;
+    right: 0px;
+  }
+  .ball {
+    width: 170px;
+    height: 170px;
+    transform: rotate(-70deg);
+  }
+  .plate {
+    width: 100px;
+    height: 100px;
+    transform: rotate(-50deg);
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .flower {
+    width: 150px;
+    height: 150px;
+    transform: rotate(-50deg);
+  }
+  .wormhole {
+    width: 80px;
+    height: 80px;
+    transform: rotate(60deg);
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+}
+
+.ufo {
+  width: 100%;
+  height: 100%;
+  .start {
+    top: 0px;
+    left: 15px;
+  }
+  .end {
+    top: 0;
+    right: 0;
+  }
+  .ring-left {
+    width: 106px;
+    height: 106px;
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .plate {
+    width: 150px;
+    height: 150px;
+  }
+  .ring-right {
+    width: 80px;
+    height: 80px;
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .orbit {
+    width: 130px;
+    height: 170px;
+    transform: rotate(65deg)
+  }
+}
+
+.basket {
+  width: 100%;
+  height: 100%;
+  .start {
+    top: 0;
+    left: 15px;
+  }
+  .end {
+    top: 0px;
+    right: 0px;
+  }
+  .bom {
+    width: 60px;
+    height: 60px;
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .ring2 {
+    width: 120px;
+    height: 90px;
+    transform: rotate(135deg);
+  }
+  .ring {
+    width: 60px;
+    height: 90px;
+    transform: rotate(-35deg);
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .ball {
+    width: 160px;
+    height: 160px;
+    transform: rotate(65deg);
+  }
+}
+
+.food {
+  width: 100%;
+  height: 100%;
+  .start {
+    top: 0;
+    left: -150px;
+  }
+  .end {
+    top: 100px;
+    right: 0px;
+  }
+  .ufo {
+    width: 222px;
+    height: 192px;
+    left: 50px;
+    transform: rotate(-45deg);
+  }
+  .plate {
+    width: 100px;
+    height: 100px;
+    transform: rotate(-50deg);
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .tube {
+    width: 150px;
+    height: 150px;
+    transform: rotate(190deg);
+  }
+  .wormhole {
+    width: 80px;
+    height: 80px;
+    transform: rotate(60deg);
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+}

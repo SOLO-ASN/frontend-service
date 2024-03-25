@@ -1,0 +1,119 @@
+.root {
+  position: relative;
+  overflow: hidden;
+  @include breakpoints-between(sm, lg) {
+    margin-top: $spacing15;
+  }
+}
+
+.accordion {
+  position: relative;
+  :deep(.v-expansion-panel-title--active) {
+    background: $palette-primary-main !important;
+    .heading {
+      color: $palette-common-white;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .v-icon {
+      color: $palette-common-white !important;
+      transform: rotate(180deg)
+    }
+  }
+}
+
+.item {
+  margin-bottom: $spacing3;
+}
+
+.paper {
+  margin-bottom: $spacing3;
+  overflow: hidden;
+  @include use-theme(background, rgba($light-background-paper, 0.5), rgba($dark-background-paper, 0.75));
+  backdrop-filter: saturate(180%) blur(20px);
+  @include shade;
+  .v-expansion-panels--variant-accordion & {
+    border-radius: $rounded-medium !important;
+  }
+}
+
+.heading {
+  display: block;
+  font-weight: $font-medium;
+  padding: spacing(1, 2, 1, 0);
+  font-size: 24px;
+  line-height: 1.5;
+  margin-bottom: 0;
+  @include breakpoints-down(sm) {
+    font-size: 16px;
+  }
+}
+
+.content {
+  :deep(.v-expansion-panel-title__overlay) {
+    opacity: 0
+  }
+  .icon {
+    position: absolute;
+    top: 20px;
+    @include right($spacing2)
+  }
+}
+
+.expanded {
+  background: $palette-primary-main !important;
+  .heading {
+    color: $palette-common-white;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  :deep(.v-icon){
+    color: $palette-common-white !important;
+    transform: rotate(180deg)
+  }
+}
+
+.detail {
+  background: $palette-primary-main !important;
+  color: $palette-common-white;
+  font-size: 16px;
+  border-radius: 0 0 $rounded-medium $rounded-medium;
+  @include breakpoints-up(sm) {
+    font-size: 24px;
+  }
+}
+
+.icon {
+  @include use-theme(color, $palette-primary-main, $palette-primary-light);
+}
+
+.help-group {
+  @include breakpoints-between(sm, md) {
+    display: flex;
+    justify-content: center;
+    button, a {
+      margin: spacing(0, 0.5);
+      margin-bottom: 0
+    }
+  }
+  @include breakpoints-down(md) {
+    button, a, .v-btn {
+      font-size: 14px !important;
+      padding: spacing(1, 2) !important;
+      width: auto;
+      flex: 1;
+    }
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+  @include breakpoints-between(sm, lg) {
+    margin-bottom: 0 !important;
+  }
+  @include breakpoints-down(sm) {
+    button, a {
+      margin-bottom: $spacing3
+    }
+  }
+}

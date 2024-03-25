@@ -1,0 +1,214 @@
+.root {
+  @include breakpoints-up(lg) {
+    margin-top: 240px;
+  }
+  &.v-container {
+    @include breakpoints-down(md) {
+      padding: 0 !important
+    }
+  }
+}
+
+.circle-group {
+  position: relative;
+  width: 100%;
+  margin-top: $spacing4;
+  @include breakpoints-up(lg) {
+    min-height: 700px;
+  }
+  @include breakpoints-down(lg) {
+    display: flex;
+    overflow: auto;
+  }
+}
+
+.circle {
+  position: relative;
+  text-align: center;
+  @include breakpoints-up(lg) {
+    position: absolute;
+  }
+  @include breakpoints-down(lg) {
+    padding: 32px;
+    width: 275px;
+    height: 275px;
+    top: 0 !important;
+    left: 0 !important
+  }
+  @include breakpoints-down(sm) {
+    padding: 10px;
+    width: 179px;
+    height: 179px;
+  }
+  h6 {
+    @include breakpoints-down(lg) {
+      font-size: 18px;
+    }
+    @include breakpoints-down(md) {
+      font-size: 14px;
+    }
+  }
+  i {
+    @include breakpoints-down(lg) {
+      font-size: 90px;
+      line-height: 90px;
+    }
+    @include breakpoints-down(md) {
+      font-size: 60px;
+      line-height: 60px;
+    }
+  }
+  svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    @include breakpoints-down(lg) {
+      display: none;
+    }
+  }
+}
+
+.paper {
+  font-weight: $font-bold;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  line-height: normal;
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease-out;
+  text-decoration: none;
+  transform: scale(1);
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+// Size
+.large {
+  @include breakpoints-up(lg) {
+    padding: 40px;
+    width: 344px;
+    height: 344px;
+  }
+  h6 {
+    @include breakpoints-up(lg) {
+      font-size: 24px;
+    }
+  }
+  i {
+    @include breakpoints-up(lg) {
+      font-size: 120px;
+      line-height: 120px;
+    }
+  }
+}
+
+.medium {
+  @include breakpoints-up(lg) {
+    padding: 32px;
+    width: 275px;
+    height: 275px;
+  }
+  h6 {
+    @include breakpoints-up(lg) {
+      font-size: 18px;
+    }
+  }
+  i {
+    @include breakpoints-up(lg) {
+      font-size: 90px;
+      line-height: 90px;
+    }
+  }
+}
+
+.small {
+  @include breakpoints-up(lg) {
+    padding: 20px;
+    width: 179px;
+    height: 179px;
+  }
+  h6 {
+    @include breakpoints-up(lg) {
+      font-size: 14px;
+    }
+  }
+  i {
+    @include breakpoints-up(lg) {
+      font-size: 60px;
+      line-height: 60px;
+    }
+  }
+}
+
+// Color
+.fill-primary {
+  .paper {
+    color: $palette-primary-main
+  }
+  i {
+    &:before {
+      background: linear-gradient(120deg, $palette-primary-light, $palette-primary-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent
+    }
+  }
+  svg {
+    @include use-theme(fill, $palette-primary-light, $palette-primary-dark)
+  }
+  a {
+    @include breakpoints-down(lg) {
+      box-shadow: 0 0 0 1px $palette-primary-main
+    }
+  }
+}
+
+.fill-secondary {
+  .paper {
+    color: $palette-secondary-main
+  }
+  i {
+    &:before {
+      background: linear-gradient(120deg, $palette-secondary-light, $palette-secondary-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent
+    }
+  }
+  svg {
+    @include use-theme(fill, $palette-secondary-light, $palette-secondary-dark)
+  }
+  a {
+    @include breakpoints-down(lg) {
+      box-shadow: 0 0 0 1px $palette-secondary-main
+    }
+  }
+}
+
+.fill-accent {
+  .paper {
+    color: $palette-accent-main
+  }
+  i {
+    &:before {
+      background: linear-gradient(120deg, $palette-accent-light, $palette-accent-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent
+    }
+  }
+  svg {
+    @include use-theme(fill, $palette-accent-light, $palette-accent-dark)
+  }
+  a {
+    @include breakpoints-down(lg) {
+      box-shadow: 0 0 0 1px $palette-accent-main
+    }
+  }
+}

@@ -1,0 +1,98 @@
+.clay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.mask {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+  img {
+    width: 100%;
+  }
+  &:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    mix-blend-mode: multiply;
+  }
+}
+
+.primary-dark {
+  &:after {
+    background-image: $gradient-primary-dark
+  }
+}
+
+.primary-light {
+  &:after {
+    background-image: $gradient-primary-light;
+  }
+}
+.secondary-dark {
+  &:after {
+    background-image: $gradient-secondary-dark;
+  }
+}
+.secondary-light {
+  &:after {
+    background-image: $gradient-secondary-light;
+  }
+}
+.accent {
+  &:after {
+    background-image: $gradient-accent;
+  }
+}
+.double-light {
+  &:after {
+    background-image: $gradient-double-light;
+  }
+}
+.double-main {
+  &:after {
+    background-image: $gradient-double-main;
+  }
+}
+.double-dark {
+  &:after {
+    background-image: $gradient-double-dark;
+  }
+}
+.double-primary {
+  &:after {
+    background-image: $gradient-double-primary;
+  }
+}
+.double-secondary {
+  &:after {
+    background-image: $gradient-double-secondary;
+  }
+}
+.double-accent {
+  &:after {
+    background-image: $gradient-double-accent;
+  }
+}
+.triple-light {
+  &:after {
+    background-image: $gradient-triple-light;
+  }
+}
+.triple-main {
+  &:after {
+    background-image: $gradient-triple-main;
+  }
+}
+.triple-dark {
+  &:after {
+    background-image: $gradient-triple-dark;
+  }
+}

@@ -1,0 +1,40 @@
+.parallax-title {
+  text-align: center;
+  h3 {
+    overflow: hidden;
+    width: 100%;
+    @include breakpoints-up(sm) {
+      padding: spacing(0, 3)
+    }
+  }
+}
+
+.deco-title {
+  position: absolute;
+  width: 100%;
+  top: -100px;
+  left: 0;
+  overflow: hidden;
+  text-transform: uppercase;
+  font-size: 200px;
+  display: flex;
+  justify-content: center;
+  @include breakpoints-down(lg) {
+    font-size: 160px;
+    top: -50px;
+  }
+  @include breakpoints-down(md) {
+    font-size: 120px;
+  }
+  @include breakpoints-down(sm) {
+    top: 0;
+    font-Size: 60px;
+  }
+  &.static {
+    opacity: 0.4;
+    top: -120px;
+    @include breakpoints-down(sm) {
+      top: 20px;
+    }
+  }
+}

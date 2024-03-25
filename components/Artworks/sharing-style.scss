@@ -1,0 +1,295 @@
+.sharing {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  max-width: 650px;
+  > div {
+    position: absolute
+  }
+}
+
+.liquid {
+  -webkit-mask-image: url(/images/decoration/deco-liquid.svg);
+  mask-image: url(/images/decoration/deco-liquid.svg);
+  width: 273px;
+  height: 228px;
+}
+
+.person {
+  overflow: hidden;
+  position: absolute;
+  img {
+    height: 100%
+  }
+}
+
+// big
+.big {
+  top: 80px;
+  left: 60px;
+  max-width: 250px;
+  height: 300px;
+  width: 100%;
+  .liquid {
+    bottom: 0px;
+    left: 0px;
+    position: absolute;
+  }
+  .person {
+    bottom: 0;
+    left: 20px;
+    width: 250px;
+    border-radius: 250px;
+    height: 300px;
+  }
+}
+
+.medium {
+  bottom: 20px;
+  right: 20px;
+  max-width: 200px;
+  height: 200px;
+  width: 100%;
+  .liquid {
+    bottom: 0px;
+    right: 0px;
+    transform: scale(-0.9, 0.9) rotate(-30deg);
+    position: absolute
+  }
+  .person {
+    width: 200px;
+    height: 200px;
+    bottom: 10px;
+    left: -35px;
+    border-radius: 200px;
+  }
+}
+
+.small1 {
+  top: 170px;
+  right: 70px;
+  @include breakpoints-down(lg) {
+    display: none
+  }
+  .oval-deco {
+    position: relative;
+    &:before {
+      content: "";
+      border-radius: 50%;
+      width: 140px;
+      height: 140px;
+      position: absolute;
+      border: 1px solid $palette-primary-light;
+      top: -12px;
+      right: -2px;
+    }
+  }
+  .avatar {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+.small2 {
+  bottom: 30px;
+  left: 140px;
+  @include breakpoints-down(sm) {
+    display: none
+  }
+  .oval-deco {
+    position: relative;
+    &:before {
+      content: "";
+      border-radius: 50%;
+      width: 140px;
+      height: 140px;
+      position: absolute;
+      border: 1px solid $palette-secondary-main;
+      top: -12px;
+      left: -12px;
+    }
+  }
+  .avatar {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+.bg {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.bg-primary {
+  background: $palette-primary-main;
+}
+
+.bg-secondary {
+  background: $palette-secondary-light
+}
+
+.shadow {
+  height: 100%;
+  width: 50%;
+  display: block;
+  position: relative;
+  top: 0;
+  left: 30%;
+  background: rgba(0, 0, 0, 0.4);
+  filter: blur(20px)
+}
+
+.counter {
+  background: #424242;
+  padding: spacing(1, 3, 1, 1);
+  border-radius: 50px;
+  color: $palette-common-white;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  &.large {
+    transform: scale(1);
+    left: -10px;
+  }
+  &.small {
+    transform: scale(0.8);
+    left: 10px;
+    bottom: -30px;
+  }
+  &.mini {
+    width: 230%;
+    transform: scale(0.6);
+    transform-origin: left;
+    left: -20px;
+    bottom: -30px;
+    .ammount {
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+  .icon {
+    background: $palette-secondary-main;
+    margin-right: $spacing1;
+    width: 60px;
+    height: 60px;
+    :deep(i) {
+      color: #424242
+    }
+  }
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  margin-right: $spacing1;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.ammount {
+  color: $palette-common-white;
+  font-size: 22px;
+  div {
+    display: flex;
+    align-items: center
+  }
+  .logo {
+    width: 20px;
+    height: 20px;
+    margin-right: $spacing1;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  p {
+    margin-bottom: 0;
+    font-size: 18px;
+    i {
+      margin-right: 4px;
+    }
+    strong {
+      font-weight: $font-medium
+    }
+  }
+}
+
+// arrow
+.arrow {
+  position: absolute;
+  @include use-rtl-ltr(display, none, block);
+  svg {
+    width: 300px;
+    height: 320px;
+  }
+  .icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    font-size: 48px;
+    border: 5px solid;
+    @include use-theme(border-color, $light-background-paper, $dark-background-paper);
+    text-align: center;
+    position: absolute;
+    > div {
+      position: relative;
+      top: -30px
+    }
+  }
+  &.primary {
+    right: 0px;
+    top: 100px;
+    transform: scale(0.9);
+    svg {
+      stroke: $palette-primary-main
+    }
+    .icon {
+      left: 100px;
+      top: -15px;
+      background: $palette-primary-main
+    }
+    @include breakpoints-down(md) {
+      display: none
+    }
+  }
+  &.secondary {
+    left: -80px;
+    bottom: 30px;
+    transform: scale(0.6);
+    svg {
+      transform: scaleY(-1) rotate(235deg);
+      stroke: $palette-secondary-main
+    }
+    .icon {
+      left: -10px;
+      top: 80px;
+      background: $palette-secondary-main
+    }
+    @include breakpoints-down(md) {
+      display: none
+    }
+  }
+  &.accent {
+    left: 190px;
+    bottom: 100px;
+    transform: scale(0.3);
+    @include breakpoints-down(lg) {
+      display: none
+    }
+    svg {
+      stroke: $palette-accent-main;
+      transform: scaleY(1.2) rotate(245deg);
+    }
+    .icon {
+      left: 10px;
+      top: 40px;
+      transform: scale(1.5);
+      background: $palette-accent-main;
+    }
+  }
+}

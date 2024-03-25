@@ -1,0 +1,303 @@
+.person {
+  text-align: center;
+  position: relative;
+  max-width: 538px;
+  min-width: 250px;
+  height: 530px;
+  top: -40px;
+  @include breakpoints-down(md) {
+    height: 440px;
+  }
+  @include breakpoints-down(sm) {
+    width: 100%;
+    height: 400px;
+    text-align: center
+  }
+}
+
+// background
+.outlined {
+  @include breakpoints-down(md) {
+    display: none
+  }
+}
+
+.background {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  > div {
+    position: absolute;
+  }
+  svg {
+    position: absolute;
+    width: 257px;
+    height: 217px;
+  }
+  .secondary {
+    transform: scale(0.5) rotate(165deg);
+    top: 105px;
+    @include left(200px);
+    .filled {
+      top: -1px;
+      left: -5px;
+      fill: $palette-secondary-main;
+    }
+    .outlined {
+      top: 20px;
+      left: 15px;
+      stroke: $palette-secondary-main;
+      fill: none
+    }
+  }
+  .primary {
+    bottom: 100px;
+    @include right(-90px);
+    .filled {
+      bottom: 0px;
+      right: 20px;
+      transform: scale(1.2);
+      fill: $palette-primary-main
+    }
+    .outlined {
+      bottom: 20px;
+      right: 80px;
+      transform: scale(1.8);
+      stroke: $palette-primary-main;
+      fill: none
+    }
+  }
+}
+
+// person photo
+.photo {
+  margin: 0 auto;
+  img {
+    max-width: 300px;
+    filter: drop-shadow(0px -5px 10px rgba(0, 0, 0, 0.2));
+    @include breakpoints-down(md) {
+      max-width: 200px;
+      margin: 0 auto
+    }
+  }
+}
+
+// icons
+.icons {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  @include breakpoints-down(sm) {
+    display: none
+  }
+  .secondary {
+    position: absolute;
+    font-size: 56px;
+    left: 0px;
+    top: 20px;
+    @include breakpoints-up(md) {
+      left: 30px;
+    }
+    > div {
+      position: relative;
+      z-index: 1;
+      top: -20px;
+      left: -20px;
+    }
+    &:after {
+      content: "";
+      top: -3px;
+      left: -2px;
+      position: absolute;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: $palette-secondary-light;
+    }
+    &:before {
+      content: "";
+      width: 60px;
+      height: 60px;
+      top: -10px;
+      left: -2px;
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid $palette-secondary-main;
+    }
+  }
+  .accent {
+    position: absolute;
+    font-size: 64px;
+    right: -40px;
+    top: 140px;
+    > div {
+      position: relative;
+      z-index: 1;
+      top: -20px;
+      left: -20px;
+    }
+    &:after {
+      content: "";
+      top: -3px;
+      left: -2px;
+      position: absolute;
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      background: $palette-accent-light;
+    }
+    &:before {
+      content: "";
+      width: 77px;
+      height: 77px;
+      top: -8px;
+      left: 0px;
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid $palette-accent-light;
+    }
+  }
+}
+
+// screen
+.screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  @include breakpoints-down(lg) {
+    display: none
+  }
+  span {
+    display: block;
+    border-radius: 4px;
+    overflow: hidden;
+    position: absolute;
+    @include shade;
+    img {
+      width: 100%
+    }
+  }
+}
+
+.top {
+  width: 158px;
+  height: 40px;
+  top: 40;
+  right: -80px;
+}
+
+.center {
+  width: 86px;
+  height: 74px;
+  top: 200px;
+  left: -100px;
+}
+
+.bottom {
+  width: 122px;
+  height: 106px;
+  bottom: 160px;
+  right: -160px;
+}
+
+// app ui
+.app-ui {
+  position: absolute;
+  width: 100%;
+  bottom: 60px;
+  left: 0px;
+  text-align: center;
+  @include breakpoints-down(sm) {
+    bottom: 100px;
+  }
+}
+
+.resume {
+  border-radius: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(110deg, $palette-accent-light 0%, $palette-secondary-light 20%, $palette-common-white 40%, $palette-common-white 60%, $palette-primary-light 90%);
+  padding: $spacing1;
+  color: $palette-common-black;
+  bottom: -60px;
+  padding-bottom: 60px;
+  position: relative;
+  @include breakpoints-down(sm) {
+    display: none
+  }
+  span {
+    color: rgba(0, 0, 0, 0.54)
+  }
+  h3 {
+    font-size: 18px;
+    display: block;
+    font-weight: $font-medium;
+    strong {
+      font-weight: $font-medium;
+      font-size: 26px;
+    }
+    i {
+      color: #30A80F
+    }
+  }
+}
+
+.counter {
+  border-radius: 60px;
+  display: flex;
+  z-index: 1;
+  position: relative;
+  padding: $spacing2;
+  background: $palette-common-black;
+  color: $palette-common-white;
+  width: 100%;
+  @include breakpoints-up(sm) {
+    left: -90px;
+    width: 475px;
+  }
+  @include breakpoints-between(sm, md) {
+    left: -140px;
+  }
+  .divider {
+    margin: spacing(0, 2);
+    border-color: $palette-common-white;
+    opacity: 0.12;
+  }
+}
+
+.asset {
+  font-size: 20px;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @include breakpoints-down(sm) {
+    font-size: 14px;
+  }
+  span {
+    display: flex;
+    img {
+      margin-right: $spacing1;
+      width: 29px;
+      height: 29px;
+      border-radius: 50%;
+      @include breakpoints-down(sm) {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  strong {
+    display: block;
+    font-weight: $font-medium;
+  }
+}

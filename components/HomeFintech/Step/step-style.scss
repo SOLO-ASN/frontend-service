@@ -1,0 +1,141 @@
+.item {
+  position: relative;
+  @include breakpoints-up(md) {
+    padding: spacing(0, 6)
+  }
+  @include breakpoints-down(sm) {
+    display: flex;
+    padding-top: $spacing2;
+  }
+}
+
+.icon {
+  position: relative;
+  display: inline-block;
+  @include breakpoints-down(sm) {
+    transform: scale(0.75);
+    @include margin-left($spacing5);
+    margin0-top: $spacing2;
+  }
+  > div {
+    position: absolute;
+    text-align: center;
+    z-index: 2;
+  }
+  .left {
+    font-size: 64px;
+    top: -80px;
+    @include left(-60px)
+  }
+  .right {
+    font-size: 48px;
+    top: 10px;
+    @include right(-80px)
+  }
+  .center {
+    font-size: 128px;
+    top: -80px;
+    @include left(-60px);
+  }
+}
+
+.glow {
+  overflow: hidden;
+  padding: $spacing2;
+  position: relative;
+  h6 {
+    text-transform: capitalize;
+  }
+  @include breakpoints-up(sm) {
+    padding: spacing(12, 3, 1);
+  }
+  @include breakpoints-down(sm) {
+    @include padding-left($spacing10);
+  }
+  &:before {
+    content: "";
+    filter: blur(20px);
+    opacity: 0.25;
+    width: 80%;
+    height: 190px;
+    border-radius: 50%;
+    position: absolute;
+    top: -70%;
+    @include left(10%);
+    @include breakpoints-down(sm) {
+      display: none
+    }
+  }
+  .primary {
+    &:before {
+      background: $palette-primary-main
+    }
+  }
+  .secondary {
+    &:before {
+      background: $palette-secondary-main
+    }
+  }
+  .accent {
+    &:before {
+      background: $palette-accent-main
+    }
+  }
+}
+
+.step {
+  margin-top: $spacing5;
+  @include breakpoints-up(sm) {
+    margin-top: $spacing15;
+    text-align: center
+  }
+  h6 {
+    font-weight: $font-bold;
+  }
+  .item {
+    opacity: 1
+  }
+}
+
+.divider {
+  position: absolute;
+  top: 50%;
+  @include right(40px);
+  overflow: visible;
+  border: none;
+  @include breakpoints-down(md) {
+    display: none
+  }
+  &.primary {
+    &:after {
+      background: $gradient-primary-light
+    }
+    &:before {
+      background: $gradient-primary-light
+    }
+  }
+  &.secondary {
+    &:after {
+      background: $gradient-secondary-light
+    }
+    &:before {
+      background: $gradient-secondary-light
+    }
+  }
+  &:after {
+    content: "";
+    width: 70px;
+    height: 12px;
+    border-radius: 12px;
+    position: absolute;
+    @include left(40px);
+  }
+  &:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    @include left(20px)
+  }
+}

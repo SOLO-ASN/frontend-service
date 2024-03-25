@@ -1,0 +1,115 @@
+.root {
+  color: $palette-common-white;
+  position: relative;
+  z-index: 4;
+  border-radius: 60px 60px 0 0;
+  background: linear-gradient(-2deg, $palette-primary-dark 0%, $palette-primary-main 100%);
+  padding: spacing(10, 0);
+  @include breakpoints-down(sm) {
+    border-radius: 40px 40px 0 0;
+  }
+  @include breakpoints-up(md) {
+    padding: spacing(15, 3)
+  }
+  :deep(.v-row) {
+    position: relative;
+  }
+  &:before {
+    content: "";
+    height: 60px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    @include use-theme(background, $light-background-paper, $palette-primary-dark);
+    border-radius: 60px 60px 0 0;
+    @include breakpoints-down(sm) {
+      border-radius: 40px 40px 0 0;
+    }
+  }
+  &:after {
+    content: "";
+    height: 60px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    opacity: 0.6;
+    @include use-theme(background, $palette-common-white, $palette-common-black);
+    border-radius: 60px 60px 0 0;
+    @include breakpoints-down(sm) {
+      border-radius: 40px 40px 0 0;
+    }
+  }
+}
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: $rounded-medium;
+  @include margin-right($spacing1);
+  background: $palette-primary-light;
+}
+
+.verified {
+  color: $palette-secondary-main;
+  font-size: 16px;
+  @include margin-left($spacing1);
+}
+
+.table {
+  position: relative;
+  background: none;
+  z-index: 2;
+  @include breakpoints-down(md) {
+    margin-bottom: $spacing5;
+  }
+  @include breakpoints-up(sm) {
+    margin-top: $spacing5
+  }
+  th {
+    border: none;
+    color: $palette-common-white !important;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: $font-medium !important;
+  }
+  &.v-table > .v-table__wrapper > table > tbody > tr > td {
+    padding: 12px;
+  }
+  td {
+    border: none;
+    color: $palette-common-white;
+    @include padding-right(0);
+  }
+  strong {
+    font-weight: $font-medium;
+  }
+}
+
+.one {
+  font-weight: $font-bold;
+  color: $palette-secondary-main;
+  font-size: 36px;
+  font-style: italic;
+  white-space: nowrap;
+  @include breakpoints-down(sm) {
+    font-size: 18px
+  }
+}
+
+.divider {
+  margin: 0;
+  flex-shrink: 0;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.12);
+  align-self: stretch;
+  position: absolute;
+  border-width: 0.5px;
+  left: calc(50% + 2px);
+  bottom: 0;
+  height: 90%;
+  max-height: none;
+  opacity: 1;
+  border-image-source: linear-gradient(0deg, $palette-primary-main, $palette-secondary-main);
+  border-image-slice: 1;
+}

@@ -1,0 +1,62 @@
+.tabs {
+  position: relative;
+  z-index: 55;
+  a.v-tab {
+    &:hover {
+      color: $palette-secondary-main
+    }
+  }
+  .v-btn {
+    border-radius: 0
+  }
+  .v-tabs-slider-wrapper .v-tabs-slider {
+    background-color: $palette-secondary-light !important
+  }
+  :deep(.v-slide-group__prev.v-slide-group__prev--disabled) {
+    @include breakpoints-down(sm) {
+      display: none !important
+    }
+  }
+  :deep(.v-slide-group__wrapper) {
+    @include breakpoints-down(sm) {
+      overflow: auto
+    }
+  }
+}
+
+.tab-content {
+  position: relative;
+  @include breakpoints-up(md) {
+    padding: spacing(4, 4, 0)
+  }
+  section {
+    position: relative;
+    div {
+      overflow: visible
+    }
+  }
+}
+
+.tab-label {
+  font-size: 18px;
+  font-weight: $font-medium;
+  letter-spacing: 0;
+  padding: spacing(0, 5);
+  border-bottom: 1px solid;
+  font-weight: $font-medium;
+  @include use-theme(border-color, $light-text-disabled,  $dark-text-disabled);
+  @include breakpoints-down(sm) {
+    font-size: 14px;
+  }
+}
+
+.img-logo {
+  padding: $spacing2;
+  @include breakpoints-up(lg) {
+    padding: spacing(2, 8)
+  }
+  img {
+    border-radius: $rounded-small;
+    width: 100%
+  }
+}

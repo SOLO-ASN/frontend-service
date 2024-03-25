@@ -1,0 +1,76 @@
+.form-comment {
+  @include palette-background-paper;
+  padding: $spacing1;
+  border-radius: $rounded-big;
+  @include breakpoints-up(sm) {
+    padding: spacing(2, 3);
+  }
+}
+
+.write {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  :deep(fieldset) {
+    height: 41px;
+  }
+  :deep(.v-field) {
+    min-height: 0;
+    margin-bottom: 0;
+    border-radius: $rounded-big;
+    @include breakpoints-down(sm) {
+      padding-bottom: $spacing5;
+    }
+    @include breakpoints-up(sm) {
+      @include padding-right(160px);
+    }
+    input {
+      max-height: none;
+    }
+  }
+  :deep(.v-text-field__details) {
+    display: none;
+  }
+  :deep(.v-field--variant-solo) {
+    background: none;
+  }
+  :deep(textarea) {
+    resize: none
+  }
+  .send-btn {
+    position: absolute;
+    bottom: 6px;
+    @include right($spacing1);
+  }
+}
+
+.avatar {
+  @include margin-right($spacing1);
+  margin-top: $spacing1;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.comment-list {
+  margin-top: $spacing2
+}
+
+.date {
+  height: auto;
+  padding: 0;
+  font-size: 12px;
+  margin-left: -16px
+}
+
+.content {
+  margin-top: $spacing1;
+  margin-bottom: $spacing2;
+  line-height: 1.5;
+}
+
+.help-item {
+  text-transform: uppercase;
+  font-size: 13px;
+}

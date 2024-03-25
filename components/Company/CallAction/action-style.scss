@@ -1,0 +1,114 @@
+$illustration: '/images/inner/fog.png';
+$abstract: '/images/inner/abstract.png';
+
+.root {
+  position: relative;
+  margin-bottom: $spacing5;
+  @include breakpoints-up(md) {
+    margin: $spacing10 auto;
+  }
+  &:before {
+    content: "";
+    top: -400px;
+    @include left(400px);
+    position: absolute;
+    background: url($abstract) no-repeat;
+    background-size: 100% 100%;
+    width: 700px;
+    height: 900px;
+    transform: rotate(100deg);
+    filter: blur(15px);
+    opacity: 0.2;
+    @include breakpoints-down(lg) {
+      display: none
+    }
+  }
+}
+
+.action {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 60px;
+  color: $palette-common-black;
+  background: $gradient-triple-light;
+  @include breakpoints-up(lg) {
+    margin: spacing(0, 10)
+  }
+  @include breakpoints-down(sm) {
+    padding-left: $spacing2;
+    padding-right: $spacing2;
+  }
+  h4 {
+    position: relaitve;
+    z-index: 1
+  }
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 60px;
+  padding: spacing(5, 2, 2);
+  @include breakpoints-up(sm) {
+    padding: $spacing10
+  }
+  @include breakpoints-up(md) {
+    background: url($illustration) no-repeat transparent -210px -30px;
+    background-size: 100% auto;
+    padding: $spacing5;
+  }
+}
+
+.btn-area {
+  position: relaitve;
+  z-index: 1;
+  justify-content: center;
+  display: flex;
+  margin-top: $spacing5;
+  @include breakpoints-down(sm) {
+    margin-top: $spacing2;
+    justify-content: space-around;
+  }
+  a {
+    min-width: 200px;
+    font-size: 18px;
+    @include breakpoints-up(sm) {
+      @include margin-right($spacing2);
+    }
+    @include breakpoints-down(sm) {
+      margin: 4px;
+    }
+    &.v-btn.v-btn--size-large:not(.v-btn--icon) {
+      height: auto;
+    }
+    img {
+      width: 160px;
+      @include breakpoints-down(sm) {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.double-main { background: $gradient-double-main }
+.triple-light { background: $gradient-triple-light }
+.triple-main { background: $gradient-triple-main }
+
+.fog {
+  filter: blur(60px);
+  width: 700px;
+  height: 600px;
+  opacity: 0.75;
+  position: absolute;
+  top: 100px;
+  @include left(30%);
+  > div {
+    border-radius: 500px;
+    position: absolute;
+    transition: all 1.5s cubic-bezier(.11,.99,.81,1.13);
+  }
+}

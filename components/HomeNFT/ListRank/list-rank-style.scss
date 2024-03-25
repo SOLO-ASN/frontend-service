@@ -1,0 +1,33 @@
+.root {
+  color: $palette-common-white;
+  padding: spacing(15, 3);
+  position: relative;
+  overflow: hidden;
+  z-index: 4;
+  border-radius: 60px 60px 0 0;
+  background: linear-gradient(-2deg, $palette-primary-dark 0%, $palette-primary-main 100%);
+  @include breakpoints-down(sm) {
+    padding-top: $spacing5
+  }
+  &:before {
+    content: "";
+    border-radius: 60px 60px 0 0;
+    height: 60px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    @include use-theme(background, $light-background-paper, $palette-primary-dark);
+  }
+  &:after {
+    content: "";
+    border-radius: 60px 60px 0 0;
+    height: 60px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    opacity: 0.6;
+    @include use-theme(background, $palette-common-white, $palette-common-black);
+  }
+}

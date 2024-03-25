@@ -1,0 +1,25 @@
+.root {
+  position: relative;
+  @include text-align(left);
+  padding: spacing(3, 0);
+  h1 {
+    position: absolute;
+    @include right(0);
+    bottom: 0px;
+    font-size: 200px;
+    font-weight: $font-bold;
+    opacity: 0.1;
+    height: 100%;
+    line-height: 240px
+  }
+}
+
+.content {
+  i {
+    font-size: 50px;
+    margin-bottom: $spacing2;
+    background: $gradient-triple-light;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

@@ -1,0 +1,194 @@
+$card-width: 300px;
+$card-height: 400px;
+
+.banner-wrap {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  :deep(.v-container) {
+    padding: spacing(0, 2);
+    @include breakpoints-down(lg) {
+      padding: 0
+    }
+  }
+}
+
+.btn-area {
+  display: flex;
+  @include breakpoints-down(md) {
+    justify-content: center
+  }
+  @include breakpoints-down(sm) {
+    align-items: center;
+    &:not(.download) {
+      flex-direction: column
+    }
+  }
+  .button {
+    font-size: 18px;
+    min-width: 200px;
+    @include breakpoints-up(sm) {
+      @include margin-right($spacing2);
+    }
+    @include breakpoints-down(sm) {
+      width: 100%;
+      margin-bottom: $spacing2;
+    }
+  }
+  a {
+    display: inline-flex;
+    @include breakpoints-down(sm) {
+      margin: 4px;
+    }
+    img {
+      width: 160px;
+      @include breakpoints-down(sm) {
+        width: 100%
+      }
+    }
+  }
+}
+
+.art-scene {
+  position: relative;
+  @include breakpoints-up(md) {
+    @include left($spacing2);
+    top: $spacing1 * -5;
+  }
+  @include breakpoints-down(md) {
+    margin-top: $spacing10
+  }
+  @include breakpoints-down(sm) {
+    margin-top: $spacing5
+  }
+}
+
+.deco-line {
+  position: absolute;
+  top: 80px;
+  @include left(-16px);
+  width: 280px;
+  height: 350px;
+  border-radius: $rounded-big;
+  border: 1px solid $palette-primary-light;
+  transform: rotate(5deg);
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    @include left(0);
+    width: 280px;
+    height: 350px;
+    border-radius: $rounded-big;
+    border: 1px solid $palette-secondary-light;
+    transform: rotate(-10deg);
+  }
+}
+
+.inner{
+  display: flex;
+  height: 100%;
+  align-items: center;
+  position: relative;
+  padding-top: $spacing10;
+  @include breakpoints-up(md) {
+    min-height: 720px;
+  }
+  @include breakpoints-down(lg) {
+    flex-direction: column;
+    justify-content: center
+  }
+}
+
+.text {
+  position: relative;
+  z-index: 99;
+  @include breakpoints-down(md) {
+    text-align: center;
+  }
+  @include breakpoints-down(lg) {
+    padding: spacing(0, 3)
+  }
+  & h4 {
+    font-weight: $font-bold;
+    margin-bottom: $spacing2
+  }
+  & h5 {
+    margin-bottom: $spacing4
+  }
+}
+
+.card-main {
+  opacity: 0;
+  transform: scale(0.9) translateX(100px);
+  transition: all 0.7s ease-out;
+  > a {
+    width: $card-width;
+    height: $card-height;
+  }
+}
+
+.fade-slider {
+  position: relative;
+  z-index: 3;
+  @include use-rtl(margin-left, 300px);
+  .splide .splide__slide.is-active {
+    .card-main {
+      opacity: 1;
+      transform: scale(1) translateX(0);
+    }
+  }
+}
+
+.roll-slider {
+  z-index: 2;
+  top: $spacing5;
+  @include breakpoints-up(md) {
+    width: 780px;
+    position: absolute;
+  }
+  &:before {
+    content: "";
+    height: 100%;
+    width: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    @include use-theme(background, linear-gradient(to right, #FFF 40%, rgba(0, 0, 0, 0) 100%), linear-gradient(to right, $palette-primary-dark 40%, rgba(0, 0, 0, 0) 100%));
+    @include breakpoints-down(md) {
+      display: none
+    }
+  }
+  &:after {
+    z-index: 1;
+    content: "";
+    height: 100%;
+    width: 100px;
+    position: absolute;
+    top: 0;
+    @include left(0);
+    opacity: 0.5;
+    @include use-theme(background, linear-gradient(to right, #FFF 40%, rgba(0, 0, 0, 0) 100%), linear-gradient(to right, #000 40%, rgba(0, 0, 0, 0) 100%));
+    @include breakpoints-down(md) {
+      display: none
+    }
+  }
+}
+
+.card-secondary {
+  text-align: center;
+  > a {
+    height: $card-height * 0.8;
+    @include breakpoints-up(md) {
+      width: $card-width * 0.8;
+    }
+    @include breakpoints-down(md) {
+      margin: spacing(0, 1)
+    }
+    @include breakpoints-down(sm) {
+      width: $card-width * 0.6;
+      height: $card-height * 0.6;
+    }
+  }
+}

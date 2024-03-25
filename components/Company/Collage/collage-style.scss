@@ -1,0 +1,162 @@
+$string1: '/images/decoration/string1.svg';
+$string2: '/images/decoration/string2.svg';
+
+.static {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+  &.overlap {
+    margin-top: $spacing1 * -10;
+    @include breakpoints-up(sm) {
+      margin-top: $spacing1 * -15
+    }
+  }
+}
+
+.slider {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  &.overlap {
+    @include breakpoints-up(sm) {
+      margin-top: $spacing1 * -30
+    }
+  }
+}
+
+.gallery {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  @include breakpoints-up(lg) {
+    width: 100%;
+  }
+  @include breakpoints-down(xl) {
+    width: 1400px;
+  }
+  @include breakpoints-up(sm) {
+    padding-top: $spacing10
+  }
+  @include breakpoints-down(sm) {
+    @include margin-left(-140px);
+    width: 700px;
+  }
+  > div {
+    flex: 1;
+  }
+  figure {
+    margin: spacing(2, 1);
+    overflow: hidden;
+    border-radius: $rounded-medium;
+    img {
+      width: 100%;
+      display: block
+    }
+  }
+}
+.person {
+  position: relative;
+  figure {
+    overflow: visible;
+    border-radius: $rounded-medium;
+    background: $palette-accent-light;
+    height: 350px;
+    width: 240px;
+    margin: spacing(0, 2);
+    position: static;
+    display: flex;
+    align-items: flex-end;
+    img {
+      display: block;
+      height: 450px;
+      width: 260px;
+      position: relative;
+    }
+  }
+}
+.btn {
+  border-radius: $rounded-medium;
+  background: $gradient-triple-light;
+  color: $palette-common-black;
+  font-weight: $font-bold;
+  font-size: 20px;
+  text-Transform: capitalize;
+  &.v-btn.v-btn--size-large:not(.v-btn--icon) {
+    height: 60px;
+  }
+  i {
+    font-size: 32px;
+    @include margin-left(4px);
+    @include rtl-flip;
+  }
+}
+
+.string-deco {
+  width: 100%;
+  position: absolute;
+  span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.string1 {
+  height: 635px;
+  mask-image: url($string1);
+  mask-repeat: no-repeat;
+  mask-size: 100%;
+  -webkit-mask-image: url($string1);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100%;
+  top: 30px;
+  @include left(0);
+  span {
+    background: $gradient-triple-light;
+  }
+}
+
+.string2 {
+  z-index: 1;
+  height: 700px;
+  mask-image: url($string2);
+  -webkit-mask-image: url($string2);
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: 100%;
+  -webkit-mask-size: 100%;
+  top: 40px;
+  @include left(20px);
+  span {
+    background: $gradient-triple-main;
+  }
+}
+
+.string3 {
+  z-index: 1;
+  height: 700px;
+  mask-image: url($string2);
+  -webkit-mask-image: url($string2);
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: 100%;
+  -webkit-mask-size: 100%;
+  top: 240px;
+  @include left(20px);
+  span {
+    background: $gradient-triple-main
+  }
+}
+
+.carousel {
+  overflow: hidden;
+  margin: spacing(8, 0);
+  @include breakpoints-down(lg) {
+    margin-top: $spacing3;
+    margin-bottom: 0;
+  }
+}

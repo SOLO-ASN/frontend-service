@@ -1,0 +1,62 @@
+.root {
+  position: relative;
+  padding-bottom: $spacing10
+}
+
+.slider-wrap {
+  @include breakpoints-down(sm) {
+    margin: spacing(0, -2);
+  }
+}
+
+.carousel {
+  position: relative;
+  @include breakpoints-up(sm) {
+    padding: spacing(0, 8)
+  }
+  @include breakpoints-down(sm) {
+    margin-top: $spacing5
+  }
+  :deep(.splide__pagination){
+    bottom: $spacing5 * -1;
+    @include pagination-splide;
+  }
+}
+
+.item {
+  padding: $spacing1;
+  @include breakpoints-up(sm) {
+    padding: spacing(7, 1, 0)
+  }
+  &:focus {
+    outline: none
+  }
+}
+
+.nav.v-btn:not(.v-btn--round) {
+  position: absolute;
+  top: 48%;
+  width: 60px;
+  height: 100px;
+  padding: 0px;
+  min-width: 0px;
+  background: $palette-primary-dark;
+  @include rtl-flip;
+  @include breakpoints-down(sm) {
+    display: none
+  }
+  i {
+    font-size: 48px;
+    color: $palette-common-white;
+  }
+}
+
+.prev {
+  @include left(0);
+  border-radius: 0 10px 10px 0;
+}
+
+.next {
+  @include right(0);
+  border-radius: 10px 0 0 10px;
+}

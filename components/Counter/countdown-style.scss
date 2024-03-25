@@ -1,0 +1,47 @@
+.counter-wrap {
+  margin: spacing(5, 0)
+}
+
+.countdown {
+  margin: spacing(5, 0, 4);
+  border-radius: $rounded-big;
+  padding: $spacing2;
+  font-size: 18px;
+  max-width: 530px;
+  display: block;
+  @include use-theme(background, $gradient-triple-light, rgba(0, 0, 0, 0.5));
+  backdrop-filter: saturate(180%) blur(20px);
+  text-align: center;
+  @include breakpoints-down(sm) {
+    font-size: 13px;
+    width: 100%
+  }
+}
+
+.time {
+  display: block;
+  &.mini {
+    font-size: 13px;
+  }
+  p {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+  strong {
+    font-weight: $font-bold;
+    font-size: 32px;
+    margin-bottom: $spacing1;
+    display: block;
+    @include breakpoints-down(sm) {
+      font-size: 16px;
+    }
+  }
+  i {
+    margin: spacing(2, 3, 0);
+    font-style: normal;
+    @include breakpoints-down(sm) {
+      margin: spacing(2, 1, 0);
+    }
+  }
+}

@@ -1,0 +1,359 @@
+.banner-wrap {
+  position: relative;
+  display: block;
+  @include breakpoints-down(sm) {
+    overflow: hidden;
+  }
+  .slick-slide * {
+    direction: ltr
+  }
+  .carousel {
+    @include breakpoints-down(sm) {
+      position: relative;
+      z-index: 5;
+      margin-bottom: $spacing5;
+    }
+    :deep(.splide__track) {
+      overflow: visible;
+    }
+  }
+  :deep(.splide__pagination){
+    @include breakpoints-down(sm) {
+      bottom: -40px;
+    }
+    @include pagination-splide;
+  }
+}
+
+.slide {
+  position: relative;
+  @include breakpoints-up(md) {
+    height: 650px;
+    padding-top: $spacing8
+  }
+  @include breakpoints-down(md) {
+    text-align: center;
+    padding: spacing(15, 0, 5);
+  }
+  @include breakpoints-down(sm) {
+    text-align: center;
+    padding-bottom: 0;
+  }
+  .img img {
+    position: relative;
+    z-index: 5;
+    @include breakpoints-down(md) {
+      margin-top: -80px
+    }
+  }
+  &.cur {
+    .deco {
+      transform: translateX(0px) scale(1);
+      opacity: 0.15;
+    }
+  }
+  &.center-content {
+    padding-top: $spacing8;
+    overflow: visible !important;
+  }
+}
+
+.deco-banner {
+  position: relative;
+  z-index: 10;
+}
+
+.art-scene {
+  position: absolute;
+  @include breakpoints-down(md) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.h-banner {
+  text-align: center;
+  &.img {
+    img {
+      @include breakpoints-down(sm) {
+        max-width: none
+      }
+    }
+  }
+  .background-banner {
+    transform: scale(0.8);
+    @include right(auto);
+    @include left(auto);
+    bottom: -260px;
+    top: auto;
+    @include breakpoints-down(md) {
+      bottom: -330px;
+    }
+    @include breakpoints-down(sm) {
+      display: none
+    }
+  }
+}
+
+.background-banner {
+  position: absolute;
+  @include right(-480px);
+  top: -120px;
+  width: 1100px;
+  height: 650px;
+  overflow: hidden;
+  @include breakpoints-down(md) {
+    opacity: 0.5
+  }
+  :deep(iframe) {
+    height: 100%;
+    width: 100%;
+    margin-top: -160px;
+  }
+}
+
+.cover {
+  height: 100%;
+  width: 100%;
+  margin-top: -80px;
+  position: absolute;
+  left: 1px;
+}
+
+.video {
+  height: 100%;
+  > div {
+    height: 100% !important;
+    padding: $spacing2
+  }
+}
+
+.deco-line {
+  height: 90%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1100px;
+  z-index: 7;
+  svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+  @include breakpoints-down(md) {
+    display: none
+  }
+  .primary {
+    @include left(0);
+    top: 0;
+    stroke: $palette-primary-main
+  }
+  .secondary {
+    @include left(10px);
+    top: -10px;
+    stroke: $palette-secondary-main
+  }
+}
+
+.deco-mask {
+  height: 90%;
+  position: absolute;
+  top: 0;
+  @include left(0);
+  width: 1100px;
+  z-index: 6;
+  svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    @include left(0);
+    top: 0;
+  }
+  &:before {
+    content: "";
+    @include use-theme(background, $palette-common-white, $palette-common-black);
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    @include left(0);
+    width: 100%;
+    height: 100%
+  }
+  .main {
+    @include use-theme(fill, $light-background-paper, $palette-primary-dark);
+  }
+  .darken {
+    @include use-theme(fill, $light-background-paper, rgba(0, 0, 0, 0.6));
+  }
+}
+
+.slide-nav-group {
+  position: relative;
+}
+
+.inner {
+  display: flex;
+  height: 100%;
+  position: relative;
+  align-items: center;
+  @include breakpoints-down(md) {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.text {
+  position: relative;
+  z-index: 11;
+  h4 {
+    font-weight: $font-bold;
+    margin-bottom: $spacing2;
+  }
+  h5 {
+    margin-bottom: $spacing4
+  }
+  
+}
+
+.btn-area {
+  display: flex;
+  @include breakpoints-down(md) {
+    justify-content: center
+  }
+  @include breakpoints-down(sm) {
+    &:not(.download) {
+      flex-direction: column;
+    }
+  }
+  .button {
+    font-size: 18px;
+    min-width: 200px;
+    @include breakpoints-up(sm) {
+      @include margin-right($spacing2);
+    }
+    @include breakpoints-down(sm) {
+      width: 100%;
+      margin-bottom: $spacing2
+    }
+  }
+  a, button {
+    margin-right: $spacing2;
+    display: inline-flex;
+    @include breakpoints-down(sm) {
+      margin: 4px;
+    }
+    img {
+      width: 160px;
+      @include breakpoints-down(sm) {
+        width: 100%
+      }
+    }
+  }
+}
+
+.slide-nav {
+  display: flex;
+  justify-content: center;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: $spacing1;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  @include use-theme(background, rgba($light-background-paper, 0.7), rgba(var(--v-theme-primarydark), 0.2));
+  backdrop-filter: saturate(100%) blur(10px);
+  &:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include use-theme(background, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.2));
+  }
+  .v-btn {
+    padding: 8px 24px 4px;
+    text-transform: none;
+    height: auto;
+    border: 1px solid transparent;
+    font-weight: $font-regular;
+    :deep(.v-btn__content) {
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+    strong {
+      text-transform: capitalize;
+      font-size: 28px;
+      display: block;
+      font-weight: $font-medium;
+      @include margin-left(-2px);
+      transition: all 0.3s ease-out;
+      position: relative;
+      &:before {
+        content: "";
+        width: 18px;
+        height: 18px;
+        opacity: 0;
+        transform: scale(0);
+        transition: all 0.5s ease-out;
+        @include use-theme(background, $gradient-secondary-dark, $gradient-secondary-light);
+        position: absolute;
+        border-radius: 50%;
+        top: 6px;
+        @include left(4px);
+        @include breakpoints-down(lg) {
+          @include left(6px)
+        }
+      }
+    }
+    &:hover {
+      transition: all 0.3s ease-out;
+      strong {
+        color: $palette-secondary-main;
+      }
+    }
+    &.active {
+      strong {
+        color: $palette-secondary-main;
+        @include use-theme(background, $gradient-secondary-dark, $gradient-secondary-light);
+        @include use-theme(-webkit-background-clip, text, text);
+        @include use-theme(-webkit-text-fill-color, transparent, transparent);
+        @include padding-left(24px);
+        &:before {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}
+
+.divider {
+  margin: spacing(0, 1)
+}
+
+.video-popup {
+  max-width: none;
+  border-radius: $rounded-medium !important;
+  h4 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    overflow: hidden;
+  }
+  @include breakpoints-up(sm) {
+    width: 690px;
+  }
+  :deep(iframe) {
+    width: 100%
+  }
+  .youtube {
+    margin: 0 auto;
+  }
+}
+
+.close-btn {
+  @include right(-4px);
+}

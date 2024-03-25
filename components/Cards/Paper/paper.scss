@@ -1,0 +1,127 @@
+.paper {
+  border-radius: $rounded-big;
+  header {
+    padding: spacing(0, 2);
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: $spacing1;
+  }
+  &.color {
+    color: $palette-common-white;
+    background: $palette-primary-main;
+    :deep(.v-card__subtitle) {
+      color: $palette-common-white;
+    }
+  }
+  :deep(.v-card-subtitle) {
+    white-space: normal;
+  }
+  &.no-margin {
+    margin: 0;
+  }
+}
+
+.icon-title {
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  line-height: 44px;
+  vertical-align: middle;
+  @include margin-right($spacing2);
+  &.gradient-icon {
+    i {
+      color: transparent;
+      background: linear-gradient(to bottom, $palette-primary-light 0%, $palette-primary-main 85%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+  i {
+    font-size: 40px;
+    vertical-align: baseline;
+    color: $palette-primary-main;
+  }
+}
+
+.title-main {
+  padding-top: 0;
+  font-weight: $font-medium;
+}
+
+.text {
+  & > * {
+    padding-left: $spacing1;
+    padding-right: 0;
+  }
+}
+
+.primary {
+  &.v-card {
+    @include use-theme(background-color, $palette-primary-main, $palette-primary-dark);
+  }
+  .title-main {
+    color: material-color('grey', '100');
+    &:after {
+      border0bottom: 5px solid $palette-primary-light
+    }
+  }
+  .description {
+    color: material-color('grey', '100');
+  }
+  .icon-title {
+    i {
+      color: $palette-common-white
+    }
+  }
+}
+
+.secondary {
+  &.v-card {
+    @include use-theme(background-color, $palette-secondary-main, $palette-secondary-dark);
+  }
+  .title-main {
+    color: material-color('grey', '100');
+    &:after {
+      border0bottom: 5px solid $palette-primary-light
+    }
+  }
+  .description {
+    color: material-color('grey', '100');
+  }
+  .icon-title {
+    i {
+      color: $palette-common-white
+    }
+  }
+}
+
+.gradient {
+  &.v-card {
+    padding: $spacing2;
+    color: $palette-common-black;
+    background: $gradient-triple-light;
+  }
+  .title-main {
+    color: $palette-common-black;
+    font-weight: $font-bold;
+  }
+  .icon-title {
+    i {
+      color: $palette-common-black
+    }
+  }
+}
+
+.transparent {
+  &.v-card {
+    background: none;
+    box-shadow: none;
+  }
+  margin: 0;
+  padding: 0;
+}
+
+.overflow-x {
+  width: 100%;
+  overflow-x: auto
+}

@@ -1,0 +1,192 @@
+.left {
+  @include text-align(left);
+  &.center-mobile {
+    @include breakpoints-down(md) {
+      text-align: center;
+    }
+  }
+}
+
+.right {
+  @include text-align(right);
+  &.center-mobile {
+    @include breakpoints-down(md) {
+      text-align: center;
+    }
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+.title-main {
+  display: block;
+  position: relative;
+  margin-bottom: $spacing10;
+  h3 {
+    @include palette-text-primary;
+    font-weight: $font-bold;
+    font-size: 46px;
+    line-height: 1.167;
+    text-transform: capitalize;
+    @include breakpoints-down(lg) {
+      font-size: 38px;
+      line-height: 50px;
+    }
+    @include breakpoints-down(sm) {
+      font-size: 28px;
+      line-height: 32px;
+    }
+  }
+  &:after {
+    content: "";
+    width: 70px;
+    height: 12px;
+    bottom: -32px;
+    border-radius: 12px;
+    position: absolute;
+    background: $gradient-triple-light;
+  }
+  &:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: $gradient-triple-light;
+    position: absolute;
+    bottom: -32px
+  }
+  strong {
+    @include palette-text-primary;
+  }
+  &.left {
+    &:before {
+      @include left(0);
+    }
+    &:after {
+      @include left(20px)
+    }
+    &.center-mobile {
+      @include breakpoints-down(md) {
+        &:before {
+          left: 50%;
+          margin-left: -43px;
+        }
+        &:after {
+          left: 50%;
+          margin-left: -23px;
+        }
+      }
+    }
+  }
+  &.right {
+    &:before {
+      right: 0px;
+    }
+    &:after {
+      right: 20px;
+    }
+    &.center-mobile {
+      @include breakpoints-down(md) {
+        &:before {
+          left: 50%;
+          margin-left: -43px;
+        }
+        &:after {
+          left: 50%;
+          margin-left: -23px;
+        }
+      }
+    }
+  }
+  &.center {
+    &:before {
+      left: 50%;
+      margin-left: -43px;
+    }
+    &:after {
+      left: 50%;
+      margin-left: -23px;
+    }
+  }
+  &.dark {
+    h3 {
+      color: $palette-common-white
+    }
+  }
+}
+
+.title-secondary {
+  display: block;
+  position: relative;
+  margin: spacing(4, 0);
+  textTransform: capitalize;
+  @include breakpoints-down(md) {
+    margin: spacing(0, 0, 4)
+  }
+  &.primary {
+    color: $palette-primary-main;
+    @include use-theme(background, linear-gradient(148deg, $palette-primary-dark 0%, $palette-primary-main 100%), linear-gradient(148deg, $palette-primary-light 0%, $palette-primary-main 100%));
+    @include use-theme(-webkit-background-clip, text, text);
+    @include use-theme(-webkit-text-fill-color, transparent, transparent);
+    &:after {
+      @include use-theme(background, linear-gradient(148deg, $palette-primary-dark 0%, $palette-primary-main 100%), linear-gradient(148deg, $palette-primary-light 0%, $palette-primary-main 100%));
+    }
+  }
+  &.secondary {
+    color: $palette-secondary-main;
+    @include use-theme(background, linear-gradient(148deg, $palette-secondary-dark 0%, $palette-secondary-main 100%), linear-gradient(148deg, $palette-secondary-light 0%, $palette-secondary-main 100%));
+    @include use-theme(-webkit-background-clip, text, text);
+    @include use-theme(-webkit-text-fill-color, transparent, transparent);
+    &:after {
+      @include use-theme(background, linear-gradient(148deg, $palette-secondary-dark 0%, $palette-secondary-main 100%), linear-gradient(148deg, $palette-secondary-light 0%, $palette-secondary-main 100%));
+    }
+  }
+  &.accent {
+    color: $palette-accent-main;
+    @include use-theme(background, linear-gradient(148deg, $palette-accent-dark 0%, $palette-accent-main 100%), linear-gradient(148deg, $palette-accent-light 0%, $palette-accent-main 100%));
+    @include use-theme(-webkit-background-clip, text, text);
+    @include use-theme(-webkit-text-fill-color, transparent, transparent);
+    &:after {
+      @include use-theme(background, linear-gradient(148deg, $palette-accent-dark 0%, $palette-accent-main 100%), linear-gradient(148deg, $palette-accent-light 0%, $palette-accent-main 100%));
+    }
+  }
+  h4 {
+    font-size: 32px;
+    font-weight: $font-medium;
+    @include breakpoints-down(sm) {
+      font-size: 24px;
+      line-height: 36px;
+    }
+  }
+  &:after {
+    content: "";
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    position: absolute;
+  }
+  &.left {
+    @include padding-left($spacing4);
+    &:after {
+      @include left(0);
+      top: 16px;
+    }
+  }
+  &.right {
+    @include padding-right($spacing4);
+    &:after {
+      @include right(0);
+      top: 16px;
+    }
+  }
+  &.center {
+    margin-bottom: $spacing6;
+    &:after {
+      left: 50%;
+      margin-left: -8px;
+      bottom: -35px
+    }
+  }
+}

@@ -1,0 +1,170 @@
+$icon-deco: '/images/profile/socmed-deco.png';
+
+.root {
+  position: relative;
+  padding-top: $spacing4;
+  @include breakpoints-between(md, lg) {
+    margin-bottom: $spacing15;
+  }
+}
+
+.floating-title {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  @include breakpoints-up(md) {
+    padding: spacing(0, 3);
+  }
+  @include breakpoints-down(md) {
+    display: none;
+    &:after, &:before {
+      display: none
+    }
+  }
+  &:before {
+    content: "";
+    z-index: 10;
+    width: 700px;
+    height: 170px;
+    position: absolute;
+    @include left(0);
+    top: -100px;
+    background: url($icon-deco) no-repeat top left;
+  }
+  &:after {
+    content: "";
+    z-index: 10;
+    width: 700px;
+    height: 250px;
+    position: absolute;
+    @include left(0);
+    bottom: -150px;
+    background: url($icon-deco) no-repeat bottom left;
+  }
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: spacing(0, 6);
+  border-radius: 60px;
+  @include use-theme(background, $gradient-triple-main, $gradient-double-main);
+  background-size: 150%;
+}
+
+.text {
+  @include left($spacing15);
+  top: 0;
+  max-width: 400px;
+  @include breakpoints-down(md) {
+    display: none
+  }
+  h3 {
+    position: relative
+  }
+  span {
+    color: $palette-common-black;
+    font-size: 100px;
+    position: absolute;
+    @include left(-80px);
+    top: 0
+  }
+}
+
+.carousel {
+  position: relative;
+  margin-top: $spacing5;
+  overflow: hidden;
+}
+
+.item {
+  padding: spacing(2, 1);
+  margin: spacing(1, 0);
+  direction: ltr;
+  &:focus {
+    outline: none
+  }
+}
+
+.card {
+  width: 300px;
+  height: 400px;
+  > a {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.link {
+  padding: 0;
+  text-transform: none;
+  font-weight: $font-regular;
+}
+.nav {
+  position: absolute;
+  top: 47%;
+  border-radius: $rounded-small;
+  width: 49px;
+  height: 100px;
+  padding: 0px;
+  min-width: 0px;
+  z-index: 10;
+  background: $palette-primary-main;
+  @include shadow3;
+  @include use-rtl-ltr(transform, scale(-1.6), scale(1.6));
+  &:hover {
+    background: $palette-primary-dark;
+  }
+  i {
+    font-size: 24px;
+    @include palette-text-primary;
+  }
+  @include breakpoints-down(md) {
+    display: none
+  }
+}
+
+.prev {
+  @include left(0)
+}
+.next {
+  @include right(0)
+}
+
+.item-props-first {
+  div {
+    width: 450px;
+    @include breakpoints-up(lg) {
+      width: 600px;
+    }
+    @include breakpoints-down(md) {
+      display: none;
+    }
+  }
+}
+.item-props-last {
+  div {
+    .v-locale--is-rtl & {
+      width: 350px 
+    }
+    .v-locale--is-ltr & {
+      width: 400px 
+    }
+    @media (max-width: 1500px) {
+      .v-locale--is-rtl & {
+        width: 300px 
+      }
+      .v-locale--is-ltr & {
+        width: 500px 
+      }
+    }
+  }
+  @include breakpoints-down(md) {
+    display: none;
+  }
+}

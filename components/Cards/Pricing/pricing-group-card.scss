@@ -1,0 +1,168 @@
+.root {
+  &.v-container {
+    padding: 0 !important;
+  }
+}
+
+.pricing-group {
+  background: linear-gradient(-49deg, $palette-accent-main 10%, $palette-primary-dark 40%, $palette-primary-main 70%, $palette-secondary-light 100%);
+  background-size: 120%;
+  border-radius: 40px;
+  position: relative;
+  margin: spacing(5, 2, 10);
+  @include breakpoints-up(sm) {
+    margin: spacing(8, 0);
+  }
+  &:before {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+    position: absolute;
+    @include use-theme(background, rgba(255, 255, 255, 0.85), rgba(0, 0, 0, 0.15));
+  }
+}
+
+.price {
+  &-card {
+    text-align: center;
+    &.v-card:not(.v-sheet--tile):not(.v-card--shaped) {
+      border-radius: 36px;
+      overflow: hidden;
+      @include breakpoints-down(sm) {
+        max-width: 320px;
+        margin: 0 auto;
+      }
+    }
+    h2 {
+      margin-bottom: 0;
+      line-height: 48px;
+      @include palette-text-secondary;
+    }
+    h5 {
+      position: relative;
+      text-transform: uppercase;
+      margin-bottom: $spacing1;
+    }
+    h6 {
+      @include palette-text-secondary
+    }
+    p {
+      margin-bottom: $spacing2
+    }
+    ul {
+      li {
+        @include palette-text-secondary;
+        list-style: none;
+        padding: spacing(1, 0);
+        border-bottom: 2px dashed;
+        @include palette-divider;
+        &:last-child {
+          border: none;
+        }
+      }
+    }
+    &.bg {
+      border: 2px solid $palette-primary-main;
+      z-index: 10;
+      &.v-sheet.v-card:not(.v-sheet--outlined) {
+        @include shadow20;
+      }
+      .price-header {
+        border-radius: 0;
+        padding-bottom: $spacing4;
+        &:before {
+          background-image: linear-gradient(120deg, $palette-primary-main, $palette-secondary-main);
+          content: "";
+          width: 140%;
+          position: absolute;
+          top: -100px;
+          left: -20%;
+          border-radius: 50%;
+          height: 160%;
+        }
+      }
+      h2 {
+        color: $palette-common-white;
+      }
+      h5 {
+        color: $palette-common-white;
+      }
+      h6 {
+        color: $palette-common-white;
+      }
+    }
+  }
+  &-header {
+    display: block;
+    padding: spacing(5, 2);
+    position: relative;
+    .icon {
+      position: absolute;
+      top: $spacing1;
+      color: $palette-common-white;
+      @include right($spacing1);
+    }
+  }
+}
+
+.btn-area {
+  text-align: center;
+  @include palette-text-secondary;
+  position: relative;
+  padding: spacing(1.5, 5);
+  p {
+    position: relative;
+    font-size: 14px;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include use-theme(background-color, $palette-common-white, $palette-common-black);
+    opacity: 0.7;
+  }
+  &.primary-color {
+    @include use-theme(background, $palette-primary-light, $palette-primary-dark);
+  }
+  &.secondary-color {
+    @include use-theme(background, $palette-secondary-light, $palette-secondary-dark);
+  }
+}
+
+.card-pricing {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+}
+
+.tabs {
+  margin-top: $spacing5;
+  display: flex;
+  justify-content: center;
+  @include breakpoints-down(lg) {
+    width: 100%
+  }
+}
+
+.tab-label {
+  font-size: 18px;
+  font-weight: $font-medium;
+  letter-spacing: 0;
+  padding: spacing(0, 4);
+  @include breakpoints-down(sm) {
+    font-size: 14px;
+  }
+}
+
+.indicator {
+  @include use-theme(background-color, $palette-secondary-light, $palette-secondary-dark);
+  height: 5px;
+  border-radius: 4px 4px 0 0
+}

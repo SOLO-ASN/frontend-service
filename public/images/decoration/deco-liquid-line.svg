@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="391px" height="343px" viewBox="0 0 391 343" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Oval</title>
+    <g id="main" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-215.000000, -4823.000000)">
+            <g id="Team" transform="translate(0.000000, 4443.000000)">
+                <g id="Item" transform="translate(216.000000, 333.000000)">
+                    <path d="M194.5,389 C301.919384,389 389,301.919384 389,194.5 C389,87.0806162 319.5,188.5 206,89.5 C92.5,-9.5 0,87.0806162 0,194.5 C0,301.919384 87.0806162,389 194.5,389 Z" id="Oval"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

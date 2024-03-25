@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1437px" height="600px" viewBox="0 0 1437 600" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Line</title>
+    <g id="About-Dark" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g id="Landing" transform="translate(-3.000000, -6674.000000)" stroke="#000000" stroke-width="2">
+            <g id="Gallery" transform="translate(-160.500000, 6637.000000)">
+                <path d="M165.5,635.5 C205.5,229.166667 262.5,63.1666667 336.5,137.5 C447.5,249 721.194922,553.335863 940,530 C1158.80508,506.664137 1029,82 1210,119 C1330.66667,143.666667 1485.66667,104 1675,0" id="Line"></path>
+            </g>
+        </g>
+    </g>
+</svg>

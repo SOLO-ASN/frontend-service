@@ -1,0 +1,110 @@
+.category-card {
+  border-radius: $rounded-big;
+  margin-bottom: $spacing5;
+  position: relative;
+  overflow: visible;
+  text-decoration: none;
+  @include palette-background-paper;
+  @include shade;
+  display: block;
+  text-align: center;
+  transition: all 0.3s ease-out;
+  background-size: 150%;
+  height: 140px;
+  @include breakpoints-up(sm) {
+    margin-bottom: $spacing10;
+  }
+  @include breakpoints-down(md) {
+    height: 100px
+  }
+  &.red {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('red', '500') 100%)
+  }
+  &.pink {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('pink', '500') 100%)
+  }
+  &.purple {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('purple', '500') 100%)
+  }
+  &.deep-purple {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('deep-purple', '500') 100%)
+  }
+  &.indigo {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('indigo', '500') 100%)
+  }
+  &.blue {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('blue', '500') 100%)
+  }
+  &.light-blue {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('light-blue', '500') 100%)
+  }
+  &.cyan {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('cyan', '500') 100%)
+  }
+  &.teal {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('teal', '500') 100%)
+  }
+  &.green {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('green', '500') 100%)
+  }
+  &.light-green {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('light-green', '500') 100%)
+  }
+  &.lime {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('lime', '500') 100%)
+  }
+  &.yellow {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('yellow', '500') 100%)
+  }
+  &.amber {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('amber', '500') 100%)
+  }
+  &.orange {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('orange', '500') 100%)
+  }
+  &.deep-orange {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('deep-orange', '500') 100%)
+  }
+  &.brown {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('brown', '500') 100%)
+  }
+  &.grey {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('grey', '500') 100%)
+  }
+  &.blue-grey {
+    background-image: linear-gradient(110deg, rgba(0, 0, 0, 0) 0%, material-color('blue-grey', '500') 100%)
+  }
+  &:hover {
+    background-position: 70%
+  }
+}
+.icons {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: spacing(0, 3);
+  text-align: center;
+  > div {
+    margin-top: $spacing10 * -1;
+    margin-bottom: $spacing2 * -1;
+    font-size: 120px;
+    @include breakpoints-down(md) {
+      font-size: 80px;
+      margin-top: $spacing6 * -1;
+    }
+  }
+}
+
+.title {
+  text-transform: uppercase;
+  display: block;
+  padding: $spacing2;
+  font-weight: $font-bold;
+  font-size: 18px;
+  color: $palette-common-white;
+  text-decoration: none;
+  @include breakpoints-down(md) {
+    font-weight: $font-medium;
+    font-size: 12px;
+  }
+}

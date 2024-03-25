@@ -1,0 +1,50 @@
+$wave-deco-light: '/images/saas/deco-wave-light.png';
+$wave-deco-dark: '/images/saas/deco-wave-dark.png';
+
+.root {
+  position: relative;
+  text-align: center;
+  z-index: 10;
+  > div {
+    position: relative;
+  }
+}
+
+.form {
+  position: relative;
+  margin-top: $spacing2
+}
+
+.field {
+  padding-right: 80px;
+  padding-left: $spacing3;
+  color: #fff;
+  width: 100%;
+  border-radius: 56px;
+  @include palette-background-paper;
+  border: 1px solid $palette-secondary-main;
+  @include breakpoints-up(sm) {
+    padding-right: 150px;
+  }
+  :deep(.v-field--variant-solo) {
+    box-shadow: none;
+    margin-bottom: 0;
+    background: none;
+  }
+  :deep(.v-text-field__details) {
+    display: none
+  }
+}
+
+.button {
+  position: absolute;
+  @include right($spacing1);
+  top: 7px;
+  width: 140px;
+  @include breakpoints-down(sm) {
+    padding: spacing(0.5, 1);
+    min-width: 0;
+    width: auto;
+    top: 12px
+  }
+}

@@ -1,0 +1,59 @@
+.logo {
+  font-size: 24px;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  @include palette-text-primary;
+  display: flex;
+  img {
+    transition: all ease-out 0.3s;
+    max-width: 54px;
+    height: 54px;
+  }
+}
+
+.landscape {
+  align-items: center;
+  position: relative;
+  top: -2px;
+  white-space: nowrap;
+  img {
+    @include margin-right($spacing1)
+  }
+}
+
+.portrait {
+  display: block;
+  margin: 0 auto 8px;
+  img {
+    margin: 0 auto $spacing1;
+    display: block;
+  }
+}
+
+.small {
+  font-size: 16px;
+  img {
+    max-width: 34px;
+    height: 34px;
+  }
+}
+
+.medium {
+  font-size: 18px;
+  img {
+    max-width: 54px;
+    height: 54px;
+    @include breakpoints-down(sm) {
+      max-width: 34px;
+      height: 34px
+    }
+  }
+}
+
+.large {
+  font-size: 28px;
+  img {
+    max-width: 64px;
+    height: 64px;
+  }
+}

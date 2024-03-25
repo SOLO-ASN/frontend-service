@@ -1,0 +1,192 @@
+.root {
+  position: relative;
+  overflow: hidden;
+  @include breakpoints-between(sm, lg) {
+    margin-top: $spacing15;
+  }
+}
+
+.photo {
+  position: relative;
+  margin: $spacing6;
+  overflow: hidden;
+  width: 540px;
+  height: 516px;
+  @include left(-80px);
+  border-radius: 230px;
+  transform: scaleX(-1);
+  @include breakpoints-up(lg) {
+    margin-top: -110px;
+  }
+  @include breakpoints-down(lg) {
+    @include left(-80px)
+  }
+  img {
+    display: block;
+    width: 90%
+  }
+}
+
+.accordion {
+  position: relative;
+  @include breakpoints-up(sm) {
+    padding: spacing(0, 5);
+  }
+  @include breakpoints-up(md) {
+    margin-top: $spacing5
+  }
+  :deep(.v-expansion-panel-title--active) {
+    background: $palette-primary-main !important;
+    .heading {
+      color: $palette-common-white;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .v-icon {
+      color: $palette-common-white !important;
+      transform: rotate(180deg)
+    }
+  }
+}
+
+.item {
+  margin-bottom: $spacing3;
+}
+
+.paper {
+  margin-bottom: $spacing3;
+  overflow: hidden;
+  @include use-theme(background, rgba($light-background-paper, 0.5), rgba($dark-background-paper, 0.75));
+  backdrop-filter: saturate(180%) blur(20px);
+  @include shade;
+  .v-expansion-panels--variant-accordion & {
+    border-radius: $rounded-medium !important;
+  }
+}
+
+.heading {
+  display: block;
+  font-weight: $font-medium;
+  padding: spacing(1, 2, 1, 0);
+  font-size: 24px;
+  line-height: 1.5;
+  margin-bottom: 0;
+  @include breakpoints-down(sm) {
+    font-size: 16px;
+  }
+}
+
+.content {
+  :deep(.v-expansion-panel-title__overlay) {
+    opacity: 0
+  }
+  .icon {
+    position: absolute;
+    top: 20px;
+    @include right($spacing2)
+  }
+}
+
+.expanded {
+  background: $palette-primary-main !important;
+  .heading {
+    color: $palette-common-white;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  :deep(.v-icon){
+    color: $palette-common-white !important;
+    transform: rotate(180deg)
+  }
+}
+
+.detail {
+  background: $palette-primary-main !important;
+  color: $palette-common-white;
+  border-radius: 0 0 $rounded-medium $rounded-medium;
+  font-size: 16px;
+  @include breakpoints-up(sm) {
+    font-size: 24px;
+  }
+}
+
+.icon {
+  @include use-theme(color, $palette-primary-main, $palette-primary-light);
+}
+
+.btn {
+  position: absolute;
+  bottom: $spacing8 * -1;
+  text-align: center;
+  @include left($spacing5);
+  button, a {
+    margin-bottom: 0;
+  }
+}
+
+.bg {
+  z-index: 0;
+  top: 0px;
+  @include left(-30px);
+  position: absolute;
+  height: 715px;
+  width: 1320px;
+  overflow: hidden;
+  @include breakpoints-down(md) {
+    display: none
+  }
+}
+
+.deco-mask {
+  position: absolute;
+  height: 715px;
+  width: 1320px;
+  top: 0;
+  @include left(0);
+  z-index: 2;
+  svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  &:before {
+    content: "";
+    background: $gradient-double-main;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .main {
+    @include use-theme(fill, $light-background-paper, $palette-primary-dark);
+  }
+  .darken {
+    @include use-theme(fill, $light-background-paper, rgba(0, 0, 0, 0.6));
+  }
+}
+
+.deco-line {
+  position: absolute;
+  height: 655px;
+  width: 1320px;
+  top: 0;
+  @include left(0);
+  z-index: 2;
+  opacity: 0.5;
+  svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    @include left(10px);
+    top: 20px;
+    stroke: $palette-secondary-main;
+  }
+}
+
+.wrap {
+  position: relative
+}

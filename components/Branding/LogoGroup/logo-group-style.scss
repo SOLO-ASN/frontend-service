@@ -1,0 +1,30 @@
+.root {
+  display: flex;
+  @include breakpoints-up(md) {
+    justify-content: center;
+  }
+  @include breakpoints-down(md) {
+    padding: 0;
+    overflow: auto;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+  figure {
+    vertical-align: middle;
+    border-radius: $rounded-medium;
+    border: 1px solid $palette-primary-main;
+    padding: $spacing1;
+    margin: $spacing2;
+    min-width: 100px;
+    display: block;
+    flex-grow: 0;
+    @include breakpoints-up(lg) {
+      height: 100px;
+      max-width: 100px;
+    }
+    img {
+      display: block;
+      width: 100%
+    }
+  }
+}

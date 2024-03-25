@@ -1,0 +1,26 @@
+.root {
+  position: relative;
+  @include breakpoints-up(sm) {
+    margin-top: $spacing15
+  }
+  > div {
+    @include breakpoints-down(lg) {
+      padding: 0
+    }
+  }
+}
+
+.carousel {
+  position: relative;
+  @include breakpoints-down(md) {
+    margin-top: $spacing3
+  }
+}
+
+.item {
+  padding: spacing(2, 1);
+  margin-bottom: $spacing1;
+  &:focus {
+    outline: none
+  }
+}

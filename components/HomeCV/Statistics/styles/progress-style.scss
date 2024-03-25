@@ -1,0 +1,71 @@
+.root {
+  position: relative;
+  z-index: 1;
+}
+
+.wrap {
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      margin-bottom: $spacing5;
+      display: flex;
+      position: relative;
+      border-radius: $rounded-medium;
+      @include use-theme(background, rgba(var(--v-theme-primarylight), 0.5), rgba(var(--v-theme-primarydark), 0.5));
+      backdrop-filter: saturate(180%) blur(10px);
+      padding: spacing(3, 2);
+      &:last-child {
+        margin-bottom: 0
+      }
+      h6 {
+        font-weight: $font-bold
+      }
+    }
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  width: 40px;
+  position: relative;
+  i {
+    position: absolute;
+    @include left(0);
+    top: -8px;
+    @include palette-text-secondary;
+    font-size: 40px;
+    background: $gradient-primary-light;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent
+  }
+  h6 {
+    @include margin-left($spacing1);
+  }
+}
+
+.progress {
+  flex: 1;
+  @include margin-left($spacing1);
+}
+
+.text {
+  display: flex;
+  justify-content: space-between;
+  p {
+    font-weight: $font-medium;
+  }
+}
+
+.progress-bg {
+  border-radius: 10px;
+  @include use-theme(background, $light-divider, $dark-divider);
+  height: 10px;
+  :deep(.v-progress-linear__determinate) {
+    transition: all 0.5s cubic-bezier(0, 0, 0, 0.96);
+    border-radius: 10px;
+    background-image: linear-gradient(120deg, $palette-secondary-main, $palette-primary-main);
+  }
+}

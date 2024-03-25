@@ -1,0 +1,271 @@
+$bg-abstract: '/images/inner/bg_abstract.jpg';
+
+.desc {
+  position: relative;
+  @include breakpoints-down(sm) {
+    text-align: center
+  }
+}
+
+.paper {
+  position: relative;
+  padding: $spacing1;
+  overflow: visible;
+  @include breakpoints-down(sm) {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  @include breakpoints-up(sm) {
+    @include use-theme(background, rgba(var(--v-theme-primarylight), 0.8), $palette-primary-dark);
+    border-radius: 50px;
+    padding: $spacing8;
+  }
+  p {
+    margin-bottom: $spacing2
+  }
+  .quote {
+    position: relative;
+    margin-top: $spacing10;
+    i {
+      @include use-theme(color, $palette-primary-light, $palette-primary-main);
+      opacity: 0.5;
+      position: absolute;
+      font-size: 80px;
+      top: -20px;
+      @include left(0);
+    }
+    em {
+      position: relative
+    }
+  }
+}
+
+.counter {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  @include breakpoints-down(md) {
+    display: none
+  }
+}
+
+.count {
+  color: $palette-common-white;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: $spacing3;
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  h2, h3, h4, h5, h6 {
+    font-weight: $font-bold
+  }
+}
+
+.card {
+  border-radius: $rounded-big;
+  overflow: hidden;
+  @include shade;
+  z-index: 1;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  &:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.75;
+    top: 0;
+    left: 0;
+  }
+  &.primary {
+    width: 286px;
+    height: 280px;
+    top: -40px;
+    @include left(20px);
+    @include breakpoints-up(lg) {
+      @include left(20px)
+    }
+    &:after {
+      background: $gradient-double-main
+    }
+    .count {
+      justify-content: flex-start;
+    }
+  }
+  &.secondary {
+    width: 180px;
+    height: 180px;
+    @include right(-60px);
+    top: -90px;
+    &:after {
+      background: $gradient-triple-main
+    }
+  }
+  &.accent {
+    width: 325px;
+    height: 205px;
+    @include right(-10px);
+    bottom: -40px;
+    @include breakpoints-down(lg) {
+      bottom: 20px;
+    }
+    &:after {
+      background: $gradient-triple-light
+    }
+  }
+}
+
+.values {
+  position: relative;
+  @include breakpoints-down(md) {
+    text-align: center
+  }
+}
+
+.key-group {
+  @include breakpoints-between(sm, md) {
+    display: flex;
+    justify-content: center;
+    margin: spacing(5, 0);
+    > div {
+      margin: spacing(0, 0.5)
+    }
+  }
+  @include breakpoints-down(sm) {
+    > div {
+      margin: spacing(3, 1)
+    }
+  }
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  @include left(50%);
+  transform: translate(-60%, -50%);
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  padding: $spacing2;
+  background: url($bg-abstract) no-repeat;
+  @include breakpoints-down(md) {
+    display: none
+  }
+  div {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    @include use-theme(background, $light-background-paper, $palette-primary-dark);
+    &:before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      opacity: 0.5;
+      @include use-theme(background, $light-background-paper, $palette-common-black);
+    }
+  }
+  h1 {
+    position: relative;
+    text-align: center;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-image: url($bg-abstract);
+    color: transparent;
+    font-size: 100px;
+  }
+}
+.text {
+  @include breakpoints-up(md) {
+    margin-top: 350px;
+  }
+}
+
+.value {
+  padding: $spacing2;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  @include palette-background-paper;
+  font-size: 14px;
+  @include breakpoints-up(md) {
+    width: 250px;
+    height: 250px;
+    padding: spacing(0, 6);
+  }
+  @include breakpoints-down(md) {
+    border-radius: $rounded-big;
+  }
+  i {
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+    font-size: 80px;
+  }
+  strong {
+    display: block;
+  }
+}
+
+.culture {
+  position: relative;
+  @include breakpoints-down(md) {
+    text-align: center;
+  }
+  @include breakpoints-down(sm) {
+    padding: 0
+  }
+  p {
+    margin-bottom: $spacing2;
+    @include breakpoints-down(sm) {
+      padding: spacing(0, 2)
+    }
+  }
+}
+
+.collages-wrap {
+  display: flex;
+  justify-content: flex-end;
+  @include breakpoints-down(md) {
+    justify-content: center
+  }
+  @include breakpoints-down(sm) {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+}
+
+.collages {
+  display: flex;
+  flex-shrink: 0;
+  width: 700px;
+  > div {
+    flex: 1
+  }
+  figure {
+    margin: spacing(2, 1);
+    overflow: hidden;
+    border-radius: $rounded-medium;
+    img {
+      width: 100%;
+      display: block
+    }
+  }
+}

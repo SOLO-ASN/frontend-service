@@ -1,0 +1,95 @@
+.pricing-card {
+  margin-top: $spacing5;
+  position: relative;
+  max-width: 390px;
+  border-radius: 40px;
+  z-index: 1px;
+  position: relative;
+  padding: spacing(4, 2, 2);
+  @include shade;
+  @include breakpoints-up(lg) {
+    padding: spacing(4, 4, 2);
+  }
+  &:before {
+    content: "";
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    border-radius: 40px;
+    border: 1px solid;
+    width: 100%;
+    height: 90%;
+  }
+  &.primary {
+    color: $palette-common-white;
+    background-image: linear-gradient(145deg, $palette-primary-main 0%, $palette-accent-light 100%, $palette-accent-light 100%, $palette-accent-light 100%);
+    &:before {
+      border-color: $palette-primary-main;
+      transform: rotate(5deg);
+    }
+  }
+  &.secondary {
+    color: $palette-common-black;
+    background-image: linear-gradient(143deg, $palette-secondary-main 0%, #FFFFFF 100%);
+    .v-card--variant-elevated, .v-card--variant-flat {
+      color: $palette-common-black;
+    }
+    &:before {
+      border-color: $palette-secondary-main;
+      transform: rotate(-5deg);
+    }
+  }
+  .v-card {
+    background: none;
+    box-shadow: none;
+  }
+}
+
+.desc {
+  font-weight: $font-medium;
+}
+
+.card-header {
+  padding: 0px;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: $font-bold;
+}
+
+.price-header {
+  padding: spacing(5, 2);
+}
+
+.card-pricing {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.card-content {
+  @include breakpoints-up(lg) {
+    padding: spacing(3, 8)
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: disc;
+  }
+  li {
+    @include text-align(left);
+    list-style: disc;
+    font-size: 16px;
+    padding: spacing(1, 0);
+  }
+}
+
+.btn-area {
+  text-align: center;
+  @include palette-text-secondary;
+  position: relative;
+  padding: spacing(1.5, 5);
+  display: block;
+  button, a {
+    padding: spacing(1.5, 4);
+  }
+}

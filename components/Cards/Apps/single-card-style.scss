@@ -1,0 +1,69 @@
+.card {
+  border-radius: $rounded-big;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: $spacing4;
+  > a {
+    position: absolute;
+    z-index: 2;
+    text-decoration: none;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%
+  }
+}
+
+.primary {
+  background-image: linear-gradient(160deg, $palette-accent-light -10%, $palette-primary-main 100%);
+}
+.secondary {
+  background-image: linear-gradient(160deg, $palette-secondary-main -10%, $palette-primary-main 100%);
+}
+.accent {
+  background-image: linear-gradient(160deg, $palette-secondary-main -10%, $palette-accent-dark 100%);
+}
+
+.content {
+  color: $palette-common-white;
+  padding: $spacing4;
+  height: 400px;
+  h3 {
+    font-size: 36px;
+    font-weight: $font-bold;
+    margin-bottom: $spacing2;
+  }
+  p {
+    font-size: 18px;
+  }
+  img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  &.bordered {
+    overflow: hidden;
+    position: relative;
+    border-radius: $rounded-big;
+    margin: 2px;
+    @include palette-text-primary;
+    @include use-theme(background, $light-background-paper, $palette-primary-dark);
+    &:before {
+      content: "";
+      @include use-theme(display, none, block);
+      background: $palette-common-black;
+      opacity: 0.5;
+      position: absolute;
+      @include left(0);
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.text {
+  position: relative;
+  z-index: 1;
+}

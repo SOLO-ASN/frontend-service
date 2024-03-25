@@ -1,0 +1,126 @@
+.testimonial {
+  max-width: 540px;
+  margin: 0 auto;
+  border-radius: 40px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  height: 240px;
+  @include breakpoints-up(sm) {
+    height: 300px;
+  }
+  figure {
+    width: 60%;
+    margin: 0;
+    overflow: hidden;
+    background: $gradient-triple-light;
+    @include breakpoints-down(sm){
+      display: none;
+    }
+    :deep(img) {
+      z-index: 1;
+      position: relative;
+      filter: drop-shadow(10px 5px 10px rgba(0, 0, 0, 0.2));
+      @include breakpoints-up(lg) {
+        min-height: 100%;
+        width: 100%;
+      }
+      @include breakpoints-down(lg) {
+        height: 100%
+      }
+    }
+    &:before {
+      content: "";
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      border: 1px solid $palette-primary-main;
+      position: absolute;
+      @include left(-105px);
+      top: -60px;
+    }
+  }
+  .content {
+    position: relative;
+    margin-top: $spacing5;
+    margin-bottom: $spacing3;
+    span {
+      height: 75px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;  
+      overflow: hidden;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+  }
+  h6 {
+    font-weight: $font-bold
+  }
+}
+
+.deco {
+  position: absolute;
+  background: $palette-primary-main;
+  height: 428px;
+  width: 100%;
+  top: -60px;
+  @include breakpoints-up(sm) {
+    width: 428px;
+    border-radius: 50%;
+    @include left(-120px);
+  }
+  &:after {
+    content: "";
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 80px;
+    right: 25px;
+    border-radius: 50%;
+    background-image: $gradient-accent;
+    transform: scale(-1);
+    @include breakpoints-down(sm) {
+      display: none
+    }
+  }
+  &:before {
+    content: "";
+    width: 82px;
+    height: 82px;
+    position: absolute;
+    bottom: 30px;
+    left: 90px;
+    border-radius: 50%;
+    background: $palette-secondary-main;
+    @include breakpoints-down(sm) {
+      display: none
+    }
+  }
+}
+
+.text {
+  flex: 1;
+  color: $palette-common-white;
+  z-index: 2;
+  position: relative;
+  padding: $spacing3;
+  @include breakpoints-up(sm) {
+    padding: spacing(4, 0, 4, 3);
+    width: 45%;
+  }
+  .v-locale--is-rtl & {
+    padding: spacing(4, 3, 4, 0);  
+  }
+}

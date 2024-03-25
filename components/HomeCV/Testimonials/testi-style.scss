@@ -1,0 +1,108 @@
+$map: '/images/profile/bg_map.png';
+
+.root {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: $spacing10;
+  @include breakpoints-down(md) {
+    padding: spacing(5, 0)
+  }
+}
+
+.view-all {
+  @include breakpoints-up(lg) {
+    @include margin-right(160px);
+  }
+  @include breakpoints-up(sm) {
+    font-size: 24px;
+  }
+  @include breakpoints-down(md) {
+    margin-bottom: 32px;
+  }
+}
+
+.icon {
+  @include margin-left($spacing1);
+  @include rtl-flip;
+  svg {
+    width: 36px;
+  }
+}
+
+.carousel-handle {
+  height: 380px;
+  position: relative;
+  z-index: 10;
+}
+
+.carousel-wrap {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel {
+  position: relative;
+  z-index: 3;
+  :deep(.splide__pagination) {
+    bottom: -60px;
+    @include pagination-splide;
+  }
+}
+
+.item {
+  padding: $spacing2;
+  &:focus {
+    outline: none
+  }
+}
+
+.item-prop-last {
+  @include use-rtl-ltr(width, 350px, 400px);
+}
+
+.floating-artwork {
+  position: absolute;
+  width: 100%;
+  left: -130px;
+  bottom: $spacing5;
+  @media (min-width: 1400px) {
+    @include left($spacing10);
+  }
+}
+
+.artwork {
+  display: flex;
+  align-items: flex-end;
+  height: 540px;
+  @include breakpoints-up(md) {
+    @include margin-right($spacing5);
+  }
+  @include breakpoints-up(lg) {
+    @include use-rtl-ltr(float, left, right);
+  }
+  @media (min-width: 1400px) {
+    @include margin-right($spacing5 * -1)
+  }
+}
+
+.avatar {
+  padding: 3px;
+  background: $gradient-triple-light;
+  :deep(img) {
+    background: $palette-common-white;
+    border-radius: 50%;
+  }
+}
+
+.avatar-art {
+  position: relative;
+  width: 700px;
+  height: 450px;
+  background: url($map) no-repeat;
+  > div {
+    position: absolute
+  }
+}

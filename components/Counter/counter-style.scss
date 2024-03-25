@@ -1,0 +1,91 @@
+.counter-wrap {
+  position: relative;
+  padding-bottom: $spacing5;
+}
+
+.counter-item {
+  h6 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: $font-bold;
+    text-transform: capitalize;
+    font-size: 36px;
+    @include breakpoints-down(md) {
+      font-size: 24px;
+      margin-top: $spacing3;
+      margin-bottom: $spacing5;
+    }
+  }
+  @include breakpoints-up(md) {
+    display: flex
+  }
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  text-align: center;
+  position: relative;
+  h3 {
+    font-weight: $font-bold;
+    font-size: 76px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: -45px;
+    @include breakpoints-down(md) {
+      font-size: 56px
+    }
+  }
+  &:after {
+    content: "";
+    bottom: -30px;
+    left: calc(50% - 40px);
+    width: 80px;
+    height: 15px;
+    border-radius: 20px;
+    position: absolute
+  }
+  &.primary {
+    &:after {
+      background: $palette-primary-main
+    }
+    h3 {
+      @include use-theme(background, linear-gradient(to bottom, $palette-primary-main -10%, transparent 85%), linear-gradient(to bottom, $palette-primary-light -10%, transparent 85%));
+      @include use-theme(-webkit-background-clip, text, text);
+      @include use-theme(-webkit-text-fill-color, transparent, transparent);
+    }
+  }
+  &.secondary {
+    &:after {
+      background: $palette-secondary-main
+    }
+    h3 {
+      background: linear-gradient(to bottom, $palette-secondary-main 0%, transparent 90%);
+      @include use-theme(-webkit-background-clip, text, text);
+      @include use-theme(-webkit-text-fill-color, transparent, transparent);
+    }
+  }
+}
+
+.counter-inner {
+  > div {
+    position: relative;
+    &:after {
+      content: "";
+      opacity: 0.2;
+      height: 90px;
+      position: absolute;
+      @include right(0);
+      top: 30px;
+      @include breakpoints-down(md) {
+        display: none
+      }
+    }
+  }
+  > div:last-child {
+    &:after {
+      display: none
+    }
+  }
+}

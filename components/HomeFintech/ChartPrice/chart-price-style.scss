@@ -1,0 +1,135 @@
+.root {
+  color: $palette-common-white;
+  position: relative;
+  padding: spacing(10, 3);
+  z-index: 4;
+  border-radius: 60px 60px 0 0;
+  background: linear-gradient(-2deg, $palette-primary-dark 0%, $palette-primary-main 100%);
+  @include breakpoints-up(sm) {
+    padding: spacing(15, 3)
+  }
+  @include breakpoints-down(md) {
+    text-align: center
+  }
+  @include breakpoints-down(sm) {
+    border-radius: 30px 30px 0 0;
+  }
+  &:before {
+    content: "";
+    height: 60px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    @include use-theme(background, $light-background-paper, $palette-primary-dark);
+    border-radius: 60px 60px 0 0;
+    @include breakpoints-down(sm) {
+      border-radius: 30px 30px 0 0;
+    }
+  }
+  &:after {
+    content: "";
+    height: 60px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    opacity: 0.6;
+    @include use-theme(background, $palette-common-white, $palette-common-black);
+    border-radius: 60px 60px 0 0;
+    @include breakpoints-down(sm) {
+      border-radius: 30px 30px 0 0;
+    }
+  }
+}
+
+.down {
+  color: #FF7272
+}
+
+.up {
+  color: #00c708
+}
+
+.stay {
+  color: #b2b2b2
+}
+
+.chart-wrap {
+  padding: 0;
+  @include breakpoints-up(lg) {
+    padding: spacing(0, 6)
+  }
+  li {
+    margin-bottom: $spacing3;
+    list-style: none;
+    @include breakpoints-up(sm) {
+      display: flex;
+      align-items: center;
+    }
+    h5 {
+      font-weight: $font-bold;
+    }
+  }
+}
+
+.coin {
+  display: flex;
+  align-items: center;
+  width: 120px;
+  padding-top: $spacing1;
+  @include breakpoints-down(sm) {
+    @include float(left)
+  }
+  h5 {
+    font-weight: bold;
+    font-size: 24px;
+    @include breakpoints-down(sm) {
+      font-size: 16px;
+    }
+  }
+  .logo {
+    @include margin-right($spacing2);
+    @include breakpoints-down(sm) {
+      @include margin-right($spacing1);
+      width: 20px !important;
+      height: 20px !important;
+      min-width: 0 !important;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.price {
+  margin-top: $spacing1;
+  font-weight: $font-medium;
+  @include text-align(left);
+  white-space: nowrap;
+  @include breakpoints-up(sm) {
+    padding: 0 $spacing5;
+  }
+  @include breakpoints-down(sm) {
+    @include text-align(right)
+  }
+  h6 {
+    font-size: 18px;
+  }
+  i {
+    font-style: normal
+  }
+}
+
+.progress {
+  flex: 1;
+  canvas {
+    max-height: 60px;
+    width: 100% !important
+  }
+}
+
+.btn {
+  padding: spacing(2, 6)
+}

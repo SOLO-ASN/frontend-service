@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="432px" height="141px" viewBox="0 0 432 141" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Oval</title>
+    <g id="main" fill="none" stroke-width="1" fill-rule="evenodd" stroke-linecap="round">
+        <g transform="translate(-408.000000, -6954.000000)" stroke-width="20">
+            <g id="Benefit" transform="translate(0.000000, 4953.000000)">
+                <g id="line" transform="translate(215.000000, 1367.760312)">
+                    <g id="Group-5" transform="translate(203.617225, 48.459536)">
+                        <path d="M79.0673216,806.739069 C105.538961,799.181956 130.725334,788.57767 154.222872,775.329783 C260.382721,715.476972 332.070814,601.664172 332.070814,471.107722" id="Oval" transform="translate(205.569068, 638.923395) rotate(-319.000000) translate(-205.569068, -638.923395) "></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,56 @@
+.root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 400px;
+  align-items: center;
+  &:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 10px;
+    @include left(-5px);
+    position: absolute;
+    transform: rotate(5deg);
+    border-radius: $rounded-big;
+    border: 1px solid $palette-primary-main;
+  }
+  &:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 5px;
+    @include left(-10px);
+    position: absolute;
+    transform: rotate(-3deg);
+    border-radius: $rounded-big;
+    border: 1px solid $palette-secondary-main
+  }
+}
+
+.card {
+  border-radius: $rounded-big;
+  overflow: hidden;
+  z-index: 1;
+  position: relative;
+  & figure {
+    margin: 0
+  }
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block
+  }
+}
+
+.icon {
+  @include shadow5;
+  width: 62px;
+  height: 62px;
+  position: absolute;
+  top: -30px;
+  z-index: 10;
+  border-radius: $rounded-big
+}

@@ -1,0 +1,21 @@
+.root {
+  position: relative;
+  z-index: 56;
+}
+
+.carousel {
+  margin: $spacing5 auto 0;
+  padding-bottom: $spacing10;
+  :deep(.splide__pagination){
+    bottom: $spacing5 * -1;
+    @include pagination-splide;
+  }
+}
+
+.item {
+  padding: spacing(5, 1);
+  max-width: 300px;
+  @include breakpoints-down(lg) {
+    padding-bottom: 0
+  }
+}

@@ -1,0 +1,55 @@
+.main-feature {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  @include breakpoints-up(lg) {
+    padding-bottom: $spacing8
+  }
+}
+
+.feature-wrap {
+  position: relative
+}
+
+.cards {
+  display: flex;
+  @include breakpoints-up(lg) {
+    justify-content: flex-end;
+  }
+  > div {
+    @include breakpoints-down(lg) {
+      width: 50%;
+      padding: 4px;
+    }
+  }
+}
+
+.card {
+  @include breakpoints-up(sm) {
+    padding: $spacing1;
+  }
+  > a {
+    height: 380px;
+    @include breakpoints-up(lg) {
+      width: 285px;
+    }
+    @include breakpoints-down(lg) {
+      height: 300px
+    }
+    @include breakpoints-down(sm) {
+      height: 220px
+    }
+  }
+}
+
+.lower {
+  @include breakpoints-up(md) {
+    margin-top: $spacing10
+  }
+}
+
+.higher {
+  @include breakpoints-up(md) {
+    margin-top: 0
+  }
+}

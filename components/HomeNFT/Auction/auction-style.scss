@@ -1,0 +1,153 @@
+.root {
+  position: relative;
+  padding: spacing(10, 0);
+  @include breakpoints-down(md) {
+    padding: spacing(5, 0)
+  }
+  @include breakpoints-down(sm) {
+    padding: 0
+  }
+}
+
+.wrap {
+  position: relative;
+  display: flex;
+  justify-content: center
+}
+
+.slider-wrap {
+  position: relative;
+  margin-top: $spacing2
+}
+
+.btn {
+  width: 100%
+}
+
+.floating-artwork {
+  position: absolute;
+  width: 100%;
+  top: $spacing15;
+  left: 40px;
+  .artwork {
+    @include breakpoints-up(md) {
+      @include margin-right($spacing5)
+    }
+    @include breakpoints-up(lg) {
+      @include float(right)
+    }
+    @media (min-width: 1400px) {
+      @include margin-right(-40px);
+    }
+  }
+}
+
+.props {
+  @include breakpoints-down(lg) {
+    display: none !important
+  }
+  > div {
+    height: 2px;
+    width: 450px;
+    @include breakpoints-up(xl) {
+      width: 600px;
+    }
+  }
+  &:focus {
+    outline: none
+  }
+}
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  z-index: 5;
+  @include breakpoints-up(md) {
+    margin-bottom: -20px
+  }
+  :deep(.splide__pagination){
+    bottom: $spacing5 * -1;
+    @include pagination-splide;
+  }
+}
+
+.item {
+  padding: spacing(5, 1.5);
+  direction: ltr;
+  &:focus {
+    outline: none;
+    margin: 0 auto;
+  }
+  > * {
+    width: 300px;
+    @include breakpoints-up(sm) {
+      width: 300px;
+    }
+  }
+}
+
+.link {
+  padding: 0;
+  span {
+    text-transform: none;
+    font-weight: $font-regular;
+  }
+}
+
+.nav {
+  position: absolute;
+  top: 38%;
+  border-radius: $rounded-small;
+  width: 48px;
+  height: 100px;
+  padding: 0;
+  min-width: 0;
+  z-index: 10;
+  background: $palette-primary-main;
+  @include shadow3;
+  transform: scale(1.6);
+  &:hover {
+    background: $palette-primary-dark;
+  }
+  i {
+    color: $palette-common-white
+  }
+  @include breakpoints-down(md) {
+    display: none
+  }
+}
+
+.prev {
+  left: -2px;
+}
+.next {
+  right: 2px;
+}
+
+.background {
+  position: absolute;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  padding: $spacing5;
+  border-radius: 40px;
+  top: 0px;
+  @include use-theme(background-image, linear-gradient(121deg, $palette-secondary-light 0%, $palette-primary-light 100%), linear-gradient(121deg, $palette-accent-light -80%, $palette-primary-dark 45%, $palette-secondary-dark 100%));
+  width: 100%;
+  @include breakpoints-up(sm) {
+    width: 90%
+  }
+  h2 {
+    margin-bottom: $spacing2;
+    span {
+      width: 48px;
+      height: 48px;
+      display: inline-block;
+      border-radius: 50%;
+      @include margin-right($spacing1);
+      background-image: linear-gradient(159deg, #FF4081 0%, #C00D4F 100%);
+    }
+    display: block;
+    font-weight: $font-bold
+  }
+}

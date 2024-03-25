@@ -1,0 +1,23 @@
+.deco {
+  @include breakpoints-down(md) {
+    display: none;
+  }
+  :deep(img) {
+    z-index: 5;
+    position: relative;
+    width: 100%;
+  }
+}
+
+.figure {
+  width: 550px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  direction: ltr;
+}
+
+.fade {
+  opacity: 0.25;
+  filter: blur(10px);
+}

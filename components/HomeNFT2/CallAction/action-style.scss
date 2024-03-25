@@ -1,0 +1,77 @@
+.action {
+  position: relative;
+  z-index: 1;
+  border-radius: 60px;
+  overflow: hidden;
+  color: $palette-common-black;
+  background: linear-gradient(to bottom, $palette-secondary-light 10%, $palette-accent-light 100%);
+  @include breakpoints-between(md, lg) {
+    margin-top: $spacing10;
+    margin-bottom: $spacing15
+  }
+  @include breakpoints-up(md) {
+    margin-left: $spacing10;
+    margin-right: $spacing10;
+  }
+  @include breakpoints-down(sm) {
+    text-align: center;
+    padding-top: $spacing2;
+    padding-left: $spacing2;
+    padding-right: $spacing2;
+  }
+  &:before {
+    content: "";
+    height: 160px;
+    position: absolute;
+    z-index: -1;
+    width: calc(100% - 10px);
+    @include left(5px);
+    top: -125px;
+    clip-path: polygon(13% 0%, 0% 100%, 100% 100%, 87% 0);
+    background: linear-gradient(transparent 35%, $palette-secondary-light 80%);
+    @include breakpoints-down(sm) {
+      display: none
+    }
+  }
+}
+
+.wrap {
+  border-radius: 60px;
+}
+
+.btn-area {
+  margin-top: $spacing5;
+  position: relative;
+  @include breakpoints-down(md) {
+    display: flex;
+    margin: spacing(2, 0),
+  }
+  @include breakpoints-down(sm) {
+    justify-content: center
+  }
+  a {
+    min-width: 150px;
+    @include breakpoints-up(sm) {
+      @include margin-right($spacing2);
+      img {
+        width: 160px;
+      }
+    }
+    @include breakpoints-down(sm) {
+      margin: 4px;
+      min-width: 0;
+      width: 100%;
+    }
+  }
+}
+
+.illustration {
+  display: flex;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  align-items: flex-end;
+  img {
+    width: 100%
+  }
+}

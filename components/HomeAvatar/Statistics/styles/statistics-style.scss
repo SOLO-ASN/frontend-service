@@ -1,0 +1,137 @@
+.root {
+  position: relative;
+}
+.wrapper {
+  position: relative;
+  z-index: 2;
+  @include breakpoints-between(md, lg) {
+    padding: spacing(0, 3);
+    &.v-row {
+      margin: 0
+    }
+  }
+  @include breakpoints-down(sm) {
+     padding: spacing(0, 3);
+  }
+}
+
+.background {
+  border-radius: 60px 60px 0 0;
+  position: relative;
+  @include use-theme(background, linear-gradient(to right, $palette-primary-light 10%, $palette-common-white 40%, $palette-common-white 70%, $palette-secondary-light 100%), linear-gradient(to right, $palette-primary-dark 10%, $palette-secondary-dark 40%, $palette-secondary-dark 70%, $palette-secondary-main 100%));
+  padding-top: $spacing10;
+  padding-bottom: $spacing10;
+  @include breakpoints-up(md) {
+    padding: spacing(15, 0, 20);
+  }
+  &:before {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 60px 60px 0 0;
+    @include palette-background-paper;
+    @include use-theme(opacity, 0.2, 0.6);
+    position: absolute
+  }
+}
+
+.rounded-bottom {
+  &:before {
+    content: "";
+    border-radius: 60px 60px 0 0;
+    height: 160px;
+    width: 100%;
+    position: absolute;
+    bottom: -80px;
+    left: 0;
+    @include use-theme(background, $light-background-paper, $palette-common-black);
+  }
+  &:after {
+    opacity: 0.4;
+    content: "";
+    border-radius: 60px 60px 0 0;
+    height: 160px;
+    width: 100%;
+    position: absolute;
+    bottom: -80px;
+    left: 0;
+    @include use-theme(background, $light-background-paper, $palette-primary-dark);
+  }
+}
+
+.container {
+  position: relative;
+  z-index: 1
+}
+
+.bg-gradient {
+  filter: blur(50px);
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  span {
+    position: absolute
+  }
+}
+
+.oval-right {
+  width: 1025px;
+  height: 2136px;
+  top: 100px;
+  right: 400px;
+  z-index: 1;
+  opacity: 0.3;
+  background: linear-gradient(172deg, $palette-accent-main 20%, rgba(255, 255, 255, 0.1) 90%);
+}
+
+.oval-top {
+  width: 1612px;
+  height: 1612px;
+  top: 100px;
+  left: -400px;
+  opacity: 0.5;
+  @include use-theme(background, $palette-primary-light, $palette-primary-dark);
+}
+
+.oval-bottom {
+  width: 1312px;
+  height: 1312px;
+  top: 600px;
+  left: 0;
+  opacity: 0.3;
+  background: $palette-primary-dark
+}
+
+.wrap {
+  position: relative;
+  z-index: 2;
+}
+
+.section {
+  margin-top: $spacing10;
+  &:not(.floating) {
+    overflow: hidden;
+  }
+}
+
+.avatar {
+  padding: 50px;
+  position: sticky;
+  margin-top: -240px;
+  top: 40px;
+  z-index: 1;
+  display: block;
+  @include margin-left(-128px);
+  @include breakpoints-down(lg){
+    @include margin-left(-240px);
+  }
+  @include breakpoints-down(md){
+    @include margin-left(-320px);
+  }
+}

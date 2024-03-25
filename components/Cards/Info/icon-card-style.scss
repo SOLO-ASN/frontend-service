@@ -1,0 +1,41 @@
+.root {
+  max-width: 180px;
+  height: 130px;
+  margin: 0 auto 8px;
+  font-size: 14px;
+  padding: $spacing1;
+  text-align: center;
+  position: relative;
+  border-radius: $rounded-medium;
+  @include shade;
+  @include use-theme(background, $light-background-paper, $palette-primary-dark);
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include use-theme(background, $light-background-paper, $palette-common-black);
+    opacity: 0.25;
+  }
+  a {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: $rounded-medium;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+  > span {
+    position: relative;
+    display: block;
+    z-index: 1;
+  }
+  i {
+    display: block;
+    font-size: 55px;
+    @include use-theme(color, $palette-primary-main, $palette-common-white);
+  }
+}

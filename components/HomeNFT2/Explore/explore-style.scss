@@ -1,0 +1,11 @@
+.root {
+  position: relative;
+  z-index: 5;
+}
+
+.categories {
+  margin-top: $spacing10;
+  @include breakpoints-up(sm) {
+    width: 100%
+  }
+}

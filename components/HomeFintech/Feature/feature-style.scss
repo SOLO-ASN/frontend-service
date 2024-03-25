@@ -1,0 +1,152 @@
+.root {
+  position: relative;
+}
+
+.item {
+  position: relative;
+  @include breakpoints-up(lg) {
+    overflow: hidden;
+  }
+  @include breakpoints-up(md) {
+    min-height: 600px;
+  }
+  @include breakpoints-up(md) {
+    padding-bottom: $spacing10
+  }
+  .desc {
+    position: relative;
+    z-index: 60;
+    @include breakpoints-down(sm) {
+      text-align: center;
+    }
+  }
+  h6 {
+    margin-bottom: $spacing4
+  }
+  &.last {
+    margin-bottom: $spacing10;
+    @include breakpoints-down(sm) {
+      margin-bottom: 0;
+      padding-bottom: $spacing13;
+    }
+  }
+  :deep(.v-container) {
+    #main-wrap & {
+      padding: 0
+    }
+  }
+}
+
+.illustration {
+  position: relative;
+  @include breakpoints-down(sm) {
+    margin-bottom: -40px;
+  }
+}
+
+.video-popup {
+  max-width: none;
+  border-radius: $rounded-medium !important;
+  h4 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    overflow: hidden;
+  }
+  @include breakpoints-up(sm) {
+    width: 690px;
+  }
+  :deep(iframe) {
+    width: 100% !important
+  }
+  .youtube {
+    margin: 0 auto;
+    width: 100% !important;
+  }
+}
+
+.close-btn {
+  @include right(-4px);
+}
+
+.parallax-wrap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden
+}
+
+.person-art {
+  @include breakpoints-down(sm) {
+    width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @include breakpoints-down(md) {
+    margin-top: 60px
+  }
+  @include breakpoints-up(md) {
+    position: absolute;
+    @include left(100px);
+    top: -100px;
+  }
+  :deep(.person) {
+    margin-bottom: -80px
+  }
+}
+
+.video-art {
+  @include breakpoints-down(sm) {
+    padding-bottom: $spacing15
+  }
+}
+
+.app-art {
+  position: relative;
+  top: 30px;
+  padding-bottom: $spacing10;
+  @include breakpoints-down(md) {
+    margin-top: $spacing5;
+    padding-bottom: $spacing15;
+  }
+  @include breakpoints-up(sm) {
+    @include left(-30px);
+  }
+  @include breakpoints-down(sm) {
+    margin-top: $spacing2;
+    padding-bottom: $spacing10;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.parallax-logo {
+  height: 600px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    @include use-theme(background, linear-gradient(to bottom, $light-background-paper 10%, rgba(0, 0, 0, 0) 50%, $light-background-paper 100%), linear-gradient(to bottom, $palette-primary-dark 10%, rgba(0, 0, 0, 0) 50%, $palette-primary-dark 100%));
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    opacity: 0.5;
+    @include use-theme(background, linear-gradient(to bottom, $light-background-paper 10%, rgba(0, 0, 0, 0) 50%, $light-background-paper 100%), linear-gradient(to bottom, $palette-common-black 10%, rgba(0, 0, 0, 0) 50%, $palette-common-black 100%));
+  }
+}

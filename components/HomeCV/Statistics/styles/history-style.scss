@@ -1,0 +1,109 @@
+.root {
+  position: relative;
+  z-index: 1;
+  @inclued margin-left($spacing5);
+}
+
+.title-timeline {
+  text-transform: uppercase;
+  margin-bottom: $spacing3;
+}
+
+.history {
+  position: relative;
+  padding: spacing(5, 4, 5, 10);
+  @include breakpoints-down(md) {
+    padding: spacing(3, 4, 5, 10);
+  }
+  @include breakpoints-down(sm) {
+    padding: spacing(0, 0, 5)
+  }
+  h3 {
+    font-weight: $font-bold;
+    @include breakpoints-down(sm) {
+      width: 100%
+    }
+  }
+  p {
+    @include breakpoints-down(sm) {
+      display: inline-block;
+      @include margin-right($spacing2)
+    }
+  }
+  ul {
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    &:before {
+      content: "";
+      height: 100%;
+      width: 5px;
+      @include use-theme(background, $light-divider, $dark-divider);
+      border-radius: 5px;
+      position: absolute;
+      top: 0;
+      @include left(-35px);
+      @include breakpoints-down(sm) {
+        @include left(5px);
+      }
+    }
+    li {
+      list-style: none;
+      margin-bottom: $spacing5;
+      position: relative;
+      > div {
+        @include margin-left($spacing5);
+      }
+      &:last-child {
+        margin-bottom: 0
+      }
+      &:before {
+        content: "";
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        background: $palette-secondary-main;
+        position: absolute;
+        @include left(-40px);
+        top: 45px;
+        @include breakpoints-down(sm) {
+          @include left(0)
+        }
+      }
+      &:after {
+        content: "";
+        border-radius: 16px;
+        width: 40px;
+        height: 16px;
+        background: $gradient-triple-light;
+        position: absolute;
+        top: 46px;
+        @include breakpoints-down(sm) {
+          display: none
+        }
+      }
+      .time {
+        @include palette-text-secondary
+      }
+    }
+  }
+}
+
+.list {
+  display: flex;
+  figure {
+    width: 74px;
+    height: 74px;
+    margin: $spacing2;
+    border-radius: $rounded-medium;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+  }
+  > div {
+    flex: 1
+  }
+}

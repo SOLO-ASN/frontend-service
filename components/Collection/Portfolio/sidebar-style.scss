@@ -1,0 +1,63 @@
+.sidebar {
+  margin: spacing(5, 0);
+  z-index: 2;
+  @include padding-right($spacing3);
+  @include breakpoints-up(lg) {
+    position: sticky;
+    top: -64px;
+  }
+  @include breakpoints-down(md) {
+    padding: spacing(0, 3);
+    margin-top: $spacing10;
+  }
+  @include breakpoints-down(sm) {
+    margin-top: $spacing5;
+  }
+}
+
+.action-btn {
+  padding: spacing(1.5, 0)
+}
+
+.property {
+  margin: spacing(5, 0);
+  list-style: none;
+  padding: 0;
+  li {
+    list-style: none;
+    margin-bottom: $spacing3;
+    display: inline-block;
+    @include margin-right($spacing3);
+    i {
+      @include margin-right(4px)
+    }
+  }
+}
+
+.tags {
+  margin-bottom: $spacing5;
+  > div, > span {
+    font-weight: $font-medium;
+    margin: spacing(0.5);
+  }
+}
+
+.apps {
+  display: flex;
+  margin-bottom: $spacing5;
+  flex-wrap: wrap;
+  figure {
+    margin: 0;
+    border-radius: $rounded-big;
+    @include margin-right($spacing2);
+    overflow: hidden;
+    width: 65px;
+    height: 65px;
+    margin-bottom: $spacing1;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+  }
+}

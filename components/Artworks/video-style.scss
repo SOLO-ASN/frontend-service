@@ -1,0 +1,126 @@
+.root {
+  perspective: 1000px;
+  display: block;
+  text-align: center
+}
+
+.play-btn {
+  position: absolute;
+  color: $palette-common-white;
+  width: 70px;
+  height: 70px;
+  z-index: 2;
+  left: calc(50% - 35px);
+  box-shadow: 0 0 15px -2px $palette-secondary-light;
+  :deep(i) {
+    font-size: 50px;
+    color: $palette-common-white;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.video {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: $spacing5;
+  border-radius: $rounded-big;
+  transform: rotateY(0) rotateX(35deg) rotateZ(0deg);
+  height: 300px;
+  @include palette-background-paper;
+  @include breakpoints-down(sm) {
+    height: 200px;
+    transform: scale(0.9) rotateY(0) rotateX(35deg) rotateZ(0deg);
+    &:before, &:after {
+      display: none
+    }
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    border-radius: $rounded-medium;
+    top: 0;
+    left: -5px;
+    width: 600px;
+    height: 320px;
+    border: 1px solid $palette-primary-main;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    border-radius: $rounded-medium;
+    top: 5px;
+    right: -5px;
+    width: 600px;
+    height: 320px;
+    border: 1px solid $palette-primary-main;
+  }
+  span {
+    z-index: 2;
+    position: absolute;
+    border-radius: $rounded-medium;
+    overflow: hidden;
+    box-shadow: 0 10px 20px 5px rgba(0, 0, 0, 0.25);
+    img {
+      width: 100%
+    }
+  }
+}
+
+.cover {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: $rounded-big;
+  height: 99%;
+  img {
+    margin: 0 auto;
+    width: 100%
+  }
+}
+
+.top-left {
+  top: 20px;
+  left: -50px;
+  width: 135px;
+  height: 95px;
+  @include breakpoints-down(sm) {
+    left: 10px;
+    top: 180px;
+  }
+}
+
+.top-right {
+  top: 90px;
+  right: 40px;
+  width: 120px;
+  height: 70px;
+  @include breakpoints-down(sm) {
+    right: 10px;
+    top: 230px;
+  }
+}
+
+.bottom-left {
+  bottom: -60px;
+  left: -60px;
+  width: 128px;
+  height: 120px;
+  @include breakpoints-down(sm) {
+    left: 100px;
+    bottom: -70px;
+  }
+}
+
+.bottom-right {
+  bottom: -30px;
+  right: -20px;
+  width: 350px;
+  height: 70px;
+  @include breakpoints-down(sm) {
+    right: 20px;
+    bottom: -150px;
+    width: 280px;
+    height: 60px
+  }
+}

@@ -1,0 +1,14 @@
+.root {
+  position: relative;
+  z-index: 5;
+  @include breakpoints-up(lg) {
+    margin-top: $spacing15
+  }
+}
+
+.categories {
+  width: 100%;
+  @include breakpoints-up(sm) {
+    padding-top: $spacing10
+  }
+}

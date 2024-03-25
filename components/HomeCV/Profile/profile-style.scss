@@ -1,0 +1,208 @@
+$gold: #D6BD96;
+
+.root {
+  position: relative;
+  @include breakpoints-down(md) {
+    text-align: center;
+  }
+  @inlcude breakpoints-up(lg) {
+    max-width: 1280px;
+    padding: 0;
+  }
+  > div {
+    @include breakpoints-down(sm) {
+      padding: 0
+    }
+  }
+}
+
+.about {
+  display: flex;
+  flex-direction: column-reverse;
+  @include breakpoints-up(md) {
+    flex-direction: row;
+    justify-content: space-between
+  }
+  @include breakpoints-down(sm) {
+    text-align: center;
+    > div > h5 {
+      font-weight: $font-regular;
+      font-size: 18px;
+      line-height: 28px;
+      margin-top: $spacing7;
+      padding: spacing(0, 2)
+    }
+  }
+}
+
+.reward {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  @include breakpoints-up(lg) {
+    padding: spacing(5, 7, 0, 0);
+  }
+  @include breakpoints-down(sm) {
+    overflow: auto;
+  }
+}
+
+.item {
+  text-align: center;
+  color: $gold;
+  margin: $spacing2;
+  @include breakpoints-up(md) {
+    margin: $spacing4
+  }
+  @include breakpoints-down(sm) {
+    padding-left: $spacing3;
+    padding-right: $spacing3
+  }
+  figure {
+    height: 70px;
+    margin: spacing(0, 0, 2);
+    @include breakpoints-down(lg) {
+      height: 50px;
+    }
+    img {
+      height: 100%
+    }
+  }
+  p {
+    font-family: Times New Roman;
+    @include breakpoints-down(lg) {
+      font-size: 16px;
+      white-space: nowrap;
+    }
+  }
+  h5 {
+    font-weight: $font-medium;
+    text-transform: uppercase;
+    @include breakpoints-down(sm) {
+      font-size: 16px;
+    }
+  }
+}
+
+.photo {
+  position: relative;
+  z-index: 1;
+  margin-top: -200px;
+  align-items: flex-start;
+  justify-content: center;
+  display: flex;
+  @include breakpoints-up(md) {
+    margin-top: -380px;
+    @include margin-left(-60px);
+  }
+  @include breakpoints-down(md) {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 300px;
+    margin-top: -185px;
+  }
+  @include breakpoints-down(sm) {
+    margin-top: -240px;
+  }
+  figure {
+    margin: 0;
+    border-radius: $rounded-big;
+    overflow: hidden;
+    position: relative;
+    &:before {
+      content: "";
+      position: absolute;
+      width: 120%;
+      height: 155px;
+      bottom: -50px;
+      left: -20px;
+      z-index: 1;
+      @include use-theme(background, linear-gradient(to top, $light-background-paper 40%, rgba(0, 0, 0, 0) 60%), linear-gradient(to top, $palette-primary-dark 40%, rgba(0, 0, 0, 0) 60%))
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      width: 120%;
+      height: 160px;
+      bottom: -50px;
+      left: -20px;
+      z-index: 1;
+      opacity: 0.6;
+      @include use-theme(background, linear-gradient(to top, $light-background-paper 40%, rgba(0, 0, 0, 0) 60%), linear-gradient(to top, $palette-common-black 40%, rgba(0, 0, 0, 0) 60%))
+    }
+    img {
+      width: 101%;
+      min-height: 101%;
+    }
+  }
+}
+
+.avatar {
+  img {
+    max-height: 600px;
+    position: relative;
+    @include breakpoints-up(md) {
+      top: 100px;
+    }
+  }
+}
+
+.socmed {
+  display: flex;
+  justify-content: center;
+  margin: $spacing4 auto;
+  max-width: 600px;
+  button {
+    margin: spacing(1, 2);
+    width: 36px;
+    height: 36px;
+    i {
+      @include use-theme(color, $palette-primary-dark, $palette-primary-light)
+    }
+  }
+  i {
+    font-size: 22px;
+  }
+}
+
+.hire-paper {
+  position: absolute;
+  border-radius: $rounded-big;
+  padding: spacing(2, 4);
+  @include use-theme(background, rgba($light-background-paper, 0.5), rgba($dark-background-paper, 0.5));
+  backdrop-filter: saturate(180%) blur(20px);
+  bottom: 30px;
+  z-index: 2;
+  @include breakpoints-down(sm) {
+    bottom: 0;
+  }
+}
+
+.hire {
+  margin-bottom: $spacing1;
+  strong {
+    text-transform: uppercase;
+    font-weight: $font-medium;
+  }
+  span {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    border-radius: 50%;
+    @include margin-right(2px);
+    top: 3px;
+    position: relative;
+    &.online {
+      background-image: linear-gradient(153deg, #84FF95 0%, #006064 100%);
+    }
+    &.bussy {
+      background-image: linear-gradient(153deg, #FFBABA 0%, #FF0000 100%);
+    }
+    &.offline {
+      background-image: linear-gradient(153deg, #E3E3E3 0%, #232323 100%);
+    }
+    &.idle {
+      background-image: linear-gradient(153deg, #FFEA84 0%, #FF9000 100%);
+    }
+  }
+}

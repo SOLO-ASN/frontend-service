@@ -1,0 +1,80 @@
+.parallax-wrap {
+  position: absolute;
+  width: 100%;
+  height: 99%;
+  left: 0;
+  z-index: 0;
+  @include breakpoints-down(md) {
+    display: none;
+  }
+}
+
+.inner-parallax {
+  height: 2500px;
+  width: 50%;
+  position: absolute;
+  display: block;
+  filter: blur(5px);
+  @include use-theme(opacity, 0.25, 0.5);
+  .figure {
+    height: 2500px;
+    width: 50%;
+    display: block;
+    position: absolute;
+    :deep(.Masthead), :deep(.Masthead__image) {
+      overflow: visible
+    }
+    img {
+      height: auto;
+      margin: 0;
+      display: block;
+    }
+  }
+  .figure > div {
+    height: 2500px;
+    width: 50%;
+    display: block;
+    position: absolute;
+    top: 0;
+  }
+}
+
+.left {
+  top: 200px;
+  left: -250px;
+  img {
+    transform: rotate(70deg) scale(1);
+    transform-origin: center center;
+  }
+}
+
+.right {
+  top: -200px;
+  right: -600px;
+  img {
+    transform: rotate(-30deg) scale(1);
+    transform-origin: center center;
+  }
+}
+
+.top {
+  top: -1030px;
+  right: -520px;
+  img {
+    width: 300px;
+    transform: rotate(-20deg) scaleX(-1);
+    transform-origin: center center;
+  }
+}
+
+.bottom {
+  top: 800px;
+  left: -250px;
+  img {
+    width: 300px;
+    transform: rotate(30deg) scaleX(-1);
+    transform-origin: center center;
+  }
+}
+
+

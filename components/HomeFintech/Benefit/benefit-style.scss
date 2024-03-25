@@ -1,0 +1,189 @@
+.container {
+  @include breakpoints-down(lg) {
+    #main-wrap & {
+      padding: 0
+    }
+  }
+}
+
+.deco-wrap {
+  position: relative
+}
+
+.deco {
+  position: absolute;
+  left: 0;
+  top: -20px;
+  width: 100%;
+  height: 100%;
+  @include breakpoints-down(md) {
+    display: none
+  }
+  > div {
+    position: absolute
+  }
+}
+
+.orbit {
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+.inner {
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  svg {
+    fill: none
+  }
+}
+
+.line-round {
+  position: absolute;
+  transform-origin: top center;
+  width: 270px;
+  height: 90px;
+}
+
+.line-round-big {
+  position: absolute;
+  transform-origin: top center;
+  width: 500px;
+  height: 150px;
+  @include breakpoints-down(lg) {
+    display: none
+  }
+}
+
+.border-primary {
+  @include use-rtl-ltr(display, none, flex);
+  @include right(-120px);
+  top: 0;
+  border: 1px solid rgba(var(--v-theme-primary), 0.4);
+  .line-round {
+    stroke: $palette-primary-main;
+    top: 45px;
+    @include left(0);
+    transform: rotate(-50deg)
+  }
+  .line-round-big {
+    stroke: $palette-secondary-main;
+    bottom: -40px;
+    @include left(90px);
+    transform: rotate(25deg)
+  }
+}
+
+.border-secondary {
+  @include use-rtl-ltr(display, none, flex);
+  @include left(-120px);
+  top: 0;
+  border: 1px solid rgba(var(--v-theme-secondary), 0.4);
+  .line-round {
+    stroke: $palette-secondary-main;
+    top: 45px;
+    @include right(0);
+    transform: rotate(20deg)
+  }
+  .line-round-big {
+    stroke: $palette-primary-main;
+    bottom: -20px;
+    @include right(0);
+    transform: rotate(-1deg)
+  }
+}
+
+.root {
+  position: relative;
+  overflow: hidden;
+  @include breakpoints-up(sm) {
+    padding-top: $spacing5
+  }
+  @include breakpoints-up(md) {
+    padding-bottom: $spacing10 * 2
+  }
+}
+
+.person {
+  position: relative;
+  display: flex;
+  justify-content: center
+}
+
+.background {
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  @include breakpoints-down(sm) {
+    width: 180px;
+    height: 180px;
+  }
+  span {
+    background: $palette-common-black;
+    opacity: 0.3;
+    filter: blur(20px);
+    height: 100%;
+    width: 50%;
+    display: block;
+    position: absolute;
+    @include left(20%);
+  }
+  &.bg-primary {
+    background: $palette-primary-main;
+    right: 2px;
+  }
+  &.bg-secondary {
+    background: $palette-secondary-main;
+    left: 2px;
+  }
+}
+
+.img {
+  border-radius: 250px;
+  overflow: hidden;
+  display: block;
+  z-index: 1;
+  position: relative;
+  @include breakpoints-up(sm) {
+    width: 250px;
+    max-height: 300px;
+  }
+  @include breakpoints-down(sm) {
+    height: 200px;
+    border-radius: 200px;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+    height: 100%;
+    margin: 0 auto
+  }
+}
+
+.list {
+  padding: spacing(0, 2);
+  @include breakpoints-down(sm) {
+    text-align: center !important;
+  }
+  li {
+    list-style: none;
+    margin-bottom: $spacing5;
+    h6 {
+      font-weight: $font-medium;
+      font-size: 18px;
+      @include breakpoints-up(lg) {
+        font-size: 24px;
+      }
+    }
+    > div {
+      font-size: 36px;
+    }
+  }
+}

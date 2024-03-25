@@ -1,0 +1,53 @@
+.root {
+  position: relative;
+  z-index: 20;
+  overflow: hidden;
+  text-align: center;
+  padding-bottom: $spacing5;
+  @include breakpoints-up(md) {
+    padding: spacing(5, 0, 10)
+  }
+  @include breakpoints-up(lg) {
+    padding: spacing(15, 0)
+  }
+}
+.logo {
+  margin-top: $spacing5;
+  :deep(span) {
+    display: block;
+  }
+  img {
+    margin-bottom: $spacing2
+  }
+  h4 {
+    font-weight: $font-regular
+  }
+}
+.margin {
+  margin: $spacing2
+}
+.socmed {
+  margin: spacing(3, 0);
+  button {
+    margin: $spacing1;
+    width: 36px;
+    height: 36px;
+    i {
+      @include use-theme(color, $palette-primary-dark, $palette-primary-light);
+    }
+  }
+  i {
+    font-size: 24px
+  }
+}
+.contact {
+  @include palette-text-secondary;
+}
+.divider {
+  margin: 12px;
+  border: none;
+  background: none
+}
+.download {
+  margin: spacing(2, 0)
+}

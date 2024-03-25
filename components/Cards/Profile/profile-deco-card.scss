@@ -1,0 +1,329 @@
+/* General */
+.profile-card {
+  position: relative;
+  margin-bottom: $spacing5;
+  > a {
+    border-radius: $rounded-medium;
+    color: white;
+  }
+}
+
+.avatar {
+  position: relative;
+  svg {
+    position: absolute;
+  }
+  figure {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    img {
+      display: block
+    }
+  }
+}
+
+.socmed {
+  margin-top: $spacing2;
+  button, a {
+    i {
+      @include margin-left(-2px);
+      @include breakpoints-up(sm) {
+        font-size: 24px;
+      }
+    }
+    @include margin-right($spacing1);
+    @include breakpoints-up(sm) {
+      @include margin-right($spacing2);
+    }
+    @include breakpoints-down(sm) {
+      padding: $spacing1;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  bottom: 0;
+  span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.primary {
+  stroke: $palette-primary-main;
+  top: 20px;
+  @include left(10px);
+}
+
+.secondary {
+  stroke: $palette-secondary-main;
+  top: 20px;
+  @include left(-10px)
+}
+
+.property {
+  @include breakpoints-down(sm) {
+    text-align: center
+  }
+  h1, h3 {
+    font-weight: $font-bold;
+    margin-bottom: $spacing1;
+  }
+}
+
+.link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.big {
+  display: flex;
+  align-items: center;
+  @include breakpoints-down(sm) {
+    flex-direction: column
+  }
+  .avatar {
+    position: relative;
+    width: 400px;
+    height: 380px;
+    @include breakpoints-down(md) {
+      width: 220px;
+      height: 200px;
+    }
+    svg {
+      width: 410px;
+      height: 350px;
+      @include breakpoints-down(md) {
+        display: none
+      }
+    }
+    figure {
+      width: 400px;
+      height: 360px;
+      border-radius: 50%;
+      margin-top: -1px;
+      overflow: hidden;
+      @include breakpoints-down(md) {
+        width: 220px;
+        height: 195px;
+      }
+    }
+  }
+  .bg {
+    -webkit-mask-image: url(/images/decoration/deco-liquid-fill2.svg);
+    mask-image: url(/images/decoration/deco-liquid-fill2.svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    span {
+      background: $gradient-double-main;
+      &:before {
+        content: "";
+        height: 100%;
+        width: 25%;
+        display: block;
+        position: absolute;
+        top: 0;
+        @include left(18%);
+        background: rgba(0, 0, 0, 0.2);
+        filter: blur(20px)
+      }
+    }
+  }
+  .property {
+    h1 {
+      font-size: 60px;
+    }
+    h3 {
+      font-size: 26px;
+    }
+    p {
+      font-size: 18px;
+    }
+    @include breakpoints-up(sm) {
+      @include margin-left($spacing3);
+    }
+    @include breakpoints-down(md) {
+      h1 {
+        font-size: 40px;
+      }
+      h3 {
+        font-size: 18px;
+      }
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+  .socmed {
+    button, a {
+      @include use-theme(background, $palette-primary-main, $palette-primary-light);
+      width: 38px;
+      height: 38px;
+      @include breakpoints-down(md) {
+        width: 32px;
+        height: 32px;
+      }
+      i {
+        @include use-theme(color, $palette-common-white, $palette-primary-dark);
+      }
+    }
+  }
+}
+
+.medium {
+  display: flex;
+  align-items: center;
+  @include breakpoints-down(sm) {
+    flex-direction: column
+  }
+  .avatar {
+    position: relative;
+    width: 203px;
+    height: 246px;
+    svg {
+      width: 203px;
+      height: 246px;
+    }
+    figure {
+      width: 193px;
+      height: 220px;
+      border-radius: 193px;
+      margin-top: 7px;
+      overflow: hidden
+    }
+  }
+  .bg {
+    mask-image: url(/images/decoration/deco-leaf-fill2.svg);
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+    -webkit-mask-image: url(/images/decoration/deco-leaf-fill2.svg);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    span {
+      background: $gradient-triple-light;
+      &:before {
+        content: "";
+        height: 100%;
+        width: 50%;
+        display: block;
+        position: absolute;
+        top: 0px;
+        @include left(20%);
+        background: rgba(0, 0, 0, 0.3);
+        filter: blur(20px)
+      }
+    }
+  }
+  .property {
+    @include breakpoints-up(sm) {
+      margin-left: $spacing3
+    }
+    h1 {
+      font-size: 40px;
+    }
+    h3 {
+      font-size: 18px;
+    }
+    p {
+      font-size: 16px;
+    }
+  }
+  .socmed {
+    button, a {
+      width: 32px;
+      height: 32px;
+      @include use-theme(background, $palette-primary-main, $palette-primary-light);
+      i {
+        @include use-theme(color, $palette-common-white, $palette-primary-dark);
+      }
+    }
+  }
+}
+.small {
+  text-align: center;
+  .deco-circle {
+    top: 0;
+    width: 127px;
+    height: 127px;
+    position: absolute;
+    @include margin-left(20px);
+    margin-left: 20px;
+    border-radius: 50%;
+    border: 1px solid $palette-secondary-main;
+    &:after {
+      top: -10px;
+      @include left(-20px);
+      left: -20px;
+      width: 127px;
+      height: 127px;
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid $palette-primary-main
+    }
+    &:before {
+      top: 10px;
+      @include left(0);
+      left: 0;
+      width: 127px;
+      height: 127px;
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid $palette-accent-main
+    }
+  }
+  .avatar {
+    display: flex;
+    justify-content: center;
+    figure {
+      width: 127px;
+      height: 127px;
+      overflow: hidden;
+      border-radius: 50%;
+      margin-bottom: $spacing3;
+      img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+    }
+  }
+  .property {
+    h1 {
+      font-size: 24px;
+    }
+    h3 {
+      font-size: 16px;
+      font-weight: $font-regular;
+    }
+  }
+  .socmed {
+    button, a {
+      width: 32px;
+      height: 32px;
+      font-size: 22px;
+      @include breakpoints-down(sm) {
+        @include margin-right(0);
+      }
+      i {
+        @include use-theme(color, $palette-primary-dark, $palette-primary-light);
+      }
+    }
+  }
+}

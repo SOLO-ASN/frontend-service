@@ -1,0 +1,250 @@
+$deco-footer: '/images/footer-deco.svg';
+
+.link {
+  margin: spacing(1, 1.5);
+}
+.footer {
+  position: relative;
+  padding-bottom: $spacing10;
+  &:after {
+    content: "";
+    width: 100%;
+    height: 240px;
+    background-size: 100%;
+    background: url($deco-footer) transparent no-repeat;
+    background-position: bottom center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    opacity: 0.15;
+  }
+  &.has-bg {
+    padding-top: 600px;
+    margin-top: -600px;
+    .v-container {
+      position: relative;
+      z-index: 10
+    }
+  }
+  @include breakpoints-up(sm) {
+    padding-bottom: $spacing20
+  }
+  p {
+    @include breakpoints-down(sm) {
+      text-align: center
+    }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      margin-bottom: $spacing1;
+      display: inline-block;
+      width: 30%;
+      @include margin-right(3%);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      @include breakpoints-down(sm) {
+        width: 47%
+      }
+      a {
+        @include palette-text-primary;
+        text-transform: capitalize;
+        text-decoration: none !important;
+        font-size: 14px;
+      }
+    }
+  }
+  &-desc{
+    display: block;
+    font-size: 14px;
+    margin-bottom: $spacing2;
+    @include breakpoints-down(sm) {
+      text-align: center
+    }
+  }
+}
+
+.footer-counter {
+  position: relative;
+  @include use-theme(background, linear-gradient(-130deg, $palette-secondary-main -20%, $palette-primary-main 70%), linear-gradient(-130deg, $palette-secondary-dark -20%, $palette-primary-dark 70%));
+  padding-top: $spacing10;
+  @include breakpoints-up(md) {
+    padding-top: 200px;
+  }
+  @include breakpoints-up(xl) {
+    padding-top: $spacing15
+  }
+}
+
+.deco-top {
+  position: absolute;
+  top: -20px;
+  @include left(0);
+  width: 1280px;
+  height: 400px;
+  @include breakpoints-up(lg) {
+    transform: scale(1.2)
+  }
+  @media only screen and (min-width: 1400px) { 
+    transform: scale(2, 1)
+  }
+  @include breakpoints-up(xl) {
+    display: none
+  }
+  @include breakpoints-down(md) {
+    transform: scale(1.4, 1);
+    @include left(-300px);
+  }
+  @include breakpoints-down(sm) {
+    display: none
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+    @include breakpoints-down(sm) {
+      display: none
+    }
+  }
+  &.back svg {
+    @include use-theme(fill, $palette-primary-main, $palette-primary-dark);
+  }
+  &.cover svg {
+    @include use-theme(fill, #FFF, #303030);
+    @include use-theme(opacity, 0.84, 0.6);
+  }
+}
+
+.quick-links {
+  margin-top: $spacing3;
+  a {
+    @include use-theme(color, $palette-primary-main, $palette-primary-light);
+  }
+}
+
+.blog-item {
+  display: block;
+  align-items: center;
+  margin: spacing(2, 0);
+  padding: 0 !important;
+  height: auto !important;
+  white-space: normal;
+  @include text-align(left);
+  justify-content: flex-start;
+  .category {
+    display: block;
+    font-weight: $font-bold;
+    text-transform: uppercase;
+    @include use-theme(color, $palette-primary-dark, $palette-primary-light);
+  }
+  .list-text {
+    flex: 1;
+    display: block;
+    @include palette-text-primary;
+  }
+  .figure {
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: $spacing1;
+    @include margin-right($spacing2);
+    width: 80px;
+    height: 56px;
+    img {
+      display: block;
+      min-height: 100%;
+      width: 100%;
+    }
+  }
+  .content {
+    font-size: 13px;
+    text-transform: none;
+    margin-bottom: 0;
+    font-weight: $font-regular;
+    @include text-align(left);
+  }
+}
+
+.title-nav {
+   @include use-theme(color, $palette-secondary-dark, $palette-secondary-light);
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-bottom: $spacing1;
+  font-weight: $font-bold
+}
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing3;
+  @include breakpoints-down(sm) {
+    justify-content: center
+  }
+  img {
+    width: 64px;
+    @include margin-right($spacing1)
+  }
+  h6 {
+    font-weight: $font-bold;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+}
+.socmed {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: $spacing4;
+  button {
+    border-radius: 50%;
+    margin: $spacing1;
+    @include use-theme(background, $palette-primary-light, $palette-primary-dark);
+    .icon {
+      @include use-theme(color, $palette-primary-dark, $palette-primary-light);
+      @include margin-left(-4px)
+    }
+  }
+  .icon {
+    font-size: 24px
+  }
+}
+
+.icon {
+  & + div {
+    background: none !important;
+    padding: spacing(1.5, 1.5, 1.5, 4);
+    width: calc(100% - 32px)
+  }
+}
+
+.select-lang {
+  margin: 0 auto;
+  margin-top: $spacing2;
+  display: inherit;
+  z-index: 1;
+  position: relative;
+  @include use-theme(color, $palette-primary-dark, $palette-primary-light);
+  :deep(.v-field) {
+    @include palette-background-paper;
+  }
+}
+
+.site-map-item {
+  @include breakpoints-down('md') {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important
+  }
+}
+.accordion-root {
+  background: none;
+  box-shadow: none;
+  max-width: 480px
+}
+#main-wrap .accordion-content.v-expansion-panel {
+  background-color: transparent;
+  &:before, &:after {
+    display: none
+  }
+}
+.accordion-icon {
+  padding: 0
+}

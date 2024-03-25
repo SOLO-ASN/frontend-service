@@ -1,0 +1,56 @@
+$liquid-deco: '/images/liquid-mini.svg';
+
+.root {
+  position: relative;
+  .v-btn {
+    width: 160px;
+  }
+}
+
+.item {
+  position: relative;
+  min-height: 320px;
+  .desc {
+    position: relative;
+    z-index: 60
+  }
+  @include breakpoints-down(md) {
+    margin-bottom: $spacing10
+  }
+  @include breakpoints-down(sm) {
+    text-align: center
+  }
+  h6 {
+    margin-bottom: $spacing4
+  }
+  &.last {
+    margin-bottom: $spacing10;
+    @include breakpoints-down(sm) {
+      margin-bottom: 0
+    }
+  }
+}
+
+.illustration {
+  position: relative;
+  &.start {
+    @include breakpoints-between(sm, md) {
+      @include left(-200px)
+    }
+  }
+  figure {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    @include breakpoints-down(sm) {
+      margin: 0 auto;
+      img {
+        width: 100%
+      }
+    }
+    img {
+      max-width: 400px;
+      max-height: 500px;
+    }
+  }
+}

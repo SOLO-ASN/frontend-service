@@ -1,0 +1,69 @@
+.action {
+  position: relative;
+  z-index: 1;
+  border-radius: 60px;
+  color: $palette-common-black;
+  background: linear-gradient(to bottom, $palette-secondary-light 10%, $palette-primary-light 80%);
+  @include breakpoints-up(md) {
+    margin: spacing(0, 5)
+  }
+  @include breakpoints-up(lg) {
+    margin: spacing(0, 10)
+  }
+  @include breakpoints-down(md) {
+    text-align: center
+  }
+  @include breakpoints-down(sm) {
+    padding-left: $spacing2;
+    padding-right: $spacing2;
+  }
+  &:before {
+    content: "";
+    height: 160px;
+    position: absolute;
+    z-index: -1;
+    width: calc(100% - 10px);
+    @include left(5px);
+    top: -125px;
+    clip-path: polygon(13% 0%, 0% 100%, 100% 100%, 87% 0);
+    background: linear-gradient(transparent 35%, $palette-secondary-light 80%);
+    @include breakpoints-down(sm) {
+      display: none
+    }
+  }
+}
+
+.wrap {
+  border-radius: 60px;
+  padding: spacing(5, 2, 0);
+  @include breakpoints-up(md) {
+    padding: spacing(5, 0, 0, 5),
+  }
+  img {
+    width: 100%
+  }
+}
+
+.btn-area {
+  margin: spacing(5, 0);
+  position: relative;
+  @include breakpoints-down(sm) {
+    justify-content: space-around
+  }
+  a, button {
+    min-width: 150px;
+    @include breakpoints-up(sm) {
+      @include margin-right($spacing2);
+    }
+    @include breakpoints-down(sm) {
+      margin: 4px;
+      width: 100%
+    }
+    img {
+      width: 160px;
+      @include breakpoints-down(sm) {
+        width: 100%
+      }
+    }
+  }
+}

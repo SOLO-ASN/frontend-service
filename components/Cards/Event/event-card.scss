@@ -1,0 +1,92 @@
+.event-card {
+  padding: spacing(5, 0);
+  text-align: center;
+  font-size: 18px;
+  border-radius: 60px;
+  box-shadow: none;
+  position: relative;
+  overflow: visible;
+  &.primary {
+    color: $palette-common-white;
+    background: linear-gradient(to bottom, $palette-primary-main 10%, $palette-accent-light 100%);
+    &:before {
+      content: "";
+      height: 110px;
+      position: absolute;
+      z-index: -1;
+      width: calc(100% - 10px);
+      @include left(5px);
+      top: -75px;
+      clip-path: polygon(13% 0%, 0% 100%, 100% 100%, 87% 0);
+      background: linear-gradient(transparent 35%, $palette-primary-main 80%);
+    }
+    .date {
+      background: linear-gradient(to bottom, $palette-common-white -10%, transparent 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+  &.secondary {
+    color: $palette-common-black;
+    @include use-theme(background, linear-gradient(to bottom, $palette-secondary-main 10%, $palette-accent-light 100%), linear-gradient(to bottom, $palette-secondary-main 10%, $palette-common-white 100%));
+    &:before {
+      content: "";
+      height: 110px;
+      position: absolute;
+      z-index: -1;
+      width: calc(100% - 10px);
+      @include left(5px);
+      top: -75px;
+      clip-path: polygon(13% 0%, 0% 100%, 100% 100%, 87% 0);
+      background: linear-gradient(transparent 35%, $palette-secondary-main 80%);
+    }
+    .date {
+      background: linear-gradient(to bottom, $palette-secondary-dark -20%, transparent 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .location {
+      color: $palette-secondary-dark;
+    }
+  }
+  p {
+    margin: spacing(4, 0);
+    font-size: 18px;
+  }
+}
+
+.date {
+  font-weight: $font-bold;
+  font-size: 80px;
+  text-transform: uppercase;
+  margin-bottom: -60px;
+  @include breakpoints-down(sm) {
+    font-size: 48px;
+  }
+}
+
+.location {
+  font-weight: $font-bold;
+  font-size: 64px;
+  @include breakpoints-down(sm) {
+    font-size: 32px;
+    margin-top: $spacing3
+  }
+}
+
+.btn-area {
+  justify-content: center;
+  @include breakpoints-up(sm) {
+    display: flex;
+    button, a {
+      margin: spacing(0, 0.5)
+    }
+  }
+  @include breakpoints-down(sm) {
+    button, a {
+      display: block;
+      width: 100%;
+      margin-top: $spacing2
+    }
+  }
+}

@@ -1,0 +1,308 @@
+.root {
+  position: relative;
+  z-index: 12;
+  &:before {
+    content: "";
+    border-radius: 60px 60px 0 0;
+    height: 200px;
+    width: 100%;
+    position: absolute;
+    bottom: -150px;
+    left: 0;
+    z-index: 2;
+    @include use-theme(background, $light-background-paper, $palette-common-black);
+  }
+  &:after {
+    content: "";
+    border-radius: 60px 60px 0 0;
+    height: 200px;
+    width: 100%;
+    position: absolute;
+    bottom: -150px;
+    left: 0;
+    z-index: 2;
+    @include use-theme(background, $light-background-paper, rgba(var(--v-theme-primarydark), 0.4));
+  }
+}
+
+.background {
+  direction: ltr;
+  border-radius: 60px 60px 0 0;
+  position: relative;
+  overflow: hidden;
+  @include use-theme(background, linear-gradient(to right, $palette-primary-light 10%, $palette-common-white 40%, $palette-common-white 70%, $palette-secondary-light 100%), linear-gradient(to right, $palette-primary-dark 10%, $palette-secondary-dark 40%, $palette-secondary-dark 70%, $palette-secondary-main 100%));
+  padding: spacing(10, 0);
+  @include breakpoints-up(md) {
+    padding: spacing(10, 0, 20),
+  }
+  &:before {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include palette-background-paper;
+    @include use-theme(opacity, 0.2, 0.6);
+    position: absolute;
+  }
+}
+.container {
+  position: relative;
+  z-index: 1;
+}
+.bg-gradient {
+  filter: blur(50px);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  span {
+    position: absolute
+  }
+}
+
+.oval-right {
+  width: 1025px;
+  height: 2136px;
+  top: 100px;
+  @include right(400px);
+  opacity: 0.3;
+  background: linear-gradient(172deg, $palette-primary-main 16%, $palette-common-black 56%, $palette-accent-main 98%);
+}
+
+.oval-top {
+  width: 1612px;
+  height: 1612px;
+  top: -100px;
+  @include left(-400px);
+  opacity: 0.85;
+  background: linear-gradient(144deg, $palette-accent-main 0%, $palette-common-white 100%);
+}
+
+.oval-bottom {
+  width: 1312px;
+  height: 1312px;
+  top: -600px;
+  left: 0;
+  opacity: 0.3;
+  background: $palette-primary-dark
+}
+
+.grid {
+  text-align: center;
+  @include breakpoints-up(lg) {
+    margin: spacing(0, 3);
+  }
+  @include breakpoints-down(md) {
+    margin-bottom: $spacing10
+  }
+}
+
+.timeline {
+  position: relative;
+  margin-top: $spacing10;
+  @include breakpoints-up(md) {
+    margin-top: $spacing15;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    @include padding-left($spacing3);
+    margin: 0;
+    @include breakpoints-down(sm) {
+      padding: 0 !important;
+    }
+    li {
+      strong {
+        font-weight: $font-medium
+      }
+    }
+  }
+}
+
+.text {
+  position: relative;
+  display: block;
+  p {
+    @include breakpoints-down(md) {
+      margin-bottom: 0
+    }
+  }
+  &:after {
+    border: 6px solid;
+    @include use-theme(border-color, $palette-common-white, $palette-primary-dark);
+    @include breakpoints-down(lg) {
+      display: none
+    }
+  }
+  @include breakpoints-down(md) {
+    margin-bottom: 0;
+    font-size: 18px;
+    &:after {
+      display: none
+    }
+  }
+  @include breakpoints-down(sm) {
+    margin: 0
+  }
+}
+
+.item {
+  margin: spacing(0, 3);
+  h2 {
+    font-size: 96px;
+    text-transform: uppercase;
+    font-weight: $font-bold;
+    margin-bottom: -60px;
+    @include breakpoints-down(lg) {
+      font-size: 72px;
+      margin-bottom: -48px;
+    }
+    @include breakpoints-down(md) {
+      font-size: 56px
+    }
+  }
+  h3 {
+    font-weight: $font-bold;
+    font-size: 64px;
+    @include breakpoints-down(lg) {
+      font-size: 48px
+    }
+    @include breakpoints-down(md) {
+      font-size: 36px;
+      margin-top: $spacing2;
+    }
+  }
+  p {
+    margin: spacing(4, 0);
+    font-size: 18px;
+  }
+  @include breakpoints-down(md) {
+    text-align: center
+  }
+}
+
+.left-side {
+  li {
+    @include text-align(right);
+    margin-bottom: $spacing11;
+    h2 {
+      @include use-theme(background, linear-gradient(to bottom, $palette-primary-main 10%, transparent 70%), linear-gradient(to bottom, $palette-primary-light 10%, transparent 70%));
+      @include use-theme(-webkit-background-clip, text, text);
+      @include use-theme(-webkit-text-fill-color, transparent, transparent);
+    }
+    @include breakpoints-down(md) {
+      margin-bottom: $spacing10
+    }
+    .item {
+      justify-content: flex-end
+    }
+  }
+  .text {
+    &:after {
+      content: "";
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      position: absolute;
+      top: 84px;
+      @include right(-74px);
+      background: $palette-primary-light;
+      @include breakpoints-down(lg) {
+        @include right(-150px)
+      }
+    }
+  }
+}
+
+.right-side {
+  li {
+    h2 {
+      @include use-theme(background, linear-gradient(to bottom, $palette-secondary-main 10%, transparent 70%), linear-gradient(to bottom, $palette-secondary-light 10%, transparent 70%));
+      @include use-theme(-webkit-background-clip, text, text);
+      @include use-theme(-webkit-text-fill-color, transparent, transparent);
+    }
+    @include breakpoints-up(md) {
+      margin-top: $spacing11
+    }
+    @include breakpoints-down(md) {
+      margin-bottom: $spacing10
+    }
+  }
+  .text {
+    &:after {
+      content: "";
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      position: absolute;
+      top: 84px;
+      @include left(-66px);
+      background: $palette-secondary-light;
+      @include breakpoints-down(lg) {
+        @include left(-145px)
+      }
+    }
+  }
+}
+
+.solid-divider {
+  position: absolute;
+  left: calc(50% + 3px);
+  top: 140px;
+  width: 6px;
+  height: calc(100% - 180px);
+  border-radius: 6px;
+  @include use-theme(opacity, 0.05, 0.2);
+  @include use-theme(background-color, $palette-common-black, $palette-common-white);
+  @include breakpoints-down(md) {
+    display: none
+  }
+}
+
+.year-title {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  top: 80px;
+  @include breakpoints-down(lg) {
+    display: none
+  }
+}
+
+.dashed-divider {
+  position: absolute;
+  @include use-theme(opacity, 0.05, 0.2);
+  left: calc(50% + 4px);
+  top: 50%;
+  width: 4px;
+  height: 63%;
+  border-radius: 2px;
+  @include use-theme(background-color, $palette-common-black, $palette-common-white);
+  @include breakpoints-down(md) {
+    display: none
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    left: calc(50% + -1px);
+    top: -23%;
+    width: 2px;
+    height: 20%;
+    border-radius: 2px;
+    @include use-theme(background-color, $palette-common-black, $palette-common-white);
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    left: calc(50% + -3px);
+    top: 103%;
+    width: 6px;
+    height: 60%;
+    border-radius: 6px;
+    @include use-theme(background-color, $palette-common-black, $palette-common-white);
+  }
+}

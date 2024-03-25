@@ -1,0 +1,62 @@
+.root {
+  position: relative;
+}
+
+.tab {
+  display: flex;
+  padding: 0;
+  margin-bottom: $spacing3;
+  @include breakpoints-up(sm) {
+    justify-content: center;
+    margin-top: $spacing5;
+    margin-bottom: $spacing5;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.filter {
+  display: flex;
+  width: auto;
+  overflow: auto;
+  background: $gradient-triple-light;
+  border-radius: 40px;
+  @include breakpoints-up(sm) {
+    padding: spacing(1, 2);
+    justify-content: center
+  }
+  > button {
+    border-radius: 40px;
+    @include margin-right($spacing1);
+    color: $palette-common-black;
+    white-space: nowrap;
+    min-width: 100px;
+    @include breakpoints-up(sm) {
+      padding: spacing(1, 2),
+    }
+    &.selected {
+      background: $palette-common-black;
+      color: $palette-common-white
+    }
+  }
+}
+
+.massonry {
+  columns: 3 300px;
+  column-gap: $spacing4
+}
+
+.item {
+  margin-bottom: $spacing4;
+  break-inside: avoid;
+  opacity: 1;
+  position: relative;
+  padding-top: 0;
+}
+
+.item-carousel {
+  position: relative;
+  @include breakpoints-down(sm) {
+    padding: spacing(0, 1)
+  }
+}

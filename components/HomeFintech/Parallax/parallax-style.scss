@@ -1,0 +1,133 @@
+.parallax-wrap {
+  position: absolute;
+  width: 100%;
+  height: 99%;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  @include breakpoints-down(md) {
+    display: none;
+  }
+}
+
+.inner-parallax {
+  height: 2500px;
+  width: 50%;
+  position: absolute;
+  display: block;
+  @include use-theme(opacity, 0.5, 1);
+  .figure {
+    height: 2500px;
+    width: 50%;
+    display: block;
+    position: absolute;
+    :deep(.Masthead), :deep(.Masthead__image) {
+      overflow: visible
+    }
+    img {
+      height: auto;
+      margin: 0;
+      display: block;
+    }
+  }
+  .figure > div {
+    height: 2500px;
+    width: 50%;
+    display: block;
+    position: absolute;
+    top: 0;
+  }
+}
+
+.obj {
+  position: relative
+}
+
+.small {
+  filter: blur(5px) drop-shadow(20px -25px 10px rgba(0, 0, 0, 0.3))
+}
+
+.left {
+  top: -270px;
+  left: -250px;
+  .big {
+    width: 400px;
+    left: -20px;
+    height: 400px;
+  }
+  .small {
+    width: 123px;
+    height: 160px;
+    top: -580px;
+    left: 200px;
+  }
+}
+
+.top {
+  top: 220px;
+  right: -400px;
+  .big {
+    width: 314px;
+    height: 314px;
+    left: 100px;
+  }
+  .small {
+    width: 123px;
+    height: 160px;
+    top: -570px;
+    left: 80px;
+  }
+}
+
+.bottom {
+  top: 800px;
+  left: -140px;
+  .big {
+    width: 400px;
+    left: -140px;
+    height: 400px;
+  }
+  .small {
+    width: 123px;
+    height: 160px;
+    top: -570px;
+    left: 160px;
+  }
+}
+
+.end {
+  top: -400px;
+  right: -410px;
+  .big {
+    width: 314px;
+    height: 314px;
+    left: 100px;
+  }
+  .small {
+    width: 123px;
+    height: 160px;
+    top: -940px;
+    left: 80px;
+  }
+}
+
+.start {
+  top: 170px;
+  left: -530px;
+  .big {
+    width: 300px;
+    top: -100px;
+    left: 350px;
+    height: 300px;
+    transform: rotate(-45deg);
+  }
+  .small {
+    width: 123px;
+    height: 160px;
+    top: -1060px;
+    left: 590px;
+    transform: rotate(-60deg);
+  }
+}
+
+

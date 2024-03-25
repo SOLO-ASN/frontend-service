@@ -1,0 +1,19 @@
+.main-feature {
+  position: relative;
+  display: block;
+  @include breakpoints-up(lg) {
+    padding-bottom: $spacing8
+  }
+}
+
+.card {
+  > a {
+    height: 400px;
+    @include breakpoints-down(lg) {
+      height: 350px;
+    }
+    @include breakpoints-down(sm) {
+      height: 220px
+    }
+  }
+}

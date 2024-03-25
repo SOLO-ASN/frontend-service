@@ -1,0 +1,66 @@
+.deco {
+  position: relative;
+  @include breakpoints-down(lg) {
+    display: none
+  }
+  img {
+    z-index: 5;
+    position: relative;
+    width: 100%
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+}
+
+.figure {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.inner {
+  height: 600px;
+  top: 0;
+  @include left(0);
+  width: 50%;
+  position: absolute;
+  display: block;
+}
+
+.primary-dark { background: $gradient-primary-dark }
+.primary-light { background: $gradient-primary-light }
+.secondary-dark { background: $gradient-secondary-dark }
+.secondary-light { background: $gradient-secondary-light }
+.accent { background: $gradient-accent }
+.double-light { background: $gradient-double-light }
+.double-main { background: $gradient-double-main }
+.double-dark { background: $gradient-double-dark }
+.triple-light { background: $gradient-triple-light }
+.triple-main { background: $gradient-triple-main }
+.triple-dark { background: $gradient-triple-dark }
+
+.fog {
+  filter: blur(60px);
+  width: 700px;
+  height: 600px;
+  opacity: 0.75;
+  display: block;
+  position: relative;
+  > div {
+    border-radius: 500px;
+    position: absolute;
+    transition: all 1.5s cubic-bezier(.11,.99,.81,1.13);
+  }
+}
+
+.fade {
+  opacity: 0.5;
+  .content {
+    z-index: 0;
+  }
+}

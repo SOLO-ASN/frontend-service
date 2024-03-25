@@ -1,0 +1,89 @@
+.root {
+  position: relative;
+  @include breakpoints-up(sm) {
+    padding: spacing(0, 5);
+  }
+  &:before {
+    content: "";
+    width: 250px;
+    height: 210px;
+    border-radius: 40px;
+    border: 1px solid $palette-primary-main;
+    transform: rotate(-6deg);
+    top: -15px;
+    @include left(12px);
+    position: absolute
+  }
+}
+
+.paper {
+  border-radius: 40px;
+  display: flex;
+  overflow: visible;
+  align-items: center;
+  position: relative;
+  border: 1px solid $palette-secondary-main;
+  padding: $spacing2;
+  @include breakpoints-down(sm) {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  i {
+    position: absolute;
+    font-size: 70px;
+    transform: scale(-1, -1)
+  }
+}
+
+.primary {
+  top: -50px;
+  @include left(-10px);
+  color: transparent;
+  background: linear-gradient(to bottom, $palette-primary-dark 20%, $palette-primary-main 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.secondary {
+  bottom: -40px;
+  @include right(-10px);
+  color: transparent;
+  background: linear-gradient(to bottom, $palette-secondary-main 20%, $palette-secondary-dark 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.avatar {
+  width: 180px;
+  height: 180px;
+  padding: 4px;
+  background: $gradient-triple-light;
+  @include breakpoints-down(sm) {
+    width: 100px;
+    height: 100px;
+  }
+  img {
+    border-radius: 50%
+  }
+}
+
+.content-quote {
+  @include breakpoints-up(sm) {
+    @include margin-left($spacing3)
+  }
+  @include breakpoints-down(sm) {
+    margin-top: $spacing3;
+  }
+  p {
+    font-size: 18px;
+    margin-bottom: $spacing3
+  }
+  h6 {
+    font-weight: $font-medium
+  }
+}
+
+.caption-title {
+  font-style: italic
+}

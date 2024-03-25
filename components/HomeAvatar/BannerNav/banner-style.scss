@@ -1,0 +1,138 @@
+.root {
+  display: block;
+  overflow: hidden;
+  @include breakpoints-down(lg) {
+    padding-top: $spacing10;
+    > .v-container {
+      padding: 0 !important
+    }
+  }
+}
+
+.cover {
+  position: absolute;
+  clip: rect(auto,auto, auto, auto);
+  top: 0;
+  @include left(0);
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.figure {
+  display: block;
+  width: 100%;
+  height: 100%;
+  .img {
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.banner {
+  position: relative;
+  color: $palette-common-white;
+  height: 490px;
+  border-radius: 80px;
+  overflow: hidden;
+  display: flex;
+  @include breakpoints-down(md) {
+    height: 420px;
+  }
+  @include breakpoints-down(sm) {
+    height: 400px;
+  }
+  @include breakpoints-up(sm) {
+    align-items: center;
+    padding: spacing(10, 3, 5);
+  }
+}
+
+.text {
+  max-width: 100%;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: $rounded-big;
+  padding: $spacing5;
+  backdrop-filter: saturate(180%) blur(10px);
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
+  @include breakpoints-up(sm) {
+    background: linear-gradient(120deg, rgba(var(--v-theme-primary, 0.3)), rgba(var(--v-theme-secondary), 0.3));
+  }
+  @include breakpoints-down(md) {
+    text-align: center;
+    margin: 0 auto;
+  }
+  @include breakpoints-down(ms) {
+    height: 100%;
+    padding: spacing(5, 0)
+  }
+  h4, h2, h5 {
+    margin-bottom: $spacing1
+  }
+  h5 {
+    @include padding-right(320px)
+  }
+}
+
+.socmed {
+  button {
+    margin: $spacing1;
+    color: $palette-primary-dark;
+    width: 36px;
+    height: 36px;
+    i {
+      color: rgba(255, 255, 255, 0.75)
+    }
+  }
+  i {
+    font-size: 24px
+  }
+}
+
+.setting-icon {
+  position: absolute;
+  top: $spacing15;
+  z-index: 10;
+  @include right($spacing10);
+  :deep(.v-icon) {
+    color: $palette-common-white !important
+  }
+}
+
+.mobile-menu {
+  @include margin-right($spacing1);
+  .bar {
+    @include use-theme(background-color, $light-text-secondary, $dark-text-secondary);
+    &:after, &:before {
+      @include use-theme(background-color, $light-text-secondary, $dark-text-secondary);
+    }
+  }
+}
+
+.mobile-nav {
+  width: 240px;
+  @include palette-background-default;
+  padding: spacing(10, 2, 4)
+}
+
+.menu-list {
+  text-transform: capitalize
+}
+
+.download {
+  color: $palette-common-white;
+  border-color: $palette-common-white;
+  font-size: 14px;
+  padding: spacing(0.5, 2);
+  margin-right: $spacing3;
+}

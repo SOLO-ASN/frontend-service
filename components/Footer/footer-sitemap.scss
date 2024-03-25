@@ -1,0 +1,115 @@
+.link {
+  margin: spacing(1, 1.5);
+}
+.title {
+  text-transform: capitalize;
+  font-weight: $font-medium;
+  font-size: 18px;
+  @include use-theme(color, $palette-primary-dark, $palette-primary-light);
+}
+.footer {
+  position: relative;
+  z-index: 11;
+  overflow: hidden;
+  .v-container {
+    position: relative;
+    z-index: 10
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      line-height: 32px;
+      a {
+        @include palette-text-secondary;
+        text-decoration: none;
+        &:hover {
+          color: $palette-primary-main
+        }
+      }
+    }
+  }
+  p {
+    @include breakpoints-down(md) {
+      text-align: center;
+    }
+  }
+  .text-body-2 {
+    @include palette-text-secondary;
+    margin-top: $spacing2
+  }
+}
+.logo {
+  text-align: center;
+  margin-top: $spacing1;
+  img {
+    width: 64px
+  }
+}
+.socmed {
+  display: flex;
+  justify-content: center;
+  .button {
+    margin: $spacing1;
+    @include use-theme(background-color, $light-divider, $dark-divider);
+  }
+  .icon {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+    @include margin-left(-2px);
+    @include use-theme(color, $palette-primary-dark, $palette-primary-light);
+  }
+}
+.select-lang {
+  margin: 0 auto;
+  margin-top: $spacing2;
+  width: 200px;
+  display: inherit;
+  z-index: 1;
+  position: relative;
+  @include use-theme(color, $palette-primary-dark, $palette-primary-light);
+  :deep(.v-field) {
+    @include palette-background-paper;
+  }
+}
+.site-map-item {
+  @include breakpoints-down('md') {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important
+  }
+}
+.accordion-root {
+  max-width: 480px;
+  margin: 0 auto;
+  :deep(.v-expansion-panel__shadow) {
+    background: none;
+    box-shadow: none;
+  }
+}
+
+.title-main {
+  font-size: 18px;
+  text-transform: capitalize;
+  margin-bottom: $spacing3;
+  font-weight: $font-bold;
+}
+
+#main-wrap .accordion-content.v-expansion-panel {
+  background-color: transparent;
+  &:before, &:after {
+    display: none
+  }
+}
+.accordion-icon {
+  padding: 0
+}
+.logo-area {
+  @include breakpoints-down(md) {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+  }
+}

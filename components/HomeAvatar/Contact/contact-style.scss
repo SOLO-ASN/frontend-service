@@ -1,0 +1,49 @@
+.form-wrap {
+  position: relative
+}
+.form-box {
+  padding: spacing(1, 4);
+  border-radius: 40px;
+  @include use-theme(background, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.6));
+  backdrop-filter: saturate(180%) blur(20px);
+  @include breakpoints-up(sm) {
+    padding: $spacing7
+  }
+}
+
+.title-main {
+  @include text-align(left);
+  span {
+    display: block;
+    color: $palette-primary-main
+  }
+  @include breakpoints-down(sm) {
+    top: $spacing3;
+    position: relative;
+  }
+}
+.input {
+  width: 100%;
+  margin-bottom: $spacing2;
+  :deep(.text-primary) {
+    @include use-theme(color, $palette-secondary-main !important, $palette-secondary-light !important)
+  }
+}
+
+.form {
+  @include text-align(left);
+  position: relative;
+}
+.btn-area {
+  display: flex;
+  justify-content: space-between;
+  margin: spacing(0, 0, 3);
+  @include breakpoints-up(sm) {
+    margin: spacing(1, 0, 0)
+  }
+  @include breakpoints-down(sm) {
+    .v-btn {
+      width: 100%
+    }
+  }
+}
