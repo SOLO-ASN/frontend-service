@@ -53,14 +53,14 @@ import { onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useDisplay } from 'vuetify';
 import MainHeader from '@/components/Header';
-import BannerSlider from '@/components/HomeAi/BannerSlider';
-import About from '@/components/HomeAi/About';
-import Feature from '@/components/HomeAi/Feature';
-import Research from '@/components/HomeAi/Research';
-import Step from '@/components/HomeAi/Step';
-import Community from '@/components/HomeAi/Community';
-import Faq from '@/components/HomeAi/Faq';
-import NewsEvent from '@/components/HomeAi/NewsEvent';
+import BannerSlider from '@/components/HomeAI/BannerSlider';
+import About from '@/components/HomeAI/About';
+import Feature from '@/components/HomeAI/Feature';
+import Research from '@/components/HomeAI/Research';
+import Step from '@/components/HomeAI/Step';
+import Community from '@/components/HomeAI/Community';
+import Faq from '@/components/HomeAI/Faq';
+import NewsEvent from '@/components/HomeAI/NewsEvent';
 import CallAction from '@/components/HomeAI/CallAction';
 import singleMenu from '@/components/Header/data/single';
 import FooterDeco from '@/components/Footer/Decoration/Liquid';
@@ -82,7 +82,7 @@ const i18nLocale = useI18n();
 
 const { mdAndDown: isTablet} = useDisplay();
 const { smAndDown: isMobile} = useDisplay();
-  
+
 const defaultLocale = '/' + i18nLocale.fallbackLocale.value;
 onMounted(() => {
   const rootUrl = document.location.pathname === '/' || document.location.pathname === defaultLocale;
