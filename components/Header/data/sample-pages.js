@@ -62,6 +62,10 @@ const sample = [
     thumb: imgAPI.ui[2],
     child: [
       {
+        name: 'Space',
+        link: link.space
+      },
+      {
         name: 'product',
         link: link.product
       },

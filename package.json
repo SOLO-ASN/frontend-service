@@ -24,6 +24,7 @@
     "@chenfengyuan/vue-countdown": "^2.1.2",
     "@mdi/font": "^7.2.96",
     "@splidejs/vue-splide": "^0.6.12",
+    "axios": "^1.6.8",
     "chart.js": "4.3.0",
     "rtl-sass": "^1.5.0",
     "three": "0.125.0",

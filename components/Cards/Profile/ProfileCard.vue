@@ -1,4 +1,11 @@
 <template>
+<a
+    v-ripple
+    draggable="false"
+    class="profile-card"
+    :class="[{ deco: withDeco }, bgcolor]"
+    :href="href"
+  >
   <v-card class="profile-card" :class="first ? 'first' : ''">
     <a v-ripple :href="href">&nbsp;</a>
     <div class="inner">
@@ -19,7 +26,7 @@
               <strong>
                 {{ items }}
                 &nbsp;
-                Items
+                Followers
               </strong>
             </p>
             <p>
@@ -27,7 +34,7 @@
               <strong>
                 {{ sales }}
                 &nbsp;
-                Sales
+                active campaigns
               </strong>
             </p>
           </div>
@@ -56,6 +63,16 @@
       </div>
     </div>
   </v-card>
+          <v-btn
+          @click.prevent="handleButtonClick"
+          block
+          class="button"
+          variant="outlined"
+          :color="currentTheme === 'dark' ? 'secondary' : 'primary'"
+        >
+          {{ $t('Follow') }}
+        </v-btn>
+  </a>
 </template>
 
 <style scoped lang="scss">
@@ -63,12 +80,20 @@
 </style>
 
 <script setup>
+
+
+const handleButton = () => {
+  handleButtonClick();
+};
+
+
 const {
-  number, name, verified,
+  handleButtonClick, number, name, verified,
   avatar, sales,
   change, volume, href,
   items, first,
 } = defineProps({
+  handleButtonClick: Function,
   number: {
     type: Number,
     default: null

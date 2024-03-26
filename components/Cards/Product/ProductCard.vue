@@ -1,6 +1,7 @@
 <template>
-  <v-card :class="[orientation, type]" class="product-card">
-    <a v-ripple :href="href" class="hidden-link">&nbsp;</a>
+<a v-ripple :href="href" class="product-card">
+  <v-card :class="[orientation, type]">
+
     <div class="head">
       <div class="avatar-group">
         <v-avatar
@@ -39,17 +40,18 @@
           </div>
         </div>
         <v-btn
-          :href="href"
+          @click.stop="handleButtonClick($event)"
           block
           class="button"
           variant="outlined"
           :color="currentTheme === 'dark' ? 'secondary' : 'primary'"
         >
-          {{ $t('btn_detail') }}
+          {{ $t('Follow') }}
         </v-btn>
       </div>
     </div>
   </v-card>
+  </a>
 </template>
 
 <style lang="scss" scoped>
@@ -59,6 +61,21 @@
 <script setup>
 import { useTheme } from 'vuetify';
 import imgAPI from '@/assets/images/imgAPI';
+import axios from 'axios';
+
+
+// 这个方法将在点击按钮时调用，而不是跳转页面
+const handleButtonClick = async (event) => {
+  event.preventDefault(); // 阻止链接默认行为，即使你移除了 href
+  // 实现 API 请求逻辑
+  try {
+    const response = await axios.get('/api/path-to-detail');
+    console.log(response.data);
+    // 根据返回数据执行后续操作，比如打开对话框显示详情
+  } catch (error) {
+    console.error('请求详情失败', error);
+  }
+};
 
 const avatars = [
   imgAPI.avatar[7],

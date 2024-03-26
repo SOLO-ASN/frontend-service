@@ -134,31 +134,7 @@
                     </v-col>
                   </template>
                 </v-row>
-                <v-row v-if="group === 'collection' || group === 'all'" id="collection" class="mt-sm-5 spacing4">
-                  <v-col
-                    v-for="(item, index) in collection"
-                    :key="index"
-                    sm="6"
-                    cols="12"
-                  >
-                    <playlist-card
-                      :img="item.img"
-                      :avatar="item.avatar"
-                      :logo="item.logo"
-                      :title="item.title"
-                      :name="item.name"
-                      :desc="item.desc"
-                      :count="item.count"
-                      :items="item.items"
-                      :color="item.color"
-                      :verified-user="item.verifiedUser"
-                      :verified-item="item.verifiedItem"
-                      :with-deco="item.withDeco"
-                      :href="item.href"
-                    />
-                  </v-col>
-                </v-row>
-                <v-row v-if="group === 'creators' || group === 'all'" id="profile" class="mt-sm-5 mt-xs-2 spacing3">
+                <v-row v-if="group === 'all'" id="profile" class="mt-sm-5 mt-xs-2 spacing3">
                   <v-col
                     v-for="(item, index) in creator"
                     :key="index"
@@ -374,6 +350,6 @@ const filteredItems = computed(() => {
 })
 
 useHead({
-  title: brand.name + ' - Products',
+  title: brand.name + ' - Space',
 });
 </script>

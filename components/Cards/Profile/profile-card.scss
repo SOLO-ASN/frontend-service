@@ -3,6 +3,7 @@
   border-radius: $rounded-big;
   box-shadow: none;
   overflow: hidden;
+
   a {
     position: absolute;
     text-decoration: none;
@@ -31,7 +32,7 @@
   align-items: center;
   padding: $spacing2;
   background: $palette-primary-dark;
-  @include bg-color-darken($palette-primary-dark, 0.25);
+  @include bg-color-darken($palette-primary-dark, 0.5);
   overflow: hidden;
   &:before {
     border-radius: $rounded-medium;
@@ -42,8 +43,8 @@
   margin: 0;
   background: $gradient-triple-light;
   padding: 2px;
-  width: 60px;;
-  height: 60px;
+  width: 70px;;
+  height: 70px;
   :deep(img) {
     border-radius: 50%;
     display: block;

@@ -10,6 +10,7 @@ const link = {
   login: '/login',
   register: '/register',
   contact: '/forms/contact',
+  space: '/collection/space',
   product: '/collection/products',
   productDetail: '/collection/product-detail',
   services: '/collection/services',
