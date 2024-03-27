@@ -26,6 +26,7 @@
     "@splidejs/vue-splide": "^0.6.12",
     "axios": "^1.6.8",
     "chart.js": "4.3.0",
+    "element-plus": "^2.6.2",
     "rtl-sass": "^1.5.0",
     "three": "0.125.0",
     "tsparticles": "^2.9.3",
@@ -43,6 +44,7 @@
     "vuetify": "^3.1.6"
   },
   "devDependencies": {
+    "@element-plus/nuxt": "^1.0.8",
     "@nuxtjs/i18n": "^8.0.0-rc.4",
     "@vue/eslint-config-airbnb": "^6.0.0",
     "animate.css": "^3.7.2",

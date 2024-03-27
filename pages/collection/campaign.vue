@@ -6,7 +6,6 @@
       <div class="inner-page">
         
           <detail />
-        
           <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'" class = "mx-15">
             <!-- 侧边栏 -->
             <v-col :cols="12" md="2" lg="2" class="sidebar">
@@ -47,12 +46,9 @@
               <gallery />
             </v-col>
           </v-row>
-       
       </div>
     </div>
-    <div id="footer" class="space-top-short">
-      <main-footer />
-    </div>
+
   </div>
 </template>
 

@@ -15,7 +15,7 @@
             cover
             :src="'/images/avatars/female4.png'"
             class="image-detail"
-            height="100px"
+            height="50px"
             width="200px"
           />
           <v-icon class="zoom-icon">
@@ -70,67 +70,19 @@
               {{ $t('+ follow') }}
             </v-btn>
           </span>
-          
-          The Lorem Ipsum Dolor
+            <v-row class="justify-start">
+              <div class="left-align">
+                <tag/>
+              </div>
+              <div class="left-align">
+                <readmore/>
+              </div>    
+              <div class="spacer"></div>
+              <div class="left-align">
+                <statistic/>
+              </div>
+            </v-row>
         </h4>
-        <div class="property">
-          <i class="ion-md-star" />
-          &nbsp;
-          4.5 &nbsp;&nbsp;
-          <i class="ion-md-contacts" />
-          &nbsp;
-          1.0K
-          <template v-if="isDesktop">Owners</template>
-          &nbsp; &nbsp;
-          <i class="ion-ios-apps" />
-          &nbsp;
-          17
-          <template v-if="isDesktop">Items</template>
-          &nbsp;&nbsp;
-          <i class="ion-md-eye" />
-          &nbsp;
-          168K
-          <template v-if="isDesktop">Views</template>
-          &nbsp;&nbsp;
-          <i class="ion-md-heart" />
-          &nbsp;
-          1.4K
-          <template v-if="isDesktop">Favorites</template>
-        </div>
-        <div class="counter-wrap">
-          <count-down
-            :miliseconds="30000000"
-            mini
-            :info="$t('list_sale_ends') + ' Nov 24, 2022 at 3:50 AM GMT+7'"
-          />
-        </div>
-        <section class="btn-area">
-          <div class="price">
-            <p>{{ $t('list_current_price') }}</p>
-            <h3 class="use-text-primary">
-              0.27 ETH
-              <span>$315.26</span>
-            </h3>
-          </div>
-          <v-btn
-            href="#"
-            class="button"
-            :variant="currentTheme === 'dark' ? 'tonal' : 'flat'"
-            :color="currentTheme === 'dark' ? 'secondarydark' : 'black'"
-            size="large"
-          >
-            {{ $t('list_cart') }}
-          </v-btn>
-          <v-btn
-            href="#"
-            variant="outlined"
-            size="large"
-            class="button"
-            :color="currentTheme === 'dark' ? 'white' : 'black'"
-          >
-            {{ $t('list_whislist') }}
-          </v-btn>
-        </section>
       </div>
     </v-col>
   </v-row>
@@ -138,6 +90,9 @@
 
 <style lang="scss" scoped>
 @import './product-style.scss';
+.column-with-margin {
+  margin-right: px;
+}
 </style>
 
 <script setup>
@@ -146,7 +101,9 @@ import { useDisplay, useTheme } from 'vuetify';
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import imgAPI from '@/assets/images/imgAPI';
 import CountDown from '../../Counter/CountDown';
-
+import Tag from '@/components/Branding/Tag/Tag';
+import Readmore from '@/components/Branding/Tag/readmore';
+import Statistic from '@/components/Branding/Tag/Statistic';
 const loaded = ref(false);
 const visible = ref(false);
 const index = ref(0);
