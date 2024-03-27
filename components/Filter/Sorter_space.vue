@@ -33,6 +33,17 @@
       class="pe-8 toggle"
       @update:model-value="(e) => switchView(e)"
     >
+   <v-btn
+    outlined
+    :color="isSelected ? 'blue' : 'grey'"
+    class="mx-2 my-2"
+    @click="toggleSelection"
+  >
+    <v-icon :color="isSelected ? 'blue' : 'grey'">
+      {{ isSelected ? 'mdi-check-circle' : 'mdi-checkbox-blank-circle-outline' }}
+    </v-icon>
+    <span :style="{ color: isSelected ? 'blue' : 'grey' }">Verified</span>
+  </v-btn>
     </v-btn-toggle>
     <h6 v-if="isTablet" class="use-text-subtitle2 total">
       Show {{ resultLength }} Results
@@ -79,7 +90,7 @@ const sortList = [
 
 const { smAndDown: isTablet } = useDisplay();
 const { xs: isMobile } = useDisplay();
-const emit = defineEmits(['switch-view', 'sort-by', 'open-filter']);
+const emit = defineEmits(['switch-view', 'sort-by', 'open-filter', 'update:isSelected']);
 
 function switchView(view) {
   emit('switch-view', view);
@@ -92,4 +103,11 @@ function handleSortBy(sortBySelected) {
 function handleOpenFilter() {
   emit('open-filter');
 }
+
+const isSelected = ref(false);
+function toggleSelection() {
+  isSelected.value = !isSelected.value;
+  emit('update:isSelected', isSelected.value); // 发射事件并传递isSelected的当前值
+}
+
 </script>

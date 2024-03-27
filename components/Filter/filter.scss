@@ -59,6 +59,14 @@
   }
 }
 
+.mx-2 {
+  display: flex;
+  align-items: center;
+  background-color: black; /* 设置背景为黑色 */
+  border-radius: 5px; /* 添加框框的弧度 */
+}
+
+
 .select {
   display: block;
   @include text-align(left);

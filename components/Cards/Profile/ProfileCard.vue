@@ -64,7 +64,7 @@
     </div>
   </v-card>
           <v-btn
-          @click.prevent="handleButtonClick"
+          @click.prevent="handleButtonClick(item)"
           block
           class="button"
           variant="outlined"
@@ -82,18 +82,12 @@
 <script setup>
 
 
-const handleButton = () => {
-  handleButtonClick();
-};
-
-
 const {
-  handleButtonClick, number, name, verified,
+  number, name, verified,
   avatar, sales,
   change, volume, href,
   items, first,
 } = defineProps({
-  handleButtonClick: Function,
   number: {
     type: Number,
     default: null

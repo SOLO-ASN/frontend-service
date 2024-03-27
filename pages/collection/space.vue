@@ -54,6 +54,7 @@
                   @switch-view="handleToggleView"
                   @sort-by="handleSortBy"
                   @open-filter="handleOpenFilter"
+                  @update:isSelected="handleVerifiedChange"
                 />
               </div>
             </v-col>
@@ -66,7 +67,7 @@
                   :value="group"
                   :total="filteredItems.length"
                 />
-                <v-row v-if="group === 'all'" id="profile" class="mt-sm-5 mt-xs-2 spacing3">
+                <v-row id="profile" class="mt-sm-5 mt-xs-2 spacing3">
                   <v-col v-if="cardItems.length < 1" sm="12">
                       <h3>Not found</h3>
                     </v-col>
@@ -83,28 +84,7 @@
                       :items="item.items"
                       :sales="item.sales"
                       :href="item.href"
-                      :handle-button-click="handleButtonClick"
-                    />
-                  </v-col>
-                </v-row>
-                <v-row v-if="group === 'following'" id="profile" class="mt-sm-5 mt-xs-2 spacing3">
-                  <v-col v-if="cardItems.length < 1" sm="12">
-                      <h3>Not found</h3>
-                    </v-col>
-                  <v-col
-                    v-for="(item, index) in cardItems"
-                    :key="index"
-                    sm="3"
-                    cols="12"
-                  >
-                    <profile-card
-                      :name="item.name"
-                      :verified="item.verified"
-                      :avatar="item.avatar"
-                      :items="item.items"
-                      :sales="item.sales"
-                      :href="item.href"
-                      :handle-button-click="handleButtonClick"
+                      @click="handleButtonClick(item)"
                     />
                   </v-col>
                 </v-row>
@@ -155,32 +135,6 @@ const checkItems = [
   'check-f',
 ];
 
-const keyword = ref('');
-const onInput = async() => {
-  keyword.value = event.target.value;
-  try {
-    // 发送搜索请求，传递 keyword 作为参数
-    const response = await axios.get('/api/search', {
-      params: { keyword: keyword.value }
-    });
-    // 假设后端返回的是一个包含搜索结果的数组
-    cardItems.value = response.data;
-  } catch (error) {
-    console.error('搜索请求失败', error);
-  }
-};
-
-
-const handleButtonClick = async () => {
-
-  try {
-    const response = await axios.get('/api/path-to-detail');
-    console.log(response.data);
-    // 根据返回数据执行后续操作，比如打开对话框显示详情
-  } catch (error) {
-    console.error('请求详情失败', error);
-  }
-};
 
 const dialog = ref(false);
 const sortBy = ref('Trening')
@@ -192,6 +146,8 @@ const filterCategory = ref('all');
 const filterRadio = ref('all');
 const filterCheck = ref(checkItems);
 const group = ref('all');
+const verified = ref(false);
+const keyword = ref('');
 
 const { mdAndUp: isDesktop } = useDisplay();
 
@@ -224,40 +180,22 @@ function handleToggleView(val) {
   toggleView.value = val;
 }
 
-const handleSortBy = async (e) =>  {
+function handleSortBy(e) {
   sortBy.value = e.value;
-  try {
-    // 发送请求到后端，传递用户选择的排序方式
-    const response = await axios.get('/api/sort', {
-      params: { sort: e.value }
-    });
-    // 存储返回的排序后的数据
-    cardItems.value = response.data;
-  } catch (error) {
-    console.error('排序请求失败', error);
-  }
-
 }
   
-const handleChangeGroup = async (cat) =>   {
+function handleChangeGroup(cat) {
   group.value = cat;
-  if (cat === 'following') {
-    cardItems.value = [];
-  }
-  else{
-    cardItems.value = creator;
-  }
-   try {
-    // 发送请求到后端，传递用户选择的排序方式
-    const response = await axios.get('/api/filter/', {
-      params: { filter: cat }
-    });
-    // 存储返回的排序后的数据
-    cardItems.value = response.data;
-  } catch (error) {
-    console.error('排序请求失败', error);
-  }
 }
+
+function handleVerifiedChange(newValue) {
+  verified.value = newValue;
+}
+
+function onInput() {
+  keyword.value = event.target.value;
+};
+
 
 const filteredItems = computed(() => {
   // Compare same tag
@@ -270,6 +208,15 @@ const filteredItems = computed(() => {
     }
     return true;
   };
+  cardItems.value = creator;
+  // 是否verify
+  if(verified.value==true){
+    cardItems.value = cardItems.value.filter(item => item.verified ===true);
+  }
+  if (group.value === 'following') {
+    cardItems.value = [];
+  }
+
   // 根据不同的排序方式对 cardItems 进行排序
   if (sortBy.value === 'newest-asc') {
     cardItems.value.sort((a, b) => {
@@ -280,8 +227,43 @@ const filteredItems = computed(() => {
   } else if (sortBy.value === 'follow-asc') {
     cardItems.value.sort((a, b) => b.items - a.items);
   }
+
   return cardItems.value
 })
+
+async function handleButtonClick(item) {
+  console.info(item.items);
+  try {
+    const response = await axios.get('/api/follow', {
+      params: {
+        id: item.items,
+      },
+    });
+    console.log(response.data);
+    // 根据返回数据执行后续操作，比如打开对话框显示详情
+  } catch (error) {
+    console.error('请求详情失败', error);
+  }
+};
+
+async function fetchData() {
+  try {
+    const response = await axios.get('/api/filter', {
+      params: {
+        sort: sortBy.value,
+        filter: group.value,
+        verified: verified.value,
+        keyword: keyword.value,
+      },
+    });
+    cardItems.value = response.data; // 更新数据
+  } catch (error) {
+    console.error('请求失败', error);
+  }
+}
+
+watch([sortBy, group, verified, keyword], fetchData);
+
 
 useHead({
   title: brand.name + ' - Space',

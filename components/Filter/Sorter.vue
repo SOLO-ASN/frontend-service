@@ -33,6 +33,12 @@
       class="pe-8 toggle"
       @update:model-value="(e) => switchView(e)"
     >
+    <v-btn>
+        <v-icon>mdi-view-grid</v-icon>
+      </v-btn>
+      <v-btn>
+        <v-icon>mdi-format-list-bulleted</v-icon>
+      </v-btn>
     </v-btn-toggle>
     <h6 v-if="isTablet" class="use-text-subtitle2 total">
       Show {{ resultLength }} Results
