@@ -74,6 +74,10 @@ const sample = [
         link: link.productDetail
       },
       {
+        name: 'Campaign',
+        link: link.productDetailSpace
+      },
+      {
         name: 'services',
         link: link.services
       },

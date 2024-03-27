@@ -45,7 +45,7 @@
             <v-col md="8" sm="12" class="px-0" cols="12">
               <search v-model="keyword" @input="onInput" />
             </v-col>
-            <v-col md="4" sm="12" class="px-0" cols="12">
+            <v-col md="2" sm="6" class="px-0">
               <div class="ps-md-3">
                 <sorter
                   :view="toggleView"
@@ -54,8 +54,13 @@
                   @switch-view="handleToggleView"
                   @sort-by="handleSortBy"
                   @open-filter="handleOpenFilter"
-                  @update:isSelected="handleVerifiedChange"
                 />
+              </div>
+              
+            </v-col>
+            <v-col md="2" sm="12" class="px-0">
+              <div class="ps-md-4">
+                <claim-button @update:isSelected="handleVerifiedChange"/>
               </div>
             </v-col>
           </v-row>
@@ -114,10 +119,11 @@ import MainFooter from '@/components/Footer';
 import Hidden from '@/components/Utils/Hidden';
 import CardProducts from '@/components/Cards/Product/ProductCard';
 import PlaylistCard from '@/components/Cards/Media/PlaylistCard';
-import ProfileCard from '@/components/Cards/Profile/ProfileCard';
+import ProfileCard from '@/components/Cards/Profile/ProfileCard_space';
 import Search from '@/components/Filter/Search';
 import TabCategory from '@/components/Filter/TabCategory_space';
 import Sorter from '@/components/Filter/Sorter_space';
+import ClaimButton from '@/components/Filter/ClaimButton.vue';
 import brand from '@/assets/text/brand';
 import link from '@/assets/text/link';
 import collection from '@/assets/api/collection';

@@ -32,7 +32,7 @@ const rankData = [
     items: 1250,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 21:17"
   },
   {
@@ -43,7 +43,7 @@ const rankData = [
     items: 1024,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 21:18"
   },
   {
@@ -54,7 +54,7 @@ const rankData = [
     items: 145,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 21:10"
   },
   {
@@ -65,7 +65,7 @@ const rankData = [
     items: 112,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 20:18"
   },
   {
@@ -76,7 +76,7 @@ const rankData = [
     items: 50,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-16 21:15"
   },
   {
@@ -87,7 +87,7 @@ const rankData = [
     items: 104,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 21:18"
   },
   {
@@ -98,7 +98,7 @@ const rankData = [
     items: 1254,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 21:14"
   },
   {
@@ -109,7 +109,7 @@ const rankData = [
     items: 5,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 21:13"
   },
   {
@@ -120,7 +120,7 @@ const rankData = [
     items: 450,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 21:12"
   },
   {
@@ -131,7 +131,7 @@ const rankData = [
     items: 21,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 21:18"
   },
   {
@@ -142,7 +142,7 @@ const rankData = [
     items: 13,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-11 21:18"
   },
   {
@@ -153,7 +153,7 @@ const rankData = [
     items: 17,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 21:58"
   },
   {
@@ -164,7 +164,7 @@ const rankData = [
     items: 14,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 11:18"
   },
   {
@@ -175,7 +175,7 @@ const rankData = [
     items: 12,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 22:18"
   },
   
