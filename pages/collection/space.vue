@@ -84,7 +84,7 @@
                       :items="item.items"
                       :sales="item.sales"
                       :href="item.href"
-                      @click="handleButtonClick(item)"
+                      @follow-click="handleFollowClick"
                     />
                   </v-col>
                 </v-row>
@@ -135,6 +135,22 @@ const checkItems = [
   'check-f',
 ];
 
+
+
+const handleFollowClick = async (items) => {
+
+  try {
+    const response = await axios.get('/api/follow', {
+      params: {
+        id: items
+        },
+    });
+    console.log(response.data);
+    // 根据返回数据执行后续操作，比如打开对话框显示详情
+  } catch (error) {
+    console.error('请求详情失败', error);
+  }
+};
 
 const dialog = ref(false);
 const sortBy = ref('Trening')
@@ -231,24 +247,9 @@ const filteredItems = computed(() => {
   return cardItems.value
 })
 
-async function handleButtonClick(item) {
-  console.info(item.items);
-  try {
-    const response = await axios.get('/api/follow', {
-      params: {
-        id: item.items,
-      },
-    });
-    console.log(response.data);
-    // 根据返回数据执行后续操作，比如打开对话框显示详情
-  } catch (error) {
-    console.error('请求详情失败', error);
-  }
-};
-
 async function fetchData() {
   try {
-    const response = await axios.get('/api/filter', {
+    const response = await axios.get('/api/filter/', {
       params: {
         sort: sortBy.value,
         filter: group.value,

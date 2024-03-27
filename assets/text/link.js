@@ -13,6 +13,7 @@ const link = {
   space: '/collection/space',
   product: '/collection/products',
   productDetail: '/collection/product-detail',
+  productDetailSpace: '/collection/product-detail_space',
   services: '/collection/services',
   serviceDetail: '/collection/service-detail',
   portfolio: '/collection/portfolio',

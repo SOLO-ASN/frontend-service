@@ -34,7 +34,7 @@
               <strong>
                 {{ sales }}
                 &nbsp;
-                active campaigns
+                active campagines
               </strong>
             </p>
           </div>
@@ -64,7 +64,7 @@
     </div>
   </v-card>
           <v-btn
-          @click.prevent="handleButtonClick(item)"
+          @click.prevent="onButtonClick"
           block
           class="button"
           variant="outlined"
@@ -80,6 +80,11 @@
 </style>
 
 <script setup>
+
+const emit = defineEmits(['follow-click']);
+const onButtonClick = () => {
+  emit('follow-click', items); // 通知父组件，传递id
+};
 
 
 const {

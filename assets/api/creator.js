@@ -10,7 +10,7 @@ const rankData = [
     items: 10,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 21:15"
   },
   {
@@ -21,7 +21,7 @@ const rankData = [
     items: 10,
     volume: 1040,
     change: 40,
-    href: link.productDetail,
+    href: link.productDetailSpace,
     time: "2024-03-26 21:16"
   },
   {
