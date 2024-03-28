@@ -13,7 +13,7 @@
           <v-img
             v-ripple
             cover
-            :src="'/images/avatars/female4.png'"
+            :src="'https://q6.itc.cn/images01/20240301/8704649e11524f1d9b77691f9ac04b78.jpeg'"
             class="image-detail"
             height="50px"
             width="200px"
@@ -78,8 +78,8 @@
                 <readmore/>
               </div>    
               <div class="spacer"></div>
-              <div class="left-align">
-                <statistic/>
+              <div class="left-align" >
+                <statistic class="statistic1" />
               </div>
             </v-row>
         </h4>
@@ -92,6 +92,9 @@
 @import './product-style.scss';
 .column-with-margin {
   margin-right: px;
+}
+.left-align {
+  padding-top: 1rem;
 }
 </style>
 

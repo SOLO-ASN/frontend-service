@@ -1,0 +1,1038 @@
+
+
+//Spaces page
+//  request请求
+POST https://graphigo.prd.galaxy.eco/query
+body：{
+    "operationName":"Spaces",
+    "variables":
+    {
+        "input":{
+            "searchString":"fdsa",
+            "first":100,
+            "after":"199",
+            "spaceListType":"Newest",
+            "verifiedOnly":false
+        }
+            },
+            "query":"query Spaces($input: ListSpaceInput!) {\n  spaces(input: $input) {\n    totalCount\n    pageInfo {\n      endCursor\n      hasNextPage\n      __typename\n    }\n    list {\n      ...SpaceBasicFrag\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment SpaceBasicFrag on Space {\n  id\n  name\n  info\n  thumbnail\n  tgeInfo {\n    status\n    TgeTime\n    __typename\n  }\n  token\n  alias\n  links\n  isVerified\n  status\n  followersCount\n  activeCampaignCount\n  __typename\n}\n"
+        }
+// response
+{
+    "data": {
+        "spaces": {
+            "totalCount": 5006,
+            "pageInfo": {
+                "endCursor": "99",
+                "hasNextPage": true,
+                "__typename": "PageInfo"
+            },
+            "list": [
+                {
+                    "id": "28",
+                    "name": "Galxe",
+                    "info": "Galxe is the leading platform for building Web3 community. With over 11 million unique users, Galxe has propelled the growth of Optimism, Polygon, Arbitrum, and more than 2900 partners with reward-based loyalty programs.",
+                    "thumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+                    "tgeInfo": {
+                        "status": "TokenReleased",
+                        "TgeTime": 0,
+                        "__typename": "TgeInfo"
+                    },
+                    "token": "{\"id\":11877,\"symbol\":\"GAL\",\"slug\":\"galxe\"}",
+                    "alias": "Galxe",
+                    "links": "{\"Discord\":\"https://discord.gg/galxe\",\"Github\":\"https://github.com/GalxeHQ\",\"HomePage\":\"galxe.com\",\"Instagram\":\"https://www.instagram.com/galxehq\",\"Medium\":\"https://blog.galxe.com/\",\"Telegram\":\"t.me/Galxe\",\"TikTok\":\"https://www.tiktok.com/@galxehq\",\"Twitter\":\"https://twitter.com/Galxe\",\"YouTube\":\"https://www.youtube.com/@GalxeHQ\"}",
+                    "isVerified": true,
+                    "status": "Standard",
+                    "followersCount": 307977,
+                    "activeCampaignCount": 37,
+                    "__typename": "Space"
+                },
+                {
+                    "id": "994",
+                    "name": "Moso",
+                    "info": "Moso is an online shopping assistant that enables users to earn cashback in their preferred cryptocurrency.",
+                    "thumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
+                    "tgeInfo": {
+                        "status": "TokenReleased",
+                        "TgeTime": 0,
+                        "__typename": "TgeInfo"
+                    },
+                    "token": "{\"id\":3408,\"symbol\":\"USDC\",\"slug\":\"usd-coin\"}",
+                    "alias": "Moso",
+                    "links": "{\"Discord\":\"https://discord.com/invite/moso\",\"HomePage\":\"https://moso.xyz/?utm_source=Galxe\\u0026utm_medium=MosoSpace\\u0026utm_campaign=MainLink\",\"Medium\":\"blog.moso.xyz\",\"Twitter\":\"https://twitter.com/ShopMoso\"}",
+                    "isVerified": true,
+                    "status": "Standard",
+                    "followersCount": 45901,
+                    "activeCampaignCount": 29,
+                    "__typename": "Space"
+                }
+            ]
+        }
+    }
+}
+
+//Space page
+// 在Home页面会发起三个query请求  分别是SpacesInAddressInfo、SpaceCampaignsMetricQuery、BrowseSpaceCampaignsQuery
+
+
+// SpaceInAddressInfo
+POST: https://graphigo.prd.galaxy.eco/query
+body:{
+    "operationName":"SpacesInAddressInfo",
+    "variables":{
+        "address":"",
+        "listSpaceInput":{"first":30}
+        },
+    "query":"query SpacesInAddressInfo($address: String!, $listSpaceInput: ListSpaceInput!) {\n  addressInfo(address: $address) {\n    id\n    spaces(input: $listSpaceInput) {\n      list {\n        ...SpaceBasicFrag\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment SpaceBasicFrag on Space {\n  id\n  name\n  info\n  thumbnail\n  tgeInfo {\n    status\n    TgeTime\n    __typename\n  }\n  token\n  alias\n  links\n  isVerified\n  status\n  followersCount\n  activeCampaignCount\n  __typename\n}\n"
+}
+response
+{
+    "data": {
+        "addressInfo": {
+            "id": "",
+            "spaces": {
+                "list": [],
+                "__typename": "SpaceConnection"
+            },
+            "__typename": "Address"
+        }
+    }
+}
+
+// SpaceCampaignsMetricQuery
+POST: https://graphigo.prd.galaxy.eco/query
+body:{
+    "operationName":"SpaceCampaignsMetricQuery",
+    "variables":{
+        "alias":"Galxe",
+        "address":"",
+        "campaignInput":{
+            "first":25,
+            "forAdmin":false,
+            "after":"-1"
+            }
+    },
+    "query":"query SpaceCampaignsMetricQuery($id: Int, $alias: String, $address: String!, $campaignInput: ListCampaignInput!) {\n  space(id: $id, alias: $alias) {\n    id\n    campaigns(input: $campaignInput) {\n      list {\n        nftCore {\n          id\n          __typename\n        }\n        ...SpaceCampaignBasic\n        info\n        referralCode(address: $address)\n        metrics\n        childrenCampaigns {\n          nftCore {\n            id\n            __typename\n          }\n          ...SpaceCampaignBasic\n          info\n          metrics\n          gamification {\n            id\n            type\n            __typename\n          }\n          __typename\n        }\n        gamification {\n          id\n          type\n          __typename\n        }\n        __typename\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n        __typename\n      }\n      totalCount\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment SpaceBasic on Space {\n  id\n  name\n  thumbnail\n  alias\n  isVerified\n  info\n  tgeInfo {\n    status\n    TgeTime\n    __typename\n  }\n  links\n  status\n  followersCount\n  followersRank\n  backers\n  categories\n  token\n  discordGuildID\n  discordGuildInfo\n  banner\n  seoImage\n  __typename\n}\n\nfragment SpaceCampaignBasic on Campaign {\n  id\n  name\n  description\n  thumbnail\n  startTime\n  endTime\n  status\n  formula\n  cap\n  gasType\n  isPrivate\n  type\n  loyaltyPoints\n  tokenRewardContract {\n    id\n    address\n    chain\n    __typename\n  }\n  tokenReward {\n    userTokenAmount\n    tokenAddress\n    depositedTokenAmount\n    tokenRewardId\n    tokenDecimal\n    tokenLogo\n    tokenSymbol\n    __typename\n  }\n  numberID\n  chain\n  rewardName\n  ...SpaceCampaignMedia\n  space {\n    ...SpaceBasic\n    __typename\n  }\n  credentialGroups(address: $address) {\n    ...CredentialGroupForAddress\n    __typename\n  }\n  rewardInfo {\n    discordRole {\n      guildId\n      guildName\n      roleId\n      roleName\n      inviteLink\n      __typename\n    }\n    premint {\n      startTime\n      endTime\n      chain\n      price\n      totalSupply\n      contractAddress\n      banner\n      __typename\n    }\n    __typename\n  }\n  participants {\n    participantsCount\n    bountyWinnersCount\n    __typename\n  }\n  recurringType\n  latestRecurringTime\n  ...WhitelistInfoFrag\n  creds {\n    ...CredForAddress\n    __typename\n  }\n  taskConfig(address: $address) {\n    participateCondition {\n      conditions {\n        ...ExpressionEntity\n        __typename\n      }\n      conditionalFormula\n      eligible\n      __typename\n    }\n    rewardConfigs {\n      conditions {\n        ...ExpressionEntity\n        __typename\n      }\n      conditionalFormula\n      eligible\n      rewards {\n        arithmeticFormula\n        rewardType\n        rewardCount\n        rewardVal\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment SpaceCampaignMedia on Campaign {\n  thumbnail\n  gamification {\n    id\n    type\n    __typename\n  }\n  __typename\n}\n\nfragment CredentialGroupForAddress on CredentialGroup {\n  id\n  description\n  credentials {\n    ...CredForAddressWithoutMetadata\n    __typename\n  }\n  conditionRelation\n  conditions {\n    expression\n    eligible\n    ...CredentialGroupConditionForVerifyButton\n    __typename\n  }\n  rewards {\n    expression\n    eligible\n    rewardCount\n    rewardType\n    __typename\n  }\n  rewardAttrVals {\n    attrName\n    attrTitle\n    attrVal\n    __typename\n  }\n  claimedLoyaltyPoints\n  __typename\n}\n\nfragment CredForAddressWithoutMetadata on Cred {\n  id\n  name\n  type\n  credType\n  credSource\n  referenceLink\n  description\n  lastUpdate\n  lastSync\n  syncStatus\n  credContractNFTHolder {\n    timestamp\n    __typename\n  }\n  chain\n  eligible(address: $address)\n  subgraph {\n    endpoint\n    query\n    expression\n    __typename\n  }\n  dimensionConfig\n  value {\n    gitcoinPassport {\n      score\n      lastScoreTimestamp\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment CredentialGroupConditionForVerifyButton on CredentialGroupCondition {\n  expression\n  eligibleAddress\n  __typename\n}\n\nfragment WhitelistInfoFrag on Campaign {\n  id\n  whitelistInfo(address: $address) {\n    address\n    maxCount\n    usedCount\n    claimedLoyaltyPoints\n    currentPeriodClaimedLoyaltyPoints\n    currentPeriodMaxLoyaltyPoints\n    __typename\n  }\n  __typename\n}\n\nfragment ExpressionEntity on ExprEntity {\n  cred {\n    id\n    name\n    type\n    credType\n    credSource\n    dimensionConfig\n    referenceLink\n    description\n    lastUpdate\n    lastSync\n    chain\n    eligible(address: $address)\n    metadata {\n      visitLink {\n        link\n        __typename\n      }\n      twitter {\n        isAuthentic\n        __typename\n      }\n      worldcoin {\n        dimensions {\n          values {\n            value\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    commonInfo {\n      participateEndTime\n      modificationInfo\n      __typename\n    }\n    __typename\n  }\n  attrs {\n    attrName\n    operatorSymbol\n    targetValue\n    __typename\n  }\n  attrFormula\n  eligible\n  eligibleAddress\n  __typename\n}\n\nfragment CredForAddress on Cred {\n  ...CredForAddressWithoutMetadata\n  metadata {\n    ...CredMetaData\n    __typename\n  }\n  dimensionConfig\n  value {\n    gitcoinPassport {\n      score\n      lastScoreTimestamp\n      __typename\n    }\n    __typename\n  }\n  commonInfo {\n    participateEndTime\n    modificationInfo\n    __typename\n  }\n  __typename\n}\n\nfragment CredMetaData on CredMetadata {\n  visitLink {\n    link\n    __typename\n  }\n  social {\n    socialAccountType\n    socialValueType\n    dimensions {\n      id\n      type\n      title\n      description\n      config\n      values {\n        name\n        type\n        value\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  gitcoinPassport {\n    score {\n      title\n      type\n      description\n      config\n      __typename\n    }\n    lastScoreTimestamp {\n      title\n      type\n      description\n      config\n      __typename\n    }\n    __typename\n  }\n  campaignReferral {\n    count {\n      title\n      type\n      description\n      config\n      __typename\n    }\n    __typename\n  }\n  galxeScore {\n    dimensions {\n      id\n      type\n      title\n      description\n      config\n      values {\n        name\n        type\n        value\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  twitter {\n    twitterID\n    campaignID\n    isAuthentic\n    __typename\n  }\n  restApi {\n    url\n    method\n    headers {\n      key\n      value\n      __typename\n    }\n    postBody\n    expression\n    __typename\n  }\n  walletBalance {\n    contractAddress\n    snapshotTimestamp\n    chain\n    balance {\n      type\n      title\n      description\n      config\n      __typename\n    }\n    LastSyncBlock\n    LastSyncTimestamp\n    __typename\n  }\n  lensProfileFollow {\n    handle\n    __typename\n  }\n  graphql {\n    url\n    query\n    expression\n    __typename\n  }\n  lensPostUpvote {\n    postId\n    __typename\n  }\n  lensPostMirror {\n    postId\n    __typename\n  }\n  multiDimensionRest {\n    url\n    method\n    headers {\n      key\n      value\n      __typename\n    }\n    postBody\n    expression\n    dimensions {\n      id\n      type\n      title\n      description\n      config\n      __typename\n    }\n    __typename\n  }\n  nftHolder {\n    contractNftHolder {\n      chain\n      contract\n      timestamp\n      __typename\n    }\n    campaignNftHolder {\n      campaignId\n      timestamp\n      __typename\n    }\n    dynamicCampaignNftHolder {\n      campaign {\n        id\n        __typename\n      }\n      __typename\n    }\n    dynamicContractNftHolder {\n      chain\n      contract\n      __typename\n    }\n    __typename\n  }\n  discord {\n    discordAma {\n      guildId\n      channelId\n      startTime\n      endTime\n      eligibleDuration\n      __typename\n    }\n    discordMember {\n      guildId\n      roles {\n        RoleId\n        RoleName\n        __typename\n      }\n      __typename\n    }\n    discordMessage {\n      guildName\n      channelId\n      guildId\n      channelName\n      daysCount\n      __typename\n    }\n    __typename\n  }\n  multiDimensionGraphql {\n    url\n    query\n    expression\n    dimensions {\n      id\n      type\n      title\n      description\n      config\n      __typename\n    }\n    __typename\n  }\n  contractQuery {\n    url\n    chainName\n    abi\n    method\n    headers {\n      key\n      value\n      __typename\n    }\n    contractMethod\n    contractAddress\n    block\n    inputData\n    inputs {\n      name\n      type\n      value\n      __typename\n    }\n    dimensions {\n      id\n      type\n      config\n      description\n      title\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n"
+}
+
+response
+{
+    "data": {
+        "space": {
+            "id": "28",
+            "campaigns": {
+                "list": [
+                    {
+                        "nftCore": {
+                            "id": "315",
+                            "__typename": "NFTCore"
+                        },
+                        "id": "GCK5JUUjFn",
+                        "name": "Project Galaxy Meme Contest #1 Winner",
+                        "description": "This badge is to symbolize the winners of the first official Project Galaxy Meme contest held May 1st - May 7th in our Discord and on Twitter \n\n",
+                        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
+                        "startTime": 1653584400,
+                        "endTime": 1656262800,
+                        "status": "Expired",
+                        "formula": "",
+                        "cap": 0,
+                        "gasType": "Gasless",
+                        "isPrivate": false,
+                        "type": "Oat",
+                        "loyaltyPoints": 0,
+                        "tokenRewardContract": null,
+                        "tokenReward": {
+                            "userTokenAmount": "",
+                            "tokenAddress": "",
+                            "depositedTokenAmount": "",
+                            "tokenRewardId": 0,
+                            "tokenDecimal": "",
+                            "tokenLogo": "",
+                            "tokenSymbol": "",
+                            "__typename": "TokenReward"
+                        },
+                        "numberID": 3321,
+                        "chain": "MATIC",
+                        "rewardName": "",
+                        "gamification": {
+                            "id": "GCK5JUUjFn",
+                            "type": "Oat",
+                            "__typename": "Gamification"
+                        },
+                        "__typename": "Campaign",
+                        "space": {
+                            "id": "28",
+                            "name": "Galxe",
+                            "thumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+                            "alias": "Galxe",
+                            "isVerified": true,
+                            "info": "Galxe is the leading platform for building Web3 community. With over 11 million unique users, Galxe has propelled the growth of Optimism, Polygon, Arbitrum, and more than 2900 partners with reward-based loyalty programs.",
+                            "tgeInfo": {
+                                "status": "TokenReleased",
+                                "TgeTime": 0,
+                                "__typename": "TgeInfo"
+                            },
+                            "links": "{\"Discord\":\"https://discord.gg/galxe\",\"Github\":\"https://github.com/GalxeHQ\",\"HomePage\":\"galxe.com\",\"Instagram\":\"https://www.instagram.com/galxehq\",\"Medium\":\"https://blog.galxe.com/\",\"Telegram\":\"t.me/Galxe\",\"TikTok\":\"https://www.tiktok.com/@galxehq\",\"Twitter\":\"https://twitter.com/Galxe\",\"YouTube\":\"https://www.youtube.com/@GalxeHQ\"}",
+                            "status": "Standard",
+                            "followersCount": 307987,
+                            "followersRank": "17",
+                            "backers": "[{\"name\":\"multicoincap\",\"icon\":\"https://pbs.twimg.com/profile_images/1532419804031852546/KMJZNS9c_normal.jpg\"},{\"name\":\"dragonfly_xyz\",\"icon\":\"https://pbs.twimg.com/profile_images/1559161186658271232/yRlWnnm8_normal.jpg\"},{\"name\":\"thespartangroup\",\"icon\":\"https://pbs.twimg.com/profile_images/1057198687749726210/nP7ffwjE_normal.jpg\"},{\"name\":\"sky9capital\",\"icon\":\"https://pbs.twimg.com/profile_images/1536197382794510336/Ca_FrdRS_normal.jpg\"},{\"name\":\"cbventures\",\"icon\":\"https://pbs.twimg.com/profile_images/1587092099245146116/0asZR9DU_normal.jpg\"},{\"name\":\"BNBCHAIN\",\"icon\":\"https://pbs.twimg.com/profile_images/1565354861616832513/ovh5FyDN_normal.png\"},{\"name\":\"csquaredvc\",\"icon\":\"https://pbs.twimg.com/profile_images/1558004755271626753/H6_8clEE_normal.jpg\"},{\"name\":\"lattice_fund\",\"icon\":\"https://pbs.twimg.com/profile_images/1549804844818411525/kaqU_9Ni_normal.png\"},{\"name\":\"foliusventures\",\"icon\":\"https://pbs.twimg.com/profile_images/1383522899374399496/Bf1rJKgP_normal.jpg\"}]",
+                            "categories": [
+                                "NFT",
+                                "Web3",
+                                "DID",
+                                "Social",
+                                "Infrastructure"
+                            ],
+                            "token": "{\"id\":11877,\"symbol\":\"GAL\",\"slug\":\"galxe\"}",
+                            "discordGuildID": "824767871183355954",
+                            "discordGuildInfo": "{\"icon\":\"2ceb66a1bd12e0afbd90abb4f0b6bac8\",\"id\":\"824767871183355954\",\"link\":\"https://discord.gg/galxe\",\"name\":\"Galxe\"}",
+                            "banner": "",
+                            "seoImage": "",
+                            "__typename": "Space"
+                        },
+                        "credentialGroups": [
+                            {
+                                "id": "33210000",
+                                "description": "",
+                                "credentials": [
+                                    {
+                                        "id": "2335",
+                                        "name": "Project Galaxy Meme contest #1 Winners ",
+                                        "type": "EVM_ADDRESS",
+                                        "credType": "EVM_ADDRESS",
+                                        "credSource": "CSV",
+                                        "referenceLink": "https://twitter.com/ProjectGalaxyHQ/status/1520732223506612224",
+                                        "description": "The winners of the first official Project Galaxy Meme contest held May 1st - May 7th in our Discord and on Twitter #Galmemecontest \n",
+                                        "lastUpdate": 1655427396,
+                                        "lastSync": 1655427396,
+                                        "syncStatus": "SYNCED",
+                                        "credContractNFTHolder": null,
+                                        "chain": "ETHEREUM",
+                                        "eligible": 0,
+                                        "subgraph": null,
+                                        "dimensionConfig": "SINGLE_DIMENSION",
+                                        "value": null,
+                                        "__typename": "Cred"
+                                    }
+                                ],
+                                "conditionRelation": "ALL",
+                                "conditions": [
+                                    {
+                                        "expression": "C_2335",
+                                        "eligible": false,
+                                        "eligibleAddress": null,
+                                        "__typename": "CredentialGroupCondition"
+                                    }
+                                ],
+                                "rewards": [
+                                    {
+                                        "expression": "1",
+                                        "eligible": false,
+                                        "rewardCount": 0,
+                                        "rewardType": "OAT",
+                                        "__typename": "CredentialGroupReward"
+                                    }
+                                ],
+                                "rewardAttrVals": null,
+                                "claimedLoyaltyPoints": 0,
+                                "__typename": "CredentialGroup"
+                            }
+                        ],
+                        "rewardInfo": {
+                            "discordRole": null,
+                            "premint": null,
+                            "__typename": "RewardInfo"
+                        },
+                        "participants": {
+                            "participantsCount": 3,
+                            "bountyWinnersCount": 0,
+                            "__typename": "CampaignParticipant"
+                        },
+                        "recurringType": "ONCE",
+                        "latestRecurringTime": null,
+                        "whitelistInfo": {
+                            "address": "",
+                            "maxCount": 0,
+                            "usedCount": 0,
+                            "claimedLoyaltyPoints": 0,
+                            "currentPeriodClaimedLoyaltyPoints": 0,
+                            "currentPeriodMaxLoyaltyPoints": 0,
+                            "__typename": "WhitelistAddress"
+                        },
+                        "creds": [],
+                        "taskConfig": null,
+                        "info": "",
+                        "referralCode": null,
+                        "metrics": "{}",
+                        "childrenCampaigns": null
+                    },
+                    {
+                        "nftCore": {
+                            "id": "315",
+                            "__typename": "NFTCore"
+                        },
+                        "id": "GCxsJUURPe",
+                        "name": "Project Galaxy Meme Contest #1 Runner ups",
+                        "description": "This badge is to symbolize the Runner ups of the first official Project Galaxy Meme contest held May 1st - May 7th in our Discord and on Twitter \n\nhttps://twitter.com/ProjectGalaxyHQ/status/1520732223506612224",
+                        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653584365831489204.png",
+                        "startTime": 1653584700,
+                        "endTime": 1691625600,
+                        "status": "Expired",
+                        "formula": "",
+                        "cap": 0,
+                        "gasType": "Gasless",
+                        "isPrivate": false,
+                        "type": "Oat",
+                        "loyaltyPoints": 0,
+                        "tokenRewardContract": null,
+                        "tokenReward": {
+                            "userTokenAmount": "",
+                            "tokenAddress": "",
+                            "depositedTokenAmount": "",
+                            "tokenRewardId": 0,
+                            "tokenDecimal": "",
+                            "tokenLogo": "",
+                            "tokenSymbol": "",
+                            "__typename": "TokenReward"
+                        },
+                        "numberID": 3322,
+                        "chain": "MATIC",
+                        "rewardName": "",
+                        "gamification": {
+                            "id": "GCxsJUURPe",
+                            "type": "Oat",
+                            "__typename": "Gamification"
+                        },
+                        "__typename": "Campaign",
+                        "space": {
+                            "id": "28",
+                            "name": "Galxe",
+                            "thumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+                            "alias": "Galxe",
+                            "isVerified": true,
+                            "info": "Galxe is the leading platform for building Web3 community. With over 11 million unique users, Galxe has propelled the growth of Optimism, Polygon, Arbitrum, and more than 2900 partners with reward-based loyalty programs.",
+                            "tgeInfo": {
+                                "status": "TokenReleased",
+                                "TgeTime": 0,
+                                "__typename": "TgeInfo"
+                            },
+                            "links": "{\"Discord\":\"https://discord.gg/galxe\",\"Github\":\"https://github.com/GalxeHQ\",\"HomePage\":\"galxe.com\",\"Instagram\":\"https://www.instagram.com/galxehq\",\"Medium\":\"https://blog.galxe.com/\",\"Telegram\":\"t.me/Galxe\",\"TikTok\":\"https://www.tiktok.com/@galxehq\",\"Twitter\":\"https://twitter.com/Galxe\",\"YouTube\":\"https://www.youtube.com/@GalxeHQ\"}",
+                            "status": "Standard",
+                            "followersCount": 307987,
+                            "followersRank": "17",
+                            "backers": "[{\"name\":\"multicoincap\",\"icon\":\"https://pbs.twimg.com/profile_images/1532419804031852546/KMJZNS9c_normal.jpg\"},{\"name\":\"dragonfly_xyz\",\"icon\":\"https://pbs.twimg.com/profile_images/1559161186658271232/yRlWnnm8_normal.jpg\"},{\"name\":\"thespartangroup\",\"icon\":\"https://pbs.twimg.com/profile_images/1057198687749726210/nP7ffwjE_normal.jpg\"},{\"name\":\"sky9capital\",\"icon\":\"https://pbs.twimg.com/profile_images/1536197382794510336/Ca_FrdRS_normal.jpg\"},{\"name\":\"cbventures\",\"icon\":\"https://pbs.twimg.com/profile_images/1587092099245146116/0asZR9DU_normal.jpg\"},{\"name\":\"BNBCHAIN\",\"icon\":\"https://pbs.twimg.com/profile_images/1565354861616832513/ovh5FyDN_normal.png\"},{\"name\":\"csquaredvc\",\"icon\":\"https://pbs.twimg.com/profile_images/1558004755271626753/H6_8clEE_normal.jpg\"},{\"name\":\"lattice_fund\",\"icon\":\"https://pbs.twimg.com/profile_images/1549804844818411525/kaqU_9Ni_normal.png\"},{\"name\":\"foliusventures\",\"icon\":\"https://pbs.twimg.com/profile_images/1383522899374399496/Bf1rJKgP_normal.jpg\"}]",
+                            "categories": [
+                                "NFT",
+                                "Web3",
+                                "DID",
+                                "Social",
+                                "Infrastructure"
+                            ],
+                            "token": "{\"id\":11877,\"symbol\":\"GAL\",\"slug\":\"galxe\"}",
+                            "discordGuildID": "824767871183355954",
+                            "discordGuildInfo": "{\"icon\":\"2ceb66a1bd12e0afbd90abb4f0b6bac8\",\"id\":\"824767871183355954\",\"link\":\"https://discord.gg/galxe\",\"name\":\"Galxe\"}",
+                            "banner": "",
+                            "seoImage": "",
+                            "__typename": "Space"
+                        },
+                        "credentialGroups": [
+                            {
+                                "id": "33220000",
+                                "description": "",
+                                "credentials": [
+                                    {
+                                        "id": "2336",
+                                        "name": "Project Galaxy Meme Contest #1 Runner ups ",
+                                        "type": "EVM_ADDRESS",
+                                        "credType": "EVM_ADDRESS",
+                                        "credSource": "CSV",
+                                        "referenceLink": "https://twitter.com/ProjectGalaxyHQ/status/1520732223506612224",
+                                        "description": "The Runner ups of the first official Project Galaxy Meme contest held May 1st - May 7th in our Discord and on Twitter #Galmemecontest ",
+                                        "lastUpdate": 1655427396,
+                                        "lastSync": 1655427396,
+                                        "syncStatus": "SYNCED",
+                                        "credContractNFTHolder": null,
+                                        "chain": "ETHEREUM",
+                                        "eligible": 0,
+                                        "subgraph": null,
+                                        "dimensionConfig": "SINGLE_DIMENSION",
+                                        "value": null,
+                                        "__typename": "Cred"
+                                    }
+                                ],
+                                "conditionRelation": "ALL",
+                                "conditions": [
+                                    {
+                                        "expression": "C_2336",
+                                        "eligible": false,
+                                        "eligibleAddress": null,
+                                        "__typename": "CredentialGroupCondition"
+                                    }
+                                ],
+                                "rewards": [
+                                    {
+                                        "expression": "1",
+                                        "eligible": false,
+                                        "rewardCount": 0,
+                                        "rewardType": "OAT",
+                                        "__typename": "CredentialGroupReward"
+                                    }
+                                ],
+                                "rewardAttrVals": null,
+                                "claimedLoyaltyPoints": 0,
+                                "__typename": "CredentialGroup"
+                            }
+                        ],
+                        "rewardInfo": {
+                            "discordRole": null,
+                            "premint": null,
+                            "__typename": "RewardInfo"
+                        },
+                        "participants": {
+                            "participantsCount": 2,
+                            "bountyWinnersCount": 0,
+                            "__typename": "CampaignParticipant"
+                        },
+                        "recurringType": "ONCE",
+                        "latestRecurringTime": null,
+                        "whitelistInfo": {
+                            "address": "",
+                            "maxCount": 0,
+                            "usedCount": 0,
+                            "claimedLoyaltyPoints": 0,
+                            "currentPeriodClaimedLoyaltyPoints": 0,
+                            "currentPeriodMaxLoyaltyPoints": 0,
+                            "__typename": "WhitelistAddress"
+                        },
+                        "creds": [],
+                        "taskConfig": null,
+                        "info": "",
+                        "referralCode": null,
+                        "metrics": "{}",
+                        "childrenCampaigns": null
+                    },
+                    {
+                        "nftCore": {
+                            "id": "315",
+                            "__typename": "NFTCore"
+                        },
+                        "id": "GC5rFUUiut",
+                        "name": "Galaxy AMA #4 TGE Waiting Room",
+                        "description": "Eligible participants who have stayed and listened to Project Galaxy's 4th AMA GAL TGE Waiting Room for a minimum of 30 minutes on Tuesday May 3rd 2 PM SGT can claim this OAT. \n\nThanks to everyone who joined.",
+                        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1651572882786159759.png",
+                        "startTime": 1651557600,
+                        "endTime": 1651654800,
+                        "status": "Expired",
+                        "formula": "",
+                        "cap": 0,
+                        "gasType": "Gasless",
+                        "isPrivate": false,
+                        "type": "Oat",
+                        "loyaltyPoints": 0,
+                        "tokenRewardContract": null,
+                        "tokenReward": {
+                            "userTokenAmount": "",
+                            "tokenAddress": "",
+                            "depositedTokenAmount": "",
+                            "tokenRewardId": 0,
+                            "tokenDecimal": "",
+                            "tokenLogo": "",
+                            "tokenSymbol": "",
+                            "__typename": "TokenReward"
+                        },
+                        "numberID": 2597,
+                        "chain": "MATIC",
+                        "rewardName": "",
+                        "gamification": {
+                            "id": "GC5rFUUiut",
+                            "type": "Oat",
+                            "__typename": "Gamification"
+                        },
+                        "__typename": "Campaign",
+                    }
+                ]
+            }
+        }
+    }
+}
+
+
+// BrowseSpaceCampaignsQuery
+POST: https://graphigo.prd.galaxy.eco/query
+body:{
+    "operationName":"BrowseSpaceCampaignsQuery",
+    "variables":{
+        "alias":"Galxe",
+        "address":"",
+        "campaignInput":{
+            "forAdmin":false,
+            "first":20,
+            "after":19,
+            "gasTypes":null,    // 过滤条件
+            "credSources":null,  // 过滤条件
+            "rewardTypes":null,   // 过滤条件
+            "chains":null,   // 过滤条件
+            "statuses":null,   // 过滤条件
+            "listType":"Newest",
+            "types":["Drop","MysteryBox","Forge","MysteryBoxWR","Airdrop","ExternalLink","OptIn","OptInEmail","PowahDrop","Parent","Oat","Bounty","Token","DiscordRole","Mintlist","Points","PointsMysteryBox"],
+            "searchString":"Project Galaxy Meme Contest"  // 搜索框
+            }
+        },
+        "query":"query BrowseSpaceCampaignsQuery($id: Int, $alias: String, $address: String!, $campaignInput: ListCampaignInput!) {\n  space(id: $id, alias: $alias) {\n    id\n    name\n    alias\n    campaigns(input: $campaignInput) {\n      pageInfo {\n        endCursor\n        hasNextPage\n        __typename\n      }\n      list {\n        ...FragSpaceCampaignBrowse\n        referralCode(address: $address)\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment ChildrenForCampaignBtn on Campaign {\n  childrenCampaigns {\n    gamification {\n      nfts {\n        nft {\n          nftCore {\n            contractAddress\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignCredBasic on Cred {\n  id\n  eligible(address: $address)\n  name\n  credSource\n  credType\n  __typename\n}\n\nfragment RewardBasic on ExprReward {\n  arithmeticFormula\n  rewardType\n  __typename\n}\n\nfragment CredentialRewardBasic on CredentialGroupReward {\n  expression\n  rewardType\n  __typename\n}\n\nfragment BrowseCard on Campaign {\n  id\n  numberID\n  name\n  requirementInfo\n  formula\n  gamification {\n    id\n    type\n    __typename\n  }\n  creds {\n    ...CampaignCredBasic\n    __typename\n  }\n  taskConfig(address: $address) {\n    rewardConfigs {\n      rewards {\n        ...RewardBasic\n        __typename\n      }\n      conditionalFormula\n      conditions {\n        attrs {\n          attrName\n          operatorSymbol\n          targetValue\n          __typename\n        }\n        eligible\n        cred {\n          ...CampaignCredBasic\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    participateCondition {\n      conditionalFormula\n      conditions {\n        attrs {\n          attrName\n          operatorSymbol\n          targetValue\n          __typename\n        }\n        eligible\n        cred {\n          ...CampaignCredBasic\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  recurringType\n  endTime\n  latestRecurringTime\n  useCred\n  credentialGroups(address: $address) {\n    id\n    description\n    rewards {\n      ...CredentialRewardBasic\n      __typename\n    }\n    credentials {\n      ...CampaignCredBasic\n      __typename\n    }\n    conditionRelation\n    conditions {\n      expression\n      eligible\n      __typename\n    }\n    __typename\n  }\n  participants {\n    participantsCount\n    __typename\n  }\n  ...CardMedia\n  ...CampaignTag\n  __typename\n}\n\nfragment CardMedia on Campaign {\n  thumbnail\n  type\n  name\n  rewardType\n  status\n  cap\n  gamification {\n    type\n    __typename\n  }\n  tokenReward {\n    tokenAddress\n    userTokenAmount\n    tokenDecimal\n    tokenLogo\n    tokenSymbol\n    __typename\n  }\n  tokenRewardContract {\n    chain\n    __typename\n  }\n  rewardInfo {\n    discordRole {\n      guildName\n      roleName\n      __typename\n    }\n    __typename\n  }\n  participants {\n    bountyWinnersCount\n    participantsCount\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignTag on Campaign {\n  loyaltyPoints\n  rewardName\n  type\n  gamification {\n    type\n    __typename\n  }\n  cap\n  tokenReward {\n    tokenAddress\n    userTokenAmount\n    tokenDecimal\n    tokenLogo\n    tokenSymbol\n    __typename\n  }\n  tokenRewardContract {\n    chain\n    __typename\n  }\n  rewardInfo {\n    discordRole {\n      roleName\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment ChildrenForCardMedia on Campaign {\n  childrenCampaigns {\n    type\n    name\n    rewardName\n    rewardInfo {\n      discordRole {\n        roleName\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment FragSpaceCampaignBrowse on Campaign {\n  space {\n    ...SpaceBasic\n    __typename\n  }\n  inWatchList\n  ...CampaignForClaimInfo\n  ...CampaignForClaimButton\n  ...BrowseCard\n  ...ChildrenForCampaignBtn\n  ...ChildrenForCardMedia\n  ...CampaignForCredBox\n  childrenCampaigns {\n    ...BrowseCard\n    ...CampaignForClaimInfo\n    ...CampaignForClaimButton\n    ...CampaignForCredBox\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignForCustomRaffleButton on Campaign {\n  userParticipants(address: $address, first: 1) {\n    list {\n      status\n      premintTo\n      __typename\n    }\n    __typename\n  }\n  startTime\n  endTime\n  __typename\n}\n\nfragment CampaignForTokenRaffleButton on Campaign {\n  ...CampaignForCustomRaffleButton\n  claimEndTime\n  __typename\n}\n\nfragment CampaignForClaimButton on Campaign {\n  ...CampaignForCustomRaffleButton\n  ...CampaignForTokenRaffleButton\n  ...CampaignForIsGaslessOutOfBalance\n  ...CampaignForClaim\n  ...CampaignForIsLock\n  ...CampaignForClaimForgeButton\n  startTime\n  endTime\n  type\n  smartbalanceDeposited\n  smartbalancePreCheck(mintCount: 1)\n  distributionType\n  claimEndTime\n  gasType\n  status\n  chain\n  tokenReward {\n    tokenAddress\n    userTokenAmount\n    tokenDecimal\n    tokenLogo\n    tokenSymbol\n    __typename\n  }\n  tokenRewardContract {\n    id\n    chain\n    __typename\n  }\n  rewardName\n  gamification {\n    nfts {\n      nft {\n        nftCore {\n          chain\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  whitelistInfo(address: $address) {\n    maxCount\n    usedCount\n    __typename\n  }\n  userParticipants(address: $address, first: 1) {\n    list {\n      status\n      premintTo\n      __typename\n    }\n    __typename\n  }\n  space {\n    alias\n    __typename\n  }\n  parentCampaign {\n    id\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignForIsGaslessOutOfBalance on Campaign {\n  ...CampaignForCheckSufficientForGaslessChain\n  chain\n  __typename\n}\n\nfragment CampaignForCheckSufficientForGaslessChain on Campaign {\n  chain\n  space {\n    id\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignForPrepareParticipateMutate on Campaign {\n  id\n  chain\n  __typename\n}\n\nfragment CampaignForClaimCustomReward on Campaign {\n  ...CampaignForPrepareParticipateMutate\n  rewardType\n  chain\n  __typename\n}\n\nfragment CampaignForClaimDiscordRole on Campaign {\n  ...CampaignForPrepareParticipateMutate\n  space {\n    discordGuildID\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignForClaimPoints on Campaign {\n  ...CampaignForPrepareParticipateMutate\n  chain\n  __typename\n}\n\nfragment CampaignForClaimToken on Campaign {\n  ...CampaignForPrepareParticipateMutate\n  id\n  numberID\n  endTime\n  distributionType\n  tokenRewardContract {\n    address\n    __typename\n  }\n  chain\n  __typename\n}\n\nfragment CampaignForClaimNftGasless on Campaign {\n  ...CampaignForPrepareParticipateMutate\n  id\n  name\n  chain\n  gamification {\n    nfts {\n      nft {\n        nftCore {\n          chain\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignForClaimNftGas on Campaign {\n  ...CampaignForPrepareParticipateMutate\n  id\n  numberID\n  spaceStation {\n    address\n    chain\n    id\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignForClaim on Campaign {\n  ...CampaignForClaimCustomReward\n  ...CampaignForClaimDiscordRole\n  ...CampaignForClaimToken\n  ...CampaignForClaimNftGasless\n  ...CampaignForClaimNftGas\n  ...CampaignForClaimSeiNFT\n  ...CampaignForClaimPoints\n  ...CampaignForIsGaslessOutOfBalance\n  type\n  gasType\n  __typename\n}\n\nfragment CampaignForClaimSeiNFT on Campaign {\n  id\n  numberID\n  __typename\n}\n\nfragment CampaignForNftContractList on Campaign {\n  gamification {\n    nfts {\n      nft {\n        nftCore {\n          contractAddress\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignForClaimForgeButton on Campaign {\n  ...CampaignForNftContractList\n  id\n  numberID\n  chain\n  endTime\n  whitelistRegions\n  blacklistCountryCodes\n  spaceStation {\n    address\n    __typename\n  }\n  gamification {\n    nfts {\n      nft {\n        nftCore {\n          chain\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  childrenCampaigns {\n    ...CampaignForNftContractList\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignForIsLock on Campaign {\n  id\n  parentCampaign {\n    id\n    isSequencial\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignForCalcCampaigClaimNFT on Campaign {\n  ...CampaignForCalcCampaignCanClaim\n  type\n  whitelistInfo(address: $address) {\n    usedCount\n    __typename\n  }\n  credentialGroups(address: $address) {\n    rewards {\n      rewardType\n      rewardCount\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignForCalcCampaignCanClaim on Campaign {\n  distributionType\n  cap\n  type\n  __typename\n}\n\nfragment CampaignForCalcCampaigClaimCommon on Campaign {\n  type\n  whitelistInfo(address: $address) {\n    usedCount\n    maxCount\n    __typename\n  }\n  credentialGroups(address: $address) {\n    rewards {\n      rewardType\n      rewardCount\n      __typename\n    }\n    __typename\n  }\n  ...CampaignForCalcCampaignCanClaim\n  ...CampaignForIsRaffleParticipateEnded\n  __typename\n}\n\nfragment CampaignForCalcCampaigClaimToken on Campaign {\n  ...CampaignForCalcCampaigClaimCommon\n  __typename\n}\n\nfragment CampaignForCalcCampaigClaimPoints on Campaign {\n  type\n  loyaltyPoints\n  recurringType\n  credentialGroups(address: $address) {\n    rewards {\n      rewardType\n      rewardCount\n      __typename\n    }\n    __typename\n  }\n  whitelistInfo(address: $address) {\n    claimedLoyaltyPoints\n    currentPeriodClaimedLoyaltyPoints\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignForIsRaffleParticipateEnded on Campaign {\n  endTime\n  __typename\n}\n\nfragment CampaignForClaimInfo on Campaign {\n  ...CampaignForCalcCampaigClaimNFT\n  ...CampaignForCalcCampaigClaimCommon\n  ...CampaignForCalcCampaigClaimToken\n  ...CampaignForCalcCampaigClaimPoints\n  ...CampaignAsCampaignParticipants\n  gasType\n  __typename\n}\n\nfragment CampaignAsCampaignParticipants on Campaign {\n  numNFTMinted\n  participants {\n    participantsCount\n    bountyWinnersCount\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignForCredBox on Campaign {\n  id\n  type\n  latestRecurringTime\n  recurringType\n  gamification {\n    type\n    __typename\n  }\n  taskConfig(address: $address) {\n    participateCondition {\n      ...ParticipateConditionForCredBox\n      eligible\n      __typename\n    }\n    rewardConfigs {\n      ...RewardConfigForCredBox\n      eligible\n      __typename\n    }\n    __typename\n  }\n  endTime\n  ...CampaignForCredItem\n  credentialGroups(address: $address) {\n    ...CredentialGroupForCredBox\n    __typename\n  }\n  __typename\n}\n\nfragment CampaignForCredItem on Campaign {\n  ...CampaignForVerifyButton\n  creds {\n    ...CredForCredItem\n    __typename\n  }\n  space {\n    id\n    alias\n    isFollowing\n    __typename\n  }\n  id\n  name\n  recurringType\n  numberID\n  endTime\n  __typename\n}\n\nfragment CampaignForVerifyButton on Campaign {\n  id\n  endTime\n  recurringType\n  name\n  __typename\n}\n\nfragment CredForCredItem on Cred {\n  id\n  eligible(address: $address)\n  credSource\n  credType\n  syncStatus\n  name\n  ...CredForVerifyButton\n  type\n  dimensionConfig\n  referenceLink\n  description\n  __typename\n}\n\nfragment CredForVerifyButton on Cred {\n  ...CredForVerifyButtonTooltipContent\n  commonInfo {\n    participateEndTime\n    __typename\n  }\n  id\n  credSource\n  syncStatus\n  __typename\n}\n\nfragment CredForVerifyButtonTooltipContent on Cred {\n  lastUpdate\n  lastSync\n  credSource\n  credType\n  credContractNFTHolder {\n    timestamp\n    __typename\n  }\n  eligible(address: $address)\n  commonInfo {\n    modificationInfo\n    __typename\n  }\n  __typename\n}\n\nfragment CredentialGroupForCredBox on CredentialGroup {\n  id\n  description\n  credentials {\n    ...CredForCredItem\n    __typename\n  }\n  rewardAttrVals {\n    ...RewardAttrValForCredItem\n    __typename\n  }\n  conditions {\n    expression\n    ...CredentialGroupConditionForCredItem\n    __typename\n  }\n  conditionRelation\n  rewards {\n    expression\n    rewardType\n    __typename\n  }\n  __typename\n}\n\nfragment RewardAttrValForCredItem on RewardAttrVal {\n  attrName\n  attrTitle\n  __typename\n}\n\nfragment CredentialGroupConditionForCredItem on CredentialGroupCondition {\n  ...CredentialGroupConditionForVerifyButton\n  expression\n  __typename\n}\n\nfragment CredentialGroupConditionForVerifyButton on CredentialGroupCondition {\n  expression\n  eligibleAddress\n  __typename\n}\n\nfragment ParticipateConditionForCredBox on ParticipateCondition {\n  conditions {\n    ...ExprEntityForCredItem\n    __typename\n  }\n  __typename\n}\n\nfragment ExprEntityForCredItem on ExprEntity {\n  cred {\n    ...CredForCredItem\n    __typename\n  }\n  attrs {\n    attrName\n    operatorSymbol\n    targetValue\n    __typename\n  }\n  __typename\n}\n\nfragment RewardConfigForCredBox on RewardConfig {\n  rewardAttrVals {\n    attrName\n    __typename\n  }\n  conditions {\n    ...ExprEntityForCredItem\n    __typename\n  }\n  __typename\n}\n\nfragment SpaceBasic on Space {\n  id\n  name\n  thumbnail\n  alias\n  isVerified\n  info\n  tgeInfo {\n    status\n    TgeTime\n    __typename\n  }\n  links\n  status\n  followersCount\n  followersRank\n  backers\n  categories\n  token\n  discordGuildID\n  discordGuildInfo\n  banner\n  seoImage\n  __typename\n}\n"
+}
+
+response
+{
+    "data": {
+        "space": {
+            "id": "28",
+            "name": "Galxe",
+            "alias": "Galxe",
+            "campaigns": {
+                "pageInfo": {
+                    "endCursor": "19",
+                    "hasNextPage": true,
+                    "__typename": "PageInfo"
+                },
+                "list": [
+                    {
+                        "space": {
+                            "id": "28",
+                            "name": "Galxe",
+                            "thumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+                            "alias": "Galxe",
+                            "isVerified": true,
+                            "info": "Galxe is the leading platform for building Web3 community. With over 11 million unique users, Galxe has propelled the growth of Optimism, Polygon, Arbitrum, and more than 2900 partners with reward-based loyalty programs.",
+                            "tgeInfo": {
+                                "status": "TokenReleased",
+                                "TgeTime": 0,
+                                "__typename": "TgeInfo"
+                            },
+                            "links": "{\"Discord\":\"https://discord.gg/galxe\",\"Github\":\"https://github.com/GalxeHQ\",\"HomePage\":\"galxe.com\",\"Instagram\":\"https://www.instagram.com/galxehq\",\"Medium\":\"https://blog.galxe.com/\",\"Telegram\":\"t.me/Galxe\",\"TikTok\":\"https://www.tiktok.com/@galxehq\",\"Twitter\":\"https://twitter.com/Galxe\",\"YouTube\":\"https://www.youtube.com/@GalxeHQ\"}",
+                            "status": "Standard",
+                            "followersCount": 308016,
+                            "followersRank": "17",
+                            "backers": "[{\"name\":\"multicoincap\",\"icon\":\"https://pbs.twimg.com/profile_images/1532419804031852546/KMJZNS9c_normal.jpg\"},{\"name\":\"dragonfly_xyz\",\"icon\":\"https://pbs.twimg.com/profile_images/1559161186658271232/yRlWnnm8_normal.jpg\"},{\"name\":\"thespartangroup\",\"icon\":\"https://pbs.twimg.com/profile_images/1057198687749726210/nP7ffwjE_normal.jpg\"},{\"name\":\"sky9capital\",\"icon\":\"https://pbs.twimg.com/profile_images/1536197382794510336/Ca_FrdRS_normal.jpg\"},{\"name\":\"cbventures\",\"icon\":\"https://pbs.twimg.com/profile_images/1587092099245146116/0asZR9DU_normal.jpg\"},{\"name\":\"BNBCHAIN\",\"icon\":\"https://pbs.twimg.com/profile_images/1565354861616832513/ovh5FyDN_normal.png\"},{\"name\":\"csquaredvc\",\"icon\":\"https://pbs.twimg.com/profile_images/1558004755271626753/H6_8clEE_normal.jpg\"},{\"name\":\"lattice_fund\",\"icon\":\"https://pbs.twimg.com/profile_images/1549804844818411525/kaqU_9Ni_normal.png\"},{\"name\":\"foliusventures\",\"icon\":\"https://pbs.twimg.com/profile_images/1383522899374399496/Bf1rJKgP_normal.jpg\"}]",
+                            "categories": [
+                                "NFT",
+                                "Web3",
+                                "DID",
+                                "Social",
+                                "Infrastructure"
+                            ],
+                            "token": "{\"id\":11877,\"symbol\":\"GAL\",\"slug\":\"galxe\"}",
+                            "discordGuildID": "824767871183355954",
+                            "discordGuildInfo": "{\"icon\":\"2ceb66a1bd12e0afbd90abb4f0b6bac8\",\"id\":\"824767871183355954\",\"link\":\"https://discord.gg/galxe\",\"name\":\"Galxe\"}",
+                            "banner": "",
+                            "seoImage": "",
+                            "__typename": "Space",
+                            "isFollowing": false
+                        },
+                        "inWatchList": false,
+                        "distributionType": "FCFS",
+                        "cap": 0,
+                        "type": "Oat",
+                        "__typename": "Campaign",
+                        "whitelistInfo": {
+                            "usedCount": 0,
+                            "__typename": "WhitelistAddress",
+                            "maxCount": 0,
+                            "claimedLoyaltyPoints": 0,
+                            "currentPeriodClaimedLoyaltyPoints": 0
+                        },
+                        "credentialGroups": [
+                            {
+                                "rewards": [
+                                    {
+                                        "rewardType": "OAT",
+                                        "rewardCount": 0,
+                                        "__typename": "CredentialGroupReward",
+                                        "expression": "1"
+                                    }
+                                ],
+                                "__typename": "CredentialGroup",
+                                "id": "33210000",
+                                "description": "",
+                                "credentials": [
+                                    {
+                                        "id": "2335",
+                                        "eligible": 0,
+                                        "name": "Project Galaxy Meme contest #1 Winners ",
+                                        "credSource": "CSV",
+                                        "credType": "EVM_ADDRESS",
+                                        "__typename": "Cred",
+                                        "syncStatus": "SYNCED",
+                                        "lastUpdate": 1655427396,
+                                        "lastSync": 1655427396,
+                                        "credContractNFTHolder": null,
+                                        "commonInfo": null,
+                                        "type": "EVM_ADDRESS",
+                                        "dimensionConfig": "SINGLE_DIMENSION",
+                                        "referenceLink": "https://twitter.com/ProjectGalaxyHQ/status/1520732223506612224",
+                                        "description": "The winners of the first official Project Galaxy Meme contest held May 1st - May 7th in our Discord and on Twitter #Galmemecontest \n"
+                                    }
+                                ],
+                                "conditionRelation": "ALL",
+                                "conditions": [
+                                    {
+                                        "expression": "C_2335",
+                                        "eligible": false,
+                                        "__typename": "CredentialGroupCondition",
+                                        "eligibleAddress": null
+                                    }
+                                ],
+                                "rewardAttrVals": null
+                            }
+                        ],
+                        "endTime": 1656262800,
+                        "loyaltyPoints": 0,
+                        "recurringType": "ONCE",
+                        "numNFTMinted": 3,
+                        "participants": {
+                            "participantsCount": 3,
+                            "bountyWinnersCount": 0,
+                            "__typename": "CampaignParticipant"
+                        },
+                        "gasType": "Gasless",
+                        "userParticipants": {
+                            "list": [],
+                            "__typename": "ParticipationConnection"
+                        },
+                        "startTime": 1653584400,
+                        "claimEndTime": null,
+                        "chain": "MATIC",
+                        "id": "GCK5JUUjFn",
+                        "rewardType": "EVM",
+                        "numberID": 3321,
+                        "tokenRewardContract": null,
+                        "name": "Project Galaxy Meme Contest #1 Winner",
+                        "gamification": {
+                            "nfts": [
+                                {
+                                    "nft": {
+                                        "nftCore": {
+                                            "chain": "MATIC",
+                                            "__typename": "NFTCore",
+                                            "contractAddress": "0x1871464f087db27823cff66aa88599aa4815ae95"
+                                        },
+                                        "__typename": "NFTTemplate"
+                                    },
+                                    "__typename": "GamificationNFT"
+                                }
+                            ],
+                            "__typename": "Gamification",
+                            "id": "GCK5JUUjFn",
+                            "type": "Oat"
+                        },
+                        "spaceStation": {
+                            "address": "0x6cad6e1abc83068ea98924aef37e996ed02abf1c",
+                            "chain": "MATIC",
+                            "id": "0x6cad6e1abc83068ea98924aef37e996ed02abf1c",
+                            "__typename": "SpaceStation"
+                        },
+                        "parentCampaign": null,
+                        "whitelistRegions": "",
+                        "blacklistCountryCodes": "",
+                        "childrenCampaigns": null,
+                        "smartbalanceDeposited": false,
+                        "smartbalancePreCheck": "Unusable",
+                        "status": "Expired",
+                        "tokenReward": {
+                            "tokenAddress": "",
+                            "userTokenAmount": "",
+                            "tokenDecimal": "",
+                            "tokenLogo": "",
+                            "tokenSymbol": "",
+                            "__typename": "TokenReward"
+                        },
+                        "rewardName": "",
+                        "requirementInfo": "",
+                        "formula": "",
+                        "creds": [],
+                        "taskConfig": null,
+                        "latestRecurringTime": null,
+                        "useCred": true,
+                        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
+                        "rewardInfo": {
+                            "discordRole": null,
+                            "__typename": "RewardInfo"
+                        },
+                        "referralCode": null
+                    },
+                    {
+                        "space": {
+                            "id": "28",
+                            "name": "Galxe",
+                            "thumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+                            "alias": "Galxe",
+                            "isVerified": true,
+                            "info": "Galxe is the leading platform for building Web3 community. With over 11 million unique users, Galxe has propelled the growth of Optimism, Polygon, Arbitrum, and more than 2900 partners with reward-based loyalty programs.",
+                            "tgeInfo": {
+                                "status": "TokenReleased",
+                                "TgeTime": 0,
+                                "__typename": "TgeInfo"
+                            },
+                            "links": "{\"Discord\":\"https://discord.gg/galxe\",\"Github\":\"https://github.com/GalxeHQ\",\"HomePage\":\"galxe.com\",\"Instagram\":\"https://www.instagram.com/galxehq\",\"Medium\":\"https://blog.galxe.com/\",\"Telegram\":\"t.me/Galxe\",\"TikTok\":\"https://www.tiktok.com/@galxehq\",\"Twitter\":\"https://twitter.com/Galxe\",\"YouTube\":\"https://www.youtube.com/@GalxeHQ\"}",
+                            "status": "Standard",
+                            "followersCount": 308016,
+                            "followersRank": "17",
+                            "backers": "[{\"name\":\"multicoincap\",\"icon\":\"https://pbs.twimg.com/profile_images/1532419804031852546/KMJZNS9c_normal.jpg\"},{\"name\":\"dragonfly_xyz\",\"icon\":\"https://pbs.twimg.com/profile_images/1559161186658271232/yRlWnnm8_normal.jpg\"},{\"name\":\"thespartangroup\",\"icon\":\"https://pbs.twimg.com/profile_images/1057198687749726210/nP7ffwjE_normal.jpg\"},{\"name\":\"sky9capital\",\"icon\":\"https://pbs.twimg.com/profile_images/1536197382794510336/Ca_FrdRS_normal.jpg\"},{\"name\":\"cbventures\",\"icon\":\"https://pbs.twimg.com/profile_images/1587092099245146116/0asZR9DU_normal.jpg\"},{\"name\":\"BNBCHAIN\",\"icon\":\"https://pbs.twimg.com/profile_images/1565354861616832513/ovh5FyDN_normal.png\"},{\"name\":\"csquaredvc\",\"icon\":\"https://pbs.twimg.com/profile_images/1558004755271626753/H6_8clEE_normal.jpg\"},{\"name\":\"lattice_fund\",\"icon\":\"https://pbs.twimg.com/profile_images/1549804844818411525/kaqU_9Ni_normal.png\"},{\"name\":\"foliusventures\",\"icon\":\"https://pbs.twimg.com/profile_images/1383522899374399496/Bf1rJKgP_normal.jpg\"}]",
+                            "categories": [
+                                "NFT",
+                                "Web3",
+                                "DID",
+                                "Social",
+                                "Infrastructure"
+                            ],
+                            "token": "{\"id\":11877,\"symbol\":\"GAL\",\"slug\":\"galxe\"}",
+                            "discordGuildID": "824767871183355954",
+                            "discordGuildInfo": "{\"icon\":\"2ceb66a1bd12e0afbd90abb4f0b6bac8\",\"id\":\"824767871183355954\",\"link\":\"https://discord.gg/galxe\",\"name\":\"Galxe\"}",
+                            "banner": "",
+                            "seoImage": "",
+                            "__typename": "Space",
+                            "isFollowing": false
+                        },
+                        "inWatchList": false,
+                        "distributionType": "FCFS",
+                        "cap": 0,
+                        "type": "Oat",
+                        "__typename": "Campaign",
+                        "whitelistInfo": {
+                            "usedCount": 0,
+                            "__typename": "WhitelistAddress",
+                            "maxCount": 0,
+                            "claimedLoyaltyPoints": 0,
+                            "currentPeriodClaimedLoyaltyPoints": 0
+                        },
+                        "credentialGroups": [
+                            {
+                                "rewards": [
+                                    {
+                                        "rewardType": "OAT",
+                                        "rewardCount": 0,
+                                        "__typename": "CredentialGroupReward",
+                                        "expression": "1"
+                                    }
+                                ],
+                                "__typename": "CredentialGroup",
+                                "id": "33220000",
+                                "description": "",
+                                "credentials": [
+                                    {
+                                        "id": "2336",
+                                        "eligible": 0,
+                                        "name": "Project Galaxy Meme Contest #1 Runner ups ",
+                                        "credSource": "CSV",
+                                        "credType": "EVM_ADDRESS",
+                                        "__typename": "Cred",
+                                        "syncStatus": "SYNCED",
+                                        "lastUpdate": 1655427396,
+                                        "lastSync": 1655427396,
+                                        "credContractNFTHolder": null,
+                                        "commonInfo": null,
+                                        "type": "EVM_ADDRESS",
+                                        "dimensionConfig": "SINGLE_DIMENSION",
+                                        "referenceLink": "https://twitter.com/ProjectGalaxyHQ/status/1520732223506612224",
+                                        "description": "The Runner ups of the first official Project Galaxy Meme contest held May 1st - May 7th in our Discord and on Twitter #Galmemecontest "
+                                    }
+                                ],
+                                "conditionRelation": "ALL",
+                                "conditions": [
+                                    {
+                                        "expression": "C_2336",
+                                        "eligible": false,
+                                        "__typename": "CredentialGroupCondition",
+                                        "eligibleAddress": null
+                                    }
+                                ],
+                                "rewardAttrVals": null
+                            }
+                        ],
+                        "endTime": 1691625600,
+                        "loyaltyPoints": 0,
+                        "recurringType": "ONCE",
+                        "numNFTMinted": 2,
+                        "participants": {
+                            "participantsCount": 2,
+                            "bountyWinnersCount": 0,
+                            "__typename": "CampaignParticipant"
+                        },
+                        "gasType": "Gasless",
+                        "userParticipants": {
+                            "list": [],
+                            "__typename": "ParticipationConnection"
+                        },
+                        "startTime": 1653584700,
+                        "claimEndTime": null,
+                        "chain": "MATIC",
+                        "id": "GCxsJUURPe",
+                        "rewardType": "EVM",
+                        "numberID": 3322,
+                        "tokenRewardContract": null,
+                        "name": "Project Galaxy Meme Contest #1 Runner ups",
+                        "gamification": {
+                            "nfts": [
+                                {
+                                    "nft": {
+                                        "nftCore": {
+                                            "chain": "MATIC",
+                                            "__typename": "NFTCore",
+                                            "contractAddress": "0x1871464f087db27823cff66aa88599aa4815ae95"
+                                        },
+                                        "__typename": "NFTTemplate"
+                                    },
+                                    "__typename": "GamificationNFT"
+                                }
+                            ],
+                            "__typename": "Gamification",
+                            "id": "GCxsJUURPe",
+                            "type": "Oat"
+                        },
+                        "spaceStation": {
+                            "address": "0x6cad6e1abc83068ea98924aef37e996ed02abf1c",
+                            "chain": "MATIC",
+                            "id": "0x6cad6e1abc83068ea98924aef37e996ed02abf1c",
+                            "__typename": "SpaceStation"
+                        },
+                        "parentCampaign": null,
+                        "whitelistRegions": "",
+                        "blacklistCountryCodes": "",
+                        "childrenCampaigns": null,
+                        "smartbalanceDeposited": false,
+                        "smartbalancePreCheck": "Unusable",
+                        "status": "Expired",
+                        "tokenReward": {
+                            "tokenAddress": "",
+                            "userTokenAmount": "",
+                            "tokenDecimal": "",
+                            "tokenLogo": "",
+                            "tokenSymbol": "",
+                            "__typename": "TokenReward"
+                        },
+                        "rewardName": "",
+                        "requirementInfo": "",
+                        "formula": "",
+                        "creds": [],
+                        "taskConfig": null,
+                        "latestRecurringTime": null,
+                        "useCred": true,
+                        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653584365831489204.png",
+                        "rewardInfo": {
+                            "discordRole": null,
+                            "__typename": "RewardInfo"
+                        },
+                        "referralCode": null
+                    }
+                ]
+            }
+        }
+    }
+}
+
+
+// Space page Leaderboard
+// 在Leaderboard上有两个query请求，分别是SpaceLeaderboard、SeasonList
+
+// SeasonList
+POST: https://graphigo.prd.galaxy.eco/query
+body:{
+    "operationName":"SeasonList",
+    "variables":{
+        "spaceId":"994",
+        "first":20,
+        "after":"-1",
+        "isAdminView":false
+        },
+    "query":"query SeasonList($spaceId: Int!, $first: Int!, $after: String!, $isAdminView: Boolean!) {\n  space(id: $spaceId) {\n    id\n    pointsLeaderboardVisible\n    sprints(first: $first, after: $after, isAdminView: $isAdminView) {\n      list {\n        ...SeasonFrag\n        __typename\n      }\n      totalCount\n      pageInfo {\n        startCursor\n        endCursor\n        hasNextPage\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment SeasonFrag on Sprint {\n  id\n  name\n  space {\n    id\n    __typename\n  }\n  startTime\n  endTime\n  isVisible\n  __typename\n}\n"
+}
+
+responce
+{
+    "data": {
+        "space": {
+            "id": "994",
+            "pointsLeaderboardVisible": true,
+            "sprints": {
+                "list": [
+                    {
+                        "id": "4301",
+                        "name": "Season 5",
+                        "space": {
+                            "id": "994",
+                            "__typename": "Space"
+                        },
+                        "startTime": 1709280000,
+                        "endTime": 1711954800,
+                        "isVisible": true,
+                        "__typename": "Sprint"
+                    },
+                    {
+                        "id": "4336",
+                        "name": "Season 6",
+                        "space": {
+                            "id": "994",
+                            "__typename": "Space"
+                        },
+                        "startTime": 1711954800,
+                        "endTime": 1714546800,
+                        "isVisible": true,
+                        "__typename": "Sprint"
+                    },
+                    {
+                        "id": "4286",
+                        "name": "Season 4",
+                        "space": {
+                            "id": "994",
+                            "__typename": "Space"
+                        },
+                        "startTime": 1706774400,
+                        "endTime": 1709280000,
+                        "isVisible": true,
+                        "__typename": "Sprint"
+                    },
+                    {
+                        "id": "3241",
+                        "name": "Season 3",
+                        "space": {
+                            "id": "994",
+                            "__typename": "Space"
+                        },
+                        "startTime": 1704096000,
+                        "endTime": 1706774400,
+                        "isVisible": true,
+                        "__typename": "Sprint"
+                    }
+                ],
+                "totalCount": 4,
+                "pageInfo": {
+                    "startCursor": "0",
+                    "endCursor": "3",
+                    "hasNextPage": false,
+                    "__typename": "PageInfo"
+                },
+                "__typename": "SprintConnection"
+            },
+            "__typename": "Space"
+        }
+    }
+}
+
+
+// SpaceLeaderboard
+{
+    "operationName":"SpaceLeaderboard",
+    "variables":{
+        "id":"994",
+        "pageSize":20,
+        "order":"Points",
+        "seasonId":4286
+    },
+    "query":"query SpaceLeaderboard($id: Int!, $after: String, $pageSize: Int, $order: LoyaltyPointsRankOrder, $seasonId: Int, $cursorAfter: String, $cursorBefore: String) {\n  space(id: $id) {\n    id\n    name\n    loyaltyPointsRanks(first: $pageSize, after: $after, order: $order, sprintId: $seasonId, cursorAfter: $cursorAfter, cursorBefore: $cursorBefore) {\n      pageInfo {\n        startCursor\n        endCursor\n        hasNextPage\n        hasPreviousPage\n        __typename\n      }\n      totalCount\n      edges {\n        node {\n          id\n          rank\n          points\n          space {\n            name\n            __typename\n          }\n          address {\n            username\n            id\n            avatar\n            address\n            solanaAddress\n            aptosAddress\n            seiAddress\n            twitterUserName\n            discordUserName\n            displayNamePref\n            displayTwitter\n            displayDiscord\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"
+}
+
+response
+{
+    "data": {
+        "space": {
+            "id": "994",
+            "name": "Moso",
+            "loyaltyPointsRanks": {
+                "pageInfo": {
+                    "startCursor": "MQ==",
+                    "endCursor": "MjA=",
+                    "hasNextPage": true,
+                    "hasPreviousPage": false,
+                    "__typename": "PageInfo"
+                },
+                "totalCount": 12972,
+                "edges": [
+                    {
+                        "node": {
+                            "id": "lbrank-ouN8Nt6wyDChmxck8eqtEh-994",
+                            "rank": 1,
+                            "points": 1944,
+                            "space": {
+                                "name": "Moso",
+                                "__typename": "Space"
+                            },
+                            "address": {
+                                "username": "nazli_sana",
+                                "id": "ouN8Nt6wyDChmxck8eqtEh",
+                                "avatar": "https://source.boringavatars.com/marble/120/0xe99c56a7eba685b77938e976236e6432664be7aa",
+                                "address": "0xe99c56a7eba685b77938e976236e6432664be7aa",
+                                "solanaAddress": "",
+                                "aptosAddress": "",
+                                "seiAddress": "",
+                                "twitterUserName": "",
+                                "discordUserName": "",
+                                "displayNamePref": "USERNAME",
+                                "displayTwitter": false,
+                                "displayDiscord": false,
+                                "__typename": "Address"
+                            },
+                            "__typename": "LoyaltyPointsRank"
+                        },
+                        "__typename": "LoyaltyPointsRankEdge"
+                    },
+                    {
+                        "node": {
+                            "id": "lbrank-Xe8fnQH5jnAuM9AfrShpaV-994",
+                            "rank": 2,
+                            "points": 1690,
+                            "space": {
+                                "name": "Moso",
+                                "__typename": "Space"
+                            },
+                            "address": {
+                                "username": "shabnambzg",
+                                "id": "Xe8fnQH5jnAuM9AfrShpaV",
+                                "avatar": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x78444e3fbf05ae9b98c651388ebb56fc686983a2-1706068608136754904",
+                                "address": "0x78444e3fbf05ae9b98c651388ebb56fc686983a2",
+                                "solanaAddress": "",
+                                "aptosAddress": "",
+                                "seiAddress": "",
+                                "twitterUserName": "Shabnam_bzg",
+                                "discordUserName": "",
+                                "displayNamePref": "USERNAME",
+                                "displayTwitter": true,
+                                "displayDiscord": false,
+                                "__typename": "Address"
+                            },
+                            "__typename": "LoyaltyPointsRank"
+                        },
+                        "__typename": "LoyaltyPointsRankEdge"
+                    },
+                    {
+                        "node": {
+                            "id": "lbrank-ugbEPa73GH9xrXfqGaFWhC-994",
+                            "rank": 3,
+                            "points": 1372,
+                            "space": {
+                                "name": "Moso",
+                                "__typename": "Space"
+                            },
+                            "address": {
+                                "username": "rahimmillionare",
+                                "id": "ugbEPa73GH9xrXfqGaFWhC",
+                                "avatar": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x58cb0cd5b50613eb1cb1f016efb09cff538a41ab-1678830778847142691",
+                                "address": "0x58cb0cd5b50613eb1cb1f016efb09cff538a41ab",
+                                "solanaAddress": "",
+                                "aptosAddress": "",
+                                "seiAddress": "",
+                                "twitterUserName": "amirhossein373",
+                                "discordUserName": "rahim.bayani#0",
+                                "displayNamePref": "SID_BNB",
+                                "displayTwitter": true,
+                                "displayDiscord": true,
+                                "__typename": "Address"
+                            },
+                            "__typename": "LoyaltyPointsRank"
+                        },
+                        "__typename": "LoyaltyPointsRankEdge"
+                    }
+                ]
+            }
+        }
+    }
+}

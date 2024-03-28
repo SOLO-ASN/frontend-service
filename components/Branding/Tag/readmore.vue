@@ -6,7 +6,7 @@
     </span>
     <!-- 按钮作为行内元素，放在文本后面 -->
     <button class="read-more" @click="toggleText">
-      {{ isExpanded ? 'less' : 'more' }}
+      {{ isExpanded ? 'View less' : 'View more' }}
     </button>
   </div>
 </template>
@@ -14,8 +14,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 
-const fullText = `Galxe is the leading platform for building Web3 community. With over 11 million unique users,
-Galxe has propelled the growth of Optimism, Polygon, Arbitrum, and more than...`;
+const fullText = `Galxe is the leading platform for building Web3 community. With over 11 million unique users, Galxe has propelled the growth of Optimism, Polygon, Arbitrum, and more than 2900 partners with reward-based loyalty programs.`;
 
 const isExpanded = ref(false);
 
@@ -42,13 +41,14 @@ function toggleText() {
 
 .read-more {
   font-size: 1.0rem; /* 减小字体大小 */
-  color: blue;
+  color: white;
   cursor: pointer;
   background: none;
   border: none;
   padding: 0;
   margin-left: 0.3rem; /* 将按钮放在文本旁边 */
   text-decoration: underline; /* 添加下划线表示这是个链接 */
+  font-weight: bold; /* Make the text bold */
 }
 
 /* 处理展开状态下的文本 */
