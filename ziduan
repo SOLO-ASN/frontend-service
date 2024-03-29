@@ -1036,3 +1036,91 @@ response
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+前端需要展示的数据：
+Spaces:
+[
+    {
+        "name": "Galxe",
+        "followersCount": 307977,
+        "activeCampaignCount": 37,
+        "isVerified": true,
+        "thumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+        "tokenSymbol": "GAL",
+        "status": "Standard"
+    },
+    {
+        "name": "Moso",
+        "followersCount": 45901,
+        "activeCampaignCount": 29,
+        "isVerified": true,
+        "thumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
+        "tokenSymbol": "USDC",
+        "status": "Standard"
+    }
+]
+
+
+Space:
+{
+    "id": "28",
+    "name": "Galxe",
+    "alias": "Galxe",
+    "isVerified": true,
+    "followersCount": 308016,
+    "followersRank": "17",
+    "thumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+    "info": "Galxe is the leading platform for building Web3 community. With over 11 million unique users, Galxe has propelled the growth of Optimism, Polygon, Arbitrum, and more than 2900 partners with reward-based loyalty programs.",
+    "categories": [
+      "NFT",
+      "Web3",
+      "DID",
+      "Social",
+      "Infrastructure"
+    ],
+    "token": {
+      "id": 11877,
+      "symbol": "GAL",
+      "slug": "galxe"
+    },
+    "links": {
+      "Discord": "https://discord.gg/galxe",
+      "Github": "https://github.com/GalxeHQ",
+      "HomePage": "galxe.com",
+      "Instagram": "https://www.instagram.com/galxehq",
+      "Medium": "https://blog.galxe.com/",
+      "Telegram": "t.me/Galxe",
+      "TikTok": "https://www.tiktok.com/@galxehq",
+      "Twitter": "https://twitter.com/Galxe",
+      "YouTube": "https://www.youtube.com/@GalxeHQ"
+    },
+    "backers": [
+      {
+        "name": "multicoincap",
+        "icon": "https://pbs.twimg.com/profile_images/1532419804031852546/KMJZNS9c_normal.jpg"
+      },
+      // ...more backers
+    ],
+    "campaigns": [
+      {
+        "id": "GCK5JUUjFn",
+        "name": "Project Galaxy Meme Contest #1 Winner",
+        "type": "Oat",
+        "status": "Expired",
+        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
+        "participantsCount": 3
+      },
+      // ...more campaigns
+    ]
+  }
+  

@@ -21,26 +21,23 @@
                     <!-- 侧边栏 -->
                     <v-col :cols="12" md="2" lg="2" class="sidebar">
                       <filter-side
-                        :filter-rating="filterRating"
-                        :filter-category="filterCategory"
-                        :filter-radio="filterRadio"
-                        :filter-check="filterCheck"
-                        @change-rating="handleRatingChange"
-                        @change-category="handleCategoryChange"
-                        @change-radio="handleRadioChange"
-                        @change-check="handleCheckChange"
-                        @change-range="handleRangeChange"
+                        ref="childRef"
                         @collect-tag="handleCollectTag"
+                        @update:selectedTags1="handleSelectedTagsUpdate"
+                        @update:selectedTags2="handleSelectedTagsUpdate"
+                        @update:selectedTags3="handleSelectedTagsUpdate"
+                        @update:selectedTags4="handleSelectedTagsUpdate"
                       />
+                  
                     </v-col>
                   
                     <!-- 内容区域 -->
                     <v-col :cols="12" md="8" lg="8" class="mx-14 content">
                       <v-row class="px-0 content-row">
-                        <v-col md="7" sm="12" class="px-0">
+                        <v-col md="8" sm="12" class="px-0">
                           <search v-model="keyword" @input="onInput" />
                         </v-col>
-                        <v-col md="3" sm="6" class="ps-md-3">
+                        <v-col md="4" sm="6" class="ps-md-3">
                           <sorter
                             :view="toggleView"
                             :sort-by-selected="sortBySelected"
@@ -49,10 +46,10 @@
                             @open-filter="handleOpenFilter"
                           />
                         </v-col>
-                        <v-col md="2" sm="6" class="ps-md-4">
-                          <claim-button @update:isSelected="handleVerifiedChange"/>
-                        </v-col>
                       </v-row>
+                      <!-- 其他代码 -->
+                      <el-button @click="selectAllTags" round color="black">All</el-button>
+                      <el-button @click="clearAllTags" round color="black">Clear all</el-button>
                       <!-- 将 gallery 放置在内容区域的 v-row 内 -->
                       <gallery />
                     </v-col>
@@ -62,10 +59,10 @@
                 <div v-else-if="currentTab === 'leaderboard'">
                   <!-- Leaderboard的内容 -->
                   <v-container>
-                    <leaderboard />
+                    <h1>待开发</h1>
+                    <leaderboard v-if="false"/>
                   </v-container>
                 </div>
-              
             </div>
           
       </div>
@@ -152,8 +149,95 @@ import TabCategory from '@/components/Filter/TabCategory_space';
 import Sorter from '@/components/Filter/Sorter_space';
 import brand from '@/assets/text/brand';
 import { useHead } from '#app';
+import { ref } from 'vue';
+import axios from 'axios';
+
 
 const currentTab = ref('home');
+
+const childRef = ref(null);
+
+const credSources = ref([]);
+const rewardTypes = ref([]);
+const chains = ref([]);
+const statuses = ref([]);
+const listType = ref("Trending");
+const searchString = ref('');
+
+function handleSortBy(e) {
+  listType.value = e.value;
+}
+
+function onInput() {
+  searchString.value = event.target.value;
+};
+
+const selectAllTags = () => {
+  if (childRef.value) {
+    childRef.value.selectAllTags();
+  }
+}
+
+const clearAllTags = () => {
+  if (childRef.value) {
+    childRef.value.clearAllTags();
+  }
+}
+const data = ref(null);
+const route = useRoute();
+const alias = ref(route.query.alias);
+
+onMounted(async () => { 
+  try {
+    const response = await axios.post('/api/getspace/', {
+      alias: alias.value
+      });  
+    data.value = response.data;
+    // 在这里对响应数据进行进一步的处理
+  } catch (error) {
+    console.error(error);
+    // 处理请求错误
+  }
+});
+
+
+function handleSelectedTagsUpdate(group, value) {
+  // 处理 selectedTags 的更新
+  if(group==="selectedTags1"){
+    console.log(group ,'更新了:', value);
+    credSources.value = value;
+  }else if(group==="selectedTags2"){
+    console.log(group, '更新了:', value);
+    rewardTypes.value = value;
+  }else if(group==="selectedTags3"){
+    console.log(group ,'更新了:', value);
+    chains.value = value;
+  }else if(group==="selectedTags4"){
+    console.log(group ,'更新了:', value);
+    statuses.value = value;
+  }
+}
+
+async function fetchData() {
+  try {
+    console.info("fdsa", statuses.value);
+    const response = await axios.post('/api/filter/', {
+        credSources: credSources.value,
+        rewardTypes: rewardTypes.value,
+        chains: chains.value,
+        statuses: statuses.value,
+        listType: listType.value,
+        searchString: searchString.value
+      }
+    );
+    cardItems.value = response.data; // 更新数据
+  } catch (error) {
+    console.error('请求失败', error);
+  }
+}
+
+watch([credSources, rewardTypes, chains, statuses, listType, searchString], fetchData);
+
 
 useHead({
   title: brand.name + ' - Campaign',

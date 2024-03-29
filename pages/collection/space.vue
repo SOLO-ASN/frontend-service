@@ -42,6 +42,7 @@
         </v-dialog>
         <v-container>
           <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'">
+
             <v-col md="8" sm="12" class="px-0" cols="12">
               <search v-model="keyword" @input="onInput" />
             </v-col>
@@ -64,6 +65,11 @@
               </div>
             </v-col>
           </v-row>
+          <v-row class="pl-0" style="position: absolute; top: 125px; left: 250px;">
+            <v-btn color="primary">Create space</v-btn>
+          </v-row>
+          </v-container>
+          <v-container>
           <div class="mt-md-5 mt-xs-2 mt-sm-3 mx-xs-2">
             <v-row :class="{ spacing3: isDesktop }">
               <v-col md="15" cols="15">
@@ -88,7 +94,7 @@
                       :avatar="item.avatar"
                       :items="item.items"
                       :sales="item.sales"
-                      :href="item.href"
+                      :href="item.href + '?alias=Galxe'"
                       @follow-click="handleFollowClick"
                     />
                   </v-col>
@@ -257,10 +263,10 @@ async function fetchData() {
   try {
     const response = await axios.get('/api/filter/', {
       params: {
-        sort: sortBy.value,
+        spaceListType: sortBy.value,
         filter: group.value,
-        verified: verified.value,
-        keyword: keyword.value,
+        verifiedOnly: verified.value,
+        searchString: keyword.value,
       },
     });
     cardItems.value = response.data; // 更新数据

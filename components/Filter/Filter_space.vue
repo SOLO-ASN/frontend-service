@@ -82,32 +82,13 @@
 
 <script>
 export default {
-  props: {
-    filterRating: {
-      type: Number,
-      default: 0,
-    },
-    filterCategory: {
-      type: String,
-      required: true,
-    },
-    filterRadio: {
-      type: String,
-      required: true,
-    },
-    filterCheck: {
-      type: Array,
-      required: true,
-    },
-    handleCheckAll: {
-      type: Function,
-      required: true,
-    },
-  },
   emits: [
-    'change-rating', 'change-category', 'change-radio',
-    'change-check', 'change-from', 'change-to',
-    'change-tag', 'change-range', 'collect-tag',
+    'change-tag', 'collect-tag', 
+    'update:selectedTags',
+    'update:selectedTags1',
+    'update:selectedTags2',
+    'update:selectedTags3',
+    'update:selectedTags4',
   ],
   data() {
     return {
@@ -143,9 +124,13 @@ export default {
       selectedTags1: [],
       selectedTags2: [],
       selectedTags3: [],
-      selectedTags4: [],
+      selectedTags4: ['Active', 'Not Started'],
     };
   },
+
+  
+
+
   methods: {
     collectTag(tagGroup, tag) {
       if (this[tagGroup].includes(tag)) {
@@ -153,10 +138,24 @@ export default {
       } else {
         this[tagGroup].push(tag);
       }
-      this.$emit('update:' + tagGroup, [...this[tagGroup]]);
+      this.$emit('update:' + tagGroup, tagGroup, [...this[tagGroup]]);
     },
+
+    selectAllTags() {
+        // 遍历所有标签组并将每个组的所有标签添加到对应的选中标签数组中
+        this.selectedTags2 = this.filterTag2;
+        this.$emit('update:selectedTags2', "selectedTags2", [...this.selectedTags2]);
+    },
+    clearAllTags() {
+        // 清空所有选中标签数组
+        this.selectedTags2 = [];
+        this.$emit('update:selectedTags2', "selectedTags2", [...this.selectedTags2]);
+    }
   },
 };
+
+
+
 </script>
 
 <style scoped lang="scss">

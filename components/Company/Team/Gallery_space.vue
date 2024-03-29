@@ -1,32 +1,6 @@
 <template>
   <div class="root">
     <div class="mt-5">
-      <v-tabs
-        :align-tabs="isTablet ? 'center' : 'left'"
-        :show-arrows="isTablet"
-        v-model="valtab"
-        @update:modelValue="handleChange"
-        class="tabs"
-      >
-        <v-tab class="tab-label" value="all">
-          <span>All</span>
-        </v-tab>
-        <v-tab class="tab-label" value="OAT&NFT">
-          <span>OAT&NFT</span>
-        </v-tab>
-        <v-tab class="tab-label" value="Custom Reward">
-          <span>Custom Reward</span>
-        </v-tab>
-        <v-tab class="tab-label" value="Token Reward">
-          <span>Token Reward</span>
-        </v-tab>
-        <v-tab class="tab-label" value="Point">
-          <span>Point</span>
-        </v-tab>
-        <v-tab class="tab-label" value="Mintlist">
-          <span>Mintlist</span>
-        </v-tab>
-      </v-tabs>
       <div class="mt-5">
         <v-row :class="isMobile ? 'spacing2' : 'spacing4'">
           <v-col
