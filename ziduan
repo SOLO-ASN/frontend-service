@@ -1167,6 +1167,54 @@ Space:
         "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
         "participantsCount": 3
       },
+      {
+        "id": "GC4SjtTJ2f",
+        "name": "Galxe Radio Episode 60 Feat. Laika AI",
+        "type": "Oat",
+        "status": "Active",
+        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
+        "participantsCount": 993
+    },
+    {
+        "id": "GC9a7tTN3X",
+        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
+        "type": "Oat",
+        "status": "Active",
+        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
+        "participantsCount": 2014
+    }
+    {
+        "id": "GC8K3mJv9x",
+        "name": "Exclusive NFT Drop for Early Supporters",
+        "type": "NFT Drop",
+        "status": "Upcoming",
+        "thumbnail": "https://cdn.galxe.com/galaxy/example_thumbnail_3.png",
+        "participantsCount": 1250
+      },
+      {
+        "id": "GC2D5kRt7L",
+        "name": "Community Art Contest",
+        "type": "Art Contest",
+        "status": "Ended",
+        "thumbnail": "https://cdn.galxe.com/galaxy/example_thumbnail_4.png",
+        "participantsCount": 532
+      },
+      {
+        "id": "GC4G7fJk8Z",
+        "name": "Galxe SDK Tutorial Completion",
+        "type": "Tutorial",
+        "status": "Active",
+        "thumbnail": "https://cdn.galxe.com/galaxy/example_thumbnail_5.png",
+        "participantsCount": 780
+      },
+      {
+        "id": "GC5H8iKl0Q",
+        "name": "Beta Testers for New Platform Features",
+        "type": "Beta Testing",
+        "status": "Recruiting",
+        "thumbnail": "https://cdn.galxe.com/galaxy/example_thumbnail_6.png",
+        "participantsCount": 320
+      }
       // ...more campaigns
     ]
   }

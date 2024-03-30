@@ -19,9 +19,6 @@ const {categories} = defineProps({
     type: Array,
   }
 });
-onMounted(()=>{
-  console.info(categories);
-});
 
 
 import type { TagProps } from 'element-plus'

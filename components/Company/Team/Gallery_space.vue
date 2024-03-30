@@ -58,13 +58,14 @@ function handleChange(category) {
 
 }
 
-onMounted(() => {
-  const result = [];
-  for (let i = 0; i < longestArray.length; i += 1) {
-    if (collectionData[i]) result.push(collectionData[i]);
+const data = defineProps({
+  data: {
+    type: Object,
+    required: true
   }
+});
 
-  rawData.value = result;
-  combinedData.value = result;
+onMounted(() => {
+  
 });
 </script>

@@ -135,7 +135,7 @@ const {detailData} = defineProps({
 });
 
 onMounted(() => { 
-  console.info("ffaf", detailData); 
+  
 });  
 
 const imgs = [
@@ -177,7 +177,6 @@ function handleHide() {
 
 const emit = defineEmits(['follow-click']);
 const onButtonClick = () => {
-  console.info(detailData);
   emit('follow-click', detailData.id, detailData.isFollowing); // 通知父组件，传递id
 };
 
