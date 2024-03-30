@@ -1,19 +1,19 @@
 <template>
   <el-row class="stats-container">
     <el-col :span="6" class="stat-item">
-      <el-statistic title="Followers" :value="268500" />
+      <el-statistic title="Followers" :value="followersCount" />
     </el-col>
     <el-col :span="6" class="stat-item">
-      <el-statistic :value="138">
+      <el-statistic :value="token.symbol">
         <template #title>
             Token
         </template>
-        <template #suffix>/100</template>
       </el-statistic>
     </el-col>
-    <el-col :span="6" class="stat-item">
-      <el-statistic title="Backer" :value="outputValue" />
-    </el-col>
+    <div class="stat-item">
+      <img :src="backers[0].icon" class="backer-icon" />
+      <div class="stat-value">Backer</div>
+    </div>
     <el-col :span="6" class="stat-item">
       <el-statistic title="My Points" :value="562">
         <template #suffix>
@@ -30,6 +30,22 @@
 import { ref } from 'vue'
 import { useTransition } from '@vueuse/core'
 import { ChatLineRound, Male } from '@element-plus/icons-vue'
+
+const {token, followersCount, backers} = defineProps({
+  token:{
+    type: Object,
+    required: true
+  },
+  followersCount:{
+    type: Number,
+    required: true
+  },
+  backers:{
+    type: Array,
+    required: true
+  },
+
+});
 
 const source = ref(0)
 const outputValue = useTransition(source, {

@@ -1051,26 +1051,73 @@ response
 Spaces:
 [
     {
-        "name": "Galxe",
-        "followersCount": 307977,
-        "activeCampaignCount": 37,
-        "isVerified": true,
-        "thumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-        "tokenSymbol": "GAL",
-        "status": "Standard"
+      "id": "1",
+      "name": "Galxe",
+      "followersCount": 307977,
+      "activeCampaignCount": 37,
+      "isVerified": true,
+      "thumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+      "tokenSymbol": "GAL",
+      "status": "Standard",
+      "isFollowing": false
     },
     {
-        "name": "Moso",
-        "followersCount": 45901,
-        "activeCampaignCount": 29,
-        "isVerified": true,
-        "thumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
-        "tokenSymbol": "USDC",
-        "status": "Standard"
+      "id": "2",
+      "name": "Moso",
+      "followersCount": 45901,
+      "activeCampaignCount": 29,
+      "isVerified": true,
+      "thumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
+      "tokenSymbol": "USDC",
+      "status": "Standard",
+      "isFollowing": false
+    },
+    {
+      "id": "46841",
+      "name": "io.net",
+      "followersCount": 217227,
+      "activeCampaignCount": 6,
+      "isVerified": true,
+      "thumbnail": "https://cdn.galxe.com/galaxy/e99c44c2686442d39f4369bd7490a436/.png_thumbnail.webp",
+      "tokenSymbol": "",
+      "status": "Standard",
+      "isFollowing": true
+    },
+    {
+      "id": "3533",
+      "name": "Taiko",
+      "followersCount": 751830,
+      "activeCampaignCount": 16,
+      "isVerified": true,
+      "thumbnail": "https://cdn.galxe.com/galaxy/avatar/233f5252-6c2a-4adf-8799-a310e27a016d.png",
+      "tokenSymbol": "",
+      "status": "Standard",
+      "isFollowing": false
+    },
+    {
+      "id": "38918",
+      "name": "Covalent",
+      "followersCount": 1648,
+      "activeCampaignCount": 5,
+      "isVerified": true,
+      "thumbnail": "https://cdn.galxe.com/galaxy/a91a51a48f7e4295983ccbcca89caad8/.jpeg_thumbnail.webp",
+      "tokenSymbol": "CQT",
+      "status": "Standard",
+      "isFollowing": true
+    },
+    {
+      "id": "44941",
+      "name": "Vanar",
+      "followersCount": 61400,
+      "activeCampaignCount": 2,
+      "isVerified": true,
+      "thumbnail": "https://cdn.galxe.com/galaxy/b1205d453957434bbd65519766907a26/.jpeg_thumbnail.webp",
+      "tokenSymbol": "VANRY",
+      "status": "Standard",
+      "isFollowing": false
     }
-]
-
-
+  ]
+  
 Space:
 {
     "id": "28",

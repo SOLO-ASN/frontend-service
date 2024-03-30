@@ -189,7 +189,8 @@ import collection from '@/assets/api/collection';
 import creator from '@/assets/api/creator';
 import products from '@/assets/api/products';
 import { useHead } from '#app';
-import axios from 'axios'
+import axios from 'axios';
+import {useRoute} from 'vue-router';
 
 const checkItems = [
   'check-a',
@@ -201,6 +202,25 @@ const checkItems = [
 ];
 
 const keyword = ref('');
+
+const route = useRoute();
+const name = ref(route.query.name);
+const spaceData = ref(null);
+
+onMounted(async () => {
+  try {
+    console.info(name);
+    const response = await axios.post(`/api/space/query`, {
+      name: name.value
+    });
+    spaceData.value = response.data.data;
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+
+
 const onInput = async() => {
   keyword.value = event.target.value;
   try {

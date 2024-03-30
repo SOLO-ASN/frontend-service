@@ -173,8 +173,8 @@ const single = {
       name: 'community'
     },
     {
-      id: 'collection/space',
-      name: 'Space',
+      id: 'collection/spaces',
+      name: 'Spaces',
     },
     {
       id: 'faq',

@@ -1,31 +1,32 @@
 <template>
   <div class="flex gap-2">
+    <!-- 遍历 categories 数组，并为每个分类创建一个标签 -->
     <el-tag
-      v-for="item in items"
-      :key="item.label"
-      :type="item.type"
-      :color="item.color"
-      :hit="item.hit"
-      :size="item.size"
+      v-for="(category, index) in categories"
+      :key="index"
       effect="dark"
     >
-      {{ item.label }}
+      {{category}} 
     </el-tag>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, defineProps } from 'vue'
+
+const {categories} = defineProps({
+  categories: {
+    type: Array,
+  }
+});
+onMounted(()=>{
+  console.info(categories);
+});
+
 
 import type { TagProps } from 'element-plus'
 
 type Item = { type: TagProps['type']; label: string }
 
-const items = ref<Array<Item>>([
-  { type: 'info', label: 'NFT', color: 'black' , hit: 'false', size:'large'},
-  { type: 'info', label: 'Web3' , color: 'black', hit: 'false', size:'large'},
-  { type: 'info', label: 'DID' , color: 'black', hit: 'false', size:'large'},
-  { type: 'info', label: 'Social', color: 'black', hit: 'false' , size:'large'},
-  { type: 'info', label: 'Infrastructure' , color: 'black', hit: 'false', size:'large'},
-])
+
 </script>

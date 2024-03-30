@@ -6,14 +6,14 @@
     :index="index"
     @hide="handleHide"
   />
-  <v-row :class="[isDesktop ? 'spacing' : 'spacing3', 'align-start']" justify="center">
+  <v-row v-if="detailData" :class="[isDesktop ? 'spacing' : 'spacing3', 'align-start']" justify="center">
     <v-col lg="2" md="5" sm="5" cols="12" class="pa-md-0">
       <div class="carousel" style="display: flex; justify-content: center; align-items: center;">
         <div class="figure">
           <v-img
             v-ripple
             cover
-            :src="'https://q6.itc.cn/images01/20240301/8704649e11524f1d9b77691f9ac04b78.jpeg'"
+            :src="detailData.thumbnail"
             class="image-detail"
             height="50px"
             width="200px"
@@ -60,11 +60,12 @@
         </div>
         <h4 class="use-text-title2">
           <span class="use-text-subtitle use-text-secondary-color">
-            Galxe
-            <v-icon size="x-small" style="margin-right: 100px;">mdi-check-decagram</v-icon>
+            {{detailData.name}}
+            <v-icon v-if="detailData.isVerified" size="x-small" style="margin-right: 100px;">mdi-check-decagram</v-icon>
             <v-btn
-              class="btn"
-              color="primary"
+              @click="onButtonClick"
+              :class="{ 'btn-following': isFollowing, 'btn-not-following': !isFollowing }"
+              :color="currentTheme === 'dark' ? 'secondary' : 'primary'"
               variant="tonal"
             >
               {{ $t('+ follow') }}
@@ -72,14 +73,18 @@
           </span>
             <v-row class="justify-start">
               <div class="left-align">
-                <tag/>
+                <tag :categories="detailData.categories"/>
               </div>
               <div class="left-align">
-                <readmore/>
+                <readmore :info="detailData.info"/>
               </div>    
               <div class="spacer"></div>
               <div class="left-align" >
-                <statistic class="statistic1" />
+                <statistic 
+                :followersCount="detailData.followersCount"
+                :token="detailData.token"
+                :backers="detailData.backers"
+                class="statistic1" />
               </div>
             </v-row>
         </h4>
@@ -95,6 +100,15 @@
 }
 .left-align {
   padding-top: 1rem;
+}
+.btn-following {
+  background-color: black; // 这是当 isFollowing 为 true 时的按钮颜色
+  color: white; // 文字颜色
+}
+
+.btn-not-following {
+  background-color: blue; // 这是当 isFollowing 为 false 时的按钮颜色
+  color: black; // 文字颜色
 }
 </style>
 
@@ -112,6 +126,17 @@ const visible = ref(false);
 const index = ref(0);
 const item = ref(0);
 const slick = ref(null);
+
+const {detailData} = defineProps({
+  detailData: {
+    type: Object,
+    required: true,
+  },
+});
+
+onMounted(() => { 
+  console.info("ffaf", detailData); 
+});  
 
 const imgs = [
   imgAPI.photosP[7],
@@ -149,4 +174,12 @@ function showImg(idx) {
 function handleHide() {
   visible.value = false;
 }
+
+const emit = defineEmits(['follow-click']);
+const onButtonClick = () => {
+  console.info(detailData);
+  emit('follow-click', detailData.id, detailData.isFollowing); // 通知父组件，传递id
+};
+
+
 </script>

@@ -2,7 +2,7 @@
   <div class="text-container">
     <!-- 使用 span 而不是 p，这样可以更容易地将按钮放在文本旁边 -->
     <span :class="{ 'expanded': isExpanded }">
-      {{ isExpanded ? fullText : truncatedText }}
+      {{ isExpanded ? info : truncatedText }}
     </span>
     <!-- 按钮作为行内元素，放在文本后面 -->
     <button class="read-more" @click="toggleText">
@@ -12,19 +12,27 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, defineProps } from 'vue';
 
-const fullText = `Galxe is the leading platform for building Web3 community. With over 11 million unique users, Galxe has propelled the growth of Optimism, Polygon, Arbitrum, and more than 2900 partners with reward-based loyalty programs.`;
+const {info} = defineProps({
+  info: {
+    type: String,
+    required: true,
+  },
+});
+
+
+
 
 const isExpanded = ref(false);
 
 const truncatedText = computed(() => {
   const approximateCharsPerLine = 50;
   const numberOfLinesToShow = 2;
-  if (fullText.length <= approximateCharsPerLine * numberOfLinesToShow) {
-    return fullText;
+  if (info.length <= approximateCharsPerLine * numberOfLinesToShow) {
+    return info;
   }
-  return fullText.substr(0, approximateCharsPerLine * numberOfLinesToShow) + '...';
+  return info.substr(0, approximateCharsPerLine * numberOfLinesToShow) + '...';
 });
 
 function toggleText() {

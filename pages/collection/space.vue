@@ -1,108 +1,73 @@
 <template>
-  <div class="main-wrap">
+  <div v-if="data" class="main-wrap">
     <main-header :menu="singleMenu.inner" />
     <blur-gradient />
-    <div class="container-fron container-wrap">
+    <div class="container-front container-wrap">
       <div class="inner-page">
-        <v-dialog
-          v-model="dialog"
-          fullscreen
-          hide-overlay
-          transition="dialog-bottom-transition"
-        >
-          <v-card class="cyber">
-            <v-toolbar
-              dark
-              flat
-              class="header-filter"
-            >
-              <v-btn
-                icon
-                dark
-                @click="handleCloseFilter"
-              >
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-              <v-toolbar-title>Filter</v-toolbar-title>
-              <v-spacer />
-              <v-toolbar-items>
-                <v-btn
-                  dark
-                  text
-                  @click="handleCloseFilter"
-                >
-                  Done
-                </v-btn>
-              </v-toolbar-items>
-            </v-toolbar>
-            <div class="pt-3">
-             
+          <detail 
+          :detailData="data"
+          @follow-click="handleFollowClick"
+          />
+            <div class="navbar">
+              <div class="nav-items">
+                <span class="nav-item" :class="{ active: currentTab === 'home' }" @click="currentTab = 'home'">Home</span>
+                <span class="nav-item" :class="{ active: currentTab === 'leaderboard' }" @click="currentTab = 'leaderboard'">Leaderboard</span>
+              </div>
             </div>
-          </v-card>
-        </v-dialog>
-        <v-container>
-          <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'">
 
-            <v-col md="8" sm="12" class="px-0" cols="12">
-              <search v-model="keyword" @input="onInput" />
-            </v-col>
-            <v-col md="2" sm="6" class="px-0">
-              <div class="ps-md-3">
-                <sorter
-                  :view="toggleView"
-                  :sort-by-selected="sortBySelected"
-                  :result-length="filteredItems.length"
-                  @switch-view="handleToggleView"
-                  @sort-by="handleSortBy"
-                  @open-filter="handleOpenFilter"
-                />
-              </div>
-              
-            </v-col>
-            <v-col md="2" sm="12" class="px-0">
-              <div class="ps-md-4">
-                <claim-button @update:isSelected="handleVerifiedChange"/>
-              </div>
-            </v-col>
-          </v-row>
-          <v-row class="pl-0" style="position: absolute; top: 125px; left: 250px;">
-            <v-btn color="primary">Create space</v-btn>
-          </v-row>
-          </v-container>
-          <v-container>
-          <div class="mt-md-5 mt-xs-2 mt-sm-3 mx-xs-2">
-            <v-row :class="{ spacing3: isDesktop }">
-              <v-col md="15" cols="15">
-                <tab-category
-                  :switch-tab="handleChangeGroup"
-                  :value="group"
-                  :total="filteredItems.length"
-                />
-                <v-row id="profile" class="mt-sm-5 mt-xs-2 spacing3">
-                  <v-col v-if="cardItems.length < 1" sm="12">
-                      <h3>Not found</h3>
+              <div class="inner-page1">
+                <!-- 条件渲染Home视图或Leaderboard视图 -->
+                <div v-if="currentTab === 'home'">
+                  <!-- Home的内容 -->
+                  <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'" class="mx-15">
+
+                    <!-- 侧边栏 -->
+                    <v-col :cols="12" md="2" lg="2" class="sidebar">
+                      <filter-side
+                        ref="childRef"
+                        @collect-tag="handleCollectTag"
+                        @update:selectedTags1="handleSelectedTagsUpdate"
+                        @update:selectedTags2="handleSelectedTagsUpdate"
+                        @update:selectedTags3="handleSelectedTagsUpdate"
+                        @update:selectedTags4="handleSelectedTagsUpdate"
+                      />
+                  
                     </v-col>
-                  <v-col
-                    v-for="(item, index) in cardItems"
-                    :key="index"
-                    sm="3"
-                    cols="12"
-                  >
-                    <profile-card
-                      :name="item.name"
-                      :verified="item.verified"
-                      :avatar="item.avatar"
-                      :items="item.items"
-                      :sales="item.sales"
-                      :href="item.href + '?alias=Galxe'"
-                      @follow-click="handleFollowClick"
-                    />
-                  </v-col>
-                </v-row>
-              </v-col>
-            </v-row>
-          </div>
-        </v-container>
+                  
+                    <!-- 内容区域 -->
+                    <v-col :cols="12" md="8" lg="8" class="mx-14 content">
+                      <v-row class="px-0 content-row">
+                        <v-col md="8" sm="12" class="px-0">
+                          <search v-model="keyword" @input="onInput" />
+                        </v-col>
+                        <v-col md="4" sm="6" class="ps-md-3">
+                          <sorter
+                            :view="toggleView"
+                            :sort-by-selected="sortBySelected"
+                            @switch-view="handleToggleView"
+                            @sort-by="handleSortBy"
+                            @open-filter="handleOpenFilter"
+                          />
+                        </v-col>
+                      </v-row>
+                      <!-- 其他代码 -->
+                      <el-button @click="selectAllTags" round color="black">All</el-button>
+                      <el-button @click="clearAllTags" round color="black">Clear all</el-button>
+                      <!-- 将 gallery 放置在内容区域的 v-row 内 -->
+                      <gallery />
+                    </v-col>
+                  </v-row>
+            
+                </div>
+                <div v-else-if="currentTab === 'leaderboard'">
+                  <!-- Leaderboard的内容 -->
+                  <v-container>
+                    <h1>待开发</h1>
+                    <leaderboard v-if="false"/>
+                  </v-container>
+                </div>
+            </div>
+          
       </div>
     </div>
     <div class="space-top-short">
@@ -111,174 +76,202 @@
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/pages';
+
+.navbar {
+  display: flex;
+  justify-content: center; /* Centers the navbar */
+  position: relative; /* Enables relative positioning */
+  padding-top: 1rem; /* Adjust space above the navbar */
+}
+
+.nav-items {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-60%); /* Adjusts position to the left of the center */
+  display: flex;
+  gap: 2rem; /* Space between Home and Leaderboard */
+}
+
+.nav-item {
+  font-size: 1.25rem;
+  color: white;
+  cursor: pointer;
+  padding-bottom: 0.25rem;
+}
+
+.nav-item.active {
+  font-weight: bold;
+  border-bottom: 3px solid #42b983; /* Active tab indicator */
+}
+
+.inner-page1 {
+  padding-top: 3rem; /* Adjusts the space between navbar and content */
+}
+
+.sidebar {
+  margin-top: $spacing5;
+  position: relative;
+  z-index: 1;
+
+  @include breakpoints-up(md) {
+    padding: spacing(0, 3);
+    margin: spacing(3, 0, 5);
+    position: -webkit-sticky; /* For Safari browser support */
+    position: sticky;
+    top: 0; /* This should be the distance from the top of the viewport */
+  }
+
+  @include breakpoints-between(sm, md) {
+    display: flex;
+    > div {
+      padding: $spacing3;
+      width: 50%;
+    }
+  }
+}
+
 </style>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { useDisplay } from 'vuetify';
 import MainHeader from '@/components/Header';
 import singleMenu from '@/components/Header/data/single';
-import BlurGradient from '@/components/Artworks/BlurGradient';
 import MainFooter from '@/components/Footer';
-import Hidden from '@/components/Utils/Hidden';
-import CardProducts from '@/components/Cards/Product/ProductCard';
-import PlaylistCard from '@/components/Cards/Media/PlaylistCard';
-import ProfileCard from '@/components/Cards/Profile/ProfileCard_space';
+import BlurGradient from '@/components/Artworks/BlurGradient';
+import Detail from '@/components/Collection/Product/Detail_space';
+import Description from '@/components/Collection/Product/Description';
+import RelatedItems from '@/components/Collection/Product/RelatedItems';
+import Gallery from '@/components/Company/Team/Gallery_space';
+import FilterSide from '@/components/Filter/Filter_space';
+import ClaimButton from '@/components/Filter/ClaimButton.vue';
+import Leaderboard from '@/components/Branding/Tag/Leaderboard.vue'
+import Group from '@/components/Comment/Group';
 import Search from '@/components/Filter/Search';
 import TabCategory from '@/components/Filter/TabCategory_space';
 import Sorter from '@/components/Filter/Sorter_space';
-import ClaimButton from '@/components/Filter/ClaimButton.vue';
 import brand from '@/assets/text/brand';
-import link from '@/assets/text/link';
-import collection from '@/assets/api/collection';
-import creator from '@/assets/api/creator';
-import products from '@/assets/api/products';
 import { useHead } from '#app';
-import axios from 'axios'
-
-const checkItems = [
-  'check-a',
-  'check-b',
-  'check-c',
-  'check-d',
-  'check-e',
-  'check-f',
-];
+import { ref } from 'vue';
+import axios from 'axios';
 
 
+const currentTab = ref('home');
 
-const handleFollowClick = async (items) => {
+const childRef = ref(null);
 
-  try {
-    const response = await axios.get('/api/follow', {
-      params: {
-        id: items
-        },
-    });
-    console.log(response.data);
-    // 根据返回数据执行后续操作，比如打开对话框显示详情
-  } catch (error) {
-    console.error('请求详情失败', error);
-  }
-};
-
-const dialog = ref(false);
-const sortBy = ref('Trening')
-const sortFrom = ref(-1);
-const sortTo = ref(1);
-const toggleView = ref(0);
-const filterRating = ref(0);
-const filterCategory = ref('all');
-const filterRadio = ref('all');
-const filterCheck = ref(checkItems);
-const group = ref('all');
-const verified = ref(false);
-const keyword = ref('');
-
-const { mdAndUp: isDesktop } = useDisplay();
-
-const range = ref({
-  from: 0,
-  to: 100
-});
-
-const sortBySelected = ref({
-  title: 'Trending',
-  value: 'trending-asc',
-});
-
-const filterTag = ref(['tag-one', 'tag-two', 'tag-three', 'tag-four'])
-const cardItems = ref(creator)
-
-function handleOpenFilter() {
-  dialog.value = true; 
-}
-  
-function handleCloseFilter() {
-  dialog.value = false; 
-}
-
-function handleCollectTag(val) {
-  filterTag.value = val;
-}
-  
-function handleToggleView(val) {
-  toggleView.value = val;
-}
+const credSources = ref([]);
+const rewardTypes = ref([]);
+const chains = ref([]);
+const statuses = ref([]);
+const listType = ref("Trending");
+const searchString = ref('');
 
 function handleSortBy(e) {
-  sortBy.value = e.value;
-}
-  
-function handleChangeGroup(cat) {
-  group.value = cat;
-}
-
-function handleVerifiedChange(newValue) {
-  verified.value = newValue;
+  listType.value = e.value;
 }
 
 function onInput() {
-  keyword.value = event.target.value;
+  searchString.value = event.target.value;
+};
+
+const selectAllTags = () => {
+  if (childRef.value) {
+    childRef.value.selectAllTags();
+  }
+}
+
+const clearAllTags = () => {
+  if (childRef.value) {
+    childRef.value.clearAllTags();
+  }
+}
+const data = ref(null);
+
+const route = useRoute();
+const alias = ref(route.query.alias);
+
+onMounted(async () => { 
+  try {
+    console.info(alias);
+    const response = await axios.post('https://1d24a10f-e5bf-445a-b1f8-e0e37e3d82d0.mock.pstmn.io/api/space/query/', {
+      alias: alias.value
+      });  
+    data.value = response.data.data; 
+    console.info(data.value);
+    // 在这里对响应数据进行进一步的处理
+  } catch (error) {
+    console.error(error);
+    // 处理请求错误
+  }
+});
+
+
+const handleFollowClick = async (id, isFollowing) => {
+  console.info(isFollowing);
+  console.info(id);
+  if(isFollowing==false){
+      try {
+        const response = await axios.post('https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io/api/spaces/follow', {
+          id: id
+        });
+        // 根据返回数据执行后续操作，比如打开对话框显示详情
+      } catch (error) {
+        console.error('请求详情失败', error);
+      }
+    }else{
+      try {
+        const response = await axios.post('https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io/api/spaces/unfollow', {
+          id: id
+        });
+        // 根据返回数据执行后续操作，比如打开对话框显示详情
+      } catch (error) {
+        console.error('请求详情失败', error);
+      }
+    }
 };
 
 
-const filteredItems = computed(() => {
-  // Compare same tag
-  const intersection = (firstArray, secondArray) => firstArray.filter(element => secondArray.includes(element));
-
-  // Check is all categories checked
-  const checkFilter = (item, filterData) => {
-    if (filterData !== 'all') {
-      return item === filterData;
-    }
-    return true;
-  };
-  cardItems.value = creator;
-  // 是否verify
-  if(verified.value==true){
-    cardItems.value = cardItems.value.filter(item => item.verified ===true);
+function handleSelectedTagsUpdate(group, value) {
+  // 处理 selectedTags 的更新
+  if(group==="selectedTags1"){
+    console.log(group ,'更新了:', value);
+    credSources.value = value;
+  }else if(group==="selectedTags2"){
+    console.log(group, '更新了:', value);
+    rewardTypes.value = value;
+  }else if(group==="selectedTags3"){
+    console.log(group ,'更新了:', value);
+    chains.value = value;
+  }else if(group==="selectedTags4"){
+    console.log(group ,'更新了:', value);
+    statuses.value = value;
   }
-  if (group.value === 'following') {
-    cardItems.value = [];
-  }
-
-  // 根据不同的排序方式对 cardItems 进行排序
-  if (sortBy.value === 'newest-asc') {
-    cardItems.value.sort((a, b) => {
-      const timeA = new Date(a.time).getTime();
-      const timeB = new Date(b.time).getTime();
-      return timeA - timeB;
-    });
-  } else if (sortBy.value === 'follow-asc') {
-    cardItems.value.sort((a, b) => b.items - a.items);
-  }
-
-  return cardItems.value
-})
+}
 
 async function fetchData() {
   try {
-    const response = await axios.get('/api/filter/', {
-      params: {
-        spaceListType: sortBy.value,
-        filter: group.value,
-        verifiedOnly: verified.value,
-        searchString: keyword.value,
-      },
-    });
+    console.info("fdsa", statuses.value);
+    const response = await axios.post('/api/filter/', {
+        credSources: credSources.value,
+        rewardTypes: rewardTypes.value,
+        chains: chains.value,
+        statuses: statuses.value,
+        listType: listType.value,
+        searchString: searchString.value
+      }
+    );
     cardItems.value = response.data; // 更新数据
   } catch (error) {
     console.error('请求失败', error);
   }
 }
 
-watch([sortBy, group, verified, keyword], fetchData);
+watch([credSources, rewardTypes, chains, statuses, listType, searchString], fetchData);
 
 
 useHead({
-  title: brand.name + ' - Space',
+  title: brand.name + ' - Campaign',
 });
 </script>
+
