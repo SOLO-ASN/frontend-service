@@ -8,11 +8,7 @@
   >
     <v-card class="profile-card" :class="first ? 'first' : ''">
       <div class="inner">
-        <v-avatar
-          alt="avatar"
-          :src="thumbnail"
-          class="avatar"
-        />
+        <img :src="thumbnail" :alt="name" class="card-image">
         <div class="properties">
           <h5 class="title">
             {{ name }}
@@ -68,6 +64,13 @@
 .btn-not-following {
   background-color: blue; // 这是当 isFollowing 为 false 时的按钮颜色
   color: black; // 文字颜色
+}
+.card-image {
+  max-width: 100px; /* Smaller width */
+  max-height: 100px; /* Smaller height */
+  border-radius: 50%; /* Makes the image round */
+  object-fit: cover;
+  margin: 0 auto 16px; /* Centers the image and adds spacing below */
 }
 </style>
 

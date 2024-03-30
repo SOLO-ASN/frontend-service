@@ -91,7 +91,7 @@
                   <v-col
                     v-for="(item, index) in cardItems"
                     :key="index"
-                    sm="3"
+                    sm="4"
                     cols="12"
                   >
                     <profile-card

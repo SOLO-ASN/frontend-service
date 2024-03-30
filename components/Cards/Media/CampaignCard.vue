@@ -21,17 +21,20 @@
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+  justify-content: center; /* Centers the cards */
 }
 
 .campaign-card {
-  width: 300px;
+  width: 300px; /* Fixed width */
+  height: 400px; /* Fixed height */
+  display: flex;
+  flex-direction: column;
   background: #333;
   color: #fff;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 .card-header {
   background: #555;
   padding: 8px 16px;
@@ -42,6 +45,7 @@
 .card-body {
   padding: 16px;
   text-align: center;
+  flex: 1; /* Ensures that the body takes up the remaining space */
 }
 
 .card-image {

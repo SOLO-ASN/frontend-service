@@ -7,22 +7,16 @@
     @hide="handleHide"
   />
   <v-row v-if="detailData" :class="[isDesktop ? 'spacing' : 'spacing3', 'align-start']" justify="center">
-    <v-col lg="2" md="5" sm="5" cols="12" class="pa-md-0">
-      <div class="carousel" style="display: flex; justify-content: center; align-items: center;">
-        <div class="figure">
-          <v-img
-            v-ripple
-            cover
-            :src="detailData.thumbnail"
-            class="image-detail"
-            height="50px"
-            width="200px"
-          />
-          <v-icon class="zoom-icon">
-            mdi-magnify-plus-outline
-          </v-icon>
-        </div>
-      </div>
+    <v-col lg="2" md="5" sm="5" cols="12" >
+      <v-img
+        
+        cover
+        :src="detailData.thumbnail"
+        class="image-detail"
+        height="200px"
+        width="200px"
+        style="border-radius: 50%;" 
+      />     
     </v-col>
     <v-col md="6" sm="7" cols="12">
       <div class="text">
@@ -110,6 +104,7 @@
   background-color: blue; // 这是当 isFollowing 为 false 时的按钮颜色
   color: black; // 文字颜色
 }
+
 </style>
 
 <script setup>
