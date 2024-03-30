@@ -45,9 +45,11 @@
 }
 
 .card-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
+  max-width: 180px; /* Smaller width */
+  max-height: 180px; /* Smaller height */
+  border-radius: 50%; /* Makes the image round */
+  object-fit: cover;
+  margin: 0 auto 16px; /* Centers the image and adds spacing below */
 }
 
 .card-title {
@@ -61,6 +63,7 @@
   font-size: 1rem;
   opacity: 0.8;
 }
+
 @import './playlist-card.scss';
 </style>
 
