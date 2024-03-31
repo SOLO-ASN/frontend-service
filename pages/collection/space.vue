@@ -219,7 +219,7 @@ onMounted(async () => {
         listType: listType.value, 
         searchString: searchString.value
       });  
-    cardItems.value = response1.data.data; 
+    cardItems.value = response1.data.data.list; 
     console.info("2", cardItems.value);
     // 在这里对响应数据进行进一步的处理
   } catch (error) {

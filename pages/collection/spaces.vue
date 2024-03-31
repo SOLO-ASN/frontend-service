@@ -265,8 +265,8 @@ async function fetchData() {
       searchString: keyword.value,
     });
     console.info(response.data.data);
-    if (response.data.data && Array.isArray(response.data.data)) {
-      cardItems.value = response.data.data.map(item => ({
+    if (response.data.data.list && Array.isArray(response.data.data.list)) {
+      cardItems.value = response.data.data.list.map(item => ({
         name: item.name,
         isVerified: item.isVerified,
         thumbnail: item.thumbnail,

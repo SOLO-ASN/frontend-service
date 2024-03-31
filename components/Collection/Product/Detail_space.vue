@@ -9,7 +9,7 @@
   <v-row v-if="detailData" :class="[isDesktop ? 'spacing' : 'spacing3', 'align-start']" justify="center">
     <v-col lg="2" md="5" sm="5" cols="12" >
       <v-img
-        
+        v-ripple
         cover
         :src="detailData.thumbnail"
         class="image-detail"
@@ -85,6 +85,7 @@
       </div>
     </v-col>
   </v-row>
+  
 </template>
 
 <style lang="scss" scoped>
