@@ -1,0 +1,64 @@
+<template>
+    <div class="main-wrap">
+      <main-header :menu="singleMenu.inner" />
+      <blur-gradient />
+  
+      <div class="container-front container-wrap">
+        <div class="inner-page">
+          <v-container>
+            <detail />
+            <div class="space-top-short">
+              <faq-list />
+            </div>
+          </v-container>
+        </div>
+  
+        <main class="container-front container-wrap">
+          <div class="inner-page">
+              <media-banner
+                :tags="['NFT', 'points']"
+              >
+                <template v-slot:decoration>
+                  <parallax-deco type="scroll" />
+                </template>
+              </media-banner>
+          </div>
+        </main>
+  
+  
+        <div class="space-top-short">
+          <related-items />
+        </div>
+      </div>
+  
+      <div id="footer" class="space-top-short">
+        <main-footer />
+      </div>
+    </div>
+  </template>
+  
+  <style lang="scss" scoped>
+  @import '@/assets/scss/pages';
+  </style>
+  
+  <script setup>
+  import MainHeader from '@/components/Header';
+  import BlurGradient from '@/components/Artworks/BlurGradient';
+  import RelatedItems from '@/components/Campaign/Product/RelatedItems';
+  import singleMenu from '@/components/Header/data/single';
+  import MainFooter from '@/components/Footer';
+  import FaqList from '@/components/Campaign/Faq/FaqList';
+  import MediaBanner from '@/components/HeroBanner/MediaBanner';
+  import ParallaxDeco from '@/components/Parallax3d/Basket';
+  
+  
+  import Detail from '@/components/Campaign/Product/Detail';
+
+  import brand from '@/assets/text/brand';
+  import { useHead } from '#app';
+  
+  useHead({
+    title: brand.name + ' - Products Detail',
+  });
+  </script>
+  

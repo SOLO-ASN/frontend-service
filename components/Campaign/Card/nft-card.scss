@@ -1,0 +1,127 @@
+ .nft-card {
+  border-radius: $rounded-medium;
+  margin-bottom: $spacing2;
+  overflow: hidden;
+  position: relative;
+  background: #424242;
+  @include shadow8;
+  display: flex;
+  justify-content: center;
+  @include breakpoints-up(sm) {
+    min-height: 250px
+  }
+  .figure {
+    margin: 0;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      display: block;
+      position: relative
+    }
+  }
+}
+
+.property {
+  transition: all 0.3s ease-out;
+  position: absolute;
+  width: 100%;
+  height: 150%;
+  min-height: 170px;
+  padding: spacing(1, 2);
+  bottom: 0;
+  @include text-align(left);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  @include left(0);
+  color: $palette-common-white;
+  &:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    @include left(0);
+    position: absolute;
+    opacity: 0.9;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, $palette-secondary-dark 85%, $palette-primary-main 100%);
+  }
+  @include breakpoints-down(lg) {
+    bottom: 0;
+    .desc {
+      display: none
+    }
+  }
+  @include breakpoints-down(sm) {
+    padding: $spacing1
+  }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: $spacing1
+}
+
+.title {
+  text-transform: capitalize;
+  font-weight: $font-bold;
+  line-height: 36px;
+  position: relative;
+  margin-bottom: $spacing1;
+  display: block;
+  &.small {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  &.big {
+    font-size: 24px;
+    @include breakpoints-down(sm) {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+}
+
+.name {
+  display: block;
+  font-weight: $font-regular;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: block;
+  @include palette-background-paper;
+  text-align: center;
+  @include margin-right($spacing1);
+  @include breakpoints-down(lg) {
+    display: none
+  }
+  img {
+    display: block;
+    width: 100%
+  }
+}
+
+.price {
+  position: absolute;
+  font-weight: $font-medium;
+  background: $palette-common-black;
+  color: $palette-common-white;
+  top: $spacing1;
+  z-index: 1;
+}
+
+.verified {
+  color: $palette-secondary-main;
+  font-size: 16px;
+  margin-top: 4px;
+  @include margin-left($spacing1);
+}
