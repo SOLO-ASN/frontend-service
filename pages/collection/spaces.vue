@@ -257,8 +257,8 @@ const handleFollowClick = async (id, isFollowing) => {
 
 async function fetchData() {
   try {
-    isLoading.value = true; // 开始加载数据
-    const response = await axios.post('https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io/api/spaces/query', {
+    isLoading.value = true; // 开始加载数据   https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io
+    const response = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io/api/spaces/query', {
       spaceListType: sortBy.value,
       filter: group.value,
       verifiedOnly: verified.value,
