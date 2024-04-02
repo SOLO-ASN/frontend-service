@@ -19,15 +19,15 @@
                     <media-banner
                         :tags="['NFT', 'points']"
                     >
-                        <template v-slot:decoration>
-                            <parallax-deco type="scroll" />
-                        </template>
                     </media-banner>
                     <div>
                         <section id="single" class="space-button">
                             <single />
                         </section>
                     </div>
+                    <div id="gallery" class="space-photo">
+                      <gallery />
+                    </div>  
                 </div>
             </main>
         </div>
@@ -56,8 +56,7 @@
   import MainFooter from '@/components/Footer';
   import FaqList from '@/components/Campaign/Faq/FaqList';
   import MediaBanner from '@/components/Campaign/Reward/MediaBanner';
-  import ParallaxDeco from '@/components/Parallax3d/Basket';
-
+  import Gallery from '@/components/Campaign/Reward/Gallery';
   import Single from '@/components/Campaign/Button/Single';
 
   import Detail from '@/components/Campaign/Product/Detail';
