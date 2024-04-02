@@ -12,18 +12,25 @@
             </div>
           </v-container>
         </div>
-  
-        <main class="container-front container-wrap">
-          <div class="inner-page">
-              <media-banner
-                :tags="['NFT', 'points']"
-              >
-                <template v-slot:decoration>
-                  <parallax-deco type="scroll" />
-                </template>
-              </media-banner>
-          </div>
-        </main>
+        
+        <div>
+            <main class="container-front container-wrap">
+                <div class="inner-page">
+                    <media-banner
+                        :tags="['NFT', 'points']"
+                    >
+                        <template v-slot:decoration>
+                            <parallax-deco type="scroll" />
+                        </template>
+                    </media-banner>
+                    <div>
+                        <section id="single" class="space-button">
+                            <single />
+                        </section>
+                    </div>
+                </div>
+            </main>
+        </div>
   
   
         <div class="space-top-short">
@@ -48,10 +55,11 @@
   import singleMenu from '@/components/Header/data/single';
   import MainFooter from '@/components/Footer';
   import FaqList from '@/components/Campaign/Faq/FaqList';
-  import MediaBanner from '@/components/HeroBanner/MediaBanner';
+  import MediaBanner from '@/components/Campaign/Reward/MediaBanner';
   import ParallaxDeco from '@/components/Parallax3d/Basket';
-  
-  
+
+  import Single from '@/components/Campaign/Button/Single';
+
   import Detail from '@/components/Campaign/Product/Detail';
 
   import brand from '@/assets/text/brand';
