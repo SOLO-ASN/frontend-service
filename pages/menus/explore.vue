@@ -1,3 +1,263 @@
 <template>
-
+  <div class="main-wrap">
+    <main-header :menu="singleMenu.inner" />
+    <blur-gradient />
+    <div class="container-front container-wrap">
+      <div class="inner-page">
+        <div class="navbar">
+          <div class="nav-items">
+            <span class="nav-item" :class="{ active: currentTab === 'All' }" @click="currentTab = 'All'">All</span>
+            <span class="nav-item" :class="{ active: currentTab === 'Following' }" @click="currentTab = 'Following'">Following</span>
+          </div>
+        </div>
+        <div class="inner-page1">
+          <!-- 条件渲染Home视图或Leaderboard视图 -->
+          <div v-if="currentTab === 'All'">
+            <!-- Home的内容 -->
+            <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'" class="mx-15">
+              <!-- 侧边栏 -->
+              <v-col :cols="12" md="2" lg="2" class="sidebar">
+                <filter-side
+                  ref="childRef"
+                  @collect-tag="handleCollectTag"
+                  @update:selectedTags1="handleSelectedTagsUpdate"
+                  @update:selectedTags2="handleSelectedTagsUpdate"
+                  @update:selectedTags3="handleSelectedTagsUpdate"
+                  @update:selectedTags4="handleSelectedTagsUpdate"
+                />
+              </v-col>
+              <!-- 内容区域 -->
+              <v-col :cols="12" md="8" lg="8" class="mx-14 content">
+                <v-row class="px-0 content-row">
+                  <v-col md="7" sm="12" class="px-0">
+                    <search v-model="keyword" @input="onInput" />
+                  </v-col>
+                  <v-col md="2" sm="6" class="ps-md-3">
+                    <sorter
+                      :view="toggleView"
+                      :sort-by-selected="sortBySelected"
+                      @switch-view="handleToggleView"
+                      @sort-by="handleSortBy"
+                      @open-filter="handleOpenFilter"
+                    />
+                  </v-col>
+                  <v-col md="2" sm="12" class="px-0">
+                    <div class="ps-md-4">
+                        <claim-button @update:isSelected="handleVerifiedChange"/>
+                    </div>
+                  </v-col>
+                </v-row>
+                <el-button @click="selectAllTags" round color="black">All</el-button>
+                <el-button @click="clearAllTags" round color="black">Clear all</el-button>
+                <!-- 将 gallery 放置在内容区域的 v-row 内 -->
+                <v-row v-if="cardItems" :class="isMobile ? 'spacing1' : 'spacing1'">
+                  <v-col
+                    v-for="(cardItem, index) in cardItems"
+                    :key="index"
+                    :sm="3"
+                    cols="10"
+                  >
+                    <campaign-card :campaigns="cardItem" />
+                  </v-col>
+                </v-row>
+              </v-col>
+            </v-row>
+          </div>
+          <div v-else-if="currentTab === 'Following'">
+            <!-- Leaderboard的内容 -->
+            <v-container>
+              <h1>待开发</h1>
+            </v-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="space-top-short">
+      <main-footer />
+    </div>
+  </div>  
 </template>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/pages'; 
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding-top: 1rem;
+}
+
+.nav-items {
+  position: absolute;
+  left: 30%;
+  transform: translateX(-60%);
+  display: flex;
+  gap: 5rem;
+}
+
+.nav-item {
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  padding-bottom: 0.25rem;
+}
+
+.nav-item.active {
+  font-weight: bold;
+  border-bottom: 3px solid #42b983;
+}
+
+.inner-page1 {
+  padding-top: 3rem;
+}
+
+.sidebar {
+  margin-top: $spacing5;
+  position: relative;
+  z-index: 1;
+  @include breakpoints-up(md) {
+    padding: spacing(0, 3);
+    margin: spacing(3, 0, 5);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+  }
+  @include breakpoints-between(sm, md) {
+    display: flex;
+    > div {
+      padding: $spacing3;
+      width: 50%;
+    }
+  }
+}
+</style>
+
+<script setup>
+import MainHeader from '@/components/Header';
+import singleMenu from '@/components/Header/data/single';
+import MainFooter from '@/components/Footer';
+import BlurGradient from '@/components/Artworks/BlurGradient';
+import SpaceDetail from '@/components/Airdrops/SpaceDetail';
+import FilterSide from '@/components/Airdrops/Filter';
+import ClaimButton from '@/components/Airdrops/ClaimButton.vue';
+import Leaderboard from '@/components/Airdrops/Leaderboard.vue'
+import Search from '@/components/Filter/Search';
+import TabCategory from '@/components/Airdrops/TabCategory';
+import Sorter from '@/components/Airdrops/Sorter';
+import CampaignCard from '@/components/Airdrops/CampaignCard.vue'
+import brand from '@/assets/text/brand';
+import { useHead } from '#app';
+import { ref } from 'vue';
+import axios from 'axios';
+
+
+const currentTab = ref('All');
+
+const childRef = ref(null);
+
+const credSources = ref([]);
+const rewardTypes = ref([]);
+const chains = ref([]);
+const statuses = ref([]);
+const listType = ref("Trending");
+const searchString = ref('');
+const verified = ref(false);
+
+function handleSortBy(e) {
+  listType.value = e.value;
+}
+
+function handleVerifiedChange(newValue) {
+  verified.value = newValue;
+}
+
+function onInput() {
+  searchString.value = event.target.value;
+};
+
+const selectAllTags = () => {
+  if (childRef.value) {
+    childRef.value.selectAllTags();
+  }
+}
+
+const clearAllTags = () => {
+  if (childRef.value) {
+    childRef.value.clearAllTags();
+  }
+}
+const data = ref(null);
+
+const route = useRoute();
+const alias = ref("Galxe");
+const cardItems = ref(null);
+
+onMounted(async () => { 
+  try {
+    const response1 = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.i/api/campaigns/query/', {
+        alias: alias,
+        credSources: credSources.value,
+        rewardTypes: rewardTypes.value,
+        chains: chains.value,
+        statuses: statuses.value,
+        listType: listType.value, 
+        searchString: searchString.value
+      });  
+    cardItems.value = response1.data.data.list; 
+    console.info("2", cardItems.value);
+    // 在这里对响应数据进行进一步的处理
+  } catch (error) {
+    console.error(error);
+    // 处理请求错误
+  }
+});
+
+
+function handleSelectedTagsUpdate(group, value) {
+  // 处理 selectedTags 的更新
+  if(group==="selectedTags1"){
+    console.log(group ,'更新了:', value);
+    credSources.value = value;
+  }else if(group==="selectedTags2"){
+    console.log(group, '更新了:', value);
+    rewardTypes.value = value;
+  }else if(group==="selectedTags3"){
+    console.log(group ,'更新了:', value);
+    chains.value = value;
+  }else if(group==="selectedTags4"){
+    console.log(group ,'更新了:', value);
+    statuses.value = value;
+  }
+}
+
+async function fetchData() {
+  try {
+    
+    const response = await axios.post('https://1d24a10f-e5bf-445a-b1f8-e0e37e3d82d0.mock.pstmn.i/api/campaigns/query', {
+        alias: alias,
+        credSources: credSources.value,
+        rewardTypes: rewardTypes.value,
+        chains: chains.value,
+        statuses: statuses.value,
+        listType: listType.value, 
+        searchString: searchString.value,
+        verified: verified.value
+      }
+    );
+
+    cardItems.value = response.data.data.list; // 更新数据
+    console.info(cardItems.value);
+  } catch (error) {
+    console.error('请求失败', error);
+  }
+}
+
+watch([credSources, rewardTypes, chains, statuses, listType, searchString, verified], fetchData);
+
+
+useHead({
+  title: brand.name + ' - Campaign',
+});
+</script>
+
