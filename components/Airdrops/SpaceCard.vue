@@ -4,7 +4,7 @@
     draggable="false"
     class="profile-card"
     :class="{ deco: withDeco }"
-    :href="`/collection/space?alias=${name}`"
+    :href="`/spaces/space?alias=${name}`"
   >
     <v-card class="profile-card" :class="first ? 'first' : ''">
       <div class="inner">
@@ -55,7 +55,7 @@
 </template>
 
 <style scoped lang="scss">
-@import './profile-card';
+@import './space-card';
 .btn-following {
   background-color: black; // 这是当 isFollowing 为 true 时的按钮颜色
   color: white; // 文字颜色

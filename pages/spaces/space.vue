@@ -4,7 +4,7 @@
     <blur-gradient />
     <div class="container-front container-wrap">
       <div class="inner-page">
-        <detail v-if="data" :detailData="data" @follow-click="handleFollowClick" />
+        <space-detail v-if="data" :detailData="data" @follow-click="handleFollowClick" />
         <div class="navbar">
           <div class="nav-items">
             <span class="nav-item" :class="{ active: currentTab === 'home' }" @click="currentTab = 'home'">Home</span>
@@ -134,15 +134,14 @@ import MainHeader from '@/components/Header';
 import singleMenu from '@/components/Header/data/single';
 import MainFooter from '@/components/Footer';
 import BlurGradient from '@/components/Artworks/BlurGradient';
-import Detail from '@/components/Collection/Product/Detail_space';
-import Gallery from '@/components/Company/Team/Gallery_space';
-import FilterSide from '@/components/Filter/Filter_space';
-import ClaimButton from '@/components/Filter/ClaimButton.vue';
-import Leaderboard from '@/components/Branding/Tag/Leaderboard.vue'
+import SpaceDetail from '@/components/Airdrops/SpaceDetail';
+import FilterSide from '@/components/Airdrops/Filter';
+import ClaimButton from '@/components/Airdrops/ClaimButton.vue';
+import Leaderboard from '@/components/Airdrops/Leaderboard.vue'
 import Search from '@/components/Filter/Search';
-import TabCategory from '@/components/Filter/TabCategory_space';
-import Sorter from '@/components/Filter/Sorter_space';
-import CampaignCard from '@/components/Cards/Media/CampaignCard.vue'
+import TabCategory from '@/components/Airdrops/TabCategory';
+import Sorter from '@/components/Airdrops/Sorter';
+import CampaignCard from '@/components/Airdrops/CampaignCard.vue'
 import brand from '@/assets/text/brand';
 import { useHead } from '#app';
 import { ref } from 'vue';
@@ -187,12 +186,12 @@ const cardItems = ref(null);
 
 onMounted(async () => { 
   try {
-    const response = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.i/api/space/query/', {
+    const response = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io/api/space/query/', {
       alias: alias.value
       });  
     data.value = response.data.data; 
     console.info("1", data.value);
-    const response1 = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.i/api/campaigns/query/', {
+    const response1 = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io/api/campaigns/query/', {
        alias: alias,
         credSources: credSources.value,
         rewardTypes: rewardTypes.value,

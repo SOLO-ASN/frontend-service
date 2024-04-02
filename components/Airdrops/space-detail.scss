@@ -1,0 +1,393 @@
+.desc {
+  max-height: 130px;
+  padding: spacing(1, 0);
+  margin-bottom: $spacing5;
+  h6 {
+    font-weight: $font-medium;
+  }
+}
+
+.link {
+  @include palette-text-primary
+}
+
+.text {
+  position: relative;
+  @include text-align(left);
+  :deep(.v-icon) {
+    margin-top: -4px
+  }
+  @include breakpoints-down(sm) {
+    margin-top: $spacing10;
+  }
+  h4 {
+    font-weight: $font-bold;
+    margin-bottom: $spacing2;
+    width: 100%;
+    span {
+      display: block;
+      font-weight: $font-medium;
+    }
+  }
+}
+
+.property {
+  width: 100%;
+  display: flex;
+  margin-bottom: $spacing2;
+  i {
+    @include use-theme(color, $palette-primary-dark, $palette-primary-light);
+  }
+  .divider {
+    background: none;
+    border-left: 1px solid;
+    @include use-theme(border-color, $light-text-primary, $dark-text-primary);
+    height: 12px;
+    margin: 6px $spacing2;
+    display: inline-block;
+  }
+}
+
+.btn-area {
+  z-index: 10;
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: flex-end;
+  margin-top: $spacing3;
+  @include breakpoints-down(lg) {
+    flex-wrap: wrap;
+    & > a, & > button {
+      width: calc(50% - 16px)
+    }
+  }
+  @include breakpoints-down(sm) {
+    display: block;
+    & > a, & > button {
+      width: 100%;
+      margin: spacing(0, 0, 2);
+    }
+  }
+  .text-btn {
+    padding-left: 8px;
+    padding-right: 8px;
+    @include use-theme(color, $palette-secondary-main, $palette-secondary-light);
+    i {
+      font-size: 1.3rem;
+      @include margin-right(4px);
+    }
+  }
+  & > * {
+    @include margin-right($spacing2);
+  }
+}
+
+.zoom-icon {
+  &.v-icon {
+    position: absolute;
+    font-size: 56px;
+  }
+  top: calc(50% - 28px);
+  left: calc(50% - 28px);
+  opacity: 0;
+  color: $palette-common-white;
+  text-shadow: 1px 1px 10px $palette-common-black;
+}
+
+.image {
+  text-align: center;
+  line-height: 360px;
+  vertical-align: middle;
+  position: relative !important;
+  margin: 0 auto;
+  max-width: 360px;
+  .figure {
+    @include shadow3;
+    overflow: hidden;
+    border-radius: $rounded-big;
+    margin: spacing(2, 0.5);
+    cursor: pointer;
+  }
+  &:hover {
+    .zoom-icon {
+      opacity: 1
+    }
+  }
+}
+
+.image-detail {
+  min-height: 300px;
+}
+
+.about {
+  margin-top: $spacing12 * -1;
+  padding: spacing(7, 10);
+  @include breakpoints-down(sm) {
+    padding: $spacing2;
+  }
+  h4 {
+    margin: 0;
+  }
+  .btn-area {
+    margin-top: $spacing6;
+  }
+  .person {
+    @include breakpoints-down(sm) {
+      margin-top: $spacing5;
+    }
+    h6 {
+      font-size: 14px;
+      text-transform: uppercase;
+      font-weight: $font-bold;
+    }
+    p {
+      margin-bottom: $spacing4;
+    }
+  }
+}
+
+.help-paper {
+  background-color: $palette-primary-light;
+  padding: spacing(2, 1);
+}
+.headline {
+  color: $palette-primary-dark;
+}
+
+.gallery-item {
+  padding: 2px;
+}
+
+.product-item {
+  padding: $spacing1;
+  margin-bottom: $spacing1;
+  a {
+    display: block;
+    text-decoration: none;
+  }
+}
+.image {
+  border-radius: $rounded-small;
+}
+.price {
+  @include use-theme(color, $palette-primary-dark, $palette-primary-light);
+  @include margin-right($spacing4);
+  line-height: 22px;
+  @include breakpoints-down(lg) {
+    width: 100%;
+    flex-basis: 100%;
+    margin-bottom: $spacing5;
+    @include margin-left($spacing2)
+  }
+  p {
+    @include palette-text-secondary;
+    margin-bottom: $spacing2
+  }
+  h3 {
+    font-size: 36px;
+    font-weight: $font-medium;
+    span {
+      font-size: 18px;
+      display: inline-block;
+    }
+  }
+}
+
+.scroll-tablet {
+  @include breakpoints-down(sm) {
+    overflow: auto;
+    flex-wrap: nowrap;
+  }
+}
+
+.carousel {
+  :deep(.splide__pagination){
+    bottom: $spacing5 * -1;
+    @include pagination-splide;
+  }
+}
+
+.options {
+  position: absolute;
+  @include right(0);
+  top: 0px;
+  @include breakpoints-down(sm) {
+    top: -8px;
+  }
+  :deep(.v-btn) {
+    margin: spacing(0, 0.5);
+    width: 30px;
+    height: 30px;
+    @include use-theme(background, $palette-primary-light, $palette-primary-dark);
+  }
+  :deep(.v-icon) {
+    font-size: 18px;
+    @include use-theme(color, $palette-primary-dark, $palette-primary-light);
+  }
+}
+
+.properties {
+  margin-top: $spacing5;
+  h6 {
+    font-size: 14px;
+    text-transform: uppercase;
+    @include use-theme(color, $palette-primary-main, $palette-secondary-main);
+    font-weight: $font-bold
+  }
+  p {
+    margin-bottom: $spacing4;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis
+  }
+  a {
+    @include palette-text-primary;
+  }
+}
+
+.details {
+  margin-top: $spacing5;
+  ul {
+    list-style: none;
+    padding: 0;
+    @include breakpoints-up(sm) {
+      margin: spacing(5, 0, 10);
+    }
+    li {
+      list-style: none;
+      margin-bottom: $spacing2;
+      display: flex;
+      span {
+        flex: 1
+      }
+      a {
+        text-decoration: none;
+        @include use-theme(color, $palette-primary-main, $palette-secondary-main)
+      }
+    }
+  }
+}
+
+.accordion {
+  :deep(.v-expansion-panels:not(.v-expansion-panels--variant-accordion) > :first-child:not(:last-child):not(.v-expansion-panel--active):not(.v-expansion-panel--before-active)) {
+    border-radius: $rounded-medium !important;
+  }
+  :deep(.v-expansion-panels:not(.v-expansion-panels--variant-accordion) > :not(:first-child):not(:last-child):not(.v-expansion-panel--active):not(.v-expansion-panel--after-active)) {
+    border-radius: $rounded-medium !important;
+  }
+}
+
+.paper {
+  border-radius: $rounded-medium !important;
+  margin-bottom: $spacing3;
+  overflow: hidden;
+  :deep(.v-expansion-panel-title__overlay) {
+    opacity: 0;
+  }
+  .icon {
+    font-size: 32px;
+    @include margin-right(12px);
+    position: relative;
+    color: $palette-secondary-main;
+  }
+  .icon-tb {
+    font-size: 18px;
+    position: relative;
+    top: -2px;
+    @include margin-right(4px)
+  }
+}
+
+.chart {
+  @include padding-left($spacing6);
+  flex: 1;
+  canvas {
+    max-height: 200px  
+  }
+}
+
+.y-label {
+  position: absolute;
+  font-weight: $font-medium;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  @include left(-10px);
+  top: 160px;
+}
+
+.table {
+  position: relative;
+  background: none;
+  z-index: 2;
+  @include breakpoints-down(md) {
+    margin-bottom: $spacing5;
+  }
+  @include breakpoints-up(sm) {
+    margin-top: $spacing5
+  }
+  th {
+    border: none;
+    color: $palette-common-white !important;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: $font-medium !important;
+  }
+  &.v-table > .v-table__wrapper > table > tbody > tr > td,
+  &.v-table > .v-table__wrapper > table > thead > tr > th {
+    padding: 12px;
+  }
+  td {
+    border: none;
+    color: $palette-common-white;
+    @include padding-right(0);
+  }
+  strong {
+    font-weight: $font-medium;
+  }
+  a {
+    text-decoration: none;
+    @include use-theme(color, $palette-primary-main, $palette-secondary-main);
+  }
+}
+
+.carousel-header {
+  position: relative;
+  z-index: 3;
+  @include breakpoints-up(sm) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    > div {
+      flex: 1
+    }
+  }
+  @include breakpoints-down(sm) {
+    text-align: center;
+    margin-bottom: $spacing5
+  }
+}
+
+.view-all {
+  padding: 6px 24px;
+  @include use-theme(color, $palette-primary-main, $palette-secondary-light);
+}
+
+.card-related {
+  min-width: 220px;
+  height: 300px;
+  > a {
+    height: 100%
+  }
+}
+
+.scroll-tablet {
+  flex-flow: row wrap;
+  flex-wrap: nowrap;
+  width: 100%;
+  overflow: auto;
+  padding-bottom: $spacing2;
+  @include breakpoints-down(sm) {
+    padding: 0;
+    margin: 0;
+  }
+}

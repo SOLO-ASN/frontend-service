@@ -12,7 +12,7 @@
         class="menu-link"
         variant="text"
         @click="scrollToMyEl(item.name)"
-        v-text="$t(prefix+'.header_'+item.name)"
+        v-text="$t(item.name)"
       />
     </template>
     <template v-if="!singleNav">
@@ -20,7 +20,7 @@
         v-for="(item, index) in menuPrimary"
         :key="index"
         :href="'/' + item.id"
-        v-text="$t(prefix+'.header_'+item.name)"
+        v-text="$t(item.name)"
       />
     </template>
     <v-menu

@@ -94,7 +94,7 @@
                     sm="4"
                     cols="12"
                   >
-                    <profile-card
+                    <space-card
                       :name="item.name"
                       :isVerified="item.isVerified"
                       :thumbnail="item.thumbnail"
@@ -137,11 +137,11 @@ import MainFooter from '@/components/Footer';
 import Hidden from '@/components/Utils/Hidden';
 import CardProducts from '@/components/Cards/Product/ProductCard';
 import PlaylistCard from '@/components/Cards/Media/PlaylistCard';
-import ProfileCard from '@/components/Cards/Profile/ProfileCard_space';
+import SpaceCard from '@/components/Airdrops/SpaceCard';
 import Search from '@/components/Filter/Search';
-import TabCategory from '@/components/Filter/TabCategory_space';
-import Sorter from '@/components/Filter/Sorter_space';
-import ClaimButton from '@/components/Filter/ClaimButton.vue';
+import TabCategory from '@/components/Airdrops/TabCategory';
+import Sorter from '@/components/Airdrops/Sorter';
+import ClaimButton from '@/components/Airdrops/ClaimButton.vue';
 import brand from '@/assets/text/brand';
 import link from '@/assets/text/link';
 import collection from '@/assets/api/collection';
@@ -236,7 +236,7 @@ const handleFollowClick = async (id, isFollowing) => {
   console.info(id);
   if(isFollowing==false){
       try {
-        const response = await axios.post('https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.i/api/spaces/follow', {
+        const response = await axios.post('https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io/api/spaces/follow', {
           id: id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
@@ -245,7 +245,7 @@ const handleFollowClick = async (id, isFollowing) => {
       }
     }else{
       try {
-        const response = await axios.post('https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.i/api/spaces/unfollow', {
+        const response = await axios.post('https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io/api/spaces/unfollow', {
           id: id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
@@ -258,7 +258,7 @@ const handleFollowClick = async (id, isFollowing) => {
 async function fetchData() {
   try {
     isLoading.value = true; // 开始加载数据   https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io
-    const response = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.i/api/spaces/query', {
+    const response = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io/api/spaces/query', {
       spaceListType: sortBy.value,
       filter: group.value,
       verifiedOnly: verified.value,

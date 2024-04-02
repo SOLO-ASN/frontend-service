@@ -169,12 +169,12 @@ const single = {
       name: 'discover'
     },
     {
-      id: 'community',
-      name: 'community'
+      id: 'menus/explore',
+      name: 'Explore'
     },
     {
-      id: 'collection/spaces',
-      name: 'Spaces',
+      id: 'menus/spaces',
+      name: 'Space',
     },
     {
       id: 'faq',
