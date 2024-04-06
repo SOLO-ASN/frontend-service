@@ -9,8 +9,13 @@
       <div class="card-header">{{ campaign.type }}</div>
       <div class="card-body">
         <img :src="campaign.thumbnail" :alt="campaign.name" class="card-image">
-        <div class="card-title">{{ campaign.name }}</div>
+        <div class="card-title" :title="campaign.name">{{ campaign.name }}</div>
         <div class="card-participants">{{ campaign.participantsCount.toLocaleString() }} participants</div>
+      </div>
+      <div class="card-footer">
+        <img :src="campaign.spaceThumbnail" :alt="campaign.spaceName" class="space-avatar">
+        <div class="space-name" :title="campaign.spaceName">{{ campaign.spaceName }}</div>
+        <v-icon v-if="campaign.isVerified" class="verified">mdi-check-decagram</v-icon>
       </div>
     </div>
   </div>
@@ -21,7 +26,7 @@
 .campaigns-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 18px;
   justify-content: center; /* Centers the cards */
   
 }
@@ -31,7 +36,7 @@
   height: 400px; /* Fixed height */
   display: flex;
   flex-direction: column;
-  background: #333;
+  background: #222;
   color: #fff;
   border-radius: 8px;
   overflow: hidden;
@@ -45,7 +50,7 @@
 }
 
 .card-header {
-  background: #555;
+  background: #333;
   padding: 8px 16px;
   font-size: 1rem;
   text-align: center;
@@ -58,14 +63,20 @@
 }
 
 .card-image {
-  max-width: 180px; /* Smaller width */
-  max-height: 180px; /* Smaller height */
+  max-width: 120px; /* Smaller width */
+  max-height: 120px; /* Smaller height */
   border-radius: 50%; /* Makes the image round */
   object-fit: cover;
   margin: 0 auto 16px; /* Centers the image and adds spacing below */
 }
 
 .card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
   margin-top: 8px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -77,6 +88,33 @@
   opacity: 0.8;
 }
 
+.space-avatar {
+  width: 20px; /* 头像的宽度 */
+  height: 20px; /* 头像的高度 */
+  border-radius: 50%; /* 圆形头像 */
+  object-fit: cover;
+}
+
+.space-name {
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 8px; /* 名字与头像之间的距离 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* 文本超出时显示省略号 */
+}
+
+.verified {
+  color:  hsla(203, 100%, 57%, 0.6);
+  font-size: 20px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: #333; /* 底部背景色 */
+}
 @import './playlist-card.scss';
 </style>
 
