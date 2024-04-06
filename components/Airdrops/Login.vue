@@ -14,7 +14,6 @@
         </v-btn>
       </div>
       
-      
       <v-form
         ref="form"
         v-model="valid"

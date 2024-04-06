@@ -45,20 +45,34 @@
                 class="ms-n2"
               />
               <span>
-                <a href="#" class="link">
+                <a href="#" class="link" @click="openModal">
                   {{ $t('form_privacy') }}
                 </a>
               </span>
+
+              <!-- 隐私政策模态窗口 -->
+              <div v-if="showPrivacyPolicyModal" class="privacy-policy-modal">
+                <!-- 模态窗口内容 -->
+                <p>一个设备只能注册一个账户，如果设备中已经存在账户，则新注册的账户会覆盖旧账户，且旧帐户无法找回...</p>
+                <button @click="closeModal">关闭</button>
+              </div>
             </div>
           </div>
           <v-btn
             :block="isTablet || isMobile"
             size="large"
             color="primary"
+            :disabled="!checkbox"
             @click="handleSubmit"
           >
             {{ $t('sign up') }}
           </v-btn>
+          <confirm 
+            v-if="showModal" 
+            @confirm="onConfirm" 
+            @cancel="onCancel"
+          >
+          </confirm>
         </div>
             <!-- 分隔符 -->
         <div class="separator">
@@ -83,6 +97,22 @@
 
 <style lang="scss" scoped>
 @import './form-style';
+
+.privacy-policy-modal {
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%; /* 调整宽度为视口的80% */
+  max-width: 800px; /* 最大宽度为800px */
+  background-color: #333; /* 深色背景 */
+  color: #fff; /* 白色文字 */
+  padding: 40px; /* 增加内边距 */
+  border-radius: 20px; /* 更大的圆角 */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 更大的阴影效果 */
+  font-size: 18px; /* 文字大小 */
+}
 </style>
 
 <script setup>
@@ -92,6 +122,7 @@ import { useRouter } from 'vue-router';
 import link from '@/assets/text/link';
 import SocialAuth from './SocialAuth';
 import AuthFrame from './AuthFrame';
+import Confirm from '@/components/Airdrops/ConfirmModal';
 
 const form = ref(null);
 const valid = ref(true);
@@ -103,6 +134,8 @@ const router = useRouter();
 const { md: isTablet } = useDisplay();
 const { xs: isMobile } = useDisplay();
 const { smAndDown: isMobile2 } = useDisplay();
+const showModal = ref(false);
+const showPrivacyPolicyModal = ref(false);
 
 const SERVER = "http://localhost:58089";
 const registrationStartUrl = SERVER + "/api/diyRegister/start";
@@ -114,13 +147,28 @@ const fetchOptions = {
             credentials: "include",
             headers: {"Content-Type": "application/json"}
         }
+        
+        
+function  confirmRegistration() {
+  // 显示模态对话框
+  showModal.value = true;
+}
+function  onConfirm() {
+  // 用户点击模态对话框中的"确定"
+  showModal.value = false;
+  _onFormSubmit(username);
+}
+function  onCancel() {
+  // 用户点击模态对话框中的"取消"
+  showModal.value = false;
+}
+
+const openModal = () => showPrivacyPolicyModal.value = true;
+const closeModal = () => showPrivacyPolicyModal.value = false;
+
 
 function handleSubmit() {
-  if (valid.value) {
-    console.log(username.value);
-  }
-  _onFormSubmit(username)
-
+  showModal.value  = true;
 }
 
 
