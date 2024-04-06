@@ -191,7 +191,7 @@ onMounted(async () => {
       });  
     data.value = response.data.data; 
     console.info("1", data.value);
-    const response1 = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.i/api/campaigns/query/', {
+    const response1 = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io/api/campaigns/query/', {
        alias: alias,
         credSources: credSources.value,
         rewardTypes: rewardTypes.value,

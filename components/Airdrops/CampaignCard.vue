@@ -4,6 +4,7 @@
       v-for="campaign in campaigns"
       :key="campaign.id"
       class="campaign-card"
+      @click="navigateToCampaign(campaign.id)" 
     >
       <div class="card-header">{{ campaign.type }}</div>
       <div class="card-body">
@@ -80,8 +81,9 @@
 </style>
 
 <script setup>
+import {useRouter} from 'vue-router';
 
-
+const router = useRouter();
 
 const campaigns = defineProps({
   campaigns: {
@@ -93,5 +95,9 @@ const campaign = JSON.parse(JSON.stringify(campaigns)).campaigns;
 onMounted(()=>{
     console.info(campaign);
 })
+
+function navigateToCampaign(campaignId) {
+  router.push(`/campaign/campaign?id=${campaigns.id}`);
+}
 
 </script>
