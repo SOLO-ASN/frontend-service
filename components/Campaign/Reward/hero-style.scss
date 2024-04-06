@@ -1,0 +1,684 @@
+// Video
+.video {
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  height: 500px;
+  width: 120%;
+  background: $palette-common-black;
+  &:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+  }
+  & > div {
+    width: 100% !important
+  }
+  :deep(iframe) {
+    margin-top: -100px;
+    margin-left: -10%;
+    @include breakpoints-up(md) {
+      margin-top: -60px
+    }
+    @include breakpoints-up(sm) {
+      width: 100% !important;
+    }
+    @include breakpoints-down(sm) {
+      height: 100%;
+      margin-left: -50%
+    }
+  }
+  @include breakpoints-up(md) {
+    height: 650px
+  }
+}
+.illustration {
+  width: 100%;
+  height: 516px
+}
+.particle-background {
+  position: absolute;
+  width: 100%;
+  height: 500px;
+  top: 0;
+  left: 0;
+}
+
+// Slideshow
+.slideshow {
+  height: 100%;
+  width: 100%;
+  & > div {
+    height: 100%;
+    width: 100%;
+  }
+}
+.slide-item {
+  height: 500px;
+  width: 100%;
+}
+.img {
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0
+}
+
+// Media Banner
+.root {
+  position: relative;
+}
+
+.deco-wrap {
+  position: relative;
+  z-index: 4
+}
+
+.banner {
+  border-radius: 30px;
+  overflow: hidden;
+  width: 109.5%;
+  position: relative;
+  height: 100px;
+  @include breakpoints-down(md) {
+    height: 200px;
+  }
+  &:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include use-theme(opacity, 0.9, 0.7);
+    @include use-theme(background, $gradient-triple-light, $gradient-triple-dark);
+  }
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-background {
+  > div {
+    width: 100% !important;
+  }
+  :deep(iframe) {
+    margin-top: -160px;
+    width: 100% !important
+  }
+}
+
+.content-thumb {
+  position: relative;
+  margin-top: -280px;
+  @include breakpoints-down(md) {
+    margin-top: -140px;
+  }
+}
+
+.content {
+  position: relative;
+  margin-top: -80px
+}
+
+.video-popup {
+  width: 690px;
+  max-width: none;
+  iframe {
+    @include breakpoints-down(sm) {
+      width: 100%;
+      height: 300px;
+    }
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 4px;
+  @include right(4px);
+}
+
+.featured {
+  position: relative;
+  @include breakpoints-between(md, lg) {
+    transform: scale(0.8)
+  }
+  > div {
+    @include breakpoints-up(md) {
+      position: absolute;
+    }
+    > div {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.portrait-thumb {
+  width: 286px;
+  height: 425px;
+  @include left(-20px);
+  top: -470px;
+  @include breakpoints-down(lg) {
+    width: 246px;
+    height: 385px;
+    top: -450px;
+  }
+  @include breakpoints-down(md) {
+    display: none
+  }
+}
+
+.landscape-thumb {
+  width: 392px;
+  height: 208px;
+  @include right(0);
+  bottom: 20px;
+  @include breakpoints-down(lg) {
+    width: 352px;
+    height: 168px;
+    @include right(10px);
+    bottom: 50px
+  }
+  @include breakpoints-down(md) {
+    display: none
+  }
+}
+
+.square-thumb {
+  width: 180px;
+  height: 180px;
+  @include right(30px);
+  top: -430px;
+  @include breakpoints-down(lg) {
+    width: 140px;
+    height: 140px;
+    @include right(10px);
+    top: -400px
+  }
+  @include breakpoints-down(md) {
+    width: 250px;
+    height: 250px;
+    @include right(0);
+    top: -24px;
+    position: relative;
+  }
+  @include breakpoints-down(sm) {
+    display: none
+  }
+}
+
+// Basic Hero
+.basic-hero {
+  overflow: hidden;
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding: spacing(10, 0);
+  
+  min-height: 500px;
+  p {
+    font-size: 24px;
+    margin-top: $spacing5;
+    @include breakpoints-down(sm) {
+      font-size: 18px;
+      padding: spacing(0, 2)
+    }
+  }
+}
+
+.btn-area-simple {
+  position: relative;
+  z-index: 10;
+  margin: spacing(5, 0);
+  @include breakpoints-up(sm) {
+    display: flex;
+    justify-content: center;
+  }
+  a, button {
+    padding: spacing(1.5, 2);
+    margin: spacing(0, 1);
+    width: 230px;
+    @include breakpoints-down(sm) {
+      width: auto;
+      display: block;
+      margin-bottom: $spacing3
+    }
+  }
+}
+
+// Profile Banner
+.avatar {
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+  position: relative;
+  margin-bottom: -100px;
+  :deep(.v-avatar) {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.deco-circle-line {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  top: 0;
+  @include margin-left(20px);
+  border: 1px solid $palette-secondary-main;
+  &:after {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    @include left(-20px);
+    top: -10px;
+    border: 1px solid $palette-primary-main;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    @include left(0);
+    top: 10px;
+    border: 1px solid $palette-accent-main;
+  }
+}
+
+.profile-cover {
+  border-radius: 40px;
+  overflow: hidden;
+  text-align: center;
+  padding: spacing(15, 5, 5);
+  position: relative;
+  color: $palette-common-white;
+  figure {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: $palette-common-black;
+    margin: 0px;
+    img {
+      opacity: 0.4;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  h3, p {
+    position: relative;
+    z-index: 1;
+  }
+  p {
+    font-size: 22px;
+    @include breakpoints-down(sm) {
+      font-size: 16px
+    }
+  }
+}
+
+.socmed {
+  position: relative;
+  z-index: 10;
+  margin-top: $spacing2;
+  @include breakpoints-down(sm) {
+    margin-bottom: $spacing5
+  }
+  a {
+    width: 40px;
+    height: 40px;
+    margin: 0 4px;
+    opacity: 0.75;
+    font-size: 24px;
+    color: $palette-common-white
+  }
+}
+
+.followers {
+  margin: 40px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 3;
+  .btn {
+    @include breakpoints-up(sm) {
+      width: 200px;
+      font-size: 20px;
+      @include margin-left($spacing3);
+    }
+  }
+}
+
+.rest {
+  color: $palette-common-white;
+  background: $palette-primary-main;
+  border: none !important;
+  z-index: 1;
+  font-size: 20px;
+  align-items: flex-start;
+  font-weight: $font-bold;
+  width: 64px;
+  height: 64px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: normal;
+  span {
+    line-height: normal;
+    display: block;
+    font-size: 10px;
+    font-weight: $font-regular;
+  }
+  @include breakpoints-down(sm) {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+.avatar-small {
+  background: $gradient-triple-light;
+  padding: 2px;
+  border: none !important;
+  width: 60px;
+  height: 60px;
+  margin-left: -16px;
+  @include breakpoints-up(md) {
+    margin-left: -8px;
+  }
+  @include breakpoints-down(sm) {
+    width: 34px;
+    height: 34px;
+  }
+  :deep(img) {
+    border-radius: 50%
+  }
+}
+
+// Icon Banner
+.icon-banner {
+  figure {
+    position: absolute;
+    border-radius: $rounded-big;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    @include palette-background-paper;
+    img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      object-fit: cover;
+      filter: blur(5px);
+      @include use-theme(opacity, 0.1, 0.2);
+    }
+  }
+  h3 {
+    position: relative;
+    z-index: 1;
+    font-weight: $font-bold;
+    font-size: 48px;
+    @include breakpoints-down(sm) {
+      font-size: 32px;
+      text-align: center;
+      line-height: 48px
+    }
+  }
+}
+
+.banner-content {
+  @include breakpoints-up(md) {
+    padding-top: $spacing10;
+  }
+  @include breakpoints-down(md) {
+    padding: $spacing1
+  }
+}
+
+.deco-line {
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  height: 800px;
+  z-index: 1;
+  @include left(0);
+  top: 40px;
+  svg {
+    width: 1600px;
+    height: 700px;
+    transform: scale(1.1, 0.9);
+    position: absolute
+  }
+}
+
+.content-banner {
+  position: relative
+}
+
+.line-primary {
+  stroke: $palette-primary-main;
+  @include left(-250px);
+  top: 30px;
+}
+
+.line-secondary {
+  stroke: $palette-secondary-main;
+  @include left(-280px);
+  top: 10px;
+}
+
+.icon {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+  top: 120px;
+  @include left(100px);
+  @include breakpoints-up(md) {
+    transform: scale(2.5)
+  }
+  > div {
+    position: absolute;
+    text-align: center;
+    z-index: 2;
+  }
+  .left {
+    font-size: 64px;
+    top: -80px;
+    @include left(-60px)
+  }
+  .right {
+    font-size: 48px;
+    top: 10px;
+    @include right(-80px)
+  }
+  .center {
+    font-size: 128px;
+    top: -80px;
+    @include left(-60px);
+  }
+}
+
+.properties {
+  margin-top: $spacing2;
+  position: relative;
+  z-index: 2;
+  @include breakpoints-up(sm) {
+    display: flex
+  }
+}
+
+.desc {
+  p {
+    font-size: 18px;
+    @include breakpoints-down(sm) {
+      font-size: 16px;
+      text-align: center
+    }
+  }
+  ul {
+    margin-top: $spacing3;
+    padding: 0;
+    @include text-align(left);
+    @include breakpoints-up(sm) {
+      @include margin-right($spacing3)
+    }
+    li {
+      margin-bottom: $spacing2;
+      position: relative;
+      @include padding-left($spacing3);
+      text-transform: uppercase;
+      list-style: none;
+      width: 50%;
+      display: inline-block;
+      @include breakpoints-down(sm) {
+        font-size: 12px;
+      }
+      &:before {
+        content: "";
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        position: absolute;
+        @include left(4px);
+        top: 4px;
+        background: $gradient-triple-light;
+      }
+    }
+  }
+}
+
+.btn-area {
+  @include breakpoints-up(md) {
+    margin-top: $spacing5
+  }
+  @include breakpoints-up(sm) {
+    display: flex
+  }
+  button, a {
+    @include breakpoints-up(sm) {
+      @include margin-right($spacing2);
+    }
+    @include breakpoints-down(sm) {
+      width: 100%;
+      margin-top: $spacing3
+    }
+  }
+}
+
+.counter {
+  position: relative;
+  .paper {
+    border-radius: $rounded-big;
+    font-size: 20px;
+    @include breakpoints-down(sm) {
+      font-size: 16px;
+    }
+    &.bg-secondary {
+      color: $palette-secondary-dark !important
+    }
+  }
+  @include breakpoints-between(md, lg) {
+    @include padding-right($spacing2);
+  }
+  @include breakpoints-up(lg) {
+    @include right(-40px);
+  }
+  @include breakpoints-down(sm) {
+    margin-top: $spacing5;
+    display: flex
+  }
+}
+
+.paper {
+  text-align: center;
+  padding: $spacing1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  font-size: 20px;
+  @include breakpoints-up(sm) {
+    margin-bottom: $spacing4
+  }
+  @include breakpoints-up(md) {
+    height: 140px;
+  }
+  @include breakpoints-down(sm) {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14px;
+  }
+  h2 {
+    font-size: 60px;
+    line-height: 55px;
+    font-weight: $font-bold;
+    @include breakpoints-down(sm) {
+      font-size: 36px;
+    }
+  }
+}
+
+.bg-primary {
+  background: $palette-primary-main;
+  color: $palette-common-white;
+  @include breakpoints-down(sm) {
+    @include margin-right($spacing1);
+  }
+}
+
+.bg-secondary {
+  background: $palette-secondary-main;
+  color: $palette-secondary-dark;
+}
+
+.tags {
+  display: flex;
+  text-transform: capitalize;
+  margin-left: 200px;
+  h6 {
+    @include margin-right($spacing1);
+    &:after {
+      content: "   ";
+    }
+  }
+  > h6:last-child {
+    &:after {
+      content: none;
+    }
+  }
+}
+
+.front {
+  position: relative;
+  button {
+    z-index: 5;
+  }
+  @include breakpoints-between(sm, lg) {
+    @include padding-right($spacing2);
+  }
+  @include breakpoints-down(sm) {
+    margin-top: $spacing4 * -1;
+    > div {
+      max-width: 100% !important
+    }
+  }
+}

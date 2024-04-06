@@ -1,0 +1,128 @@
+.btn-standard {
+  color: $palette-common-black;
+  border-radius: $rounded-medium;
+  font-weight: $font-bold;
+  position: relative;
+  text-transform: capitalize;
+  width: 68%;
+  white-space: nowrap;
+  margin-bottom: $spacing2;
+  @include text-align(left);
+  display: block;
+  &.v-btn:not(.v-btn--icon) {
+    height: auto;
+  }
+  :deep(.v-btn__content) {
+    display: flex;
+    justify-content: space-between;
+  }
+  :deep(.v-icon) {
+    font-size: 40px;
+    @include margin-left($spacing1);
+    @include rtl-flip
+  }
+  @include breakpoints-up(sm) {
+    &.v-btn.v-btn--size-large:not(.v-btn--icon) {
+      padding: spacing(2.5, 3);
+      font-size: 20px;
+      height: auto;
+      margin-bottom: $spacing3
+    }
+  }
+}
+
+.primary {
+  background: linear-gradient(120deg, $palette-secondary-light 0%, $palette-primary-light 70%);
+}
+
+.secondary {
+  background: linear-gradient(120deg, $palette-secondary-main 0%, $palette-common-white 100%);
+}
+
+.accent {
+  background: linear-gradient(120deg, $palette-secondary-main 0%, $palette-primary-light 50%, $palette-accent-light 100%);
+}
+
+.btn-large {
+  overflow: hidden;
+  border-radius: $rounded-big;
+  padding: $spacing4 !important;
+  background: $gradient-triple-light;
+  height: auto !important;
+  h2 {
+    color: $palette-common-white;
+    font-weight: $font-bold;
+    font-size: 40px;
+    line-height: 60px;
+    text-transform: capitalize;
+    position: relative;
+    z-index: 2;
+    @include text-align(left);
+    @include padding-right($spacing5);
+    @include breakpoints-down(lg) {
+      font-size: 32px;
+      line-height: 48px
+    }
+  }
+  img {
+    position: absolute;
+    bottom: 0;
+    @include right(-200px)
+  };
+  .icon {
+    position: absolute;
+    font-size: 160px;
+    opacity: 0.2;
+    @include right(-20px);
+    color: $palette-common-black;
+    @include rtl-flip;
+  }
+  :deep(.v-btn__content) {
+    text-wrap: initial;
+  }
+}
+
+.deco {
+  position: absolute;
+  filter: blur(20px);
+  opacity: 0.9;
+  width: 100%;
+  height: 100%;
+  bottom: 30%;
+  @include left(50%);
+  transform: scale(2);
+  span {
+    position: absolute;
+    border-radius: 50%;
+    @include left(100px);
+    top: -300px;
+  }
+  span:nth-of-type(1) {
+    @include left(-50px);
+    top: 80px;
+    width: 230px;
+    height: 115px;
+    background: $gradient-triple-main;
+    transform: rotate(-20deg)
+  }
+  span:nth-of-type(2) {
+    @include left(60px);
+    top: -40px;
+    width: 178px;
+    height: 176px;
+    background: $gradient-triple-light;
+    transform: rotate(-120deg)
+  }
+  span:nth-of-type(3) {
+    @include left(40px);
+    top: -10px;
+    width: 240px;
+    height: 137px;
+    background: $gradient-double-main;
+    transform: rotate(-35deg)
+  }
+}
+
+.full-height {
+  height: 100% !important
+}

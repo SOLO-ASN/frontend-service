@@ -42,6 +42,21 @@
     margin-top: section-margin(4px);
   }
 }
+.space-button {
+  margin-top: -150px;
+  margin-right: -180px;
+  @include breakpoints-down(lg) {
+    margin-top: section-margin(4px);
+  }
+}
+.space-photo {
+  margin-bottom: -450px;
+  margin-top: -250px;
+  margin-left: 50px;
+  @include breakpoints-down(lg) {
+    margin-top: section-margin(4px);
+  }
+}
 .space-bottom-short {
   margin-bottom: section-margin(6px);
   @include breakpoints-down(lg) {
