@@ -16,7 +16,7 @@
 
 <script>
 import brand from '@/assets/text/brand';
-import Header from '@/components/Air/Header/Basic';
+import Header from '@/components/Header/Basic';
 import FooterDeco from '@/components/Footer/Decoration/General';
 import Footer from '@/components/Footer';
 import RegisterForm from '@/components/Airdrops/Register';

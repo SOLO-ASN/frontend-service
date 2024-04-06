@@ -73,13 +73,45 @@
                 <readmore :info="detailData.info"/>
               </div>    
               <div class="spacer"></div>
-              <div class="left-align" >
-                <statistic 
-                :followersCount="detailData.followersCount"
-                :token="detailData.token"
-                :backers="detailData.backers"
-                class="statistic1" />
-              </div>
+
+              <v-row>
+                <v-col cols="12" sm="3">
+                  <v-card class="info-block" outlined tile>
+                    <div class="title">Followers</div>
+                    <div class="content">
+                      <span class="number">318,943</span>
+                      <span class="hashtag">#16</span>
+                    </div>
+                  </v-card>
+                </v-col>
+                <v-col cols="12" sm="3">
+                  <v-card class="info-block" outlined tile>
+                    <div class="title">Token</div>
+                    <div class="content">
+                      <v-icon>mdi-currency-usd</v-icon>
+                      <span>GAL</span>
+                    </div>
+                  </v-card>
+                </v-col>
+                <v-col cols="12" sm="3">
+                  <v-card class="info-block" outlined tile>
+                    <div class="title">Backer</div>
+                    <div class="content">
+                      <!-- Assume you have custom icons or images -->
+                      <v-icon>mdi-account-multiple-outline</v-icon>
+                    </div>
+                  </v-card>
+                </v-col>
+                <v-col cols="12" sm="3">
+                  <v-card class="info-block" outlined tile>
+                    <div class="title">My Points</div>
+                    <div class="content">
+                      <v-icon>mdi-star-outline</v-icon>
+                    </div>
+                  </v-card>
+                </v-col>
+              </v-row>
+
             </v-row>
         </h4>
       </div>
@@ -104,6 +136,45 @@
 .btn-not-following {
   background-color: blue; // 这是当 isFollowing 为 false 时的按钮颜色
   color: black; // 文字颜色
+}
+
+
+.info-block {
+  background-color: rgba(255, 255, 255, 0.08); /* 卡片背景色更深，半透明 */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* 细边框，半透明白色 */
+  border-radius: 8px; /* 圆角边框 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  margin: 8px; /* 添加边距，避免卡片相互挨着 */
+}
+
+.title {
+  font-size: 14px;
+  color: #aaa; /* 标题颜色稍微亮一些 */
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  color: #fff; /* 内容颜色设置为白色 */
+}
+
+.number {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.hashtag {
+  font-size: 12px;
+  color: #aaa;
+}
+
+v-icon {
+  margin-right: 4px;
+  color: #fff; /* 图标颜色设置为白色 */
 }
 
 </style>
