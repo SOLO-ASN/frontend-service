@@ -76,14 +76,10 @@ onMounted(() => {
   const params = url.split('?')[1]
   const searchParams = new URLSearchParams(params)
   const campaignId = searchParams.get('id')
-  console.info(url)
   axios.get(`https://15c3a83a-495b-41af-b0be-07a23e277d5c.mock.pstmn.io/api/campaign?id=${campaignId}`).then((response) => {
-        //this.items = response.data
-        console.info(response)
-        console.info(campaignId)
-      })
-  nextTick(() => {
-    console.info('ok')
+    //this.items = response.data
+    console.info(response.data)
+    console.info(campaignId)
   })
 })
 
