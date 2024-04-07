@@ -18,7 +18,7 @@ export const collectionData = [
 export const mediaData = [
   {
     type: 'media',
-    img: imgAPI.photosL[4],
+    img: 'https://cdn.galxe.com/galaxy/payrue/8ee5f499-7545-4f9b-b9f1-f4896e7543fc.jpeg',
     title: 'Random lottery',
     link: 'total: 5',
     href: link.portfolioDetail,
