@@ -42,29 +42,34 @@
 <script>
 const faqData = [
   {
-    q: 'Pellentesque ac bibendum tortor?',
+    q: '[Verification]- OKX Wallet User',
     a:
-      'Vivamus sit amet interdum elit. Proin lacinia erat ac velit tempus auctor.',
+      'Connect with an OKX wallet address:\n1.Download OKX Wallet Extension or OKX APP\n2.Create or import an adress to it and connect to Galxe',
   },
   {
-    q: 'In mi nulla, fringilla vestibulum?',
+    q: 'Follow @okxweb3 on Twitter',
     a:
-      'Vivamus sit amet interdum elit. Proin lacinia erat ac velit tempus auctor. ',
+      'okxweb3\'s Twitter followers',
   },
   {
-    q: 'Quisque lacinia purus ut libero?',
+    q: 'Follow @XRGB404 on Twitter',
     a:
-      'Vivamus sit amet interdum elit. Proin lacinia erat ac velit tempus auctor. ',
+      'XRGB404\'s Twitter followers',
   },
   {
-    q: 'Quisque ut metus sit amet augue?',
+    q: 'Retweet the Tweet',
     a:
-      'Vivamus sit amet interdum elit. Proin lacinia erat ac velit tempus auctor. ',
+      'okxweb3\'s Tweet retweeters',
   },
   {
-    q: 'Pellentesque ac bibendum tortor?',
+    q: 'Retweet the Tweet',
     a:
-      'Vivamus sit amet interdum elit. Proin lacinia erat ac velit tempus auctor. ',
+      'XRGB404\'s Tweet retweeters',
+  },
+  {
+    q: 'Visit the OKX Web3 Giveaway for more exciting rewards!',
+    a:
+      'The users who have visited the OKX Web3 Giveaway for more exciting rewards! page.',
   },
 ];
 
