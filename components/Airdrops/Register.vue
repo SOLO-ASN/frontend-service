@@ -138,7 +138,7 @@ const { smAndDown: isMobile2 } = useDisplay();
 const showModal = ref(false);
 const showPrivacyPolicyModal = ref(false);
 
-const SERVER = "https://airdrop.aspark.space";
+const SERVER = "http://localhost:58089";
 const registrationStartUrl = SERVER + "/api/diyRegister/start";
 const registrationFinishUrl = SERVER + "/api/diyRegister/finish";
 const assertionStartUrlDirect = SERVER + "/api/diyLogin/start_direct";

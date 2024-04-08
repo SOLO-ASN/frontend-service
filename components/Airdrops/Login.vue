@@ -85,7 +85,7 @@ const router = useRouter();
 const password = ref('');
 const requiredRules = ref([v => !!v || 'This field is required']);
 const checkbox = ref(false);
-const SERVER = "https://airdrop.aspark.space";
+const SERVER = "http://localhost:58089";
 const assertionStartUrl = SERVER + "/api/diyLogin/start";
 const assertionFinishUrl = SERVER + "/api/diyLogin/finish";
 const assertionStartUrlDirect = SERVER + "/api/diyLogin/start_direct";
