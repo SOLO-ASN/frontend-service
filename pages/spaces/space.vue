@@ -117,7 +117,7 @@
     margin: spacing(3, 0, 5);
     position: -webkit-sticky;
     position: sticky;
-    top: 0;
+    top: 80px;
   }
   @include breakpoints-between(sm, md) {
     display: flex;

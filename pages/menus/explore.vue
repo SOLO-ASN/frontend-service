@@ -16,7 +16,7 @@
             <!-- Home的内容 -->
             <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'" class="mx-15">
               <!-- 侧边栏 -->
-              <v-col :cols="12" md="2" lg="2" class="sidebar">
+              <v-col :cols="12" md="2" lg="2" class="sidebar" style="margin-top: 50px;">
                 <filter-side
                   ref="childRef"
                   @collect-tag="handleCollectTag"
@@ -121,7 +121,7 @@
     margin: spacing(3, 0, 5);
     position: -webkit-sticky;
     position: sticky;
-    top: 0;
+    top: 80px;
   }
   @include breakpoints-between(sm, md) {
     display: flex;
@@ -227,7 +227,7 @@ cardItems.value = [ {
         "isVerified": false,
         "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
     },
-  {
+    {
         "id": "GCK5JUUjFn",
         "name": "Project Galaxy Meme Contest #1 Winner",
         "type": "Oat",
@@ -259,7 +259,169 @@ cardItems.value = [ {
         "spaceName": "Taiko",
         "isVerified": true,
         "spaceThumbnail": "https://cdn.galxe.com/galaxy/avatar/233f5252-6c2a-4adf-8799-a310e27a016d.png",
-    }];
+    },
+    {
+        "id": "GCK5JUUjFn",
+        "name": "Project Galaxy Meme Contest #1 Winner",
+        "type": "Oat",
+        "status": "Expired",
+        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
+        "participantsCount": 3,
+        "spaceName": "Galxe",
+        "isVerified": true,
+        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+      },
+      {
+        "id": "GC4SjtTJ2f",
+        "name": "Galxe Radio Episode 60 Feat. Laika AI",
+        "type": "Oat",
+        "status": "Active",
+        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
+        "participantsCount": 993,
+        "spaceName": "Galxe",
+        "isVerified": true,
+        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+    },
+    {
+        "id": "GC9a7tTN3X",
+        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
+        "type": "Oat",
+        "status": "Active",
+        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
+        "participantsCount": 2014,
+        "spaceName": "Moso",
+        "isVerified": false,
+        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
+    },{
+        "id": "GCK5JUUjFn",
+        "name": "Project Galaxy Meme Contest #1 Winner",
+        "type": "Oat",
+        "status": "Expired",
+        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
+        "participantsCount": 3,
+        "spaceName": "Galxe",
+        "isVerified": true,
+        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+      },
+      {
+        "id": "GC4SjtTJ2f",
+        "name": "Galxe Radio Episode 60 Feat. Laika AI",
+        "type": "Oat",
+        "status": "Active",
+        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
+        "participantsCount": 993,
+        "spaceName": "Galxe",
+        "isVerified": true,
+        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+    },
+    {
+        "id": "GC9a7tTN3X",
+        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
+        "type": "Oat",
+        "status": "Active",
+        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
+        "participantsCount": 2014,
+        "spaceName": "Moso",
+        "isVerified": false,
+        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
+    },{
+        "id": "GCK5JUUjFn",
+        "name": "Project Galaxy Meme Contest #1 Winner",
+        "type": "Oat",
+        "status": "Expired",
+        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
+        "participantsCount": 3,
+        "spaceName": "Galxe",
+        "isVerified": true,
+        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+      },
+      {
+        "id": "GC4SjtTJ2f",
+        "name": "Galxe Radio Episode 60 Feat. Laika AI",
+        "type": "Oat",
+        "status": "Active",
+        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
+        "participantsCount": 993,
+        "spaceName": "Galxe",
+        "isVerified": true,
+        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+    },
+    {
+        "id": "GC9a7tTN3X",
+        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
+        "type": "Oat",
+        "status": "Active",
+        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
+        "participantsCount": 2014,
+        "spaceName": "Moso",
+        "isVerified": false,
+        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
+    },{
+        "id": "GCK5JUUjFn",
+        "name": "Project Galaxy Meme Contest #1 Winner",
+        "type": "Oat",
+        "status": "Expired",
+        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
+        "participantsCount": 3,
+        "spaceName": "Galxe",
+        "isVerified": true,
+        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+      },
+      {
+        "id": "GC4SjtTJ2f",
+        "name": "Galxe Radio Episode 60 Feat. Laika AI",
+        "type": "Oat",
+        "status": "Active",
+        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
+        "participantsCount": 993,
+        "spaceName": "Galxe",
+        "isVerified": true,
+        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+    },
+    {
+        "id": "GC9a7tTN3X",
+        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
+        "type": "Oat",
+        "status": "Active",
+        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
+        "participantsCount": 2014,
+        "spaceName": "Moso",
+        "isVerified": false,
+        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
+    },{
+        "id": "GCK5JUUjFn",
+        "name": "Project Galaxy Meme Contest #1 Winner",
+        "type": "Oat",
+        "status": "Expired",
+        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
+        "participantsCount": 3,
+        "spaceName": "Galxe",
+        "isVerified": true,
+        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+      },
+      {
+        "id": "GC4SjtTJ2f",
+        "name": "Galxe Radio Episode 60 Feat. Laika AI",
+        "type": "Oat",
+        "status": "Active",
+        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
+        "participantsCount": 993,
+        "spaceName": "Galxe",
+        "isVerified": true,
+        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
+    },
+    {
+        "id": "GC9a7tTN3X",
+        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
+        "type": "Oat",
+        "status": "Active",
+        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
+        "participantsCount": 2014,
+        "spaceName": "Moso",
+        "isVerified": false,
+        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
+    },
+    ];
 
 
 

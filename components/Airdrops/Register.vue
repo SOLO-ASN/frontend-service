@@ -54,7 +54,8 @@
               <div v-if="showPrivacyPolicyModal" class="privacy-policy-modal">
                 <!-- 模态窗口内容 -->
                 <p>一个设备只能注册一个账户，如果设备中已经存在账户，则新注册的账户会覆盖旧账户，且旧帐户无法找回...</p>
-                <button @click="closeModal">关闭</button>
+                <p></p>
+                <button @click="closeModal" style="float: right;">关闭</button>
               </div>
             </div>
           </div>
@@ -137,7 +138,7 @@ const { smAndDown: isMobile2 } = useDisplay();
 const showModal = ref(false);
 const showPrivacyPolicyModal = ref(false);
 
-const SERVER = "http://localhost:58089";
+const SERVER = "https://airdrop.aspark.space";
 const registrationStartUrl = SERVER + "/api/diyRegister/start";
 const registrationFinishUrl = SERVER + "/api/diyRegister/finish";
 const assertionStartUrlDirect = SERVER + "/api/diyLogin/start_direct";

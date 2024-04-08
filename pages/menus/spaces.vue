@@ -240,6 +240,7 @@ const handleFollowClick = async (id, isFollowing) => {
           id: id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
+
       } catch (error) {
         console.error('请求详情失败', error);
       }
