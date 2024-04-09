@@ -210,6 +210,7 @@ async function _onFormSubmit(username) {
         }
         if (!PublicKeyCredential.isConditionalMediationAvailable ||
             !PublicKeyCredential.isConditionalMediationAvailable()) {
+            alert("Fido is not supported on this browser");
             console.info("error");
             return;
         }
@@ -266,6 +267,7 @@ async function _onFormSubmit_direct() {
         }
         if (!PublicKeyCredential.isConditionalMediationAvailable ||
             !PublicKeyCredential.isConditionalMediationAvailable()) {
+            alert("Fido is not supported on this browser");
             console.info("error");
             return;
         }
