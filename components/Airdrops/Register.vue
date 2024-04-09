@@ -241,9 +241,10 @@ async function _onFormSubmit(username) {
        
         ElMessage({
           showClose: true,
-          message: 'Congrats, Register success.',
+          message: `Congrats, user ${l.username} login success.`,
           type: 'success',
-        })
+          duration: 10000, // 消息停留10秒
+        });
         router.push('/en/menus/login');
         
     } catch (t) {

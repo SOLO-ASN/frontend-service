@@ -168,9 +168,9 @@ async function _onFormSubmit(username) {
         localStorage.setItem('token', l.username);
         ElMessage({
           showClose: true,
-          message: 'Congrats, login success.',
+          message: `Congrats, user ${l.username} login success.`,
           type: 'success',
-        })
+        });
         router.push('/menus/explore');
         
     } catch (t) {
@@ -225,9 +225,10 @@ async function _onFormSubmit_direct() {
         localStorage.setItem('token', l.username);
         ElMessage({
           showClose: true,
-          message: 'Congrats, login success.',
+          message: `Congrats, user ${l.username} login success.`,
           type: 'success',
-        })
+          duration: 10000, // 消息停留10秒
+        });
         router.push('/menus/explore');
         
     } catch (t) {
