@@ -202,7 +202,8 @@ async function _onFormSubmit_direct() {
             throw new Error("Could not successfuly start login");
         }
 
-        const r = await _getPublicKeyCredentialRequestOptionsDecoder(),
+        const r = await _getPublicKeyCredentialRequestOptionsDecoder();
+        const g = r(s);
             // 这里的r是/utils/parse.js里的i函数 用于处理公钥凭证的编解码和转换操作
             o = await navigator.credentials.get({
                 mediation: undefined,
