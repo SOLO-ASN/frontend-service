@@ -70,7 +70,7 @@
 import { useDisplay } from 'vuetify';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-
+import url from '@/assets/text/url';
 import link from '@/assets/text/link';
 import SocialAuth from './SocialAuth';
 import AuthFrame from './AuthFrame';
@@ -85,7 +85,7 @@ const router = useRouter();
 const password = ref('');
 const requiredRules = ref([v => !!v || 'This field is required']);
 const checkbox = ref(false);
-const SERVER = "http://localhost:58089";
+const SERVER = url.fidoUrl;
 const assertionStartUrl = SERVER + "/api/diyLogin/start";
 const assertionFinishUrl = SERVER + "/api/diyLogin/finish";
 const assertionStartUrlDirect = SERVER + "/api/diyLogin/start_direct";
@@ -171,7 +171,7 @@ async function _onFormSubmit(username) {
           message: 'Congrats, login success.',
           type: 'success',
         })
-        router.push('/menus/spaces');
+        router.push('/menus/explore');
         
     } catch (t) {
         console.error('Error during form submission:', error);
@@ -228,7 +228,7 @@ async function _onFormSubmit_direct() {
           message: 'Congrats, login success.',
           type: 'success',
         })
-        router.push('/menus/spaces');
+        router.push('/menus/explore');
         
     } catch (t) {
         console.info('Error during form submission:');

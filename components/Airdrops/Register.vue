@@ -121,6 +121,7 @@ import { ref } from 'vue';
 import { useDisplay } from 'vuetify';
 import { useRouter } from 'vue-router';
 import link from '@/assets/text/link';
+import url from '@/assets/text/url';
 import SocialAuth from './SocialAuth';
 import AuthFrame from './AuthFrame';
 import Confirm from '@/components/Airdrops/ConfirmModal';
@@ -138,7 +139,7 @@ const { smAndDown: isMobile2 } = useDisplay();
 const showModal = ref(false);
 const showPrivacyPolicyModal = ref(false);
 
-const SERVER = "http://localhost:58089";
+const SERVER = url.fidoUrl;
 const registrationStartUrl = SERVER + "/api/diyRegister/start";
 const registrationFinishUrl = SERVER + "/api/diyRegister/finish";
 const assertionStartUrlDirect = SERVER + "/api/diyLogin/start_direct";
@@ -243,7 +244,7 @@ async function _onFormSubmit(username) {
           message: 'Congrats, Register success.',
           type: 'success',
         })
-        router.push('/menus/login');
+        router.push('/en/menus/login');
         
     } catch (t) {
         console.error('Error during form submission:');
@@ -300,7 +301,7 @@ async function _onFormSubmit_direct() {
           message: 'Congrats, login success.',
           type: 'success',
         })
-        router.push('/menus/spaces');
+        router.push('/menus/explore');
         
     } catch (t) {
         console.info('Error during form submission:');
