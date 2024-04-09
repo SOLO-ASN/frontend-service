@@ -2,52 +2,34 @@
   <div class="main-wrap">
     <main-header :menu="singleMenu.inner" />
     <blur-gradient />
-    <div class="container-fron container-wrap">
+    <div class="container-front container-wrap">
       <div class="inner-page">
-        <v-dialog
-          v-model="dialog"
-          fullscreen
-          hide-overlay
-          transition="dialog-bottom-transition"
-        >
+        <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
           <v-card class="cyber">
-            <v-toolbar
-              dark
-              flat
-              class="header-filter"
-            >
-              <v-btn
-                icon
-                dark
-                @click="handleCloseFilter"
-              >
+            <v-toolbar dark flat class="header-filter">
+              <v-btn icon dark @click="handleCloseFilter">
                 <v-icon>mdi-close</v-icon>
               </v-btn>
               <v-toolbar-title>Filter</v-toolbar-title>
               <v-spacer />
               <v-toolbar-items>
-                <v-btn
-                  dark
-                  text
-                  @click="handleCloseFilter"
-                >
+                <v-btn dark text @click="handleCloseFilter">
                   Done
                 </v-btn>
               </v-toolbar-items>
             </v-toolbar>
             <div class="pt-3">
-             
+              <!-- Filter content goes here -->
             </div>
           </v-card>
         </v-dialog>
         <v-container>
-          <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'">
-
-            <v-col md="8" sm="12" class="px-0" cols="12">
+          <v-row align="start" justify="start" :class="{'spacing-xs': !isDesktop, 'spacing-lg': isDesktop}">
+            <v-col :cols="isDesktop ? 8 : 12" class="px-0">
               <search v-model="keyword" @input="onInput" />
             </v-col>
-            <v-col md="2" sm="6" class="px-0">
-              <div class="ps-md-3">
+            <v-col :cols="isDesktop ? 2 : 6" class="px-0">
+              <div :class="{'ps-sm-3': !isDesktop, 'ps-md-3': isDesktop}">
                 <sorter
                   :view="toggleView"
                   :sort-by-selected="sortBySelected"
@@ -57,59 +39,50 @@
                   @open-filter="handleOpenFilter"
                 />
               </div>
-              
             </v-col>
-            <v-col md="2" sm="12" class="px-0">
-              <div class="ps-md-4">
-                <claim-button @update:isSelected="handleVerifiedChange"/>
+            <v-col :cols="isDesktop ? 2 : 12" class="px-0">
+              <div :class="{'ps-sm-4': !isDesktop, 'ps-md-4': isDesktop}">
+                <claim-button @update:isSelected="handleVerifiedChange" />
               </div>
             </v-col>
           </v-row>
-          <v-row class="pl-0" style="position: absolute; top: 125px; left: 250px;">
+          <v-row class="pl-0" :style="isDesktop ? 'position: absolute; top: 125px; left: 250px;' : 'margin-top: 20px;'">
             <v-btn color="primary">Create space</v-btn>
           </v-row>
-          </v-container>
-          <v-container>
+        </v-container>
+        <v-container>
           <div class="mt-md-5 mt-xs-2 mt-sm-3 mx-xs-2">
-            <v-row :class="{ spacing3: isDesktop }">
-              <v-col md="15" cols="15">
+            <v-row :class="{ 'spacing-lg': isDesktop, 'spacing-sm': !isDesktop }">
+              <v-col cols="12">
                 <tab-category
                   :switch-tab="handleChangeGroup"
                   :value="group"
                   :total="cardItems.length"
                 />
-                 <v-container v-if="isLoading" style="display: flex; justify-content: center; align-items: center; height: 30vh;">
-                  <span style="font-size: 50px; font-weight: bold;">loading!</span>
+                <v-container v-if="isLoading" class="loading-container">
+                  <span class="loading-text">loading!</span>
                 </v-container>
-                <!-- 原有的内容保持不变 -->
                 <div v-if="!isLoading">
-                  <!-- 数据加载完成后的展示内容 -->
-                <v-row id="profile" class="mt-sm-5 mt-xs-2 spacing3">
-                  <v-col v-if="cardItems.length < 1" sm="12">
+                  <v-row id="profile" class="mt-sm-5 mt-xs-2" :class="{'spacing-sm': !isDesktop, 'spacing-lg': isDesktop}">
+                    <v-col v-if="cardItems.length < 1" cols="12">
                       <h3>Not found</h3>
                     </v-col>
-                  <v-col
-                    v-for="(item, index) in cardItems"
-                    :key="index"
-                    sm="4"
-                    cols="12"
-                  >
-                    <space-card
-                      :name="item.name"
-                      :isVerified="item.isVerified"
-                      :thumbnail="item.thumbnail"
-                      :activeCampaignCount="item.activeCampaignCount"
-                      :followersCount="item.followersCount"
-              
-                      :status="item.status"
-                      :id="item.id"
-                      :tokenSymbol="item.tokenSymbol"
-                      :isFollowing="item.isFollowing"
-                      @follow-click="handleFollowClick"
-                    />
-                  </v-col>
-                </v-row>
-                  </div>
+                    <v-col v-for="(item, index) in cardItems" :key="index" :cols="isDesktop ? 4 : 12">
+                      <space-card
+                        :name="item.name"
+                        :isVerified="item.isVerified"
+                        :thumbnail="item.thumbnail"
+                        :activeCampaignCount="item.activeCampaignCount"
+                        :followersCount="item.followersCount"
+                        :status="item.status"
+                        :id="item.id"
+                        :tokenSymbol="item.tokenSymbol"
+                        :isFollowing="item.isFollowing"
+                        @follow-click="handleFollowClick"
+                      />
+                    </v-col>
+                  </v-row>
+                </div>
               </v-col>
             </v-row>
           </div>
@@ -121,6 +94,7 @@
     </div>
   </div>
 </template>
+
 
 <style scoped lang="scss">
 @import '@/assets/scss/pages';
