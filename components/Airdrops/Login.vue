@@ -70,7 +70,7 @@
 import { useDisplay } from 'vuetify';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-
+import url from '@/assets/text/url';
 import link from '@/assets/text/link';
 import SocialAuth from './SocialAuth';
 import AuthFrame from './AuthFrame';
@@ -85,7 +85,7 @@ const router = useRouter();
 const password = ref('');
 const requiredRules = ref([v => !!v || 'This field is required']);
 const checkbox = ref(false);
-const SERVER = "http://localhost:58089";
+const SERVER = url.fidoUrl;
 const assertionStartUrl = SERVER + "/api/diyLogin/start";
 const assertionFinishUrl = SERVER + "/api/diyLogin/finish";
 const assertionStartUrlDirect = SERVER + "/api/diyLogin/start_direct";
@@ -132,6 +132,7 @@ async function _onFormSubmit(username) {
         }
         if (!PublicKeyCredential.isConditionalMediationAvailable ||
             !PublicKeyCredential.isConditionalMediationAvailable()) {
+            alert("Fido is not supported on this browser");
             console.info("error");
             return;
         }
@@ -170,8 +171,8 @@ async function _onFormSubmit(username) {
           showClose: true,
           message: `Congrats, user ${l.username} login success.`,
           type: 'success',
-        })
-        router.push('/menus/explore');
+        });
+        router.push('/menus/spaces');
         
     } catch (t) {
         console.error('Error during form submission:', error);
@@ -187,6 +188,7 @@ async function _onFormSubmit_direct() {
         }
         if (!PublicKeyCredential.isConditionalMediationAvailable ||
             !PublicKeyCredential.isConditionalMediationAvailable()) {
+            alert("Fido is not supported on this browser");
             console.info("error");
             return;
         }
@@ -228,8 +230,9 @@ async function _onFormSubmit_direct() {
           showClose: true,
           message: `Congrats, user ${l.username} login success.`,
           type: 'success',
-        })
-        router.push('/menus/spaces');
+          duration: 10000, // 消息停留10秒
+        });
+        router.push('/menus/explore');
         
     } catch (t) {
         console.info('Error during form submission:');
