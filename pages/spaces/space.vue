@@ -4,6 +4,7 @@
     <blur-gradient />
     <div class="container-front container-wrap">
       <div class="inner-page">
+        <login-prompt v-model="showLoginDialog" />
           <v-dialog
             v-model="dialog"
             fullscreen
@@ -214,6 +215,7 @@ import Search from '@/components/Filter/Search';
 import TabCategory from '@/components/Airdrops/TabCategory';
 import Sorter from '@/components/Airdrops/Sorter';
 import CampaignCard from '@/components/Airdrops/CampaignCard.vue'
+import LoginPrompt from '@/components/Airdrops/LoginPrompt'
 import brand from '@/assets/text/brand';
 import { useHead } from '#app';
 import { useDisplay } from 'vuetify';
@@ -224,7 +226,7 @@ const { smAndDown: isTablet } = useDisplay();
 const currentTab = ref('home');
 
 const childRef = ref(null);
-
+const showLoginDialog = ref(false);
 const credSources = ref([]);
 const rewardTypes = ref([]);
 const chains = ref([]);
@@ -232,6 +234,10 @@ const statuses = ref(['Active', 'Not Started']);
 const listType = ref("Trending");
 const searchString = ref('');
 const dialog = ref(false);
+
+function showLoginPrompt() {
+  showLoginDialog = true;
+}
 
 function handleOpenFilter() {
   dialog.value = true; 
@@ -303,6 +309,9 @@ const handleFollowClick = async (id, isFollowing) => {
           id: id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
+        if(response.data.msg=="NOT_LOGIN") {
+          showLoginPrompt()
+        }
       } catch (error) {
         console.error('请求详情失败', error);
       }
@@ -312,6 +321,9 @@ const handleFollowClick = async (id, isFollowing) => {
           id: id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
+        if(response.data.msg=="NOT_LOGIN") {
+          showLoginPrompt()
+        }
       } catch (error) {
         console.error('请求详情失败', error);
       }

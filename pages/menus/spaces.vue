@@ -4,6 +4,9 @@
     <blur-gradient />
     <div class="container-front container-wrap">
       <div class="inner-page">
+        <login-prompt
+          v-model="showLoginDialog"
+        />
         <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
           <v-card class="cyber">
             <v-toolbar dark flat class="header-filter">
@@ -45,7 +48,7 @@
             
           </v-row>
           <v-row class="pl-0" :style="isDesktop ? 'position: absolute; top: 125px; left: 250px;' : 'margin-top: 20px;'">
-            <v-btn color="primary">Create space</v-btn>
+            <v-btn color="primary" @click=showLoginPrompt>Create space</v-btn>
           </v-row>
         </v-container>
         <v-container>
@@ -73,8 +76,8 @@
                         :activeCampaignCount="item.activeCampaignCount"
                         :followersCount="item.followersCount"
                         :status="item.status"
+                        :alias="item.alias"
                         :id="item.id"
-                        :tokenSymbol="item.tokenSymbol"
                         :isFollowing="item.isFollowing"
                         @follow-click="handleFollowClick"
                       />
@@ -111,6 +114,7 @@ import CardProducts from '@/components/Cards/Product/ProductCard';
 import PlaylistCard from '@/components/Cards/Media/PlaylistCard';
 import SpaceCard from '@/components/Airdrops/SpaceCard';
 import Search from '@/components/Filter/Search';
+import LoginPrompt from '@/components/Airdrops/LoginPrompt'
 import TabCategory from '@/components/Airdrops/TabCategory';
 import Sorter from '@/components/Airdrops/Sorter';
 import ClaimButton from '@/components/Airdrops/ClaimButton.vue';
@@ -133,7 +137,7 @@ const checkItems = [
 
 
 const dialog = ref(false);
-const sortBy = ref('Trening')
+const sortBy = ref('followersCount')
 const sortFrom = ref(-1);
 const sortTo = ref(1);
 const toggleView = ref(0);
@@ -141,7 +145,7 @@ const filterRating = ref(0);
 const filterCategory = ref('all');
 const filterRadio = ref('all');
 const filterCheck = ref(checkItems);
-const group = ref('all');
+const group = ref(['all']);
 const verified = ref(false);
 const keyword = ref('');
 
@@ -153,13 +157,19 @@ const range = ref({
 });
 
 const sortBySelected = ref({
-  title: 'Trending',
-  value: 'trending-asc',
+  title: 'Most followed',
+  value: 'followersCount',
 });
 
 const filterTag = ref(['tag-one', 'tag-two', 'tag-three', 'tag-four'])
 const cardItems = ref([])
 const isLoading = ref(true);
+const showLoginDialog = ref(false);
+const after = ref(0);
+
+function showLoginPrompt() {
+  showLoginDialog.value = true;
+}
 
 onMounted(() => {
   fetchData();
@@ -208,19 +218,24 @@ const handleFollowClick = async (id, isFollowing) => {
   console.info(id);
   if(isFollowing==false){
       try {
-        const response = await axios.post('https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io/api/spaces/follow', {
+        const response = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io/api/spaces/follow', {
           id: id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
-
+        if(response.data.msg=="NOT_LOGIN") {
+          showLoginPrompt();
+        }
       } catch (error) {
         console.error('请求详情失败', error);
       }
     }else{
       try {
-        const response = await axios.post('https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io/api/spaces/unfollow', {
+        const response = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io/api/spaces/unfollow', {
           id: id
         });
+        if(response.data.msg=="NOT_LOGIN") {
+          showLoginPrompt();
+        }
         // 根据返回数据执行后续操作，比如打开对话框显示详情
       } catch (error) {
         console.error('请求详情失败', error);
@@ -230,13 +245,16 @@ const handleFollowClick = async (id, isFollowing) => {
 
 async function fetchData() {
   try {
-    isLoading.value = true; // 开始加载数据   https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io
-    const response = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io/api/spaces/query', {
+    isLoading.value = true; // 开始加载数据   https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io
+    const response = await axios.post('http://172.31.100.142:18080/api/spaces/query', {
+      first:20,
+      after:after.value,
       spaceListType: sortBy.value,
       filter: group.value,
       verifiedOnly: verified.value,
       searchString: keyword.value,
     });
+
     console.info(response.data.data);
     if (response.data.data.list && Array.isArray(response.data.data.list)) {
       cardItems.value = response.data.data.list.map(item => ({
@@ -244,12 +262,11 @@ async function fetchData() {
         isVerified: item.isVerified,
         thumbnail: item.thumbnail,
         activeCampaignCount: item.activeCampaignCount,
-        tokenSymbol: item.tokenSymbol,
         followersCount: item.followersCount,
         status: item.status,
         id: item.id,
-        href: '/collection/campaign' + '?alias=Galxe', // Removed the quotes around the template string
-        isFollowing: item.isFollowing
+        alias: item.alias,
+        isFollowing: item.IsFollowing
       }));
     } else {
       // Handle the case where response.data.list is not an array

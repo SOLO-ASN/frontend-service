@@ -82,16 +82,12 @@ const { view, sortBySelected, resultLength, showVerified, showFilter } = defineP
 
 const sortList = [
   {
-    title: 'Trending',
-    value: 'trending-asc',
-  },
-  {
     title: 'Newest',
-    value: 'newest-asc',
+    value: 'created_at',
   },
   {
     title: 'Most Followed',
-    value: 'follow-asc',
+    value: 'followersCount',
   },
 ];
 
