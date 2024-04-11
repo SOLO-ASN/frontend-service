@@ -28,23 +28,21 @@
             <v-col :cols="isDesktop ? 8 : 12" class="px-0">
               <search v-model="keyword" @input="onInput" />
             </v-col>
-            <v-col :cols="isDesktop ? 2 : 6" class="px-0">
-              <div :class="{'ps-sm-3': !isDesktop, 'ps-md-3': isDesktop}">
+           <v-col md="4" sm="12" class="px-0" cols="12">
+              <div class="ps-md-3">
                 <sorter
+                  :showFilter=false
                   :view="toggleView"
                   :sort-by-selected="sortBySelected"
                   :result-length="filteredItems.length"
                   @switch-view="handleToggleView"
                   @sort-by="handleSortBy"
                   @open-filter="handleOpenFilter"
-                />
+                  @update:isSelected="handleVerifiedChange"
+                />  
               </div>
             </v-col>
-            <v-col :cols="isDesktop ? 2 : 12" class="px-0">
-              <div :class="{'ps-sm-4': !isDesktop, 'ps-md-4': isDesktop}">
-                <claim-button @update:isSelected="handleVerifiedChange" />
-              </div>
-            </v-col>
+            
           </v-row>
           <v-row class="pl-0" :style="isDesktop ? 'position: absolute; top: 125px; left: 250px;' : 'margin-top: 20px;'">
             <v-btn color="primary">Create space</v-btn>

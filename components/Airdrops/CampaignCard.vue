@@ -32,8 +32,8 @@
 }
 
 .campaign-card {
-  width: 300px; /* Fixed width */
-  height: 400px; /* Fixed height */
+  width: var(--card-width, 300px);
+  height: var(--card-height, 400px);
   display: flex;
   flex-direction: column;
   background: #222;
@@ -57,14 +57,14 @@
 }
 
 .card-body {
-  padding: 16px;
+  padding: 0.5em;
   text-align: center;
   flex: 1; /* Ensures that the body takes up the remaining space */
 }
 
 .card-image {
-  max-width: 120px; /* Smaller width */
-  max-height: 120px; /* Smaller height */
+  max-width: 50%; /* Smaller width */
+  max-height: 50%; /* Smaller height */
   border-radius: 50%; /* Makes the image round */
   object-fit: cover;
   margin: 0 auto 16px; /* Centers the image and adds spacing below */
@@ -89,8 +89,8 @@
 }
 
 .space-avatar {
-  width: 20px; /* 头像的宽度 */
-  height: 20px; /* 头像的高度 */
+  width: 2em; /* 头像的宽度 */
+  height: 2em; /* 头像的高度 */
   border-radius: 50%; /* 圆形头像 */
   object-fit: cover;
 }
@@ -112,7 +112,7 @@
 .card-footer {
   display: flex;
   align-items: center;
-  padding: 8px 16px;
+  padding: 0.5em;
   background: #333; /* 底部背景色 */
 }
 @import './playlist-card.scss';

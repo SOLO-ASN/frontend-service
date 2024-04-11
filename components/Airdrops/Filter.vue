@@ -81,7 +81,14 @@
 </template>
 
 <script>
+
 export default {
+  props: {
+    selectedTags1: Array,
+    selectedTags2: Array,
+    selectedTags3: Array,
+    selectedTags4: Array
+  },
   emits: [
     'change-tag', 'collect-tag', 
     'update:selectedTags',
@@ -121,10 +128,6 @@ export default {
         "Goerli"
       ],
       filterTag4: ['Active', 'Not Started', 'Expired'],
-      selectedTags1: [],
-      selectedTags2: [],
-      selectedTags3: [],
-      selectedTags4: ['Active', 'Not Started'],
     };
   },
 
@@ -153,8 +156,6 @@ export default {
     }
   },
 };
-
-
 
 </script>
 

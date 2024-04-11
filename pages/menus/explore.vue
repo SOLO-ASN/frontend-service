@@ -4,21 +4,68 @@
     <blur-gradient />
     <div class="container-front container-wrap">
       <div class="inner-page">
-        <div class="navbar">
-          <div class="nav-items">
-            <span class="nav-item" :class="{ active: currentTab === 'All' }" @click="currentTab = 'All'">All</span>
-            <span class="nav-item" :class="{ active: currentTab === 'Following' }" @click="currentTab = 'Following'">Following</span>
-          </div>
-        </div>
-        <div class="inner-page1">
-          <!-- 条件渲染Home视图或Leaderboard视图 -->
-          <div v-if="currentTab === 'All'">
-            <!-- Home的内容 -->
-            <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'" class="mx-15">
+        <v-dialog
+            v-model="dialog"
+            fullscreen
+            hide-overlay
+            transition="dialog-bottom-transition"
+          >
+            <v-card class="cyber">
+              <v-toolbar
+                dark
+                flat
+                class="header-filter"
+              >
+                <v-btn
+                  icon
+                  dark
+                  @click="handleCloseFilter"
+                >
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+                <v-toolbar-title>Filter</v-toolbar-title>
+                <v-spacer />
+                <v-toolbar-items>
+                  <v-btn
+                    dark
+                    text
+                    @click="handleCloseFilter"
+                  >
+                    Done
+                  </v-btn>
+                </v-toolbar-items>
+              </v-toolbar>
+              <div class="pt-3">
+                <v-container>
+                  <v-row justify="center">
+                    <v-col sm="10" cols="12">
+                     <filter-side
+                      v-if="!isTablet"
+                      :selectedTags1="credSources"
+                      :selectedTags2="rewardTypes"
+                      :selectedTags3="chains"
+                      :selectedTags4="statuses"
+                      @collect-tag="handleCollectTag"
+                      @update:selectedTags1="handleSelectedTagsUpdate"
+                      @update:selectedTags2="handleSelectedTagsUpdate"
+                      @update:selectedTags3="handleSelectedTagsUpdate"
+                      @update:selectedTags4="handleSelectedTagsUpdate"
+                    />
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </div>
+            </v-card>
+          </v-dialog>
+            <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing2'" class="mx-1">
               <!-- 侧边栏 -->
-              <v-col :cols="12" md="2" lg="2" class="sidebar" style="margin-top: 50px;">
+              <v-col :cols="10" md="1" lg="2" class="sidebar" style="margin-top: 50px;">
                 <filter-side
-                  ref="childRef"
+                  v-if="!isTablet"
+                  :selectedTags1="credSources"
+                  :selectedTags2="rewardTypes"
+                  :selectedTags3="chains"
+                  :selectedTags4="statuses"
                   @collect-tag="handleCollectTag"
                   @update:selectedTags1="handleSelectedTagsUpdate"
                   @update:selectedTags2="handleSelectedTagsUpdate"
@@ -27,23 +74,21 @@
                 />
               </v-col>
               <!-- 内容区域 -->
-              <v-col :cols="12" md="8" lg="8" class="mx-14 content">
-                <v-row class="px-0 content-row">
-                  <v-col md="7" sm="12" class="px-0">
+              <v-col :cols="10" md="6" lg="7" class="mx-14 content">
+                <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'">
+                  <v-col md="8" sm="12" class="px-0" cols="12">
                     <search v-model="keyword" @input="onInput" />
                   </v-col>
-                  <v-col md="2" sm="6" class="ps-md-3">
-                    <sorter
-                      :view="toggleView"
-                      :sort-by-selected="sortBySelected"
-                      @switch-view="handleToggleView"
-                      @sort-by="handleSortBy"
-                      @open-filter="handleOpenFilter"
-                    />
-                  </v-col>
-                  <v-col md="2" sm="12" class="px-0">
-                    <div class="ps-md-4">
-                        <claim-button @update:isSelected="handleVerifiedChange"/>
+                  <v-col md="4" sm="12" class="px-0" cols="12">
+                    <div class="ps-md-3">
+                      <sorter
+                        :showVerified=false
+                        :view="toggleView"
+                        :sort-by-selected="sortBySelected"
+                        @switch-view="handleToggleView"
+                        @sort-by="handleSortBy"
+                        @open-filter="handleOpenFilter"
+                      />
                     </div>
                   </v-col>
                 </v-row>
@@ -57,20 +102,12 @@
                     :sm="3"
                     cols="10"
                   >
-                    <campaign-card :campaigns="cardItem" />
+                    <campaign-card class= "campaignCard" :campaigns="cardItem" />
                   </v-col>
                 </v-row>
               </v-col>
             </v-row>
           </div>
-          <div v-else-if="currentTab === 'Following'">
-            <!-- Leaderboard的内容 -->
-            <v-container>
-              <h1>待开发</h1>
-            </v-container>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="space-top-short">
       <main-footer />
@@ -80,7 +117,16 @@
 
 <style lang="scss" scoped>
 @import '@/assets/scss/pages'; 
+@media (max-width: 768px) {
+  .sidebar {
+    display: none
+  }
 
+  .campaignCard {
+    --card-width: 400px;
+    --card-height: 380px;
+  }
+}
 .navbar {
   display: flex;
   justify-content: center;
@@ -155,16 +201,22 @@ import axios from 'axios';
 const currentTab = ref('All');
 
 const childRef = ref(null);
-
+const dialog = ref(false);
 const credSources = ref([]);
 const rewardTypes = ref([]);
 const chains = ref([]);
-const statuses = ref([]);
+const statuses = ref(['Active', 'Not Started']);
 const listType = ref("Trending");
 const searchString = ref('');
 const verified = ref(false);
 
-
+function handleOpenFilter() {
+  dialog.value = true; 
+}
+  
+function handleCloseFilter() {
+  dialog.value = false; 
+}
 
 function handleSortBy(e) {
   listType.value = e.value;

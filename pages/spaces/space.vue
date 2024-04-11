@@ -4,6 +4,58 @@
     <blur-gradient />
     <div class="container-front container-wrap">
       <div class="inner-page">
+          <v-dialog
+            v-model="dialog"
+            fullscreen
+            hide-overlay
+            transition="dialog-bottom-transition"
+          >
+            <v-card class="cyber">
+              <v-toolbar
+                dark
+                flat
+                class="header-filter"
+              >
+                <v-btn
+                  icon
+                  dark
+                  @click="handleCloseFilter"
+                >
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+                <v-toolbar-title>Filter</v-toolbar-title>
+                <v-spacer />
+                <v-toolbar-items>
+                  <v-btn
+                    dark
+                    text
+                    @click="handleCloseFilter"
+                  >
+                    Done
+                  </v-btn>
+                </v-toolbar-items>
+              </v-toolbar>
+              <div class="pt-3">
+                <v-container>
+                  <v-row justify="center">
+                    <v-col sm="10" cols="12">
+                     <filter-side
+                      :selectedTags1="credSources"
+                      :selectedTags2="rewardTypes"
+                      :selectedTags3="chains"
+                      :selectedTags4="statuses"
+                      @collect-tag="handleCollectTag"              
+                      @update:selectedTags1="handleSelectedTagsUpdate"
+                      @update:selectedTags2="handleSelectedTagsUpdate"
+                      @update:selectedTags3="handleSelectedTagsUpdate"
+                      @update:selectedTags4="handleSelectedTagsUpdate"
+                    />
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </div>
+            </v-card>
+          </v-dialog>
         <space-detail v-if="data" :detailData="data" @follow-click="handleFollowClick" />
         <div class="navbar">
           <div class="nav-items">
@@ -15,11 +67,15 @@
           <!-- 条件渲染Home视图或Leaderboard视图 -->
           <div v-if="currentTab === 'home'">
             <!-- Home的内容 -->
-            <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'" class="mx-15">
+            <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing2'" class="mx-1">
               <!-- 侧边栏 -->
-              <v-col :cols="12" md="2" lg="2" class="sidebar">
+              <v-col :cols="10" md="1" lg="2" class="sidebar" style="margin-top: 50px;">
                 <filter-side
-                  ref="childRef"
+                  v-if="!isTablet"
+                  :selectedTags1="credSources"
+                  :selectedTags2="rewardTypes"
+                  :selectedTags3="chains"
+                  :selectedTags4="statuses"
                   @collect-tag="handleCollectTag"
                   @update:selectedTags1="handleSelectedTagsUpdate"
                   @update:selectedTags2="handleSelectedTagsUpdate"
@@ -28,19 +84,22 @@
                 />
               </v-col>
               <!-- 内容区域 -->
-              <v-col :cols="12" md="8" lg="8" class="mx-14 content">
-                <v-row class="px-0 content-row">
-                  <v-col md="8" sm="12" class="px-0">
+              <v-col :cols="10" md="6" lg="7" class="mx-14 content">
+                <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'">
+                  <v-col md="8" sm="12" class="px-0" cols="12">
                     <search v-model="keyword" @input="onInput" />
                   </v-col>
-                  <v-col md="4" sm="6" class="ps-md-3">
-                    <sorter
-                      :view="toggleView"
-                      :sort-by-selected="sortBySelected"
-                      @switch-view="handleToggleView"
-                      @sort-by="handleSortBy"
-                      @open-filter="handleOpenFilter"
-                    />
+                  <v-col md="4" sm="12" class="px-0" cols="12">
+                    <div class="ps-md-3">
+                      <sorter
+                        :showVerified=false
+                        :view="toggleView"
+                        :sort-by-selected="sortBySelected"
+                        @switch-view="handleToggleView"
+                        @sort-by="handleSortBy"
+                        @open-filter="handleOpenFilter"
+                      />
+                    </div>
                   </v-col>
                 </v-row>
                 <el-button @click="selectAllTags" round color="black">All</el-button>
@@ -53,7 +112,7 @@
                     :sm="3"
                     cols="10"
                   >
-                    <campaign-card :campaigns="cardItem" />
+                    <campaign-card class= "campaignCard" :campaigns="cardItem" />
                   </v-col>
                 </v-row>
               </v-col>
@@ -76,6 +135,17 @@
 
 <style lang="scss" scoped>
 @import '@/assets/scss/pages'; 
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none
+  }
+
+  .campaignCard {
+    --card-width: 400px;
+    --card-height: 380px;
+  }
+}
 
 .navbar {
   display: flex;
@@ -144,10 +214,11 @@ import Sorter from '@/components/Airdrops/Sorter';
 import CampaignCard from '@/components/Airdrops/CampaignCard.vue'
 import brand from '@/assets/text/brand';
 import { useHead } from '#app';
+import { useDisplay } from 'vuetify';
 import { ref } from 'vue';
 import axios from 'axios';
 
-
+const { smAndDown: isTablet } = useDisplay();
 const currentTab = ref('home');
 
 const childRef = ref(null);
@@ -155,9 +226,18 @@ const childRef = ref(null);
 const credSources = ref([]);
 const rewardTypes = ref([]);
 const chains = ref([]);
-const statuses = ref([]);
+const statuses = ref(['Active', 'Not Started']);
 const listType = ref("Trending");
 const searchString = ref('');
+const dialog = ref(false);
+
+function handleOpenFilter() {
+  dialog.value = true; 
+}
+  
+function handleCloseFilter() {
+  dialog.value = false; 
+}
 
 function handleSortBy(e) {
   listType.value = e.value;
@@ -168,15 +248,19 @@ function onInput() {
 };
 
 const selectAllTags = () => {
-  if (childRef.value) {
-    childRef.value.selectAllTags();
-  }
+  rewardTypes.value = [
+        "OAT",
+        "NFT",
+        "Custom Reward",
+        "Token Reward",
+        "Discord Role",
+        "Point",
+        "Mintlist"
+      ];
 }
 
 const clearAllTags = () => {
-  if (childRef.value) {
-    childRef.value.clearAllTags();
-  }
+  rewardTypes.value = [];
 }
 const data = ref(null);
 
