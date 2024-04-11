@@ -56,7 +56,9 @@
               </div>
             </v-card>
           </v-dialog>
+        <v-container>
         <space-detail v-if="data" :detailData="data" @follow-click="handleFollowClick" />
+        </v-container>
         <div class="navbar">
           <div class="nav-items">
             <span class="nav-item" :class="{ active: currentTab === 'home' }" @click="currentTab = 'home'">Home</span>

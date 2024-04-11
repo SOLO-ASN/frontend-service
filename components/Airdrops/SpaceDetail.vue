@@ -6,56 +6,38 @@
     :index="index"
     @hide="handleHide"
   />
+
   <v-row v-if="detailData" :class="[isDesktop ? 'spacing' : 'spacing3', 'align-start']" justify="center">
-    <v-col lg="2" md="5" sm="5" cols="12" >
-      <v-img
-        v-ripple
-        cover
-        :src="detailData.thumbnail"
-        class="image-detail"
-        height="200px"
-        width="200px"
-        style="border-radius: 50%;" 
-      />     
+    <v-col lg="4" md="5" sm="5" cols="12" class="pa-md-0">
+        <img
+          :src="detailData.thumbnail"
+          class="image-detail"
+        />
     </v-col>
-    <v-col md="6" sm="7" cols="12">
+    <v-col md="7" sm="7" cols="12">
       <div class="text">
         <div class="options">
-          <v-btn
-              variant="text"
-              icon
-              class="button"
-            >
-              <span class="ion-logo-facebook icon" />
-            </v-btn>
-            <v-btn
-              variant="text"
-              icon
-              class="button"
-            >
-              <span class="ion-logo-twitter icon" />
-            </v-btn>
-            <v-btn
-              variant="text"
-              icon
-              class="button"
-            >
-              <span class="ion-logo-instagram icon" />
-            </v-btn>
-            <v-btn
-              variant="text"
-              icon
-              class="button"
-            >
-              <span class="ion-logo-linkedin icon" />
-            </v-btn>
-            <v-btn size="small" icon><v-icon>mdi-share-variant</v-icon></v-btn>
+        <v-btn
+          variant="text"
+          icon
+          class="button"
+        >
+          <span class="ion-logo-facebook icon" />
+        </v-btn>
+        <v-btn
+          variant="text"
+          icon
+          class="button"
+        >
+          <span class="ion-logo-twitter icon" />
+        </v-btn>
+          <v-btn size="small" icon><v-icon>mdi-share-variant</v-icon></v-btn>
           <v-btn size="small" icon><v-icon>mdi-dots-horizontal</v-icon></v-btn>
         </div>
         <h4 class="use-text-title2">
           <span class="use-text-subtitle use-text-secondary-color">
             {{detailData.name}}
-            <v-icon v-if="detailData.isVerified" size="x-small" style="margin-right: 100px;">mdi-check-decagram</v-icon>
+            <v-icon size="x-small">mdi-check-decagram</v-icon>
             <v-btn
               @click="onButtonClick"
               :class="{ 'btn-following': isFollowing, 'btn-not-following': !isFollowing }"
@@ -65,56 +47,49 @@
               {{ $t('+ follow') }}
             </v-btn>
           </span>
-            <v-row class="justify-start">
-              <div class="left-align">
-                <tag :categories="detailData.categories"/>
-              </div>
-              <div class="left-align">
-                <readmore :info="detailData.info"/>
-              </div>    
-              <div class="spacer"></div>
-
-              <v-row>
-                <v-col cols="12" sm="3">
-                  <v-card class="info-block" outlined tile>
-                    <div class="title">Followers</div>
-                    <div class="content">
-                      <span class="number">318,943</span>
-                      <span class="hashtag">#16</span>
-                    </div>
-                  </v-card>
-                </v-col>
-                <v-col cols="12" sm="3">
-                  <v-card class="info-block" outlined tile>
-                    <div class="title">Token</div>
-                    <div class="content">
-                      <v-icon>mdi-currency-usd</v-icon>
-                      <span>GAL</span>
-                    </div>
-                  </v-card>
-                </v-col>
-                <v-col cols="12" sm="3">
-                  <v-card class="info-block" outlined tile>
-                    <div class="title">Backer</div>
-                    <div class="content">
-                      <!-- Assume you have custom icons or images -->
-                      <v-icon>mdi-account-multiple-outline</v-icon>
-                    </div>
-                  </v-card>
-                </v-col>
-                <v-col cols="12" sm="3">
-                  <v-card class="info-block" outlined tile>
-                    <div class="title">My Points</div>
-                    <div class="content">
-                      <v-icon>mdi-star-outline</v-icon>
-                    </div>
-                  </v-card>
-                </v-col>
-              </v-row>
-
-            </v-row>
+            
+          <div class="left-align">
+            <tag :categories="detailData.categories"/>
+          </div>
         </h4>
+        <div class="property">
+          <i class="ion-md-star" />
+          &nbsp;
+          4.5 &nbsp;&nbsp;
+          <i class="ion-md-contacts" />
+          &nbsp;
+          1.0K
+          <template v-if="isDesktop">Owners</template>
+          &nbsp; &nbsp;
+          <i class="ion-ios-apps" />
+          &nbsp;
+          17
+          <template v-if="isDesktop">Items</template>
+          &nbsp;&nbsp;
+          <i class="ion-md-eye" />
+          &nbsp;
+          168K
+          <template v-if="isDesktop">Views</template>
+          &nbsp;&nbsp;
+          <i class="ion-md-heart" />
+          &nbsp;
+          1.4K
+          <template v-if="isDesktop">Favorites</template>
+        </div>
+        <div class="counter-wrap">
+          <count-down
+            :miliseconds="30000000"
+            mini
+            :info="$t('list_sale_ends') + ' Nov 24, 2022 at 3:50 AM GMT+7'"
+          />
+        </div>
       </div>
+      <v-row class="justify-start">
+        <div class="left-align">
+          <readmore :info="detailData.info"/>
+        </div>    
+        <div class="spacer"></div>
+      </v-row>
     </v-col>
   </v-row>
   
@@ -172,9 +147,15 @@
   color: #aaa;
 }
 
-v-icon {
+.v-icon {
   margin-right: 4px;
   color: #fff; /* 图标颜色设置为白色 */
+}
+
+.image-detail {
+  width: 300px; /* 或者你需要的任何尺寸 */
+  height: 100px; /* 宽度和高度相同，以创建一个完美的圆形 */
+  border-radius: 50%; /* 设置边框半径为50%来创建圆形 */
 }
 
 </style>
