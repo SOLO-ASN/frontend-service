@@ -53,28 +53,10 @@
                     <v-text-field
                       v-model="name"
                       :rules="nameRules"
-                      :label="$t('form_name')"
+                      :label="'What is the name of your campaign? *'"
                       required
                       color="secondary"
                       variant="filled"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="12" class="pb-0 px-6">
-                    <v-text-field
-                      v-model="email"
-                      :rules="emailRules"
-                      :label="$t('form_email')"
-                      required
-                      color="secondary"
-                      variant="filled"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="12" class="pb-0 px-6">
-                    <v-text-field
-                      v-model="phone"
-                      variant="filled"
-                      color="secondary"
-                      :label="$t('form_phone')"
                     />
                   </v-col>
                   <v-col cols="12" class="pb-0  px-6">
@@ -83,10 +65,125 @@
                       rows="6"
                       color="secondary"
                       variant="filled"
-                      :label="$t('form_message')"
+                      :label="'Further description of your campaign'"
+                    />
+                  </v-col>
+                  <v-col cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="email"
+                      :rules="emailRules"
+                      :label="'What is the duration of your campaign? * Please enter it with the following format: YYYY/MM/DD-YYYY/MM/DD'"
+                      required
+                      color="secondary"
+                      variant="filled"
+                    />
+                  </v-col>
+                  <v-col cols="12" sm="12" class="pb-0 px-6">
+                    <p class="use-text-paragraph text-center mb-8">Select the award to be given for this activity and fill in the relevant information</p>
+                    <v-container align="center">
+                      <v-checkbox
+                        v-model="isPoints"
+                        class="pb-0 px-6"
+                        color="secondary"
+                        :label="'Points'"
+                        style="display: inline-block;"
+                      />
+                      <v-checkbox
+                        v-model="isNFT"
+                        class="mpb-0 px-6"
+                        color="secondary"
+                        :label="'NFT'"
+                        style="display: inline-block;"
+                      />
+                      <v-checkbox
+                        v-model="isToken"
+                        class="mpb-0 px-6"
+                        color="secondary"
+                        :label="'Token'"
+                        style="display: inline-block;"
+                      />
+                      <v-checkbox
+                        v-model="isOAT"
+                        class="mpb-0 px-6"
+                        color="secondary"
+                        :label="'OAT'"
+                        style="display: inline-block;"
+                      />
+                      <v-checkbox
+                        v-model="isRole"
+                        class="mpb-0 px-6"
+                        color="secondary"
+                        :label="'Discord Role'"
+                        style="display: inline-block;"
+                      />
+                      <v-checkbox
+                        v-model="isCustom"
+                        class="mpb-0 px-6"
+                        color="secondary"
+                        :label="'Custom Reward'"
+                        style="display: inline-block;"
+                      />
+                    </v-container>
+                  </v-col>                  
+                  <v-col v-if="isPoints" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="Points"
+                      variant="filled"
+                      color="secondary"
+                      required
+                      :rules="pointsRules"
+                      :label="'Please enter the number of points a user can earn after completing all tasks *'"
+                    />
+                  </v-col>
+                  <v-col v-if="isNFT" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="phone"
+                      variant="filled"
+                      color="secondary"
+                      :rules="pointsRules"
+                      :label="'To be further developed'"
+                    />
+                  </v-col>
+                  <v-col v-if="isToken" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="phone"
+                      variant="filled"
+                      color="secondary"
+                      :rules="pointsRules"
+                      :label="'To be further developed'"
+                    />
+                  </v-col>
+                  <v-col v-if="isOAT" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="phone"
+                      variant="filled"
+                      color="secondary"
+                      :rules="pointsRules"
+                      :label="'To be further developed'"
+                    />
+                  </v-col>
+                  <v-col v-if="isRole" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="phone"
+                      variant="filled"
+                      color="secondary"
+                      :rules="pointsRules"
+                      :label="'To be further developed'"
+                    />
+                  </v-col>
+                  <v-col v-if="isCustom" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="phone"
+                      variant="filled"
+                      color="secondary"
+                      :rules="pointsRules"
+                      :label="'To be further developed'"
                     />
                   </v-col>
                 </v-row>
+
+
+
                 <div class="form-control-label">
                   <v-checkbox
                     v-model="checkbox"
@@ -164,13 +261,24 @@ export default {
     nameRules: [v => !!v || 'Name is required'],
     email: '',
     emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      v => !!v || 'Date is required',
+      v => /^(\d{4}\/\d{1,2}\/\d{1,2})-(\d{4}\/\d{1,2}\/\d{1,2})$/.test(v) || 'Date entered in wrong format',
+    ],
+    pointsRules: [
+      v => !!v || 'The number of points is required',
+      v => /^\d+$/.test(v) || 'Please enter an integer',
     ],
     phone: '',
     company: '',
     message: '',
     checkbox: false,
+    isToken: false,
+    isPoints: true,
+    Points: '',
+    isNFT: false,
+    isOAT: false,
+    isRole: false,
+    isCustom: false,
   }),
   methods: {
     validate() {
