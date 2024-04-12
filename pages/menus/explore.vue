@@ -475,26 +475,10 @@ cardItems.value = [ {
     },
     ];
 
-
+cardItems.value = [];
 
 onMounted(async () => { 
-  try {
-    const response1 = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.i/api/campaigns/query/', {
-        alias: alias,
-        credSources: credSources.value,
-        rewardTypes: rewardTypes.value,
-        chains: chains.value,
-        statuses: statuses.value,
-        listType: listType.value, 
-        searchString: searchString.value
-      });  
-    cardItems.value = response1.data.data.list; 
-    console.info("2", cardItems.value);
-    // 在这里对响应数据进行进一步的处理
-  } catch (error) {
-    console.error(error);
-    // 处理请求错误
-  }
+  fetchData();
 });
 
 
@@ -515,18 +499,18 @@ function handleSelectedTagsUpdate(group, value) {
   }
 }
 
+
 async function fetchData() {
   try {
-    
-    const response = await axios.post('https://1d24a10f-e5bf-445a-b1f8-e0e37e3d82d0.mock.pstmn.i/api/campaigns/query', {
-        alias: alias,
+    const response = await axios.post('http://172.31.100.142:18080/api/explore/query', {
+        first: 2,
+        after: 0,
         credSources: credSources.value,
         rewardTypes: rewardTypes.value,
         chains: chains.value,
         statuses: statuses.value,
         listType: listType.value, 
         searchString: searchString.value,
-        verified: verified.value
       }
     );
 

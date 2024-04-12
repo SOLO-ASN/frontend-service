@@ -59,31 +59,33 @@
                   :switch-tab="handleChangeGroup"
                   :value="group"
                   :total="cardItems.length"
-                />
-                <v-container v-if="isLoading" class="loading-container">
-                  <span class="loading-text">loading!</span>
-                </v-container>
-                <div v-if="!isLoading">
-                  <v-row id="profile" class="mt-sm-5 mt-xs-2" :class="{'spacing-sm': !isDesktop, 'spacing-lg': isDesktop}">
-                    <v-col v-if="cardItems.length < 1" cols="12">
-                      <h3>Not found</h3>
-                    </v-col>
-                    <v-col v-for="(item, index) in cardItems" :key="index" :cols="isDesktop ? 4 : 12">
-                      <space-card
-                        :name="item.name"
-                        :isVerified="item.isVerified"
-                        :thumbnail="item.thumbnail"
-                        :activeCampaignCount="item.activeCampaignCount"
-                        :followersCount="item.followersCount"
-                        :status="item.status"
-                        :alias="item.alias"
-                        :id="item.id"
-                        :isFollowing="item.isFollowing"
-                        @follow-click="handleFollowClick"
-                      />
-                    </v-col>
-                  </v-row>
-                </div>
+                />        
+                <v-row id="profile" class="mt-sm-5 mt-xs-2" :class="{'spacing-sm': !isDesktop, 'spacing-lg': isDesktop}">
+                  <v-col v-if="cardItems.length < 1" cols="12">
+                    <h3>Not found</h3>
+                  </v-col>
+                  <v-col v-for="(item, index) in cardItems" :key="index.id" :cols="isDesktop ? 4 : 12">
+                    <space-card
+                      :name="item.name"
+                      :isVerified="item.isVerified"
+                      :thumbnail="item.thumbnail"
+                      :activeCampaignCount="item.activeCampaignCount"
+                      :followersCount="item.followersCount"
+                      :status="item.status"
+                      :alias="item.alias"
+                      :id="item.id"
+                      :isFollowing="item.isFollowing"
+                      @follow-click="handleFollowClick"
+                    />
+                  </v-col>
+                  <v-container v-if="isLoading" class="loading-container">
+                    <span class="loading-text">loading!</span>
+                  </v-container>
+                  <v-container v-if="!hasNextPage" class="loading-container">
+                    <span class="loading-text">Data loading complete!</span>
+                  </v-container>
+                </v-row>
+                
               </v-col>
             </v-row>
           </div>
@@ -166,6 +168,8 @@ const cardItems = ref([])
 const isLoading = ref(true);
 const showLoginDialog = ref(false);
 const after = ref(0);
+const hasNextPage = ref(true);
+
 
 function showLoginPrompt() {
   showLoginDialog.value = true;
@@ -173,6 +177,11 @@ function showLoginPrompt() {
 
 onMounted(() => {
   fetchData();
+  window.addEventListener('scroll', handleScroll);
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll);
 })
 
 function handleOpenFilter() {
@@ -213,13 +222,21 @@ const filteredItems = computed(() => {
 })
 
 
+function handleScroll() {
+    const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+    if (nearBottom && !isLoading.value && cardItems.value.length % 9 === 0 && hasNextPage.value==true) {  // 确保每次都是完整的数据组
+        loadMoreData();
+    }
+}
+
+
 const handleFollowClick = async (id, isFollowing) => {
   console.info(isFollowing);
   console.info(id);
   if(isFollowing==false){
       try {
-        const response = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io/api/spaces/follow', {
-          id: id
+        const response = await axios.post('http://172.31.100.142:18080/api/spaces/follow', {
+          id: Number(id)
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
         if(response.data.msg=="NOT_LOGIN") {
@@ -230,7 +247,7 @@ const handleFollowClick = async (id, isFollowing) => {
       }
     }else{
       try {
-        const response = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io/api/spaces/unfollow', {
+        const response = await axios.post('http://172.31.100.142:18080/api/spaces/unfollow', {
           id: id
         });
         if(response.data.msg=="NOT_LOGIN") {
@@ -246,8 +263,9 @@ const handleFollowClick = async (id, isFollowing) => {
 async function fetchData() {
   try {
     isLoading.value = true; // 开始加载数据   https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io
+    after.value = 0;
     const response = await axios.post('http://172.31.100.142:18080/api/spaces/query', {
-      first:20,
+      first:9,
       after:after.value,
       spaceListType: sortBy.value,
       filter: group.value,
@@ -255,9 +273,10 @@ async function fetchData() {
       searchString: keyword.value,
     });
 
-    console.info(response.data.data);
-    if (response.data.data.list && Array.isArray(response.data.data.list)) {
-      cardItems.value = response.data.data.list.map(item => ({
+    after.value = response.data.data.pageInfo.endCursor;
+    hasNextPage.value = response.data.data.pageInfo.hasNextPage;
+    if (response.data.data.Spaces && Array.isArray(response.data.data.Spaces)) {
+      cardItems.value = response.data.data.Spaces.map(item => ({
         name: item.name,
         isVerified: item.isVerified,
         thumbnail: item.thumbnail,
@@ -273,10 +292,53 @@ async function fetchData() {
       console.error('List is not an array:', response.data.data);
       cardItems.value = []; // Reset cardItems or set it to a default value
     }
-    isLoading.value = false;
   } catch (error) {
     console.error('请求失败', error);
     cardItems.value = []; // Reset cardItems or set it to a default value in case of an error
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+async function loadMoreData() {
+  if (isLoading.value) {
+    return; // 如果已经在加载中，则直接返回
+  }
+  isLoading.value = true;
+  try {
+    const response = await axios.post('http://172.31.100.142:18080/api/spaces/query', {
+      first:9,
+      after:after.value,
+      spaceListType: sortBy.value,
+      filter: group.value,
+      verifiedOnly: verified.value,
+      searchString: keyword.value,
+    });
+
+    after.value = response.data.data.pageInfo.endCursor;
+    hasNextPage.value = response.data.data.pageInfo.hasNextPage;
+    if (response.data.data.Spaces && Array.isArray(response.data.data.Spaces)) {
+      cardItems.value.push(...response.data.data.Spaces.map(item => ({
+        name: item.name,
+        isVerified: item.isVerified,
+        thumbnail: item.thumbnail,
+        activeCampaignCount: item.activeCampaignCount,
+        followersCount: item.followersCount,
+        status: item.status,
+        id: item.id,
+        alias: item.alias,
+        isFollowing: item.IsFollowing
+      })));
+    } else {
+      // Handle the case where response.data.list is not an array
+      console.error('List is not an array:', response.data.data);
+      cardItems.value = []; // Reset cardItems or set it to a default value
+    }
+
+  } catch (error) {
+    console.error('请求失败', error);
+    cardItems.value = []; // Reset cardItems or set it to a default value in case of an error
+  }finally {
     isLoading.value = false;
   }
 }
