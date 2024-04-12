@@ -211,7 +211,7 @@
                   />
                 </v-col>
                 <v-row v-for="(row, index) in taskList" :key="index" class="pb-0 px-6">
-                  <v-radio-group v-model='row.selectTask' align="center">
+                  <v-radio-group v-model='row.taskType' align="center">
                     <v-layout row wrap>
                       <v-radio
                         class="pb-0 px-6"
@@ -242,7 +242,7 @@
                     </v-layout>
                   </v-radio-group>
 
-                  <v-col v-if="row.selectTask == 'Information Browsing'" cols="12" sm="12">
+                  <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
                     <v-text-field
                       v-model="title"
                       variant="filled"
@@ -252,7 +252,7 @@
                       required
                     />
                   </v-col>
-                  <v-col v-if="row.selectTask == 'Information Browsing'" cols="12" sm="12">
+                  <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
                     <v-text-field
                       v-model="title"
                       variant="filled"
@@ -260,7 +260,7 @@
                       :label="'More details can be entered'"
                     />
                   </v-col>
-                  <v-col v-if="row.selectTask == 'Information Browsing'" cols="12" sm="12">
+                  <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
                     <v-text-field
                       v-model="title"
                       variant="filled"
@@ -270,7 +270,7 @@
                       required
                     />
                   </v-col>
-                  <v-col v-if="row.selectTask != 'Information Browsing'" cols="12" sm="12">
+                  <v-col v-if="row.taskType != 'Information Browsing'" cols="12" sm="12">
                     <v-text-field
                       v-model="title"
                       variant="filled"
@@ -345,11 +345,8 @@ import {
 } from 'vue3-google-map';
 
 const rowTask = {
-  isBowsing: true,
-  isFollow: false,
-  isRetweet: false,
-  isMore: false,
-  selectTask: 'Twitter Retweet'
+  taskType: 'Information Browsing',
+
 }
 
 export default {
@@ -405,17 +402,19 @@ export default {
     isRole: false,
     isMint: false,
     isCustom: false,
-    taskList: [],
+    taskList: [rowTask],
   }),
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
       }
+      console.log(this.taskList)
     },
     addTask() {
       var newTask = {...rowTask};
       this.taskList.push(newTask);
+      console.log(this.taskList)
     },
   },
 };
