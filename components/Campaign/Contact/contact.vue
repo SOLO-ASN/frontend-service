@@ -48,141 +48,253 @@
                 ref="form"
                 v-model="valid"
               >
-                <v-row class="spacing6">
-                  <v-col cols="12" sm="12" class="pb-0 px-6">
-                    <v-text-field
-                      v-model="name"
-                      :rules="nameRules"
-                      :label="'What is the name of your campaign? *'"
-                      required
+              <v-row class="spacing6">
+                <v-col cols="12" sm="12" class="pb-0 px-6">
+                  <v-text-field
+                    v-model="name"
+                    :rules="nameRules"
+                    :label="'What is the name of your campaign? *'"
+                    required
+                    color="secondary"
+                    variant="filled"
+                  />
+                </v-col>
+                <v-col cols="12" class="pb-0  px-6">
+                  <v-textarea
+                    v-model="message"
+                    rows="6"
+                    color="secondary"
+                    variant="filled"
+                    :label="'Further description of your campaign'"
+                  />
+                </v-col>
+                <v-col cols="12" sm="12" class="pb-0 px-6">
+                  <v-text-field
+                    v-model="email"
+                    :rules="emailRules"
+                    :label="'What is the duration of your campaign? * Please enter it with the following format: YYYY/MM/DD-YYYY/MM/DD'"
+                    required
+                    color="secondary"
+                    variant="filled"
+                  />
+                </v-col>
+                <v-col cols="12" sm="12" class="pb-0 px-6">
+                  <p class="use-text-paragraph text-center mb-8">Select the award to be given for this activity and fill in the relevant information</p>
+                  <v-container align="center">
+                    <v-checkbox
+                      v-model="isPoints"
+                      class="pb-0 px-6"
                       color="secondary"
-                      variant="filled"
+                      :label="'Points'"
+                      style="display: inline-block;"
                     />
-                  </v-col>
-                  <v-col cols="12" class="pb-0  px-6">
-                    <v-textarea
-                      v-model="message"
-                      rows="6"
+                    <v-checkbox
+                      v-model="isNFT"
+                      class="mpb-0 px-6"
                       color="secondary"
-                      variant="filled"
-                      :label="'Further description of your campaign'"
+                      :label="'NFT'"
+                      style="display: inline-block;"
                     />
-                  </v-col>
-                  <v-col cols="12" sm="12" class="pb-0 px-6">
-                    <v-text-field
-                      v-model="email"
-                      :rules="emailRules"
-                      :label="'What is the duration of your campaign? * Please enter it with the following format: YYYY/MM/DD-YYYY/MM/DD'"
-                      required
+                    <v-checkbox
+                      v-model="isToken"
+                      class="mpb-0 px-6"
                       color="secondary"
-                      variant="filled"
+                      :label="'Token'"
+                      style="display: inline-block;"
                     />
-                  </v-col>
-                  <v-col cols="12" sm="12" class="pb-0 px-6">
-                    <p class="use-text-paragraph text-center mb-8">Select the award to be given for this activity and fill in the relevant information</p>
-                    <v-container align="center">
-                      <v-checkbox
-                        v-model="isPoints"
+                    <v-checkbox
+                      v-model="isOAT"
+                      class="mpb-0 px-6"
+                      color="secondary"
+                      :label="'OAT'"
+                      style="display: inline-block;"
+                    />
+                    <v-checkbox
+                      v-model="isRole"
+                      class="mpb-0 px-6"
+                      color="secondary"
+                      :label="'Discord Role'"
+                      style="display: inline-block;"
+                    />
+                    <v-checkbox
+                      v-model="isMint"
+                      class="mpb-0 px-6"
+                      color="secondary"
+                      :label="'Mintlist'"
+                      style="display: inline-block;"
+                    />
+                    <v-checkbox
+                      v-model="isCustom"
+                      class="mpb-0 px-6"
+                      color="secondary"
+                      :label="'Custom Reward'"
+                      style="display: inline-block;"
+                    />
+                  </v-container>
+                </v-col>                  
+                <v-col v-if="isPoints" cols="12" sm="12" class="pb-0 px-6">
+                  <v-text-field
+                    v-model="Points"
+                    variant="filled"
+                    color="secondary"
+                    required
+                    :rules="pointsRules"
+                    :label="'Please enter the number of points a user can earn after completing all tasks *'"
+                  />
+                </v-col>
+                <v-col v-if="isNFT" cols="12" sm="12" class="pb-0 px-6">
+                  <v-text-field
+                    v-model="phone"
+                    variant="filled"
+                    color="secondary"
+                    :rules="pointsRules"
+                    :label="'To be further developed'"
+                  />
+                </v-col>
+                <v-col v-if="isToken" cols="12" sm="12" class="pb-0 px-6">
+                  <v-text-field
+                    v-model="phone"
+                    variant="filled"
+                    color="secondary"
+                    :rules="pointsRules"
+                    :label="'To be further developed'"
+                  />
+                </v-col>
+                <v-col v-if="isOAT" cols="12" sm="12" class="pb-0 px-6">
+                  <v-text-field
+                    v-model="phone"
+                    variant="filled"
+                    color="secondary"
+                    :rules="pointsRules"
+                    :label="'To be further developed'"
+                  />
+                </v-col>
+                <v-col v-if="isRole" cols="12" sm="12" class="pb-0 px-6">
+                  <v-text-field
+                    v-model="phone"
+                    variant="filled"
+                    color="secondary"
+                    :rules="pointsRules"
+                    :label="'To be further developed'"
+                  />
+                </v-col>
+                <v-col v-if="isMint" cols="12" sm="12" class="pb-0 px-6">
+                  <v-text-field
+                    v-model="phone"
+                    variant="filled"
+                    color="secondary"
+                    :rules="pointsRules"
+                    :label="'To be further developed'"
+                  />
+                </v-col>
+                <v-col v-if="isCustom" cols="12" sm="12" class="pb-0 px-6">
+                  <v-text-field
+                    v-model="phone"
+                    variant="filled"
+                    color="secondary"
+                    :rules="pointsRules"
+                    :label="'To be further developed'"
+                  />
+                </v-col>
+                
+                <v-col cols="12" sm="12" class="pb-0 px-6">
+                  <p class="use-text-paragraph text-center mb-8">Select the desired task type and fill in the task information to publish the task</p>        
+                </v-col>
+                <v-col cols="12" sm="12" class="pb-0 px-6">
+                  <v-text-field
+                    v-model="title"
+                    variant="filled"
+                    color="secondary"
+                    :rules="[v => !!v || 'Title is required']"
+                    :label="'Say something about your mission *'"
+                    required
+                  />
+                </v-col>
+                <v-row v-for="(row, index) in taskList" :key="index" class="pb-0 px-6">
+                  <v-radio-group v-model='row.selectTask' align="center">
+                    <v-layout row wrap>
+                      <v-radio
                         class="pb-0 px-6"
                         color="secondary"
-                        :label="'Points'"
-                        style="display: inline-block;"
+                        value='Information Browsing'
+                        :label="'Information Browsing'"
                       />
-                      <v-checkbox
-                        v-model="isNFT"
+                      <v-radio
                         class="mpb-0 px-6"
                         color="secondary"
-                        :label="'NFT'"
-                        style="display: inline-block;"
+                        value='Twitter Follow'
+                        :label="'Twitter Follow'"
+
                       />
-                      <v-checkbox
-                        v-model="isToken"
+                      <v-radio
                         class="mpb-0 px-6"
                         color="secondary"
-                        :label="'Token'"
-                        style="display: inline-block;"
+                        value='Twitter Retweet'
+                        :label="'Twitter Retweet'"
+
                       />
-                      <v-checkbox
-                        v-model="isOAT"
+                      <v-radio
                         class="mpb-0 px-6"
                         color="secondary"
-                        :label="'OAT'"
-                        style="display: inline-block;"
+                        value='More'
+                        :label="'More task'"
                       />
-                      <v-checkbox
-                        v-model="isRole"
-                        class="mpb-0 px-6"
-                        color="secondary"
-                        :label="'Discord Role'"
-                        style="display: inline-block;"
-                      />
-                      <v-checkbox
-                        v-model="isCustom"
-                        class="mpb-0 px-6"
-                        color="secondary"
-                        :label="'Custom Reward'"
-                        style="display: inline-block;"
-                      />
-                    </v-container>
-                  </v-col>                  
-                  <v-col v-if="isPoints" cols="12" sm="12" class="pb-0 px-6">
+                    </v-layout>
+                  </v-radio-group>
+
+                  <v-col v-if="row.selectTask == 'Information Browsing'" cols="12" sm="12">
                     <v-text-field
-                      v-model="Points"
+                      v-model="title"
                       variant="filled"
-                      color="secondary"
+                      color="secondary" 
+                      :rules="[v => !!v || 'Description is required']"
+                      :label="'Please enter a description of the task *'"
                       required
-                      :rules="pointsRules"
-                      :label="'Please enter the number of points a user can earn after completing all tasks *'"
                     />
                   </v-col>
-                  <v-col v-if="isNFT" cols="12" sm="12" class="pb-0 px-6">
+                  <v-col v-if="row.selectTask == 'Information Browsing'" cols="12" sm="12">
                     <v-text-field
-                      v-model="phone"
+                      v-model="title"
                       variant="filled"
                       color="secondary"
-                      :rules="pointsRules"
-                      :label="'To be further developed'"
+                      :label="'More details can be entered'"
                     />
                   </v-col>
-                  <v-col v-if="isToken" cols="12" sm="12" class="pb-0 px-6">
+                  <v-col v-if="row.selectTask == 'Information Browsing'" cols="12" sm="12">
                     <v-text-field
-                      v-model="phone"
+                      v-model="title"
                       variant="filled"
                       color="secondary"
-                      :rules="pointsRules"
-                      :label="'To be further developed'"
+                      :rules="urlRules"
+                      :label="'Please enter the URL you want to jump to *'"
+                      required
                     />
                   </v-col>
-                  <v-col v-if="isOAT" cols="12" sm="12" class="pb-0 px-6">
+                  <v-col v-if="row.selectTask != 'Information Browsing'" cols="12" sm="12">
                     <v-text-field
-                      v-model="phone"
+                      v-model="title"
                       variant="filled"
                       color="secondary"
-                      :rules="pointsRules"
-                      :label="'To be further developed'"
-                    />
-                  </v-col>
-                  <v-col v-if="isRole" cols="12" sm="12" class="pb-0 px-6">
-                    <v-text-field
-                      v-model="phone"
-                      variant="filled"
-                      color="secondary"
-                      :rules="pointsRules"
-                      :label="'To be further developed'"
-                    />
-                  </v-col>
-                  <v-col v-if="isCustom" cols="12" sm="12" class="pb-0 px-6">
-                    <v-text-field
-                      v-model="phone"
-                      variant="filled"
-                      color="secondary"
-                      :rules="pointsRules"
-                      :label="'To be further developed'"
+                      :rules="urlRules"
+                      :label="'coming soon'"
+                      required
                     />
                   </v-col>
                 </v-row>
+              </v-row>
+                
 
-
+                  <div class="btn-area">
+                    <v-btn
+                      size="small"
+                      color="primary"
+                      block
+                      @click="addTask"
+                      style="opacity: 0.2"
+                    >
+                      +
+                    </v-btn>
+                  </div>
 
                 <div class="form-control-label">
                   <v-checkbox
@@ -232,6 +344,14 @@ import {
   InfoWindow,
 } from 'vue3-google-map';
 
+const rowTask = {
+  isBowsing: true,
+  isFollow: false,
+  isRetweet: false,
+  isMore: false,
+  selectTask: 'Twitter Retweet'
+}
+
 export default {
   components: {
     GoogleMap,
@@ -268,9 +388,14 @@ export default {
       v => !!v || 'The number of points is required',
       v => /^\d+$/.test(v) || 'Please enter an integer',
     ],
+    urlRules: [
+      v => !!v || 'URL is required',
+      v => /^((https|http):\/\/)(www.)?[a-zA-Z0-9@:%._\+~#?&//=]*$/.test(v) || 'Please enter a valid URL'
+    ],
     phone: '',
     company: '',
     message: '',
+    title: '',
     checkbox: false,
     isToken: false,
     isPoints: true,
@@ -278,13 +403,19 @@ export default {
     isNFT: false,
     isOAT: false,
     isRole: false,
+    isMint: false,
     isCustom: false,
+    taskList: [],
   }),
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
       }
+    },
+    addTask() {
+      var newTask = {...rowTask};
+      this.taskList.push(newTask);
     },
   },
 };
