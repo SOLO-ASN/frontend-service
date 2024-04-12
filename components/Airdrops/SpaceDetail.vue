@@ -18,6 +18,9 @@
       <div class="text">
         <div class="options">
         <v-btn
+          v-if=detailData.facebook
+          :href="detailData.facebook"
+          target="_blank"
           variant="text"
           icon
           class="button"
@@ -25,14 +28,46 @@
           <span class="ion-logo-facebook icon" />
         </v-btn>
         <v-btn
+          v-if=detailData.twitter
+          :href="detailData.twitter"
+          target="_blank"
           variant="text"
           icon
           class="button"
         >
           <span class="ion-logo-twitter icon" />
         </v-btn>
-          <v-btn size="small" icon><v-icon>mdi-share-variant</v-icon></v-btn>
-          <v-btn size="small" icon><v-icon>mdi-dots-horizontal</v-icon></v-btn>
+        <v-btn
+          v-if=detailData.github
+          :href="detailData.github"
+          target="_blank"
+          variant="text"
+          icon
+          class="button"
+        >
+          <span class="ion-logo-github icon" />
+        </v-btn>
+        <v-btn 
+          icon 
+          v-if=detailData.discord
+          :href="detailData.discord"
+          target="_blank"
+          variant="text"
+          class="button"
+          >
+          <v-icon>mdi-comment</v-icon>
+        </v-btn>
+        <v-btn 
+          icon 
+          v-if=detailData.homepage
+          :href="detailData.homepage"
+          target="_blank"
+          variant="text"
+          class="button"
+          >
+          <v-icon>mdi-home</v-icon>
+        </v-btn>
+        
         </div>
         <h4 class="use-text-title2">
           <span class="use-text-subtitle use-text-secondary-color">

@@ -129,6 +129,7 @@ const campaigns = defineProps({
     required: true
   }
 });
+
 const campaign = JSON.parse(JSON.stringify(campaigns)).campaigns;
 onMounted(()=>{
     console.info(campaign);

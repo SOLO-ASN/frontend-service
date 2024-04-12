@@ -117,6 +117,12 @@
                   >
                     <campaign-card class= "campaignCard" :campaigns="cardItem" />
                   </v-col>
+                  <v-container v-if="isLoading" class="loading-container">
+                    <span class="loading-text">loading!</span>
+                  </v-container>
+                  <v-container v-if="!hasNextPage" class="loading-container">
+                    <span class="loading-text">Data loading complete!</span>
+                  </v-container>
                 </v-row>
               </v-col>
             </v-row>
@@ -124,7 +130,7 @@
           <div v-else-if="currentTab === 'leaderboard'">
             <!-- Leaderboard的内容 -->
             <v-container>
-              <h1>待开发</h1>
+              <h1>Comming soon</h1>
             </v-container>
           </div>
         </div>
@@ -229,14 +235,16 @@ const childRef = ref(null);
 const showLoginDialog = ref(false);
 const credSources = ref([]);
 const rewardTypes = ref([]);
+const after = ref(0);
+const hasNextPage = ref(true);
 const chains = ref([]);
 const statuses = ref(['Active', 'Not Started']);
-const listType = ref("Trending");
+const listType = ref("created_at");
 const searchString = ref('');
 const dialog = ref(false);
 
 function showLoginPrompt() {
-  showLoginDialog = true;
+  showLoginDialog.value = true;
 }
 
 function handleOpenFilter() {
@@ -257,13 +265,10 @@ function onInput() {
 
 const selectAllTags = () => {
   rewardTypes.value = [
-        "OAT",
-        "NFT",
+        "Oat",
+        "Nft",
         "Custom Reward",
         "Token Reward",
-        "Discord Role",
-        "Point",
-        "Mintlist"
       ];
 }
 
@@ -271,42 +276,55 @@ const clearAllTags = () => {
   rewardTypes.value = [];
 }
 const data = ref(null);
-
+const isLoading = ref(true);
 const route = useRoute();
 const alias = ref(route.query.alias);
 const cardItems = ref(null);
 
 onMounted(async () => { 
   try {
-    const response = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io/api/space/query/', {
+    const response = await axios.post('http://172.31.100.142:18080/api/space/query', {
       alias: alias.value
       });  
     data.value = response.data.data; 
+    if(data.value.links.Github!=null) {
+      data.value.github = data.value.links.Github;
+    }
+    if(data.value.links.Discord!=null) {
+      data.value.discord = data.value.links.Discord;
+    }
+    if(data.value.links.Facebook!=null) {
+      data.value.facebook = data.value.links.Facebook;
+    }
+    if(data.value.links.Twitter!=null) {
+      data.value.twitter = data.value.links.Twitter;
+    }
+    if(data.value.links.Homepage!=null) {
+      data.value.homepage = data.value.links.Homepage;
+    }
+    
     console.info("1", data.value);
-    const response1 = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io/api/campaigns/query/', {
-       alias: alias,
-        credSources: credSources.value,
-        rewardTypes: rewardTypes.value,
-        chains: chains.value,
-        statuses: statuses.value,
-        listType: listType.value, 
-        searchString: searchString.value
-      });  
-    cardItems.value = response1.data.data.list; 
-    console.info("2", cardItems.value);
+    fetchData();
     // 在这里对响应数据进行进一步的处理
   } catch (error) {
     console.error(error);
     // 处理请求错误
   }
+
+  window.addEventListener('scroll', handleScroll);
+
 });
 
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll);
+})
 
-const handleFollowClick = async (id, isFollowing) => {
-  if(isFollowing==false){
+
+const handleFollowClick = async () => {
+  if(data.value.IsFollowing==false){
       try {
-        const response = await axios.post('https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io/api/spaces/follow', {
-          id: id
+        const response = await axios.post('http://172.31.100.142:18080/api/spaces/follow', {
+          id: data.value.id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
         if(response.data.msg=="NOT_LOGIN") {
@@ -317,8 +335,8 @@ const handleFollowClick = async (id, isFollowing) => {
       }
     }else{
       try {
-        const response = await axios.post('https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io/api/spaces/unfollow', {
-          id: id
+        const response = await axios.post('http://172.31.100.142:18080/api/spaces/unfollow', {
+          id: data.value.id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
         if(response.data.msg=="NOT_LOGIN") {
@@ -350,9 +368,19 @@ function handleSelectedTagsUpdate(group, value) {
 
 async function fetchData() {
   try {
-    
-    const response = await axios.post('https://1d24a10f-e5bf-445a-b1f8-e0e37e3d82d0.mock.pstmn.i/api/campaigns/query', {
-        alias: alias,
+    if(credSources.value.length===0) {
+      credSources.value.push("all");
+    }
+    if(rewardTypes.value.length===0) {
+      rewardTypes.value.push("all");
+    }
+    if(chains.value.length===0) {
+      chains.value.push("all");
+    }
+    const response = await axios.post('http://172.31.100.142:18080/api/campaigns/query', {
+        first: 10,
+        after: 0,
+        alias: alias.value,
         credSources: credSources.value,
         rewardTypes: rewardTypes.value,
         chains: chains.value,
@@ -361,15 +389,83 @@ async function fetchData() {
         searchString: searchString.value
       }
     );
-
-    cardItems.value = response.data.data.list; // 更新数据
+    after.value = response.data.data.pageInfo.endCursor;
+    hasNextPage.value = response.data.data.pageInfo.hasNextPage;
+    cardItems.value = response.data.data.Campaigns.map(item => {
+      return {
+        ...item,
+        spaceName: data.name,
+        isVerified: data.isVerified,
+        spaceThumbnail: data.thumbnail,
+        participantsCount: 0
+      };
+    });
     console.info(cardItems.value);
   } catch (error) {
     console.error('请求失败', error);
+  }finally {
+    isLoading.value = false;
+    if (credSources.value.includes("all")) {
+      const index = credSources.value.indexOf("all");
+      credSources.value.splice(index, 1);
+    }
+    if (chains.value.includes("all")) {
+      const index = chains.value.indexOf("all");
+      chains.value.splice(index, 1);
+    }
+    if (rewardTypes.value.includes("all")) {
+      const index = rewardTypes.value.indexOf("all");
+      rewardTypes.value.splice(index, 1);
+    }
   }
 }
 
 watch([credSources, rewardTypes, chains, statuses, listType, searchString], fetchData);
+
+
+function handleScroll() {
+    const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+    if (nearBottom && !isLoading.value && cardItems.value.length % 9 === 0 && hasNextPage.value==true) {  // 确保每次都是完整的数据组
+        loadMoreData();
+    }
+}
+
+async function loadMoreData() {
+  if (isLoading.value) {
+    return; // 如果已经在加载中，则直接返回
+  }
+  isLoading.value = true;
+  try {
+    const response = await axios.post('http://172.31.100.142:18080/api/campaigns/query', {
+        first: 10,
+        after: after.value,
+        alias: alias.value,
+        credSources: credSources.value,
+        rewardTypes: rewardTypes.value,
+        chains: chains.value,
+        statuses: statuses.value,
+        listType: listType.value, 
+        searchString: searchString.value
+      }
+    );
+    after.value = response.data.data.pageInfo.endCursor;
+    hasNextPage.value = response.data.data.pageInfo.hasNextPage;
+    cardItems.value.push(response.data.data.Campaigns.map(item => {
+      return {
+        ...item,
+        spaceName: data.name,
+        isVerified: data.isVerified,
+        spaceThumbnail: data.thumbnail,
+        participantsCount: 0
+      };
+    }));
+    console.info(cardItems.value);
+  } catch (error) {
+    console.error('请求失败', error);
+  }finally {
+    isLoading.value = false;
+  }
+}
 
 
 useHead({

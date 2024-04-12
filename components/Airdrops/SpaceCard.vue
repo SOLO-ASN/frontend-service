@@ -4,7 +4,7 @@
     draggable="false"
     class="profile-card"
     :class="{ deco: withDeco }"
-    :href="`/spaces/space?alias=${name}`"
+    :href="`/spaces/space?alias=${alias}`"
   >
     <v-card class="profile-card" :class="first ? 'first' : ''">
       <div class="inner">
@@ -99,7 +99,7 @@ const onButtonClick = () => {
 const {
   id, status, name, isVerified,
   thumbnail, followersCount,
-  tokenSymbol, href,
+  tokenSymbol, href, alias,
   activeCampaignCount, isFollowing
 } = defineProps({
   id: {
@@ -117,6 +117,10 @@ const {
   isVerified: {
     type: Boolean,
     default: true
+  },
+  alias: {
+    type: String,
+    required: true,
   },
   thumbnail: {
     type: String,

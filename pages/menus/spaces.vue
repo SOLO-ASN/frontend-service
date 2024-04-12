@@ -61,9 +61,6 @@
                   :total="cardItems.length"
                 />        
                 <v-row id="profile" class="mt-sm-5 mt-xs-2" :class="{'spacing-sm': !isDesktop, 'spacing-lg': isDesktop}">
-                  <v-col v-if="cardItems.length < 1" cols="12">
-                    <h3>Not found</h3>
-                  </v-col>
                   <v-col v-for="(item, index) in cardItems" :key="index.id" :cols="isDesktop ? 4 : 12">
                     <space-card
                       :name="item.name"
@@ -236,7 +233,7 @@ const handleFollowClick = async (id, isFollowing) => {
   if(isFollowing==false){
       try {
         const response = await axios.post('http://172.31.100.142:18080/api/spaces/follow', {
-          id: Number(id)
+          id: id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
         if(response.data.msg=="NOT_LOGIN") {

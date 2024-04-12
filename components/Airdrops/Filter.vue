@@ -58,7 +58,7 @@
         </v-expansion-panel-text>
       </v-expansion-panel>
 
-      <!-- 第四个过滤器 -->
+      <!-- 第四个过滤器 
       <v-expansion-panel class="filter-block4" value="tags4" bg-color="transparent" elevation="0">
         <v-expansion-panel-title class="title-label3">Status</v-expansion-panel-title>
         <v-expansion-panel-text>
@@ -76,6 +76,7 @@
           </div>
         </v-expansion-panel-text>
       </v-expansion-panel>
+      -->
     </v-expansion-panels>
   </aside>
 </template>
@@ -101,33 +102,22 @@ export default {
     return {
       panel: [],
       filterTag1: [
-        "Twitter Space",
-        "Twitter Engagement",
+        "TwitterSpace",
+        "TwitterEngagement",
         "Discord Voice Channel",
         "Discord Engagement",
-        "Telegram Engagement",
-        "Quiz Engagement",
-        "Snapshot Voter"
       ],
       filterTag2: [
-        "OAT",
-        "NFT",
+        "Oat",
+        "Nft",
         "Custom Reward",
         "Token Reward",
-        "Discord Role",
-        "Point",
-        "Mintlist"
       ],
       filterTag3: [
         "Ethereum",
         "Polygon",
         "BNB Chain",
-        "Base Mainnet",
-        "ZKSync",
-        "Optimism",
-        "Goerli"
       ],
-      filterTag4: ['Active', 'Not Started', 'Expired'],
     };
   },
 
@@ -136,12 +126,13 @@ export default {
 
   methods: {
     collectTag(tagGroup, tag) {
-      if (this[tagGroup].includes(tag)) {
-        this[tagGroup] = this[tagGroup].filter(t => t !== tag);
+      let updatedTags = this[tagGroup].slice(); // 创建当前tags的副本
+      if (updatedTags.includes(tag)) {
+        updatedTags = updatedTags.filter(t => t !== tag); // 删除标签
       } else {
-        this[tagGroup].push(tag);
+        updatedTags.push(tag); // 添加标签
       }
-      this.$emit('update:' + tagGroup, tagGroup, [...this[tagGroup]]);
+      this.$emit('update:' + tagGroup, tagGroup, updatedTags); // 发送更新事件到父组件
     },
 
     selectAllTags() {
