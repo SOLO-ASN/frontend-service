@@ -58,7 +58,7 @@
         </v-expansion-panel-text>
       </v-expansion-panel>
 
-      <!-- 第四个过滤器 
+      <!-- 第四个过滤器 -->
       <v-expansion-panel class="filter-block4" value="tags4" bg-color="transparent" elevation="0">
         <v-expansion-panel-title class="title-label3">Status</v-expansion-panel-title>
         <v-expansion-panel-text>
@@ -76,7 +76,7 @@
           </div>
         </v-expansion-panel-text>
       </v-expansion-panel>
-      -->
+      
     </v-expansion-panels>
   </aside>
 </template>
@@ -104,19 +104,24 @@ export default {
       filterTag1: [
         "TwitterSpace",
         "TwitterEngagement",
-        "Discord Voice Channel",
-        "Discord Engagement",
+        "DiscordVoice",
+        "DiscordEngagement",
       ],
       filterTag2: [
         "Oat",
         "Nft",
-        "Custom Reward",
-        "Token Reward",
+        "Custom",
+        "Token",
       ],
       filterTag3: [
         "Ethereum",
         "Polygon",
-        "BNB Chain",
+        "BNB",
+      ],
+      filterTag4: [
+        "Active",
+        "Expired",
+        "CapReached",
       ],
     };
   },

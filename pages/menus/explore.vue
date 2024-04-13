@@ -82,6 +82,7 @@
                   <v-col md="4" sm="12" class="px-0" cols="12">
                     <div class="ps-md-3">
                       <sorter
+                        :sortList="sortList"
                         :showVerified=false
                         :view="toggleView"
                         :sort-by-selected="sortBySelected"
@@ -104,6 +105,12 @@
                   >
                     <campaign-card class= "campaignCard" :campaigns="cardItem" />
                   </v-col>
+                  <v-container v-if="isLoading" class="loading-container">
+                    <span class="loading-text">loading!</span>
+                  </v-container>
+                  <v-container v-if="!hasNextPage" class="loading-container">
+                    <span class="loading-text">Data loading complete!</span>
+                  </v-container>
                 </v-row>
               </v-col>
             </v-row>
@@ -205,12 +212,27 @@ const childRef = ref(null);
 const dialog = ref(false);
 const credSources = ref([]);
 const rewardTypes = ref([]);
+const isLoading = ref(true);
 const chains = ref([]);
-const statuses = ref(['Active', 'Not Started']);
-const listType = ref("Trending");
+const after = ref(0);
+const hasNextPage = ref(true);
+const statuses = ref([]);
+const listType = ref("");
 const searchString = ref('');
 const verified = ref(false);
 const SERVER = url.serverUrl;
+const sortList = ref([
+  {
+    title: 'Newest',
+    value: 'created_at',
+    selected: false,
+  },
+    {
+    title: 'Most Participated',
+    value: 'participantsCount',
+    selected: false,
+  },
+]);
 
 function handleOpenFilter() {
   dialog.value = true; 
@@ -246,242 +268,17 @@ const clearAllTags = () => {
 const data = ref(null);
 
 const route = useRoute();
-const alias = ref("Galxe");
 const cardItems = ref(null);
-cardItems.value = [ {
-        "id": "GCK5JUUjFn",
-        "name": "Project Galaxy Meme Contest #1 Winner",
-        "type": "Oat",
-        "status": "Expired",
-        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
-        "participantsCount": 3,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-      },
-      {
-        "id": "GC4SjtTJ2f",
-        "name": "Galxe Radio Episode 60 Feat. Laika AI",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
-        "participantsCount": 993,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-    },
-    {
-        "id": "GC9a7tTN3X",
-        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
-        "participantsCount": 2014,
-        "spaceName": "Moso",
-        "isVerified": false,
-        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
-    },
-    {
-        "id": "GCK5JUUjFn",
-        "name": "Project Galaxy Meme Contest #1 Winner",
-        "type": "Oat",
-        "status": "Expired",
-        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
-        "participantsCount": 3,
-        "spaceName": "Moso",
-        "isVerified": false,
-        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
-      },
-      {
-        "id": "GC4SjtTJ2f",
-        "name": "Galxe Radio Episode 60 Feat. Laika AI",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
-        "participantsCount": 993,
-        "spaceName": "Taiko",
-        "isVerified": true,
-        "spaceThumbnail": "https://cdn.galxe.com/galaxy/avatar/233f5252-6c2a-4adf-8799-a310e27a016d.png",
-    },
-    {
-        "id": "GC9a7tTN3X",
-        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
-        "participantsCount": 2014,
-        "spaceName": "Taiko",
-        "isVerified": true,
-        "spaceThumbnail": "https://cdn.galxe.com/galaxy/avatar/233f5252-6c2a-4adf-8799-a310e27a016d.png",
-    },
-    {
-        "id": "GCK5JUUjFn",
-        "name": "Project Galaxy Meme Contest #1 Winner",
-        "type": "Oat",
-        "status": "Expired",
-        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
-        "participantsCount": 3,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-      },
-      {
-        "id": "GC4SjtTJ2f",
-        "name": "Galxe Radio Episode 60 Feat. Laika AI",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
-        "participantsCount": 993,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-    },
-    {
-        "id": "GC9a7tTN3X",
-        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
-        "participantsCount": 2014,
-        "spaceName": "Moso",
-        "isVerified": false,
-        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
-    },{
-        "id": "GCK5JUUjFn",
-        "name": "Project Galaxy Meme Contest #1 Winner",
-        "type": "Oat",
-        "status": "Expired",
-        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
-        "participantsCount": 3,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-      },
-      {
-        "id": "GC4SjtTJ2f",
-        "name": "Galxe Radio Episode 60 Feat. Laika AI",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
-        "participantsCount": 993,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-    },
-    {
-        "id": "GC9a7tTN3X",
-        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
-        "participantsCount": 2014,
-        "spaceName": "Moso",
-        "isVerified": false,
-        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
-    },{
-        "id": "GCK5JUUjFn",
-        "name": "Project Galaxy Meme Contest #1 Winner",
-        "type": "Oat",
-        "status": "Expired",
-        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
-        "participantsCount": 3,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-      },
-      {
-        "id": "GC4SjtTJ2f",
-        "name": "Galxe Radio Episode 60 Feat. Laika AI",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
-        "participantsCount": 993,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-    },
-    {
-        "id": "GC9a7tTN3X",
-        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
-        "participantsCount": 2014,
-        "spaceName": "Moso",
-        "isVerified": false,
-        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
-    },{
-        "id": "GCK5JUUjFn",
-        "name": "Project Galaxy Meme Contest #1 Winner",
-        "type": "Oat",
-        "status": "Expired",
-        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
-        "participantsCount": 3,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-      },
-      {
-        "id": "GC4SjtTJ2f",
-        "name": "Galxe Radio Episode 60 Feat. Laika AI",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
-        "participantsCount": 993,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-    },
-    {
-        "id": "GC9a7tTN3X",
-        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
-        "participantsCount": 2014,
-        "spaceName": "Moso",
-        "isVerified": false,
-        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
-    },{
-        "id": "GCK5JUUjFn",
-        "name": "Project Galaxy Meme Contest #1 Winner",
-        "type": "Oat",
-        "status": "Expired",
-        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
-        "participantsCount": 3,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-      },
-      {
-        "id": "GC4SjtTJ2f",
-        "name": "Galxe Radio Episode 60 Feat. Laika AI",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
-        "participantsCount": 993,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-    },
-    {
-        "id": "GC9a7tTN3X",
-        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
-        "participantsCount": 2014,
-        "spaceName": "Moso",
-        "isVerified": false,
-        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
-    },
-    ];
-
-cardItems.value = [];
 
 onMounted(async () => { 
   fetchData();
+  window.addEventListener('scroll', handleScroll);
 });
+
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll);
+})
 
 
 function handleSelectedTagsUpdate(group, value) {
@@ -504,26 +301,144 @@ function handleSelectedTagsUpdate(group, value) {
 
 async function fetchData() {
   try {
-    const response = await axios.post('SERVER/api/explore/query', {
-        first: 2,
+    if(credSources.value.length===0) {
+      credSources.value.push("all");
+    }
+    if(rewardTypes.value.length===0) {
+      rewardTypes.value.push("all");
+    }
+    if(chains.value.length===0) {
+      chains.value.push("all");
+    }
+    if(statuses.value.length===0) {
+      statuses.value.push("all");
+    }
+    const response = await axios.post(SERVER + '/api/explore/query', {
+        first: 10,
         after: 0,
         credSources: credSources.value,
         rewardTypes: rewardTypes.value,
         chains: chains.value,
         statuses: statuses.value,
         listType: listType.value, 
-        searchString: searchString.value,
+        searchString: searchString.value
       }
     );
-
-    cardItems.value = response.data.data.list; // 更新数据
+    after.value = response.data.data.pageInfo.endCursor;
+    hasNextPage.value = response.data.data.pageInfo.hasNextPage;
+    console.info("page", after.value);
+    cardItems.value = response.data.data.Explore.map((campaignWrapper) => {
+      const campaign = campaignWrapper.Campaign;
+      const space = campaignWrapper.Space;
+      return {
+        ...campaign, 
+        spaceName: space.name, 
+        isVerified: space.isVerified, 
+        spaceThumbnail: space.thumbnail, 
+        alias: space.alias,
+      };
+    });
     console.info(cardItems.value);
   } catch (error) {
     console.error('请求失败', error);
+  }finally {
+    isLoading.value = false;
+    if (credSources.value.includes("all")) {
+      const index = credSources.value.indexOf("all");
+      credSources.value.splice(index, 1);
+    }
+    if (chains.value.includes("all")) {
+      const index = chains.value.indexOf("all");
+      chains.value.splice(index, 1);
+    }
+    if (rewardTypes.value.includes("all")) {
+      const index = rewardTypes.value.indexOf("all");
+      rewardTypes.value.splice(index, 1);
+    }
+    if (statuses.value.includes("all")) {
+      const index = statuses.value.indexOf("all");
+      statuses.value.splice(index, 1);
+    }
   }
 }
 
-watch([credSources, rewardTypes, chains, statuses, listType, searchString, verified], fetchData);
+watch([credSources, rewardTypes, chains, statuses, listType, searchString], fetchData);
+
+
+function handleScroll() {
+
+  const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+  if (nearBottom && !isLoading.value && cardItems.value.length % 10 === 0 && hasNextPage.value==true) {  // 确保每次都是完整的数据组
+      loadMoreData();
+      console.info("dsag");
+  }
+}
+
+async function loadMoreData() {
+  if (isLoading.value) {
+    return; // 如果已经在加载中，则直接返回
+  }
+  isLoading.value = true;
+  try {
+    if(credSources.value.length===0) {
+      credSources.value.push("all");
+    }
+    if(rewardTypes.value.length===0) {
+      rewardTypes.value.push("all");
+    }
+    if(chains.value.length===0) {
+      chains.value.push("all");
+    }
+    if(statuses.value.length===0) {
+      statuses.value.push("all");
+    }
+    const response = await axios.post(SERVER + '/api/explore/query', {
+        first: 10,
+        after: after.value,
+        credSources: credSources.value,
+        rewardTypes: rewardTypes.value,
+        chains: chains.value,
+        statuses: statuses.value,
+        listType: listType.value, 
+        searchString: searchString.value
+      }
+    );
+    after.value = response.data.data.pageInfo.endCursor;
+    hasNextPage.value = response.data.data.pageInfo.hasNextPage;
+    cardItems.value.push(...response.data.data.Explore.map((campaignWrapper) => {
+      const campaign = campaignWrapper.Campaign;
+      const space = campaignWrapper.Space;
+      return {
+        ...campaign, 
+        spaceName: space.name, 
+        isVerified: space.isVerified, 
+        spaceThumbnail: space.thumbnail, 
+        alias: space.alias,
+      };
+    }));
+    console.info("123", cardItems.value);
+  } catch (error) {
+    console.error('请求失败', error);
+  }finally {
+    isLoading.value = false;
+    if (credSources.value.includes("all")) {
+      const index = credSources.value.indexOf("all");
+      credSources.value.splice(index, 1);
+    }
+    if (chains.value.includes("all")) {
+      const index = chains.value.indexOf("all");
+      chains.value.splice(index, 1);
+    }
+    if (rewardTypes.value.includes("all")) {
+      const index = rewardTypes.value.indexOf("all");
+      rewardTypes.value.splice(index, 1);
+    }
+    if (statuses.value.includes("all")) {
+      const index = statuses.value.indexOf("all");
+      statuses.value.splice(index, 1);
+    }
+  }
+}
 
 
 useHead({

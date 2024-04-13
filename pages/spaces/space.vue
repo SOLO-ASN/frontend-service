@@ -95,6 +95,7 @@
                   <v-col md="4" sm="12" class="px-0" cols="12">
                     <div class="ps-md-3">
                       <sorter
+                        :sortList="sortList"
                         :showVerified=false
                         :view="toggleView"
                         :sort-by-selected="sortBySelected"
@@ -239,11 +240,23 @@ const rewardTypes = ref([]);
 const after = ref(0);
 const hasNextPage = ref(true);
 const chains = ref([]);
-const statuses = ref(['Active', 'Not Started']);
+const statuses = ref([]);
 const listType = ref("created_at");
 const searchString = ref('');
 const dialog = ref(false);
 const SERVER = url.serverUrl;
+const sortList = ref([
+  {
+    title: 'Newest',
+    value: 'created_at',
+    selected: false,
+  },
+    {
+    title: 'Most Participated',
+    value: 'participantsCount',
+    selected: false,
+  },
+]);
 
 function showLoginPrompt() {
   showLoginDialog.value = true;
@@ -379,8 +392,11 @@ async function fetchData() {
     if(chains.value.length===0) {
       chains.value.push("all");
     }
+    if(statuses.value.length===0) {
+      statuses.value.push("all");
+    }
     const response = await axios.post(SERVER + '/api/campaigns/query', {
-        first: 10,
+        first: 4,
         after: 0,
         alias: alias.value,
         credSources: credSources.value,
@@ -396,10 +412,10 @@ async function fetchData() {
     cardItems.value = response.data.data.Campaigns.map(item => {
       return {
         ...item,
-        spaceName: data.name,
-        isVerified: data.isVerified,
-        spaceThumbnail: data.thumbnail,
-        participantsCount: 0
+        spaceName: data.value.name,
+        isVerified: data.value.isVerified,
+        spaceThumbnail: data.value.thumbnail,
+        alias: data.value.alias
       };
     });
     console.info(cardItems.value);
@@ -419,6 +435,10 @@ async function fetchData() {
       const index = rewardTypes.value.indexOf("all");
       rewardTypes.value.splice(index, 1);
     }
+    if (statuses.value.includes("all")) {
+      const index = statuses.value.indexOf("all");
+      statuses.value.splice(index, 1);
+    }
   }
 }
 
@@ -427,7 +447,7 @@ watch([credSources, rewardTypes, chains, statuses, listType, searchString], fetc
 
 function handleScroll() {
     const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
-    if (nearBottom && !isLoading.value && cardItems.value.length % 9 === 0 && hasNextPage.value==true) {  // 确保每次都是完整的数据组
+    if (nearBottom && !isLoading.value && cardItems.value.length % 4 === 0 && hasNextPage.value==true) {  // 确保每次都是完整的数据组
         loadMoreData();
     }
 }
@@ -438,8 +458,20 @@ async function loadMoreData() {
   }
   isLoading.value = true;
   try {
+    if(credSources.value.length===0) {
+      credSources.value.push("all");
+    }
+    if(rewardTypes.value.length===0) {
+      rewardTypes.value.push("all");
+    }
+    if(chains.value.length===0) {
+      chains.value.push("all");
+    }
+    if(statuses.value.length===0) {
+      statuses.value.push("all");
+    }
     const response = await axios.post(SERVER + '/api/campaigns/query', {
-        first: 10,
+        first: 4,
         after: after.value,
         alias: alias.value,
         credSources: credSources.value,
@@ -452,20 +484,36 @@ async function loadMoreData() {
     );
     after.value = response.data.data.pageInfo.endCursor;
     hasNextPage.value = response.data.data.pageInfo.hasNextPage;
-    cardItems.value.push(response.data.data.Campaigns.map(item => {
+    cardItems.value.push(...response.data.data.Campaigns.map(item => {
       return {
         ...item,
-        spaceName: data.name,
-        isVerified: data.isVerified,
-        spaceThumbnail: data.thumbnail,
-        participantsCount: 0
+        spaceName: data.value.name,
+        isVerified: data.value.isVerified,
+        spaceThumbnail: data.value.thumbnail,
+        alias: data.value.alias
       };
     }));
-    console.info(cardItems.value);
+    console.info("123", cardItems.value);
   } catch (error) {
     console.error('请求失败', error);
   }finally {
     isLoading.value = false;
+    if (credSources.value.includes("all")) {
+      const index = credSources.value.indexOf("all");
+      credSources.value.splice(index, 1);
+    }
+    if (chains.value.includes("all")) {
+      const index = chains.value.indexOf("all");
+      chains.value.splice(index, 1);
+    }
+    if (rewardTypes.value.includes("all")) {
+      const index = rewardTypes.value.indexOf("all");
+      rewardTypes.value.splice(index, 1);
+    }
+    if (statuses.value.includes("all")) {
+      const index = statuses.value.indexOf("all");
+      statuses.value.splice(index, 1);
+    }
   }
 }
 

@@ -57,7 +57,7 @@
 <script setup>
 import { useDisplay } from 'vuetify';
 
-const { view, sortBySelected, resultLength, showVerified, showFilter } = defineProps({
+const { view, sortBySelected, resultLength, showVerified, showFilter, sortList } = defineProps({
   view: {
     type: Number,
     default: 0,
@@ -78,18 +78,24 @@ const { view, sortBySelected, resultLength, showVerified, showFilter } = defineP
     type: Boolean,
     default: true,
   },
+  sortList: {
+    type: Array,
+    default: [
+          {
+            title: 'Newest',
+            value: 'created_at',
+            selected: false,
+          },
+          {
+            title: 'Most Followed',
+            value: 'followersCount',
+            selected: false,
+          }
+        ]
+  }
 });
 
-const sortList = [
-  {
-    title: 'Newest',
-    value: 'created_at',
-  },
-  {
-    title: 'Most Followed',
-    value: 'followersCount',
-  },
-];
+
 
 const { smAndDown: isTablet } = useDisplay();
 const { xs: isMobile } = useDisplay();
