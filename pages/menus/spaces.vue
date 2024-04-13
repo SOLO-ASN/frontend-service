@@ -121,6 +121,7 @@ import brand from '@/assets/text/brand';
 import link from '@/assets/text/link';
 import collection from '@/assets/api/collection';
 import creator from '@/assets/api/creator';
+import url from '@/assets/text/url';
 import products from '@/assets/api/products';
 import { useHead } from '#app';
 import axios from 'axios'
@@ -147,6 +148,7 @@ const filterCheck = ref(checkItems);
 const group = ref(['all']);
 const verified = ref(false);
 const keyword = ref('');
+const SERVER = url.serverUrl;
 
 const { mdAndUp: isDesktop } = useDisplay();
 
@@ -232,7 +234,7 @@ const handleFollowClick = async (id, isFollowing) => {
   console.info(id);
   if(isFollowing==false){
       try {
-        const response = await axios.post('http://172.31.100.142:18080/api/spaces/follow', {
+        const response = await axios.post(SERVER + '/api/spaces/follow', {
           id: id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
@@ -244,7 +246,7 @@ const handleFollowClick = async (id, isFollowing) => {
       }
     }else{
       try {
-        const response = await axios.post('http://172.31.100.142:18080/api/spaces/unfollow', {
+        const response = await axios.post(SERVER + '/api/spaces/unfollow', {
           id: id
         });
         if(response.data.msg=="NOT_LOGIN") {
@@ -261,7 +263,7 @@ async function fetchData() {
   try {
     isLoading.value = true; // 开始加载数据   https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io
     after.value = 0;
-    const response = await axios.post('http://172.31.100.142:18080/api/spaces/query', {
+    const response = await axios.post(SERVER + '/api/spaces/query', {
       first:9,
       after:after.value,
       spaceListType: sortBy.value,
@@ -303,7 +305,7 @@ async function loadMoreData() {
   }
   isLoading.value = true;
   try {
-    const response = await axios.post('http://172.31.100.142:18080/api/spaces/query', {
+    const response = await axios.post(SERVER + '/api/spaces/query', {
       first:9,
       after:after.value,
       spaceListType: sortBy.value,

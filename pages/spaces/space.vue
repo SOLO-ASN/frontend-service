@@ -223,6 +223,7 @@ import Sorter from '@/components/Airdrops/Sorter';
 import CampaignCard from '@/components/Airdrops/CampaignCard.vue'
 import LoginPrompt from '@/components/Airdrops/LoginPrompt'
 import brand from '@/assets/text/brand';
+import url from '@/assets/text/url';
 import { useHead } from '#app';
 import { useDisplay } from 'vuetify';
 import { ref } from 'vue';
@@ -242,6 +243,7 @@ const statuses = ref(['Active', 'Not Started']);
 const listType = ref("created_at");
 const searchString = ref('');
 const dialog = ref(false);
+const SERVER = url.serverUrl;
 
 function showLoginPrompt() {
   showLoginDialog.value = true;
@@ -283,7 +285,7 @@ const cardItems = ref(null);
 
 onMounted(async () => { 
   try {
-    const response = await axios.post('http://172.31.100.142:18080/api/space/query', {
+    const response = await axios.post(SERVER + '/api/space/query', {
       alias: alias.value
       });  
     data.value = response.data.data; 
@@ -323,7 +325,7 @@ onBeforeUnmount(() => {
 const handleFollowClick = async () => {
   if(data.value.IsFollowing==false){
       try {
-        const response = await axios.post('http://172.31.100.142:18080/api/spaces/follow', {
+        const response = await axios.post(SERVER + '/api/spaces/follow', {
           id: data.value.id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
@@ -335,7 +337,7 @@ const handleFollowClick = async () => {
       }
     }else{
       try {
-        const response = await axios.post('http://172.31.100.142:18080/api/spaces/unfollow', {
+        const response = await axios.post(SERVER + '/api/spaces/unfollow', {
           id: data.value.id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
@@ -377,7 +379,7 @@ async function fetchData() {
     if(chains.value.length===0) {
       chains.value.push("all");
     }
-    const response = await axios.post('http://172.31.100.142:18080/api/campaigns/query', {
+    const response = await axios.post(SERVER + '/api/campaigns/query', {
         first: 10,
         after: 0,
         alias: alias.value,
@@ -436,7 +438,7 @@ async function loadMoreData() {
   }
   isLoading.value = true;
   try {
-    const response = await axios.post('http://172.31.100.142:18080/api/campaigns/query', {
+    const response = await axios.post(SERVER + '/api/campaigns/query', {
         first: 10,
         after: after.value,
         alias: alias.value,

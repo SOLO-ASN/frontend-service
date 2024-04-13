@@ -193,6 +193,7 @@ import TabCategory from '@/components/Airdrops/TabCategory';
 import Sorter from '@/components/Airdrops/Sorter';
 import CampaignCard from '@/components/Airdrops/CampaignCard.vue'
 import brand from '@/assets/text/brand';
+import url from '@/assets/text/url';
 import { useHead } from '#app';
 import { ref } from 'vue';
 import axios from 'axios';
@@ -209,6 +210,7 @@ const statuses = ref(['Active', 'Not Started']);
 const listType = ref("Trending");
 const searchString = ref('');
 const verified = ref(false);
+const SERVER = url.serverUrl;
 
 function handleOpenFilter() {
   dialog.value = true; 
@@ -502,7 +504,7 @@ function handleSelectedTagsUpdate(group, value) {
 
 async function fetchData() {
   try {
-    const response = await axios.post('http://172.31.100.142:18080/api/explore/query', {
+    const response = await axios.post('SERVER/api/explore/query', {
         first: 2,
         after: 0,
         credSources: credSources.value,
