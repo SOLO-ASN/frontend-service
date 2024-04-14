@@ -223,7 +223,7 @@ const filteredItems = computed(() => {
 
 function handleScroll() {
     const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
-    if (nearBottom && !isLoading.value && cardItems.value.length % 9 === 0 && hasNextPage.value==true) {  // 确保每次都是完整的数据组
+    if (nearBottom && !isLoading.value  && hasNextPage.value==true) {  // 确保每次都是完整的数据组
         loadMoreData();
     }
 }

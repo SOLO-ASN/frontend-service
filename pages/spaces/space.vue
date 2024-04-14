@@ -314,8 +314,8 @@ onMounted(async () => {
     if(data.value.links.Twitter!=null) {
       data.value.twitter = data.value.links.Twitter;
     }
-    if(data.value.links.Homepage!=null) {
-      data.value.homepage = data.value.links.Homepage;
+    if(data.value.links.HomePage!=null) {
+      data.value.homepage = data.value.links.HomePage;
     }
     
     console.info("1", data.value);
@@ -448,7 +448,7 @@ watch([credSources, rewardTypes, chains, statuses, listType, searchString], fetc
 
 function handleScroll() {
     const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
-    if (nearBottom && !isLoading.value && cardItems.value.length % 4 === 0 && hasNextPage.value==true) {  // 确保每次都是完整的数据组
+    if (nearBottom && !isLoading.value && hasNextPage.value==true) {  // 确保每次都是完整的数据组
         loadMoreData();
     }
 }

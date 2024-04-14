@@ -314,7 +314,7 @@ async function fetchData() {
       statuses.value.push("all");
     }
     const response = await axios.post(SERVER + '/api/explore/query', {
-        first: 10,
+        first: 8,
         after: 0,
         credSources: credSources.value,
         rewardTypes: rewardTypes.value,
@@ -369,7 +369,7 @@ watch([credSources, rewardTypes, chains, statuses, listType, searchString], fetc
 function handleScroll() {
 
   const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
-  if (nearBottom && !isLoading.value && cardItems.value.length % 10 === 0 && hasNextPage.value==true) {  // 确保每次都是完整的数据组
+  if (nearBottom && !isLoading.value && hasNextPage.value==true) {  // 确保每次都是完整的数据组
       loadMoreData();
       console.info("dsag");
   }
@@ -394,7 +394,7 @@ async function loadMoreData() {
       statuses.value.push("all");
     }
     const response = await axios.post(SERVER + '/api/explore/query', {
-        first: 10,
+        first: 8,
         after: after.value,
         credSources: credSources.value,
         rewardTypes: rewardTypes.value,
