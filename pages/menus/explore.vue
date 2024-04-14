@@ -333,6 +333,7 @@ async function fetchData() {
       return {
         ...campaign, 
         spaceName: space.name, 
+        spaceId: space.id,
         isVerified: space.isVerified, 
         spaceThumbnail: space.thumbnail, 
         alias: space.alias,
@@ -411,6 +412,7 @@ async function loadMoreData() {
       return {
         ...campaign, 
         spaceName: space.name, 
+        spaceId: space.id,
         isVerified: space.isVerified, 
         spaceThumbnail: space.thumbnail, 
         alias: space.alias,

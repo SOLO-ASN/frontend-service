@@ -4,7 +4,7 @@
     draggable="false"
     class="profile-card"
     :class="{ deco: withDeco }"
-    :href="`/spaces/space?alias=${alias}`"
+    :href="`/spaces/space?id=${id}`"
   >
     <v-card class="profile-card" :class="first ? 'first' : ''">
       <div class="inner">

@@ -12,7 +12,7 @@
         <div class="card-title" :title="campaign.name">{{ campaign.name }}</div>
         <div class="card-participants">{{ campaign.participantsCount.toLocaleString() }} participants</div>
       </div>
-      <div @click.stop="navigateToSpace(campaign.alias)" class="card-footer">
+      <div @click.stop="navigateToSpace(campaign.spaceId)" class="card-footer">
         <img :src="campaign.spaceThumbnail" :alt="campaign.spaceName" class="space-avatar">
         <div class="space-name" :title="campaign.spaceName">{{ campaign.spaceName }}</div>
         <v-icon v-if="campaign.isVerified" class="verified">mdi-check-decagram</v-icon>
@@ -135,12 +135,12 @@ onMounted(()=>{
     console.info(campaign);
 })
 
-function navigateToSpace(alias) {
-  router.push(`/spaces/space?alias=${alias}`);
+function navigateToSpace(id) {
+  router.push(`/spaces/space?id=${id}`);
 }
 
 function navigateToCampaign(campaignId) {
-  router.push(`/campaign/campaign?id=${campaigns.id}`);
+  router.push(`/campaign/campaign?id=${campaignId}`);
 }
 
 </script>

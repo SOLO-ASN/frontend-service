@@ -293,13 +293,13 @@ const clearAllTags = () => {
 const data = ref(null);
 const isLoading = ref(true);
 const route = useRoute();
-const alias = ref(route.query.alias);
+const id = ref(route.query.id);
 const cardItems = ref(null);
 
 onMounted(async () => { 
   try {
     const response = await axios.post(SERVER + '/api/space/query', {
-      alias: alias.value
+      id: id.value
       });  
     data.value = response.data.data; 
     if(data.value.links.Github!=null) {
@@ -398,7 +398,7 @@ async function fetchData() {
     const response = await axios.post(SERVER + '/api/campaigns/query', {
         first: 4,
         after: 0,
-        alias: alias.value,
+        spaceId: data.value.id,
         credSources: credSources.value,
         rewardTypes: rewardTypes.value,
         chains: chains.value,
@@ -413,6 +413,7 @@ async function fetchData() {
       return {
         ...item,
         spaceName: data.value.name,
+        spaceId: data.value.id,
         isVerified: data.value.isVerified,
         spaceThumbnail: data.value.thumbnail,
         alias: data.value.alias
@@ -473,7 +474,7 @@ async function loadMoreData() {
     const response = await axios.post(SERVER + '/api/campaigns/query', {
         first: 4,
         after: after.value,
-        alias: alias.value,
+        spaceId: data.value.id,
         credSources: credSources.value,
         rewardTypes: rewardTypes.value,
         chains: chains.value,
@@ -488,6 +489,7 @@ async function loadMoreData() {
       return {
         ...item,
         spaceName: data.value.name,
+        spaceId: data.value.id,
         isVerified: data.value.isVerified,
         spaceThumbnail: data.value.thumbnail,
         alias: data.value.alias
