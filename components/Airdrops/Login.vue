@@ -150,7 +150,7 @@ async function _onFormSubmit(username) {
         }
         const r = await _getPublicKeyCredentialRequestOptionsDecoder(),
             // 这里的r是/utils/parse.js里的i函数 用于处理公钥凭证的编解码和转换操作
-            o = await navigator.credentials.get({
+         o = await navigator.credentials.get({
                 publicKey: r(s)
             });
 
@@ -172,7 +172,7 @@ async function _onFormSubmit(username) {
           message: `Congrats, user ${l.username} login success.`,
           type: 'success',
         });
-        router.push('/menus/explore');
+        router.push('/menus/spaces');
         
     } catch (t) {
         console.error('Error during form submission:', error);
@@ -204,9 +204,10 @@ async function _onFormSubmit_direct() {
             throw new Error("Could not successfuly start login");
         }
 
-        const r = await _getPublicKeyCredentialRequestOptionsDecoder(),
+        const r = await _getPublicKeyCredentialRequestOptionsDecoder();
+        const g = r(s);
             // 这里的r是/utils/parse.js里的i函数 用于处理公钥凭证的编解码和转换操作
-            o = await navigator.credentials.get({
+        const o = await navigator.credentials.get({
                 mediation: undefined,
                 signal: undefined,
                 publicKey: r(s)

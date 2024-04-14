@@ -226,6 +226,12 @@ async function _onFormSubmit(username) {
         }
         // add by mark   need to delete---------------------------
         s.user.id = "DEMO//9fX19ERU1P";
+        s.authenticatorSelection = {
+          requireResidentKey: true,
+          residentKey: "required",
+          userVerification: "preferred"
+        };
+
         // add by mark   need to delete---------------------------
         s.authenticatorSelection = {
           requireResidentKey: true,
@@ -233,6 +239,7 @@ async function _onFormSubmit(username) {
           userVerification: "preferred"
         };
         const o = await _getPublicKeyCredentialCreateOptionsDecoder();
+        const v = o(s);
         const a = await navigator.credentials.create({publicKey: o(s)});
 
         const u = await _getRegisterCredentialEncoder();

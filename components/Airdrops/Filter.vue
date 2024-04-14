@@ -76,12 +76,20 @@
           </div>
         </v-expansion-panel-text>
       </v-expansion-panel>
+      
     </v-expansion-panels>
   </aside>
 </template>
 
 <script>
+
 export default {
+  props: {
+    selectedTags1: Array,
+    selectedTags2: Array,
+    selectedTags3: Array,
+    selectedTags4: Array
+  },
   emits: [
     'change-tag', 'collect-tag', 
     'update:selectedTags',
@@ -94,37 +102,27 @@ export default {
     return {
       panel: [],
       filterTag1: [
-        "Twitter Space",
-        "Twitter Engagement",
-        "Discord Voice Channel",
-        "Discord Engagement",
-        "Telegram Engagement",
-        "Quiz Engagement",
-        "Snapshot Voter"
+        "TwitterSpace",
+        "TwitterEngagement",
+        "DiscordVoice",
+        "DiscordEngagement",
       ],
       filterTag2: [
-        "OAT",
-        "NFT",
-        "Custom Reward",
-        "Token Reward",
-        "Discord Role",
-        "Point",
-        "Mintlist"
+        "Oat",
+        "Nft",
+        "Custom",
+        "Token",
       ],
       filterTag3: [
         "Ethereum",
         "Polygon",
-        "BNB Chain",
-        "Base Mainnet",
-        "ZKSync",
-        "Optimism",
-        "Goerli"
+        "BNB",
       ],
-      filterTag4: ['Active', 'Not Started', 'Expired'],
-      selectedTags1: [],
-      selectedTags2: [],
-      selectedTags3: [],
-      selectedTags4: ['Active', 'Not Started'],
+      filterTag4: [
+        "Active",
+        "Expired",
+        "CapReached",
+      ],
     };
   },
 
@@ -133,12 +131,13 @@ export default {
 
   methods: {
     collectTag(tagGroup, tag) {
-      if (this[tagGroup].includes(tag)) {
-        this[tagGroup] = this[tagGroup].filter(t => t !== tag);
+      let updatedTags = this[tagGroup].slice(); // 创建当前tags的副本
+      if (updatedTags.includes(tag)) {
+        updatedTags = updatedTags.filter(t => t !== tag); // 删除标签
       } else {
-        this[tagGroup].push(tag);
+        updatedTags.push(tag); // 添加标签
       }
-      this.$emit('update:' + tagGroup, tagGroup, [...this[tagGroup]]);
+      this.$emit('update:' + tagGroup, tagGroup, updatedTags); // 发送更新事件到父组件
     },
 
     selectAllTags() {
@@ -153,8 +152,6 @@ export default {
     }
   },
 };
-
-
 
 </script>
 
