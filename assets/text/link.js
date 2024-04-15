@@ -12,6 +12,7 @@ const link = {
   contact: '/forms/contact',
   spaces: '/menus/spaces',
   space: '/spaces/space',
+  explore: '/menus/explore',
   product: '/collection/products',
   productDetail: '/collection/product-detail',
   services: '/collection/services',
