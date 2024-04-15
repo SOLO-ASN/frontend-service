@@ -62,7 +62,7 @@ import { useTheme } from 'vuetify';
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import imgAPI from '@/assets/images/imgAPI';
 import link from '@/assets/text/link';
-import CountDown from '../../Counter/CountDown';
+import CountDown from '../../Counter/Countdown';
 
 const nftList = [
   {
@@ -132,7 +132,7 @@ const settings = ref({
     rewindSpeed: 1000,
   },
 });
-  
+
 function next() {
   slider.value.go('>');
 }

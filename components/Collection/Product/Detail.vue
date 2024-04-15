@@ -124,7 +124,7 @@ import { ref, onMounted } from 'vue';
 import { useDisplay, useTheme } from 'vuetify';
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import imgAPI from '@/assets/images/imgAPI';
-import CountDown from '../../Counter/CountDown';
+import CountDown from '../../Counter/Countdown';
 
 const loaded = ref(false);
 const visible = ref(false);

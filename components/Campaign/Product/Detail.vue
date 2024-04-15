@@ -16,7 +16,7 @@
                 <v-btn size="small" icon><v-icon>mdi-twitter</v-icon></v-btn>
                 <v-btn size="small" icon><v-icon>mdi-star</v-icon></v-btn>
                 <v-btn size="small" icon><v-icon>mdi-dots-horizontal</v-icon></v-btn>
-              </div>  
+              </div>
             </v-col>
           </v-row>
           XRGB $30,000 XRGB token Giveaway
@@ -48,7 +48,7 @@
           <div class="price">
             <p>Event Validity Period:</p>
             <h3 class="use-text-primary">
-              2024/03/05 22:00 - 2024/03/31 17:00 
+              2024/03/05 22:00 - 2024/03/31 17:00
               <span>GMT+08:00</span>
             </h3>
           </div>
@@ -70,7 +70,7 @@ import { useDisplay, useTheme } from 'vuetify';
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import imgAPI from '@/assets/images/imgAPI';
 
-import CountDown from '../../Counter/CountDown';
+import CountDown from '../../Counter/Countdown';
 
 const loaded = ref(false);
 const visible = ref(false);
