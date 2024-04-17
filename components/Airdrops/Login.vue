@@ -166,7 +166,10 @@ async function _onFormSubmit(username) {
         }
         const l = await u.json();
         console.info(l);
-        localStorage.setItem('token', l.username);
+        if(l.jwt!=null) {
+          localStorage.setItem('token', l.jwt);
+        }
+        
         ElMessage({
           showClose: true,
           message: `Congrats, user ${l.username} login success.`,
@@ -225,7 +228,9 @@ async function _onFormSubmit_direct() {
         }
         const l = await u.json();
         console.info(l);
-        localStorage.setItem('token', l.username);
+        if(l.jwt!=null) {
+          localStorage.setItem('token', l.jwt);
+        }
         ElMessage({
           showClose: true,
           message: `Congrats, user ${l.username} login success.`,

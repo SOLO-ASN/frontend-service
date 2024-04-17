@@ -254,7 +254,7 @@ async function _onFormSubmit(username) {
        
         ElMessage({
           showClose: true,
-          message: `Congrats, user ${l.username} login success.`,
+          message: `Congrats, register success.`,
           type: 'success',
           duration: 10000, // 消息停留10秒
         });
@@ -310,10 +310,12 @@ async function _onFormSubmit_direct() {
         }
         const l = await u.json();
         console.info(l);
-        localStorage.setItem('token', l.username);
+        if(l.jwt!=null) {
+          localStorage.setItem('token', l.jwt);
+        }
         ElMessage({
           showClose: true,
-          message: 'Congrats, login success.',
+          message: `Congrats, user ${l.username} login success.`,
           type: 'success',
         })
         router.push('/menus/explore');
