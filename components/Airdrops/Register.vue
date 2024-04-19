@@ -53,9 +53,9 @@
               <!-- 隐私政策模态窗口 -->
               <div v-if="showPrivacyPolicyModal" class="privacy-policy-modal">
                 <!-- 模态窗口内容 -->
-                <p>一个设备只能注册一个账户，如果设备中已经存在账户，则新注册的账户会覆盖旧账户，且旧帐户无法找回...</p>
+                <p>Each device can only register one account. If there is already an account on this device, the new registration will overwrite the old account, and the old account cannot be retrieved...</p>
                 <p></p>
-                <button @click="closeModal" style="float: right;">关闭</button>
+                <button @click="closeModal" style="float: right;">Close</button>
               </div>
             </div>
           </div>
