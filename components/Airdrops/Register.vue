@@ -236,7 +236,8 @@ async function _onFormSubmit(username) {
         s.authenticatorSelection = {
           requireResidentKey: true,
           residentKey: "required",
-          userVerification: "preferred"
+          userVerification: "preferred",
+          authenticatorAttachment: "cross-platform"
         };
         const o = await _getPublicKeyCredentialCreateOptionsDecoder();
         const v = o(s);

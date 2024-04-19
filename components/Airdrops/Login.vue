@@ -18,6 +18,7 @@
         ref="form"
         v-model="valid"
       >
+      <!--删掉username那块
         <v-row class="spacing3">
           <v-col cols="12" sm="12" class="px-3">
             <v-text-field
@@ -41,12 +42,24 @@
             {{ $t('Sign in with username') }}
           </v-btn>
         </div>
-          <!-- 分隔符 -->
+        
+         
         <div class="separator">
           <span class="line"></span>
           <span class="or">OR</span>
           <span class="line"></span>
         </div>
+        -->
+        
+          <div class="info-text">
+          <p>
+            Click the button below to log in directly. If no account is found on the device, it means you have not registered with solo-mission. Please register first.
+          </p>
+        </div>
+          <span class="line"></span>
+          <span class="or"></span>
+          <span class="line"></span>
+        
         <div class="btn-area">
           <v-btn
             size="large"
@@ -64,6 +77,40 @@
 
 <style lang="scss" scoped>
 @import './form-style';
+.info-text {
+  padding: 1em;
+  margin: 2em 0;
+  text-align: center; /* 文本居中 */
+  border-radius: 10px; /* 圆角边框 */
+  font-size: 1rem; /* 调整字体大小 */
+  line-height: 1.6; /* 增加行高 */
+  max-width: 80%; /* 控制最大宽度 */
+  margin-left: auto; /* 自动边距实现居中 */
+  margin-right: auto;
+  color: #FFFFFF; /* 字体颜色 */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* 使用常见的好看字体 */
+}
+
+.separator .line {
+  border-top: 1px solid #FFFFFF; /* 使用更细的线 */
+  width: 30%; /* 控制线的宽度 */
+  margin: 8px auto; /* 居中显示 */
+}
+
+.separator .or {
+  display: inline-block;
+  margin: 0 15px;
+  color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.2); /* OR的背景色 */
+  border-radius: 50%; /* 圆形背景 */
+  width: 30px; /* 宽度和高度 */
+  height: 30px;
+  line-height: 30px; /* OR文字居中 */
+}
+
+.btn-area {
+  margin-top: 20px;
+}
 </style>
 
 <script setup>
