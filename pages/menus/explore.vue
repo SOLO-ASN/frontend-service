@@ -255,15 +255,16 @@ function onInput() {
 };
 
 const selectAllTags = () => {
-  if (childRef.value) {
-    childRef.value.selectAllTags();
-  }
+  rewardTypes.value = [
+        "Oat",
+        "Nft",
+        "Custom",
+        "Token",
+      ];
 }
 
 const clearAllTags = () => {
-  if (childRef.value) {
-    childRef.value.clearAllTags();
-  }
+  rewardTypes.value = [];
 }
 const data = ref(null);
 

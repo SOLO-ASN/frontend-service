@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="main-wrap">
-      <main-header home :menu="singleMenu.ai" />
+      <main-header home :menu="singleMenu.inner" />
       <div class="container-wrap scroll-nav-content">
         <div id="home">
           <banner-slider />
         </div>
+        <!--  暂时注释
         <section id="about" :class="isTablet ? 'space-top-short' : 'space-top'">
           <about />
         </section>
@@ -30,6 +31,7 @@
         <section id="call-action" :class="isTablet ? 'space-top-short space-bottom-short' : 'space-top space-bottom'">
           <call-action />
         </section>
+        -->
       </div>
       <footer-deco>
         <main-footer />

@@ -23,6 +23,7 @@
         v-text="$t(item.name)"
       />
     </template>
+    <!-- 
     <v-menu
       :open-on-hover="hover"
       :position-x="0"
@@ -99,6 +100,7 @@
         </v-container>
       </div>
     </v-menu>
+    -->
   </div>
 </template>
 

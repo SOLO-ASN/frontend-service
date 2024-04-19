@@ -12,7 +12,7 @@
       <div class="header-content">
         <nav class="nav-menu">
           <div class="logo start-mobile">
-            <a :href="link.home">
+            <a :href="link.explore">
               <logo type="landscape" />
             </a>
           </div>

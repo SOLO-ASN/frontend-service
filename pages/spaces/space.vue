@@ -282,8 +282,8 @@ const selectAllTags = () => {
   rewardTypes.value = [
         "Oat",
         "Nft",
-        "Custom Reward",
-        "Token Reward",
+        "Custom",
+        "Token",
       ];
 }
 
