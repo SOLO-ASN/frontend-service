@@ -61,7 +61,7 @@
                 </v-col>
                 <v-col cols="12" class="pb-0  px-6">
                   <v-textarea
-                    v-model="message"
+                    v-model="description"
                     rows="6"
                     color="secondary"
                     variant="filled"
@@ -224,14 +224,12 @@
                         color="secondary"
                         value='Twitter Follow'
                         :label="'Twitter Follow'"
-
                       />
                       <v-radio
                         class="mpb-0 px-6"
                         color="secondary"
                         value='Twitter Retweet'
                         :label="'Twitter Retweet'"
-
                       />
                       <v-radio
                         class="mpb-0 px-6"
@@ -244,7 +242,7 @@
 
                   <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
                     <v-text-field
-                      v-model="title"
+                      v-model="row.name"
                       variant="filled"
                       color="secondary" 
                       :rules="[v => !!v || 'Description is required']"
@@ -254,7 +252,7 @@
                   </v-col>
                   <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
                     <v-text-field
-                      v-model="title"
+                      v-model="row.detail"
                       variant="filled"
                       color="secondary"
                       :label="'More details can be entered'"
@@ -262,7 +260,7 @@
                   </v-col>
                   <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
                     <v-text-field
-                      v-model="title"
+                      v-model="row.herf"
                       variant="filled"
                       color="secondary"
                       :rules="urlRules"
@@ -346,7 +344,9 @@ import {
 
 const rowTask = {
   taskType: 'Information Browsing',
-
+  name: '',
+  detail: '',
+  herf: '',
 }
 
 export default {
@@ -391,7 +391,7 @@ export default {
     ],
     phone: '',
     company: '',
-    message: '',
+    description: '',
     title: '',
     checkbox: false,
     isToken: false,

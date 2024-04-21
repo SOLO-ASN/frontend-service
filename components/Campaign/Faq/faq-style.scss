@@ -9,8 +9,9 @@
 .accordion {
   position: relative;
   margin-top: $spacing10;
+  margin-bottom: $spacing5;
   :deep(.v-expansion-panel-title--active) {
-    background: $palette-primary-main !important;
+    background: $palette-primary-dark !important;
     .heading {
       color: $palette-common-white;
       padding-top: 0;
@@ -28,9 +29,9 @@
 }
 
 .paper {
-  margin-bottom: $spacing3;
+  margin-bottom: $spacing2;
   overflow: hidden;
-  @include use-theme(background, rgba($light-background-paper, 0.5), rgba($dark-background-paper, 0.5));
+  @include use-theme(background, rgba($light-background-paper, 0.5), rgba($dark-background-paper, 0.8));
   backdrop-filter: saturate(180%) blur(20px);
   @include shade;
   .v-expansion-panels--variant-accordion & {
@@ -42,7 +43,7 @@
   display: block;
   font-weight: $font-medium;
   padding: spacing(1, 2, 1, 0);
-  font-size: 24px;
+  font-size: 18px;
   line-height: 1.5;
   margin-bottom: 0;
   @include breakpoints-down(sm) {
@@ -75,11 +76,11 @@
 }
 
 .detail {
-  background: $palette-primary-main !important;
+  background: $palette-primary-dark !important;
   color: $palette-common-white;
   border-radius: 0 0 $rounded-medium $rounded-medium;
   @include breakpoints-up(sm) {
-    font-size: 24px;
+    font-size: 16px;
   }
 }
 
