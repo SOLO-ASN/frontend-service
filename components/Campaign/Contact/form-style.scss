@@ -1,0 +1,499 @@
+@mixin flex-area {
+  margin-top: $spacing3;
+  display: flex;
+}
+
+.page-wrap {
+  text-align: center;
+  min-height: 100%;
+  position: relative;
+  width: 100%;
+  align-items: center;
+  padding: spacing(15, 5, 0);
+  @include breakpoints-up(md) {
+    display: flex;
+  }
+  @include breakpoints-down(sm) {
+    padding: spacing(10, 0, 0)
+  }
+  .title {
+    color: $palette-common-white;
+  }
+  a {
+    @include use-theme(color, $palette-primary-main, $palette-primary-light);
+    text-transform: none;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: $font-regular;
+    @include breakpoints-down(sm) {
+      font-size: 14px;
+    }
+  }
+}
+
+.full-form-wrap {
+  @include breakpoints-up(sm) {
+    padding-top: $spacing3
+  }
+}
+
+.inner-wrap {
+  position: relative;
+  z-index: 1;
+  text-align: left;
+}
+
+.v-card.form-box {
+  border-radius: 40px;
+  position: relative;
+  z-index: 22;
+  @include use-theme(background, rgba($light-background-paper, 0.6), rgba($dark-background-paper, 0.6));
+  backdrop-filter: saturate(180%) blur(20px);
+  &.v-card:not(.v-sheet--outlined) {
+    @include breakpoints-down(sm) {
+      box-shadow: none;
+      background: none;
+    }
+  }
+  &.map-form {
+    @include breakpoints-up(md) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+.desc {
+  color: $palette-common-white;
+  text-align: center;
+  padding: spacing(0, 10);
+  @include breakpoints-down(sm) {
+    padding: spacing(0, 2)
+  }
+}
+
+.form {
+  @include text-align(left);
+  position: relative;
+  padding: spacing(7, 5);
+  @include breakpoints-down(sm) {
+    padding: spacing(5, 2)
+  }
+}
+
+.form-helper {
+  display: flex;
+  margin-top: $spacing1;
+  justify-content: space-between;
+  align-items: flex-start;
+  @include breakpoints-down(sm) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.button-link {
+  :deep(.v-icon) {
+    @include rtl-flip;
+  }
+}
+
+.btn-area {
+  justify-content: space-between;
+  &:not(.flex) {
+    @include breakpoints-up(sm) {
+      @include flex-area
+    }
+  }
+  &.flex {
+    @include breakpoints-up(lg) {
+      @include flex-area
+    }
+    @include breakpoints-between(sm, md) {
+      @include flex-area
+    }
+  }
+  @include breakpoints-down(sm) {
+    button {
+      margin-top: $spacing4;
+    }
+  }
+  @include breakpoints-down(sm) {
+    margin-top: $spacing2;
+    margin-bottom: $spacing3;
+  }
+  button.v-btn.v-size--large {
+    margin-top: $spacing2;
+    min-height: 48px;
+    min-width: 180px;
+  }
+  span {
+    a.link {
+      text-decoration: none !important;
+      color: $palette-secondary-main
+    }
+  }
+}
+
+.right-icon {
+  @include margin-left($spacing1)
+}
+
+.check {
+  svg {
+    fill: $palette-secondary-main
+  }
+}
+
+.auth-frame {
+  display: block;
+  position: relative;
+  .v-row > div {
+    padding: 0
+  }
+}
+
+.greeting {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 40px;
+  height: 100%;
+  overflow: hidden;
+  z-index: 3;
+  @include shade;
+  color: $palette-common-white;
+  background: $gradient-double-main;
+  padding: $spacing3;
+  @include breakpoints-up(lg) {
+    padding: $spacing4;
+  }
+  img {
+    position: absolute;
+  }
+}
+
+.img-login {
+  bottom: -310px;
+  @include left(-100px);
+  transform: rotate(-245deg);
+}
+.img-register {
+  top: -480px;
+  @include left(100px);
+  left: 100;
+  transform: rotate(-25deg);
+}
+
+.text {
+  position: relative;
+  z-index: 2;
+}
+
+.logo {
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $spacing3;
+  &.logo-header {
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 10
+  }
+  img {
+    width: 64px;
+  }
+  p, span {
+    display: block;
+    padding-bottom: 4px;
+    color: $palette-common-white;
+  }
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-transform: capitalize;
+  margin-bottom: $spacing3;
+  a {
+    margin-top: $spacing2;
+  }
+  @include breakpoints-down(md) {
+    margin-top: $spacing2;
+    justify-content: center;
+    a {
+      display: none
+    }
+  }
+}
+
+.form-wrap {
+  @include use-theme(background, rgba($light-background-paper, 0.6), rgba($dark-background-paper, 0.6));
+  backdrop-filter: saturate(180%) blur(20px);
+  position: relative;
+  padding: $spacing2;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+  @include shade;
+  @include breakpoints-down(md) {
+    border-radius: 20px;
+  }
+  @include breakpoints-up(sm) {
+    padding: $spacing4
+  }
+  @include breakpoints-up(md) {
+    padding: spacing(3, 4, 3, 8)
+  }
+}
+
+.socmed-side-login {
+  display: flex;
+  justify-content: space-around;
+  @include breakpoints-down(md) {
+    justify-content: center
+  }
+  @include breakpoints-down(sm) {
+    display: block
+  }
+  > * {
+    color: $palette-common-white;
+    width: 150px;
+    padding: $spacing1;
+    margin: 0 4px;
+    @include breakpoints-down(md) {
+      width: 120px;
+    }
+    @include breakpoints-down(sm) {
+      margin: 0 0 $spacing2;
+      width: 100%
+    }
+  }
+  i {
+    color: $palette-common-white;
+    @include margin-right($spacing1)
+  }
+}
+
+.blue-btn {
+  background: #28aae1 !important;
+  &:hover {
+    background: darken(#28aae1, 20%) !important
+  }
+}
+.navi-btn {
+  background: #3b579d !important;
+  &:hover {
+    background: darken(#3b579d, 20%) !important
+  }
+}
+.red-btn {
+  background: #dd493c !important;
+  &:hover {
+    background: darken(#dd493c, 20%) !important
+  }
+}
+.separator {
+  margin: 40px auto;
+  max-width: 300px;
+  min-width: 200px;
+  text-align: center;
+  position: relative;
+  @include palette-text-secondary;
+  p {
+    @include breakpoints-down(sm) {
+      font-size: 12px
+    }
+  }
+  &:before, &:after {
+    content: "";
+    border-top: 1px solid;
+    @include use-theme(border-top-color, $light-text-hint, $dark-text-hint);
+    top: 50%;
+    position: absolute;
+    width: 20%
+  }
+  &:before {
+    left: 0
+  }
+  &:after {
+    right: 0
+  }
+}
+
+.inner {
+  height: 600px;
+  top: 0;
+  @include left(0);
+  width: 50%;
+  position: absolute;
+  display: block;
+}
+
+.primary-dark { background: $gradient-primary-dark }
+.primary-light { background: $gradient-primary-light }
+.secondary-dark { background: $gradient-secondary-dark }
+.secondary-light { background: $gradient-secondary-light }
+.accent { background: $gradient-accent }
+.double-light { background: $gradient-double-light }
+.double-main { background: $gradient-double-main }
+.double-dark { background: $gradient-double-dark }
+.triple-light { background: $gradient-triple-light }
+.triple-main { background: $gradient-triple-main }
+.triple-dark { background: $gradient-triple-dark }
+.fog {
+  filter: blur(60px);
+  width: 700px;
+  height: 600px;
+  opacity: 0.75;
+  position: relative;
+  & > div {
+    border-radius: 500px;
+    position: absolute;
+    transition: all 1.5s cubic-bezier(.11,.99,.81,1.13);
+  }
+}
+
+.arrow-icon {
+  position: absolute;
+  @include right(0);
+  bottom: 60px;
+  font-size: 270px;
+  color: $palette-common-black;
+  opacity: 0.05;
+  @include rtl-flip;
+}
+
+.decoration {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  left: 0px;
+  top: 0px;
+  & > div {
+    position: absolute
+  }
+  &.left {
+    @include left(-50px);
+    @include breakpoints-down(sm) {
+      z-index: 0
+    }
+  }
+  .ball {
+    width: 160px;
+    height: 170px;
+    top: 100px;
+    @include left(0);
+    z-index: 30;
+    transform: rotate(-45deg);
+  }
+  .plate {
+    width: 100px;
+    height: 100px;
+    z-index: 20;
+    top: 120px;
+    @include left(140px);
+    transform: rotate(-50deg);
+    filter: blur(5px) drop-shadow(0px 25px 12px rgba(0, 0, 0, 0.3));
+  }
+  .flower {
+    width: 180px;
+    height: 180px;
+    top: 300px;
+    @include right(-10px);
+    transform: rotate(-50deg);
+  }
+  .bowl {
+    width: 100px;
+    height: 100px;
+    top: 300px;
+    @include right(40px);
+    transform: rotate(60deg);
+    filter: blur(5px) drop-shadow(20px 25px 5px rgba(0, 0, 0, 0.3));
+  }
+  .ufo {
+    width: 160px;
+    height: 170px;
+    top: 180px;
+    @include left(40px);
+    z-index: 20;
+    transform: rotate(-45deg);
+  }
+  .bom {
+    width: 60px;
+    height: 60px;
+    z-index: 33;
+    top: 160px;
+    @include left(50px);
+    transform: rotate(-50deg);
+    filter: blur(5px) drop-shadow(0px 25px 12px rgba(0, 0, 0, 0.3));
+  }
+  .snail {
+    width: 180px;
+    height: 180px;
+    top: 300px;
+    @include right(-10px);
+    transform: rotate(-50deg)
+  }
+}
+
+.form-control-label {
+  a {
+    position: relative;
+  }
+  :deep(.v-messages) {
+    min-height: 0;
+  }
+  > div {
+    margin-top: 0
+  }
+}
+
+.map {
+  position: relative;
+  z-index: 20;
+  overflow: hidden;
+  color: $light-text-primary;
+  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.4);
+  height: 850px;
+  @include breakpoints-down(sm) {
+    height: 300px !important;
+  }
+  @include breakpoints-up(md) {
+    border-radius: 0 $rounded-medium $rounded-medium 0 !important;
+    @include use-rtl(border-radius, $rounded-medium 0 0 $rounded-medium !important);
+  }
+  :deep(.GMap__Wrapper){
+    height: 745px;
+    @include breakpoints-down(sm) {
+      height: 300px !important;
+    }
+  }
+  &.full {
+    height: 952px;
+    :deep(.GMap__Wrapper){
+      height: 952px;
+    }
+  }
+}
+
+.bubel-wrap {
+  height: 300px;
+  position: relative
+}
+
+.icon {
+  color: #607D8B;
+  @include margin-right($spacing1);
+  font-size: 16px;
+}
+
+.notification {
+  .v-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+  }
+}
