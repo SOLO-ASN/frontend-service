@@ -21,6 +21,7 @@ const link = {
   portfolioDetail: '/collection/portfolio-detail',
   pricing: '/utils/pricing',
   faq: '/utils/faq',
+  userProfile: '/id/profile',
   maintenance: '/utils/maintenance',
   comingSoon: '/utils/coming-soon',
   blockchain: '/blockchain',
