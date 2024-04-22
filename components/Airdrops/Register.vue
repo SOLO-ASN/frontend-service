@@ -1,4 +1,7 @@
 <template>
+      <div v-if="detecting" class="overlay">
+        <div class="loading-text">Dectecting...</div>
+      </div>
 
   <AuthFrame
     :title="$t('register_title')"
@@ -16,6 +19,7 @@
         </v-btn>
       </div>
       <video id="video" autoplay style="display: none"></video>
+
       <v-form
         ref="form"
         v-model="valid"
@@ -115,6 +119,30 @@
   box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* 更大的阴影效果 */
   font-size: 18px; /* 文字大小 */
 }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; /* 使用视口宽度确保覆盖整个屏幕 */
+  height: 100vh; /* 使用视口高度确保覆盖整个屏幕 */
+  background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+  backdrop-filter: blur(10px); /* 背景模糊效果增加至10px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* 确保它在最前面 */
+}
+
+.loading-text {
+  color: #fff;
+  font-size: 24px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
 </style>
 
 <script setup>
@@ -395,9 +423,5 @@ async function _onFormSubmit_direct() {
         console.info('Error during form submission:');
     }
 }
-
-onMounted(async () => {
-  await loadModels();  // 在组件挂载后加载模型
-});
 
 </script>
