@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-for="(taskitem, index) in taskList"
+      v-for="(taskitem, index) in props.taskList"
       :id="'topic'+index"
       :key="index"
       class="accordion"
@@ -39,63 +39,15 @@
 @import './faq-style.scss';
 </style>
 
-<script>
-const taskList = [
-  {
-    title: "Get 200 Points",
-    list: [
-      {
-        q: '[Verification]- OKX Wallet User',
-        a:
-          'Connect with an OKX wallet address:\n1.Download OKX Wallet Extension or OKX APP\n2.Create or import an adress to it and connect to Galxe',
-      },
-      {
-        q: 'Visit the OKX Web3 Giveaway for more exciting rewards!',
-        a:
-          'The users who have visited the OKX Web3 Giveaway for more exciting rewards! page.',
-      },
-    ],
-    panel: -1,
-  },
-  {
-    title: "Get 1 NFT & 300 Points",
-    list: [
-        {
-        q: 'Follow @okxweb3 on Twitter',
-        a:
-          'okxweb3\'s Twitter followers',
-      },
-      {
-        q: 'Follow @XRGB404 on Twitter',
-        a:
-          'XRGB404\'s Twitter followers',
-      },
-      {
-        q: 'Retweet the Tweet',
-        a:
-          'okxweb3\'s Tweet retweeters',
-      },
-      {
-        q: 'Retweet the Tweet',
-        a:
-          'XRGB404\'s Tweet retweeters',
-      },
-    ],
-    panel: -1,
-  }
-];
+<script setup>
+import { defineProps } from 'vue';
 
-export default {
-  data() {
-    return {
-      taskList,
-    };
-  },
-  computed: {
-    isMobile() {
-      const smDown = this.$vuetify.display.smAndDown;
-      return smDown;
-    },
-  },
+const props = defineProps({
+  taskList: Array
+})
+
+const isMobile = () => {
+  return display.value.smAndDown;
 };
+
 </script>

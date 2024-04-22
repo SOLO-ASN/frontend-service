@@ -8,7 +8,7 @@
         <v-container>
           <detail />
           <div class="space-top-short">
-            <faq-list />
+            <faq-list :taskList="taskList" />
           </div>
         </v-container>
       </div>
@@ -63,12 +63,15 @@ import brand from '@/assets/text/brand';
 import { useHead } from '#app';
 
 import axios from 'axios';
+import {ref} from 'vue';
 
 // 网页标签显示的名字
 useHead({
   title: brand.name + ' - Campaign Detail',
 });
 
+// 声明传送的数据
+const taskList = ref({});
 // 尝试在跳转到该页面时向后端获取数据来渲染页面
 onMounted(() => {
   // 获取当前网页的URL
@@ -78,8 +81,9 @@ onMounted(() => {
   const campaignId = searchParams.get('id')
   axios.get(`https://15c3a83a-495b-41af-b0be-07a23e277d5c.mock.pstmn.io/api/campaign?id=${campaignId}`).then((response) => {
     //this.items = response.data
-    console.info(response.data)
-    console.info(campaignId)
+    // 将任务列表传给fap_list
+    taskList.value = response.data.taskList
+    //console.info(response.data.taskList)
   })
 })
 
