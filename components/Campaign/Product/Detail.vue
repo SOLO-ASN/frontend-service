@@ -6,8 +6,8 @@
           <v-row>
             <v-col>
               <span class="use-text-subtitle use-text-secondary-color">
-                OKX Web3 (NFT & Wallet & DeFi)
-                <v-icon size="x-small">mdi-check-decagram</v-icon>
+                {{ props.taskDetail.space }}
+                <v-icon v-if="`props.taskDetail.isVerified` == true" size="x-small">mdi-check-decagram</v-icon>
               </span>
             </v-col>
             <v-col>

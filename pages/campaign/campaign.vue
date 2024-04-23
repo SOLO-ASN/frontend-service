@@ -87,8 +87,9 @@ onMounted(() => {
     // 将活动详情传给detail
     taskDetail.value = {
       "name": response.data.name,
-      "description": response.data.description
-
+      "description": response.data.description,
+      "space": response.data.space.name,
+      "isVerified": response.data.space.isVerified
     }
     //console.info(response.data.taskList)
   })
