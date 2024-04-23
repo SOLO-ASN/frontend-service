@@ -6,7 +6,7 @@
     <div class="container-front container-wrap">
       <div class="inner-page">
         <v-container>
-          <detail />
+          <detail :taskDetail="taskDetail" />
           <div class="space-top-short">
             <faq-list :taskList="taskList" />
           </div>
@@ -72,6 +72,7 @@ useHead({
 
 // 声明传送的数据
 const taskList = ref({});
+const taskDetail = ref({});
 // 尝试在跳转到该页面时向后端获取数据来渲染页面
 onMounted(() => {
   // 获取当前网页的URL
@@ -83,6 +84,12 @@ onMounted(() => {
     //this.items = response.data
     // 将任务列表传给fap_list
     taskList.value = response.data.taskList
+    // 将活动详情传给detail
+    taskDetail.value = {
+      "name": response.data.name,
+      "description": response.data.description
+
+    }
     //console.info(response.data.taskList)
   })
 })

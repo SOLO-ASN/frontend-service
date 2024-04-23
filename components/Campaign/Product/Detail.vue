@@ -19,7 +19,7 @@
               </div>  
             </v-col>
           </v-row>
-          XRGB $30,000 XRGB token Giveaway
+          {{ props.taskDetail.name }}
         </h4>
         <div class="property">
           <i class="ion-md-contacts" />
@@ -40,7 +40,7 @@
 
         <div class="text2">
           <h5>
-            Say Hi to Burve, a consensus-driven DeFi protocol for token launch, swap, earn & AMM, powered by BurveLabs.
+            {{ props.taskDetail.description }}
           </h5>
         </div>
 
@@ -65,12 +65,14 @@
 </style>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineProps } from 'vue';
 import { useDisplay, useTheme } from 'vuetify';
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import imgAPI from '@/assets/images/imgAPI';
 
-import CountDown from '../../Counter/CountDown';
+const props = defineProps({
+  taskDetail: Object
+})
 
 const loaded = ref(false);
 const visible = ref(false);
@@ -114,4 +116,5 @@ function showImg(idx) {
 function handleHide() {
   visible.value = false;
 }
+
 </script>
