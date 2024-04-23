@@ -48,8 +48,8 @@
           <div class="price">
             <p>Event Validity Period:</p>
             <h3 class="use-text-primary">
-              2024/03/05 22:00 - 2024/03/31 17:00 
-              <span>GMT+08:00</span>
+              {{ props.taskDetail.startTime }} - {{ props.taskDetail.endTime }}
+              <span>{{ props.taskDetail.timeZone }}</span>
             </h3>
           </div>
         </section>
@@ -77,8 +77,6 @@ const props = defineProps({
 const loaded = ref(false);
 const visible = ref(false);
 const index = ref(0);
-const item = ref(0);
-const slick = ref(null);
 
 const imgs = [
   imgAPI.photosP[7],

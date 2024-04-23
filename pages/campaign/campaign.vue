@@ -73,6 +73,27 @@ useHead({
 // 声明传送的数据
 const taskList = ref({});
 const taskDetail = ref({});
+
+// 用于将unixTimestamp转化为2024/03/05 22:00 GMT+8的格式
+function formatTimestamp(unixTimestamp) {
+  const date = new Date(unixTimestamp * 1000);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${year}/${month}/${day} ${hours}:${minutes}`;
+}
+
+// 获取时区
+function getTimezone(unixTimestamp) {
+  const date = new Date(unixTimestamp * 1000);
+  const timezoneOffset = date.getTimezoneOffset() / -60;
+  return `GMT${timezoneOffset > 0 ? '+' : '-'}${Math.abs(timezoneOffset)}`;
+}
+
 // 尝试在跳转到该页面时向后端获取数据来渲染页面
 onMounted(() => {
   // 获取当前网页的URL
@@ -89,7 +110,10 @@ onMounted(() => {
       "name": response.data.name,
       "description": response.data.description,
       "space": response.data.space.name,
-      "isVerified": response.data.space.isVerified
+      "isVerified": response.data.space.isVerified,
+      "startTime": formatTimestamp(response.data.startTime),
+      "endTime": formatTimestamp(response.data.endTime),
+      "timeZone": getTimezone(response.data.endTime),
     }
     //console.info(response.data.taskList)
   })
