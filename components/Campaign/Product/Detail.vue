@@ -7,7 +7,7 @@
             <v-col>
               <span class="use-text-subtitle use-text-secondary-color">
                 {{ props.taskDetail.space }}
-                <v-icon v-if="`props.taskDetail.isVerified` == true" size="x-small">mdi-check-decagram</v-icon>
+                <v-icon v-if="props.taskDetail.isVerified == true" size="x-small">mdi-check-decagram</v-icon>
               </span>
             </v-col>
             <v-col>
