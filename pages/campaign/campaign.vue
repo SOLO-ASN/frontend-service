@@ -17,7 +17,7 @@
         <main class="container-front container-wrap">
           <div class="inner-page">
             <media-banner
-              :tags="['NFT', 'points']"
+              :tags="taskReward"
             >
             </media-banner>
             <div>
@@ -73,6 +73,7 @@ useHead({
 // 声明传送的数据
 const taskList = ref({});
 const taskDetail = ref({});
+const taskReward = ref({});
 
 // 用于将unixTimestamp转化为2024/03/05 22:00 GMT+8的格式
 function formatTimestamp(unixTimestamp) {
@@ -115,6 +116,7 @@ onMounted(() => {
       "endTime": formatTimestamp(response.data.endTime),
       "timeZone": getTimezone(response.data.endTime),
     }
+    taskReward.value = response.data.rewardType
     //console.info(response.data.taskList)
   })
 })
