@@ -97,11 +97,12 @@ function getTimezone(unixTimestamp) {
 }
 
 // 判断奖励优先级
-function findHighestReward(list) {
+function findHighestReward(input) {
   // 假设奖励全是false
   let isPoints = false;
   let isToken = false;
   let isRole = false;
+  const list = input.split(" ");
   // 遍历列表中的每一项
   for(let i = 0; i < list.length; i++) {
     // 如果当前项的优先级比最高优先级的项更高，则更新最高优先级的项
@@ -125,6 +126,10 @@ function findHighestReward(list) {
   }
 }
 
+function splitReward(input) {
+  const list = input.split(" ");
+  return list
+}
 
 // 尝试在跳转到该页面时向后端获取数据来渲染页面
 onMounted(() => {
@@ -133,31 +138,31 @@ onMounted(() => {
   const params = url.split('?')[1]
   const searchParams = new URLSearchParams(params)
   const campaignId = searchParams.get('id')
-  axios.get(`https://15c3a83a-495b-41af-b0be-07a23e277d5c.mock.pstmn.io/api/campaign?id=${campaignId}`).then((response) => {
+  axios.post(`http://172.31.100.142:18080/api/campaign/query`, {"id": campaignId}).then((response) => {
     //this.items = response.data
     // 将任务列表传给fap_list
-    taskList.value = response.data.credentialGroups
+    taskList.value = response.data.data.Campaign.CredentialGroupResponses
     // 将活动详情传给detail
     taskDetail.value = {
-      "name": response.data.name,
-      "description": response.data.description,
-      "space": response.data.space.name,
-      "isVerified": response.data.space.isVerified,
-      "startTime": formatTimestamp(response.data.startTime),
-      "endTime": formatTimestamp(response.data.endTime),
-      "timeZone": getTimezone(response.data.endTime),
+      "name": response.data.data.Campaign.name,
+      "description": response.data.data.Campaign.description,
+      "space": response.data.data.Campaign.space.name,
+      "isVerified": response.data.data.Campaign.space.isVerified,
+      "startTime": formatTimestamp(response.data.data.Campaign.startTime),
+      "endTime": formatTimestamp(response.data.data.Campaign.endTime),
+      "timeZone": getTimezone(response.data.data.Campaign.endTime),
     }
     // 活动奖励的类型
-    taskReward.value = response.data.rewardType
+    taskReward.value = splitReward(response.data.data.Campaign.rewardTypes),
     rewardDetail.value = {
       // 返回需要显示的奖励类型
-      "rewardType": findHighestReward(response.data.rewardType),
+      "rewardType": findHighestReward(response.data.data.Campaign.rewardTypes),
       // 返回可参加的次数???感觉按钮需要
-      "recurringType": response.data.recurringType,
+      //"recurringType": response.data.recurringType,
       // 返回奖励详情
-      "roleRward": response.data.rewardInfo.discordRole,
-      "tokenReward": response.data.tokenReward,
-      "loyaltyPoints": response.data.loyaltyPoints,
+      "roleRward": response.data.data.Campaign.discordRole,
+      "tokenReward": response.data.data.Campaign.tokenReward,
+      "loyaltyPoints": response.data.data.Campaign.loyaltyPoints,
     }
     //console.info(response.data.taskList)
   })

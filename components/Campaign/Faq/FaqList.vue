@@ -8,14 +8,14 @@
       :class="index <= 1 ? 'mt-0' : ''"
     >
       <h4 class="use-text-subtitle mb-10">
-        {{ taskitem.description }}
+        {{ taskitem.credentialGroup.description }}
       </h4>
       <v-expansion-panels
-        v-model="taskitem.panel"
+        v-model="taskitem.credentialGroup.panel"
         active-class="expanded"
       >
         <v-expansion-panel
-          v-for="(item, number) in taskitem.Credentails"
+          v-for="(item, number) in taskitem.credentialGroup.creds"
           :key="number"
           class="paper"
         >
