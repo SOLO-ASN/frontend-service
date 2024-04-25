@@ -26,7 +26,7 @@
               </section>
             </div>
             <div id="gallery" class="space-photo">
-              <gallery />
+              <gallery :rewardDetail="rewardDetail" />
             </div>  
           </div>
         </main>
@@ -74,6 +74,7 @@ useHead({
 const taskList = ref({});
 const taskDetail = ref({});
 const taskReward = ref({});
+const rewardDetail = ref({});
 
 // 用于将unixTimestamp转化为2024/03/05 22:00 GMT+8的格式
 function formatTimestamp(unixTimestamp) {
@@ -94,6 +95,36 @@ function getTimezone(unixTimestamp) {
   const timezoneOffset = date.getTimezoneOffset() / -60;
   return `GMT${timezoneOffset > 0 ? '+' : '-'}${Math.abs(timezoneOffset)}`;
 }
+
+// 判断奖励优先级
+function findHighestReward(list) {
+  // 假设奖励全是false
+  let isPoints = false;
+  let isToken = false;
+  let isRole = false;
+  // 遍历列表中的每一项
+  for(let i = 0; i < list.length; i++) {
+    // 如果当前项的优先级比最高优先级的项更高，则更新最高优先级的项
+    if(list[i] == "Points") {
+      isPoints = true;
+    }
+    if(list[i] == "Role") {
+      isRole = true;
+    }
+    if(list[i] == "Token") {
+      isToken = true;
+    }
+  }
+  // 返回优先级最高的项
+  if(isToken) {
+    return "Token";
+  } else if(isRole) {
+    return "Role";
+  } else {
+    return "Points";
+  }
+}
+
 
 // 尝试在跳转到该页面时向后端获取数据来渲染页面
 onMounted(() => {
@@ -116,7 +147,18 @@ onMounted(() => {
       "endTime": formatTimestamp(response.data.endTime),
       "timeZone": getTimezone(response.data.endTime),
     }
+    // 活动奖励的类型
     taskReward.value = response.data.rewardType
+    rewardDetail.value = {
+      // 返回需要显示的奖励类型
+      "rewardType": findHighestReward(response.data.rewardType),
+      // 返回可参加的次数???感觉按钮需要
+      "recurringType": response.data.recurringType,
+      // 返回奖励详情
+      "roleRward": response.data.rewardInfo.discordRole,
+      "tokenReward": response.data.tokenReward,
+      "loyaltyPoints": response.data.loyaltyPoints,
+    }
     //console.info(response.data.taskList)
   })
 })
