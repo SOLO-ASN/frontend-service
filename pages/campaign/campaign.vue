@@ -146,8 +146,8 @@ onMounted(() => {
     taskDetail.value = {
       "name": response.data.data.Campaign.name,
       "description": response.data.data.Campaign.description,
-      "space": response.data.data.Campaign.space.name,
-      "isVerified": response.data.data.Campaign.space.isVerified,
+      "space": response.data.data.Campaign.Space[0].name,
+      "isVerified": response.data.data.Campaign.Space[0].isVerified,
       "startTime": formatTimestamp(response.data.data.Campaign.startTime),
       "endTime": formatTimestamp(response.data.data.Campaign.endTime),
       "timeZone": getTimezone(response.data.data.Campaign.endTime),
