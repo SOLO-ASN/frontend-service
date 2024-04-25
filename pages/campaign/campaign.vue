@@ -136,7 +136,7 @@ onMounted(() => {
   axios.get(`https://15c3a83a-495b-41af-b0be-07a23e277d5c.mock.pstmn.io/api/campaign?id=${campaignId}`).then((response) => {
     //this.items = response.data
     // 将任务列表传给fap_list
-    taskList.value = response.data.taskList
+    taskList.value = response.data.credentialGroups
     // 将活动详情传给detail
     taskDetail.value = {
       "name": response.data.name,

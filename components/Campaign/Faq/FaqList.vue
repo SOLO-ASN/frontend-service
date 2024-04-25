@@ -8,25 +8,25 @@
       :class="index <= 1 ? 'mt-0' : ''"
     >
       <h4 class="use-text-subtitle mb-10">
-        {{ taskitem.title }}
+        {{ taskitem.description }}
       </h4>
       <v-expansion-panels
         v-model="taskitem.panel"
         active-class="expanded"
       >
         <v-expansion-panel
-          v-for="(item, number) in taskitem.list"
+          v-for="(item, number) in taskitem.Credentails"
           :key="number"
           class="paper"
         >
           <v-expansion-panel-title class="content">
             <span class="heading">
-              {{ item.q }}
+              {{ item.name }}
             </span>
           </v-expansion-panel-title>
           <v-expansion-panel-text class="detail">
             <span>
-              {{ item.a }}
+              {{ item.description }}
             </span>
           </v-expansion-panel-text>
         </v-expansion-panel>
