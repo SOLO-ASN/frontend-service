@@ -6,8 +6,8 @@
           <v-row>
             <v-col>
               <span class="use-text-subtitle use-text-secondary-color">
-                OKX Web3 (NFT & Wallet & DeFi)
-                <v-icon size="x-small">mdi-check-decagram</v-icon>
+                {{ props.taskDetail.space }}
+                <v-icon v-if="props.taskDetail.isVerified == true" size="x-small">mdi-check-decagram</v-icon>
               </span>
             </v-col>
             <v-col>
@@ -19,7 +19,7 @@
               </div>
             </v-col>
           </v-row>
-          XRGB $30,000 XRGB token Giveaway
+          {{ props.taskDetail.name }}
         </h4>
         <div class="property">
           <i class="ion-md-contacts" />
@@ -40,7 +40,7 @@
 
         <div class="text2">
           <h5>
-            Say Hi to Burve, a consensus-driven DeFi protocol for token launch, swap, earn & AMM, powered by BurveLabs.
+            {{ props.taskDetail.description }}
           </h5>
         </div>
 
@@ -48,8 +48,8 @@
           <div class="price">
             <p>Event Validity Period:</p>
             <h3 class="use-text-primary">
-              2024/03/05 22:00 - 2024/03/31 17:00
-              <span>GMT+08:00</span>
+              {{ props.taskDetail.startTime }} - {{ props.taskDetail.endTime }}
+              <span>{{ props.taskDetail.timeZone }}</span>
             </h3>
           </div>
         </section>
@@ -65,18 +65,18 @@
 </style>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineProps } from 'vue';
 import { useDisplay, useTheme } from 'vuetify';
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import imgAPI from '@/assets/images/imgAPI';
 
-import CountDown from '../../Counter/Countdown';
+const props = defineProps({
+  taskDetail: Object
+})
 
 const loaded = ref(false);
 const visible = ref(false);
 const index = ref(0);
-const item = ref(0);
-const slick = ref(null);
 
 const imgs = [
   imgAPI.photosP[7],
@@ -114,4 +114,5 @@ function showImg(idx) {
 function handleHide() {
   visible.value = false;
 }
+
 </script>
