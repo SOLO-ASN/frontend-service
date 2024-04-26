@@ -16,7 +16,7 @@
           </svg>
         </div>
         <img v-if="currentTheme === 'dark'" :src="imgAPI.fintech[0]" alt="background" />
-        <img v-else src="imgAPI.fintech[1]" alt="background" />
+        <img v-else :src="imgAPI.fintech[1]" alt="background" />
       </div>
       <v-row class="spacing6">
         <v-col lg="5" md="6" class="pa-md-12">

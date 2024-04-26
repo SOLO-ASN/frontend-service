@@ -4,21 +4,68 @@
     <blur-gradient />
     <div class="container-front container-wrap">
       <div class="inner-page">
-        <div class="navbar">
-          <div class="nav-items">
-            <span class="nav-item" :class="{ active: currentTab === 'All' }" @click="currentTab = 'All'">All</span>
-            <span class="nav-item" :class="{ active: currentTab === 'Following' }" @click="currentTab = 'Following'">Following</span>
-          </div>
-        </div>
-        <div class="inner-page1">
-          <!-- 条件渲染Home视图或Leaderboard视图 -->
-          <div v-if="currentTab === 'All'">
-            <!-- Home的内容 -->
-            <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'" class="mx-15">
+        <v-dialog
+            v-model="dialog"
+            fullscreen
+            hide-overlay
+            transition="dialog-bottom-transition"
+          >
+            <v-card class="cyber">
+              <v-toolbar
+                dark
+                flat
+                class="header-filter"
+              >
+                <v-btn
+                  icon
+                  dark
+                  @click="handleCloseFilter"
+                >
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+                <v-toolbar-title>Filter</v-toolbar-title>
+                <v-spacer />
+                <v-toolbar-items>
+                  <v-btn
+                    dark
+                    text
+                    @click="handleCloseFilter"
+                  >
+                    Done
+                  </v-btn>
+                </v-toolbar-items>
+              </v-toolbar>
+              <div class="pt-3">
+                <v-container>
+                  <v-row justify="center">
+                    <v-col sm="10" cols="12">
+                     <filter-side
+                      v-if="!isTablet"
+                      :selectedTags1="credSources"
+                      :selectedTags2="rewardTypes"
+                      :selectedTags3="chains"
+                      :selectedTags4="statuses"
+                      @collect-tag="handleCollectTag"
+                      @update:selectedTags1="handleSelectedTagsUpdate"
+                      @update:selectedTags2="handleSelectedTagsUpdate"
+                      @update:selectedTags3="handleSelectedTagsUpdate"
+                      @update:selectedTags4="handleSelectedTagsUpdate"
+                    />
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </div>
+            </v-card>
+          </v-dialog>
+            <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing2'" class="mx-1">
               <!-- 侧边栏 -->
-              <v-col :cols="12" md="2" lg="2" class="sidebar">
+              <v-col :cols="10" md="1" lg="2" class="sidebar" style="margin-top: 50px;">
                 <filter-side
-                  ref="childRef"
+                  v-if="!isTablet"
+                  :selectedTags1="credSources"
+                  :selectedTags2="rewardTypes"
+                  :selectedTags3="chains"
+                  :selectedTags4="statuses"
                   @collect-tag="handleCollectTag"
                   @update:selectedTags1="handleSelectedTagsUpdate"
                   @update:selectedTags2="handleSelectedTagsUpdate"
@@ -27,23 +74,22 @@
                 />
               </v-col>
               <!-- 内容区域 -->
-              <v-col :cols="12" md="8" lg="8" class="mx-14 content">
-                <v-row class="px-0 content-row">
-                  <v-col md="7" sm="12" class="px-0">
+              <v-col :cols="10" md="6" lg="7" class="mx-14 content">
+                <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'">
+                  <v-col md="8" sm="12" class="px-0" cols="12">
                     <search v-model="keyword" @input="onInput" />
                   </v-col>
-                  <v-col md="2" sm="6" class="ps-md-3">
-                    <sorter
-                      :view="toggleView"
-                      :sort-by-selected="sortBySelected"
-                      @switch-view="handleToggleView"
-                      @sort-by="handleSortBy"
-                      @open-filter="handleOpenFilter"
-                    />
-                  </v-col>
-                  <v-col md="2" sm="12" class="px-0">
-                    <div class="ps-md-4">
-                        <claim-button @update:isSelected="handleVerifiedChange"/>
+                  <v-col md="4" sm="12" class="px-0" cols="12">
+                    <div class="ps-md-3">
+                      <sorter
+                        :sortList="sortList"
+                        :showVerified=false
+                        :view="toggleView"
+                        :sort-by-selected="sortBySelected"
+                        @switch-view="handleToggleView"
+                        @sort-by="handleSortBy"
+                        @open-filter="handleOpenFilter"
+                      />
                     </div>
                   </v-col>
                 </v-row>
@@ -57,20 +103,18 @@
                     :sm="3"
                     cols="10"
                   >
-                    <campaign-card :campaigns="cardItem" />
+                    <campaign-card class= "campaignCard" :campaigns="cardItem" />
                   </v-col>
+                  <v-container v-if="isLoading" class="loading-container">
+                    <span class="loading-text">loading!</span>
+                  </v-container>
+                  <v-container v-if="!hasNextPage" class="loading-container">
+                    <span class="loading-text">Data loading complete!</span>
+                  </v-container>
                 </v-row>
               </v-col>
             </v-row>
           </div>
-          <div v-else-if="currentTab === 'Following'">
-            <!-- Leaderboard的内容 -->
-            <v-container>
-              <h1>待开发</h1>
-            </v-container>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="space-top-short">
       <main-footer />
@@ -80,7 +124,16 @@
 
 <style lang="scss" scoped>
 @import '@/assets/scss/pages'; 
+@media (max-width: 768px) {
+  .sidebar {
+    display: none
+  }
 
+  .campaignCard {
+    --card-width: 400px;
+    --card-height: 380px;
+  }
+}
 .navbar {
   display: flex;
   justify-content: center;
@@ -121,7 +174,7 @@
     margin: spacing(3, 0, 5);
     position: -webkit-sticky;
     position: sticky;
-    top: 0;
+    top: 80px;
   }
   @include breakpoints-between(sm, md) {
     display: flex;
@@ -147,6 +200,7 @@ import TabCategory from '@/components/Airdrops/TabCategory';
 import Sorter from '@/components/Airdrops/Sorter';
 import CampaignCard from '@/components/Airdrops/CampaignCard.vue'
 import brand from '@/assets/text/brand';
+import url from '@/assets/text/url';
 import { useHead } from '#app';
 import { ref } from 'vue';
 import axios from 'axios';
@@ -155,16 +209,38 @@ import axios from 'axios';
 const currentTab = ref('All');
 
 const childRef = ref(null);
-
+const dialog = ref(false);
 const credSources = ref([]);
 const rewardTypes = ref([]);
+const isLoading = ref(true);
 const chains = ref([]);
+const after = ref(0);
+const hasNextPage = ref(true);
 const statuses = ref([]);
-const listType = ref("Trending");
+const listType = ref("");
 const searchString = ref('');
 const verified = ref(false);
+const SERVER = url.serverUrl;
+const sortList = ref([
+  {
+    title: 'Newest',
+    value: 'created_at',
+    selected: false,
+  },
+    {
+    title: 'Most Participated',
+    value: 'participantsCount',
+    selected: false,
+  },
+]);
 
-
+function handleOpenFilter() {
+  dialog.value = true; 
+}
+  
+function handleCloseFilter() {
+  dialog.value = false; 
+}
 
 function handleSortBy(e) {
   listType.value = e.value;
@@ -179,109 +255,31 @@ function onInput() {
 };
 
 const selectAllTags = () => {
-  if (childRef.value) {
-    childRef.value.selectAllTags();
-  }
+  rewardTypes.value = [
+        "Oat",
+        "Nft",
+        "Custom",
+        "Token",
+      ];
 }
 
 const clearAllTags = () => {
-  if (childRef.value) {
-    childRef.value.clearAllTags();
-  }
+  rewardTypes.value = [];
 }
 const data = ref(null);
 
 const route = useRoute();
-const alias = ref("Galxe");
 const cardItems = ref(null);
-cardItems.value = [ {
-        "id": "GCK5JUUjFn",
-        "name": "Project Galaxy Meme Contest #1 Winner",
-        "type": "Oat",
-        "status": "Expired",
-        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
-        "participantsCount": 3,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-      },
-      {
-        "id": "GC4SjtTJ2f",
-        "name": "Galxe Radio Episode 60 Feat. Laika AI",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
-        "participantsCount": 993,
-        "spaceName": "Galxe",
-        "isVerified": true,
-        "spaceThumbnail": "https://d257b89266utxb.cloudfront.net/galaxy/images/avatar/0x0b495174e4baabe771c6660be65054d2672ee577-1662470151406825713.png",
-    },
-    {
-        "id": "GC9a7tTN3X",
-        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
-        "participantsCount": 2014,
-        "spaceName": "Moso",
-        "isVerified": false,
-        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
-    },
-  {
-        "id": "GCK5JUUjFn",
-        "name": "Project Galaxy Meme Contest #1 Winner",
-        "type": "Oat",
-        "status": "Expired",
-        "thumbnail": "https://cdn.galxe.com/galaxy/assets/galaxyspace/1653583425186120168.png",
-        "participantsCount": 3,
-        "spaceName": "Moso",
-        "isVerified": false,
-        "spaceThumbnail": "https://cdn.galxe.com/tooljet/Moso Logo Icon.png",
-      },
-      {
-        "id": "GC4SjtTJ2f",
-        "name": "Galxe Radio Episode 60 Feat. Laika AI",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/adef1dc4-97e1-4247-b929-502af976edba.png",
-        "participantsCount": 993,
-        "spaceName": "Taiko",
-        "isVerified": true,
-        "spaceThumbnail": "https://cdn.galxe.com/galaxy/avatar/233f5252-6c2a-4adf-8799-a310e27a016d.png",
-    },
-    {
-        "id": "GC9a7tTN3X",
-        "name": "Empower BWB Points Program: Galxe & Bitget Wallet $BWB Points Airdrop plan",
-        "type": "Oat",
-        "status": "Active",
-        "thumbnail": "https://cdn.galxe.com/galaxy/galxe/ca38f2ff-a901-4ecc-bcde-ca99a41c6871.png",
-        "participantsCount": 2014,
-        "spaceName": "Taiko",
-        "isVerified": true,
-        "spaceThumbnail": "https://cdn.galxe.com/galaxy/avatar/233f5252-6c2a-4adf-8799-a310e27a016d.png",
-    }];
-
-
 
 onMounted(async () => { 
-  try {
-    const response1 = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.i/api/campaigns/query/', {
-        alias: alias,
-        credSources: credSources.value,
-        rewardTypes: rewardTypes.value,
-        chains: chains.value,
-        statuses: statuses.value,
-        listType: listType.value, 
-        searchString: searchString.value
-      });  
-    cardItems.value = response1.data.data.list; 
-    console.info("2", cardItems.value);
-    // 在这里对响应数据进行进一步的处理
-  } catch (error) {
-    console.error(error);
-    // 处理请求错误
-  }
+  fetchData();
+  window.addEventListener('scroll', handleScroll);
 });
+
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll);
+})
 
 
 function handleSelectedTagsUpdate(group, value) {
@@ -301,29 +299,149 @@ function handleSelectedTagsUpdate(group, value) {
   }
 }
 
+
 async function fetchData() {
   try {
-    
-    const response = await axios.post('https://1d24a10f-e5bf-445a-b1f8-e0e37e3d82d0.mock.pstmn.i/api/campaigns/query', {
-        alias: alias,
+    if(credSources.value.length===0) {
+      credSources.value.push("all");
+    }
+    if(rewardTypes.value.length===0) {
+      rewardTypes.value.push("all");
+    }
+    if(chains.value.length===0) {
+      chains.value.push("all");
+    }
+    if(statuses.value.length===0) {
+      statuses.value.push("all");
+    }
+    const response = await axios.post(SERVER + '/api/explore/query', {
+        first: 8,
+        after: 0,
         credSources: credSources.value,
         rewardTypes: rewardTypes.value,
         chains: chains.value,
         statuses: statuses.value,
         listType: listType.value, 
-        searchString: searchString.value,
-        verified: verified.value
+        searchString: searchString.value
       }
     );
-
-    cardItems.value = response.data.data.list; // 更新数据
+    after.value = response.data.data.pageInfo.endCursor;
+    hasNextPage.value = response.data.data.pageInfo.hasNextPage;
+    console.info("page", after.value);
+    cardItems.value = response.data.data.Explore.map((campaignWrapper) => {
+      const campaign = campaignWrapper.Campaign;
+      const space = campaignWrapper.Space;
+      return {
+        ...campaign, 
+        spaceName: space.name, 
+        spaceId: space.id,
+        isVerified: space.isVerified, 
+        spaceThumbnail: space.thumbnail, 
+        alias: space.alias,
+      };
+    });
     console.info(cardItems.value);
   } catch (error) {
     console.error('请求失败', error);
+  }finally {
+    isLoading.value = false;
+    if (credSources.value.includes("all")) {
+      const index = credSources.value.indexOf("all");
+      credSources.value.splice(index, 1);
+    }
+    if (chains.value.includes("all")) {
+      const index = chains.value.indexOf("all");
+      chains.value.splice(index, 1);
+    }
+    if (rewardTypes.value.includes("all")) {
+      const index = rewardTypes.value.indexOf("all");
+      rewardTypes.value.splice(index, 1);
+    }
+    if (statuses.value.includes("all")) {
+      const index = statuses.value.indexOf("all");
+      statuses.value.splice(index, 1);
+    }
   }
 }
 
-watch([credSources, rewardTypes, chains, statuses, listType, searchString, verified], fetchData);
+watch([credSources, rewardTypes, chains, statuses, listType, searchString], fetchData);
+
+
+function handleScroll() {
+
+  const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+  if (nearBottom && !isLoading.value && hasNextPage.value==true) {  // 确保每次都是完整的数据组
+      loadMoreData();
+      console.info("dsag");
+  }
+}
+
+async function loadMoreData() {
+  if (isLoading.value) {
+    return; // 如果已经在加载中，则直接返回
+  }
+  isLoading.value = true;
+  try {
+    if(credSources.value.length===0) {
+      credSources.value.push("all");
+    }
+    if(rewardTypes.value.length===0) {
+      rewardTypes.value.push("all");
+    }
+    if(chains.value.length===0) {
+      chains.value.push("all");
+    }
+    if(statuses.value.length===0) {
+      statuses.value.push("all");
+    }
+    const response = await axios.post(SERVER + '/api/explore/query', {
+        first: 8,
+        after: after.value,
+        credSources: credSources.value,
+        rewardTypes: rewardTypes.value,
+        chains: chains.value,
+        statuses: statuses.value,
+        listType: listType.value, 
+        searchString: searchString.value
+      }
+    );
+    after.value = response.data.data.pageInfo.endCursor;
+    hasNextPage.value = response.data.data.pageInfo.hasNextPage;
+    cardItems.value.push(...response.data.data.Explore.map((campaignWrapper) => {
+      const campaign = campaignWrapper.Campaign;
+      const space = campaignWrapper.Space;
+      return {
+        ...campaign, 
+        spaceName: space.name, 
+        spaceId: space.id,
+        isVerified: space.isVerified, 
+        spaceThumbnail: space.thumbnail, 
+        alias: space.alias,
+      };
+    }));
+    console.info("123", cardItems.value);
+  } catch (error) {
+    console.error('请求失败', error);
+  }finally {
+    isLoading.value = false;
+    if (credSources.value.includes("all")) {
+      const index = credSources.value.indexOf("all");
+      credSources.value.splice(index, 1);
+    }
+    if (chains.value.includes("all")) {
+      const index = chains.value.indexOf("all");
+      chains.value.splice(index, 1);
+    }
+    if (rewardTypes.value.includes("all")) {
+      const index = rewardTypes.value.indexOf("all");
+      rewardTypes.value.splice(index, 1);
+    }
+    if (statuses.value.includes("all")) {
+      const index = statuses.value.indexOf("all");
+      statuses.value.splice(index, 1);
+    }
+  }
+}
 
 
 useHead({

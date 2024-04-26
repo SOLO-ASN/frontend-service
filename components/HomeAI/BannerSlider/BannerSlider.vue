@@ -18,31 +18,31 @@
                   <v-col md="7" cols="12">
                     <div class="text px-sm-3">
                       <h4 :class="isTablet ? 'use-text-title2' : 'use-text-title'">
-                        {{ $t('ai-landing.banner_title') }}
+                        {{ 'Welcome to solo-mission' }}
                         <span class="text-uppercase" :class="currentTheme === 'dark' ? 'use-text-grd-triple-light' : 'use-text-grd-triple-main'">
-                          {{ $t('ai-landing.banner_highlight') }}
+                          {{ '' }}
                         </span>
                       </h4>
                       <h5 :class="isTablet ? 'use-text-subtitle2' : 'use-text-subtitle'">
-                        {{ $t('ai-landing.banner_desc') }}
+                        {{ 'Try to Login and Register' }}
                       </h5>
                       <div class="btn-area">
                         <v-btn
                           size="large"
                           color="primary"
                           class="button"
-                          :href="link.register"
+                          :href="link.login"
                         >
-                          {{ $t('btn_get') }}
+                          {{ 'Login' }}
                         </v-btn>
                         <v-btn
                           size="large"
                           color="secondary"
                           class="button"
                           variant="outlined"
-                          href="#"
+                          :href="link.register"
                         >
-                          {{ $t('btn_detail') }}
+                          {{ 'Register' }}
                         </v-btn>
                       </div>
                     </div>
@@ -154,32 +154,24 @@
                   <v-col md="7" cols="12">
                     <div class="text px-sm-3">
                       <h4 :class="isTablet ? 'use-text-title2' : 'use-text-title'">
-                        {{ $t('ai-landing.banner_title') }}
+                        {{ 'Welcome to solo-mission'  }}
                         <span class="text-uppercase" :class="currentTheme === 'dark' ? 'use-text-grd-triple-light' : 'use-text-grd-triple-main'">
-                          {{ $t('ai-landing.banner_highlight') }}
+                          {{ '' }}
                         </span>
                       </h4>
                       <h5 :class="isTablet ? 'use-text-subtitle2' : 'use-text-subtitle'">
-                        {{ $t('ai-landing.banner_desc') }}
+                        {{ 'Browse Explore' }}
                       </h5>
                       <div class="btn-area">
                         <v-btn
                           size="large"
                           color="primary"
                           class="button"
-                          :href="link.register"
+                          :href="link.explore"
                         >
-                          {{ $t('btn_get') }}
+                          {{ 'Explore' }}
                         </v-btn>
-                        <v-btn
-                          size="large"
-                          color="secondary"
-                          class="button"
-                          variant="outlined"
-                          href="#"
-                        >
-                          {{ $t('btn_detail') }}
-                        </v-btn>
+                      
                       </div>
                     </div>
                   </v-col>
@@ -196,30 +188,22 @@
                   <v-col cols="12" class="px-sm-12">
                     <div class="text text-center">
                       <h4 :class="isTablet ? 'use-text-title2' : 'use-text-title'">
-                        {{ $t('ai-landing.banner_title') }}
+                        {{ 'Welcome to solo-mission'  }}
                         <span class="text-uppercase" :class="currentTheme === 'dark' ? 'use-text-grd-triple-light' : 'use-text-grd-triple-main'">
-                          {{ $t('ai-landing.banner_highlight') }}
+                          {{ '' }}
                         </span>
                       </h4>
                       <h5 :class="isTablet ? 'use-text-subtitle2' : 'use-text-subtitle'">
-                        {{ $t('ai-landing.banner_desc') }}
+                        {{ 'Browse space' }}
                       </h5>
                       <div class="btn-area justify-center">
                         <v-btn
                           size="large"
                           color="primary"
                           class="button"
-                          :href="link.register"
+                          :href="link.spaces"
                         >
-                          {{ $t('btn_get') }}
-                        </v-btn>
-                        <v-btn
-                          size="large"
-                          color="black"
-                          class="button"
-                          href="#"
-                        >
-                          {{ $t('btn_detail') }}
+                          {{'Space'}}
                         </v-btn>
                       </div>
                     </div>

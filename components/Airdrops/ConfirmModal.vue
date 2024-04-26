@@ -6,27 +6,28 @@
 
           <div class="modal-header">
             <slot name="header">
-              注意事项：
+              Notice:
             </slot>
           </div>
 
           <div class="modal-body">
             <slot name="body">
-              一个设备只能注册一个账户，如果设备中已经存在账户，则新注册的账户会覆盖旧账户，且旧帐户无法找回<br>
-              请点击Sign in with passkey directly按钮检查此设备是否已经注册
+              <p class="warning-message">Each device can only register one account. If there is already an account on this device, the new registration will overwrite the old account, and the old account cannot be retrieved.</p>
+              <p class="action-message">Please click the <strong>Sign in with Passkey Directly</strong> button to check if this device has already been registered.</p>
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
               <button class="modal-default-button" @click="$emit('cancel')">
-                取消
+                Cancel
               </button>
               <button class="modal-confirm-button" @click="$emit('confirm')">
-                继续注册
+                Continue Registration
               </button>
             </slot>
           </div>
+
 
         </div>
       </div>
@@ -74,47 +75,54 @@
   margin-bottom: 30px; /* 增加header和body之间的距离 */
 }
 
-.modal-body ul {
-  list-style-type: none;
-  padding: 0;
-  text-align: left; /* 文本左对齐 */
+.modal-header, .modal-footer {
+  margin-bottom: 20px; /* 统一间距 */
 }
 
-.modal-body li {
-  margin-bottom: 15px; /* 增加列表项之间的距离 */
-  line-height: 1.6; /* 增加行高 */
+.warning-message {
+  font-size: 20px; /* 增大字体大小 */
+  margin-bottom: 20px; /* 增加与下一段的间距 */
+  color: #FFD700; /* 明显的警告颜色 */
 }
 
-.modal-footer {
-  text-align: right;
-  margin-top: 30px; /* 增加body和footer之间的距离 */
+.action-message {
+  font-size: 16px; /* 略小的字体大小强调差异 */
+  color: #ADFF2F; /* 行动信息使用不同颜色 */
+}
+
+strong {
+  font-weight: bold;
+  color: #00BFFF; /* 突出显示特定操作 */
 }
 
 .modal-default-button, .modal-confirm-button {
-  margin: 0 8px; /* 调整按钮间距 */
+  margin: 10px 8px; /* 调整按钮间距 */
   border: none;
-  border-radius: 10px; /* 圆角按钮 */
-  padding: 12px 24px; /* 更大的按钮 */
-  font-size: 16px; /* 更大的字体 */
+  border-radius: 5px; /* 圆角 */
+  padding: 12px 24px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.2s; /* 平滑背景色变化 */
+  transition: all 0.2s ease-in-out; /* 平滑过渡效果 */
+  outline: none; /* 移除轮廓 */
 }
 
 .modal-default-button {
-  background-color: #555; /* 深灰色按钮 */
-  color: #ccc; /* 浅灰色文字 */
+  background-color: #555;
+  color: #ccc;
 }
 
 .modal-confirm-button {
-  background-color: #007BFF; /* 亮蓝色按钮 */
+  background-color: #28a745; /* 使用Bootstrap绿色作为确认按钮颜色 */
   color: white;
 }
 
 .modal-default-button:hover {
-  background-color: #666; /* 深灰色按钮悬浮 */
+  background-color: #666;
+  transform: scale(1.05); /* 轻微放大 */
 }
 
 .modal-confirm-button:hover {
-  background-color: #0056b3; /* 亮蓝色按钮悬浮 */
+  background-color: #218838; /* 确认按钮悬浮颜色 */
+  transform: scale(1.05); /* 轻微放大 */
 }
 </style>

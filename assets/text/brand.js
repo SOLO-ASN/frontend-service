@@ -1,7 +1,7 @@
 import imgAPI from '../images/imgAPI';
 
 const brand = {
-  name: 'Awrora',
+  name: 'solo-mission',
   profileName: 'John Doe',
   profileTitle: 'NFT Artist',
   profileTitle2: 'Content Creator',
