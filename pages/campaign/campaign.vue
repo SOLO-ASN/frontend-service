@@ -141,7 +141,11 @@ onMounted(() => {
   axios.post(`http://172.31.100.142:18080/api/campaign/query`, {"id": campaignId}).then((response) => {
     //this.items = response.data
     // 将任务列表传给fap_list
-    taskList.value = response.data.data.Campaign.CredentialGroupResponses
+    taskList.value = {
+      "id": campaignId,
+      "list":  response.data.data.Campaign.CredentialGroupResponses,
+    }
+  
     // 将活动详情传给detail
     taskDetail.value = {
       "name": response.data.data.Campaign.name,

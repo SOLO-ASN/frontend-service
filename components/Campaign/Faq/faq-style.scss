@@ -297,3 +297,9 @@
     }
   }
 }
+
+.flex-container {
+  display: flex;
+  justify-content: space-between; /* 将子元素分别放置在行两端 */
+  align-items: center; /* 在交叉轴上居中对齐 */
+}
