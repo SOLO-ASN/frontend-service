@@ -1,0 +1,76 @@
+.root {
+  position: relative;
+  z-index: 10;
+  min-height: 600px;
+  padding: 0;
+}
+
+.post-card {
+  > a {
+    //height: 410px;
+  }
+}
+
+.news-card {
+  > div {
+    //height: 410px;
+    //padding-top: $spacing2;
+    max-width: none
+  }
+}
+
+.photo-card {
+  > div {
+    height: 410px;
+  }
+}
+
+.tabs {
+  position: relative;
+  z-index: 55;
+  a.v-tab {
+    &:hover {
+      color: $palette-secondary-main
+    }
+  }
+  .v-btn {
+    border-radius: 0
+  }
+  .v-tabs-slider-wrapper .v-tabs-slider {
+    background-color: $palette-secondary-light !important
+  }
+  :deep(.v-slide-group__prev.v-slide-group__prev--disabled) {
+    @include breakpoints-down(sm) {
+      display: none !important
+    }
+  }
+  :deep(.v-slide-group__wrapper) {
+    @include breakpoints-down(sm) {
+      overflow: auto
+    }
+  }
+  :deep(.v-slide-group__content) {
+    margin: 0;
+    flex: 1;
+  }
+}
+
+.tab-label {
+  font-size: 18px;
+  font-weight: $font-medium;
+  letter-spacing: 0;
+  padding: spacing(0, 4);
+  @include breakpoints-down(sm) {
+    font-size: 14px;
+  }
+}
+
+.indicator {
+  @include use-theme(background-color, $palette-secondary-light, $palette-secondary-dark);
+  height: 5px;
+  border-radius: 4px 4px 0 0
+}
+
+.tab-content {
+  margin-top: $spacing5
+}

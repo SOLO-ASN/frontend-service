@@ -160,14 +160,14 @@ const single = {
     },
   ],
   inner: [
-   {
-      id: 'feature',
-      name: 'feature'
-    },
-    {
-      id: 'discover',
-      name: 'discover'
-    },
+  //  {
+  //     id: 'feature',
+  //     name: 'feature'
+  //   },
+  //   {
+  //     id: 'discover',
+  //     name: 'discover'
+  //   },
     {
       id: 'menus/explore',
       name: 'Explore'
@@ -176,10 +176,10 @@ const single = {
       id: 'menus/spaces',
       name: 'Space',
     },
-    {
-      id: 'faq',
-      name: 'faq'
-    },
+    // {
+    //   id: 'faq',
+    //   name: 'faq'
+    // },
   ]
 };
 

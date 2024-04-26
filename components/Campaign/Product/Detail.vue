@@ -16,7 +16,7 @@
                 <v-btn size="small" icon><v-icon>mdi-twitter</v-icon></v-btn>
                 <v-btn size="small" icon><v-icon>mdi-star</v-icon></v-btn>
                 <v-btn size="small" icon><v-icon>mdi-dots-horizontal</v-icon></v-btn>
-              </div>  
+              </div>
             </v-col>
           </v-row>
           {{ props.taskDetail.name }}

@@ -1,0 +1,146 @@
+.profile-card {
+  position: relative;
+  border-radius: $rounded-big;
+  box-shadow: none;
+  overflow: hidden;
+
+  a {
+    position: absolute;
+    text-decoration: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  h2 {
+    position: absolute;
+    @include padding-right($spacing2);
+    opacity: 0.36;
+    @include right(0);
+    bottom: $spacing1;
+    background: linear-gradient(to bottom, $palette-secondary-light -10%, transparent 85%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 72px;
+    font-weight: $font-bold
+  }
+}
+
+.inner {
+  border-radius: $rounded-medium;
+  display: flex;
+  align-items: center;
+  padding: $spacing2;
+  background: $palette-primary-dark;
+  @include bg-color-darken($palette-primary-dark, 0.5);
+  overflow: hidden;
+  &:before {
+    border-radius: $rounded-medium;
+  }
+}
+
+.avatar {
+  margin: 0;
+  background: $gradient-triple-light;
+  padding: 2px;
+  width: 70px;;
+  height: 70px;
+  :deep(img) {
+    border-radius: 50%;
+    display: block;
+  }
+}
+
+.properties {
+  padding: spacing(1, 2, 0);
+  font-size: 12px;
+  flex: 1;
+}
+
+.title {
+  white-space: nowrap;
+  font-weight: $font-medium;
+  font-size: 18px;
+}
+
+.verified {
+  color: $palette-secondary-main;
+  font-size: 16px;
+}
+
+.action {
+  padding: 0;
+  padding-top: 4px;
+  display: flex;
+  strong {
+    font-weight: $font-medium;
+  }
+  p, span {
+    font-size: 12px;
+  }
+  > div {
+    @include margin-right($spacing2);
+  }
+  i {
+    font-size: 12px;
+    position: relative;
+    @include margin-right(4px);
+  }
+}
+
+.stats {
+  @include breakpoints-down(md) {
+    display: none
+  }
+}
+
+.icon-primary {
+  fill: $palette-primary-main
+}
+
+.icon-secondary {
+  fill: $palette-secondary-main
+}
+
+.first {
+  background: $gradient-double-main;
+  padding: 2px;
+  border-radius: $rounded-medium;
+  .avatar {
+    width: 94px;
+    height: 94px;
+  }
+  .title {
+    font-size: 36px;
+    position: relative;
+    z-index: 1;
+    @include breakpoints-down(sm) {
+      font-size: 22px;
+    }
+  }
+  .action {
+    > div {
+      @include padding-right($spacing2);
+      position: relative;
+      z-index: 1;
+    }
+  }
+  h2 {
+    opacity: 1;
+    background: linear-gradient(to bottom, $palette-secondary-light 30%, $palette-primary-main 60%, $palette-primary-dark 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 120px;
+    top: $spacing2 * -1;
+    @include breakpoints-up(sm) {
+      @include right($spacing4);
+    }
+    @include breakpoints-down(sm) {
+      opacity: 0.5
+    }
+  }
+  i {
+    width: 18px;
+    height: 18px;
+  }
+}

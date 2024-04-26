@@ -18,6 +18,7 @@
         ref="form"
         v-model="valid"
       >
+      <!--删掉username那块
         <v-row class="spacing3">
           <v-col cols="12" sm="12" class="px-3">
             <v-text-field
@@ -41,12 +42,24 @@
             {{ $t('Sign in with username') }}
           </v-btn>
         </div>
-          <!-- 分隔符 -->
+        
+         
         <div class="separator">
           <span class="line"></span>
           <span class="or">OR</span>
           <span class="line"></span>
         </div>
+        -->
+        
+          <div class="info-text">
+          <p>
+            Click the button below to log in directly. If no account is found on the device, it means you have not registered with solo-mission. Please register first.
+          </p>
+        </div>
+          <span class="line"></span>
+          <span class="or"></span>
+          <span class="line"></span>
+        
         <div class="btn-area">
           <v-btn
             size="large"
@@ -64,13 +77,47 @@
 
 <style lang="scss" scoped>
 @import './form-style';
+.info-text {
+  padding: 1em;
+  margin: 2em 0;
+  text-align: center; /* 文本居中 */
+  border-radius: 10px; /* 圆角边框 */
+  font-size: 1rem; /* 调整字体大小 */
+  line-height: 1.6; /* 增加行高 */
+  max-width: 80%; /* 控制最大宽度 */
+  margin-left: auto; /* 自动边距实现居中 */
+  margin-right: auto;
+  color: #FFFFFF; /* 字体颜色 */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* 使用常见的好看字体 */
+}
+
+.separator .line {
+  border-top: 1px solid #FFFFFF; /* 使用更细的线 */
+  width: 30%; /* 控制线的宽度 */
+  margin: 8px auto; /* 居中显示 */
+}
+
+.separator .or {
+  display: inline-block;
+  margin: 0 15px;
+  color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.2); /* OR的背景色 */
+  border-radius: 50%; /* 圆形背景 */
+  width: 30px; /* 宽度和高度 */
+  height: 30px;
+  line-height: 30px; /* OR文字居中 */
+}
+
+.btn-area {
+  margin-top: 20px;
+}
 </style>
 
 <script setup>
 import { useDisplay } from 'vuetify';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-
+import url from '@/assets/text/url';
 import link from '@/assets/text/link';
 import SocialAuth from './SocialAuth';
 import AuthFrame from './AuthFrame';
@@ -85,7 +132,7 @@ const router = useRouter();
 const password = ref('');
 const requiredRules = ref([v => !!v || 'This field is required']);
 const checkbox = ref(false);
-const SERVER = "http://localhost:58089";
+const SERVER = url.fidoUrl;
 const assertionStartUrl = SERVER + "/api/diyLogin/start";
 const assertionFinishUrl = SERVER + "/api/diyLogin/finish";
 const assertionStartUrlDirect = SERVER + "/api/diyLogin/start_direct";
@@ -132,6 +179,7 @@ async function _onFormSubmit(username) {
         }
         if (!PublicKeyCredential.isConditionalMediationAvailable ||
             !PublicKeyCredential.isConditionalMediationAvailable()) {
+            alert("Fido is not supported on this browser");
             console.info("error");
             return;
         }
@@ -149,7 +197,7 @@ async function _onFormSubmit(username) {
         }
         const r = await _getPublicKeyCredentialRequestOptionsDecoder(),
             // 这里的r是/utils/parse.js里的i函数 用于处理公钥凭证的编解码和转换操作
-            o = await navigator.credentials.get({
+         o = await navigator.credentials.get({
                 publicKey: r(s)
             });
 
@@ -165,12 +213,15 @@ async function _onFormSubmit(username) {
         }
         const l = await u.json();
         console.info(l);
-        localStorage.setItem('token', l.username);
+        if(l.jwt!=null) {
+          localStorage.setItem('token', l.jwt);
+        }
+        
         ElMessage({
           showClose: true,
-          message: 'Congrats, login success.',
+          message: `Congrats, user ${l.username} login success.`,
           type: 'success',
-        })
+        });
         router.push('/menus/spaces');
         
     } catch (t) {
@@ -187,6 +238,7 @@ async function _onFormSubmit_direct() {
         }
         if (!PublicKeyCredential.isConditionalMediationAvailable ||
             !PublicKeyCredential.isConditionalMediationAvailable()) {
+            alert("Fido is not supported on this browser");
             console.info("error");
             return;
         }
@@ -202,12 +254,15 @@ async function _onFormSubmit_direct() {
             throw new Error("Could not successfuly start login");
         }
 
-        const r = await _getPublicKeyCredentialRequestOptionsDecoder(),
+        const r = await _getPublicKeyCredentialRequestOptionsDecoder();
+
+        const g = r(s);
             // 这里的r是/utils/parse.js里的i函数 用于处理公钥凭证的编解码和转换操作
-            o = await navigator.credentials.get({
+        const o = await navigator.credentials.get({
                 mediation: undefined,
                 signal: undefined,
-                publicKey: r(s)
+                publicKey: r(s),
+
             });
 
         const a = await _getLoginCredentialEncoder(),
@@ -222,13 +277,16 @@ async function _onFormSubmit_direct() {
         }
         const l = await u.json();
         console.info(l);
-        localStorage.setItem('token', l.username);
+        if(l.jwt!=null) {
+          localStorage.setItem('token', l.jwt);
+        }
         ElMessage({
           showClose: true,
-          message: 'Congrats, login success.',
+          message: `Congrats, user ${l.username} login success.`,
           type: 'success',
-        })
-        router.push('/menus/spaces');
+          duration: 10000, // 消息停留10秒
+        });
+        router.push('/menus/explore');
         
     } catch (t) {
         console.info('Error during form submission:');

@@ -82,7 +82,7 @@ import { useDisplay, useTheme } from 'vuetify';
 import Logo from '@/components/Branding/Logo';
 import BlurGradient from '@/components/Artworks/BlurGradient';
 import LineDeco from '@/components/Artworks/LineDeco';
-import CountDown from '@/components/Counter/CountDown';
+import CountDown from '@/components/Counter/Countdown';
 import brand from '@/assets/text/brand';
 import { useHead } from '#app';
 

@@ -27,6 +27,7 @@
     "axios": "^1.6.8",
     "chart.js": "4.3.0",
     "element-plus": "^2.6.2",
+    "face-api.js": "^0.22.2",
     "rtl-sass": "^1.5.0",
     "three": "0.125.0",
     "tsparticles": "^2.9.3",
