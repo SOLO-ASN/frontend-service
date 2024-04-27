@@ -68,7 +68,7 @@
 
 
                 <section id="verify" style="width: 100%;">
-                  <verify />
+                  <verify :link='link'/>
                 </section>
 
               </div>
