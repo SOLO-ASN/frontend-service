@@ -271,7 +271,14 @@ const data = ref(null);
 const route = useRoute();
 const cardItems = ref(null);
 
-onMounted(async () => { 
+
+onMounted(async () => {   
+  const query = new URLSearchParams(window.location.search); // 获取 URL 的查询字符串
+  const username = query.get('username'); // 获取 "username" 参数的值
+  if(username) {
+    localStorage.setItem('username', username);
+
+  }
   fetchData();
   window.addEventListener('scroll', handleScroll);
 });
@@ -322,7 +329,7 @@ async function fetchData() {
         chains: chains.value,
         statuses: statuses.value,
         listType: listType.value, 
-        searchString: searchString.value
+        searchString: searchString.value,
       }
     );
     after.value = response.data.data.pageInfo.endCursor;
