@@ -25,6 +25,7 @@
 <script>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import link from '@/assets/text/link';
 
 export default {
   props: {
@@ -39,7 +40,7 @@ export default {
 
     function navigateToLogin() {
       dialog.value = false; // 关闭对话框
-      router.push('/menus/login'); // 假设您的登录路由是 '/login'
+      $router.push(link.login); // 假设您的登录路由是 '/login'
     }
 
     function closeDialog() {

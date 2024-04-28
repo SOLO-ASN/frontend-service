@@ -47,9 +47,11 @@
             </v-col>
             
           </v-row>
+          <!--
           <v-row class="pl-0" :style="isDesktop ? 'position: absolute; top: 125px; left: 250px;' : 'margin-top: 20px;'">
             <v-btn color="primary" @click=showLoginPrompt>Create space</v-btn>
-          </v-row>
+          </v-row>   
+          -->
         </v-container>
         <v-container>
           <div class="mt-md-5 mt-xs-2 mt-sm-3 mx-xs-2">
@@ -67,12 +69,12 @@
                       :isVerified="item.isVerified"
                       :thumbnail="item.thumbnail"
                       :activeCampaignCount="item.activeCampaignCount"
-                      :followersCount="item.followersCount"
+                      :followersCount="item.followers"
                       :status="item.status"
                       :alias="item.alias"
                       :id="item.id"
                       :isFollowing="item.isFollowing"
-                      @follow-click="handleFollowClick"
+                      @follow-click="handleFollowClick(item)"
                     />
                   </v-col>
                   <v-container v-if="isLoading" class="loading-container">
@@ -137,7 +139,7 @@ const checkItems = [
 
 
 const dialog = ref(false);
-const sortBy = ref('followersCount')
+const sortBy = ref('followers')
 const sortFrom = ref(-1);
 const sortTo = ref(1);
 const toggleView = ref(0);
@@ -145,7 +147,7 @@ const filterRating = ref(0);
 const filterCategory = ref('all');
 const filterRadio = ref('all');
 const filterCheck = ref(checkItems);
-const group = ref(['all']);
+const group = ref('all');
 const verified = ref(false);
 const keyword = ref('');
 const SERVER = url.serverUrl;
@@ -159,7 +161,7 @@ const range = ref({
 
 const sortBySelected = ref({
   title: 'Most followed',
-  value: 'followersCount',
+  value: 'followers',
 });
 
 const filterTag = ref(['tag-one', 'tag-two', 'tag-three', 'tag-four'])
@@ -168,6 +170,7 @@ const isLoading = ref(true);
 const showLoginDialog = ref(false);
 const after = ref(0);
 const hasNextPage = ref(true);
+const username = ref(null);
 
 
 function showLoginPrompt() {
@@ -229,17 +232,26 @@ function handleScroll() {
 }
 
 
-const handleFollowClick = async (id, isFollowing) => {
-  console.info(isFollowing);
-  console.info(id);
-  if(isFollowing==false){
+const handleFollowClick = async (item) => {
+  console.info(item.isFollowing);
+  console.info(item.id);
+  const username = localStorage.getItem('username');
+  if(item.isFollowing==false){
       try {
         const response = await axios.post(SERVER + '/api/spaces/follow', {
-          id: id
+          username: username,
+          spaceid: item.id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
         if(response.data.msg=="NOT_LOGIN") {
           showLoginPrompt();
+        }else if(response.data.msg=="Follow Success") {
+          // 更新对应卡片的 `isFollowing` 状态
+          
+          item.isFollowing = !item.isFollowing;
+        
+        }else {
+          alert("follow error");
         }
       } catch (error) {
         console.error('请求详情失败', error);
@@ -247,10 +259,18 @@ const handleFollowClick = async (id, isFollowing) => {
     }else{
       try {
         const response = await axios.post(SERVER + '/api/spaces/unfollow', {
-          id: id
+          username: username,
+          spaceid: item.id
         });
         if(response.data.msg=="NOT_LOGIN") {
           showLoginPrompt();
+        }else if(response.data.msg=="UnFollow Success") {
+          // 更新对应卡片的 `isFollowing` 状态
+          
+          item.isFollowing = !item.isFollowing;
+        
+        }else {
+          alert("unfollow error");
         }
         // 根据返回数据执行后续操作，比如打开对话框显示详情
       } catch (error) {
@@ -260,6 +280,7 @@ const handleFollowClick = async (id, isFollowing) => {
 };
 
 async function fetchData() {
+  const username = localStorage.getItem('username');
   try {
     isLoading.value = true; // 开始加载数据   https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io
     after.value = 0;
@@ -270,6 +291,7 @@ async function fetchData() {
       filter: group.value,
       verifiedOnly: verified.value,
       searchString: keyword.value,
+      username: username
     });
 
     after.value = response.data.data.pageInfo.endCursor;
@@ -280,11 +302,11 @@ async function fetchData() {
         isVerified: item.isVerified,
         thumbnail: item.thumbnail,
         activeCampaignCount: item.activeCampaignCount,
-        followersCount: item.followersCount,
+        followers: item.followers,
         status: item.status,
         id: item.id,
         alias: item.alias,
-        isFollowing: item.IsFollowing
+        isFollowing: item.isFollowing
       }));
     } else {
       // Handle the case where response.data.list is not an array
@@ -322,7 +344,7 @@ async function loadMoreData() {
         isVerified: item.isVerified,
         thumbnail: item.thumbnail,
         activeCampaignCount: item.activeCampaignCount,
-        followersCount: item.followersCount,
+        followers: item.followers,
         status: item.status,
         id: item.id,
         alias: item.alias,

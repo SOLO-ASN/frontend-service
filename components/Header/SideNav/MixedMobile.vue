@@ -71,6 +71,7 @@
 </style>
 
 <script>
+import link from '@/assets/text/link';
 export default {
   props: {
     menuPrimary: {
@@ -95,6 +96,7 @@ export default {
     };
   },
   mounted() {
+    console.info(link);
     this.curURL = window.location.href;
     this.curOrigin = window.location.origin;
     this.langPath = '/' + this.$i18n.locale;

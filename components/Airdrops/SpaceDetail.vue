@@ -75,8 +75,7 @@
             <v-icon size="x-small">mdi-check-decagram</v-icon>
             <v-btn
               @click="onButtonClick"
-              :class="{ 'btn-following': isFollowing, 'btn-not-following': !isFollowing }"
-              :color="currentTheme === 'dark' ? 'secondary' : 'primary'"
+              :class="detailData.isFollowing ? 'btn-following' : 'btn-not-following'"
               variant="tonal"
             >
               {{ $t('+ follow') }}
@@ -139,13 +138,15 @@
   padding-top: 1rem;
 }
 .btn-following {
-  background-color: black; // 这是当 isFollowing 为 true 时的按钮颜色
-  color: white; // 文字颜色
+  /* 当 isFollowing 为 true 时的按钮颜色（灰色） */
+  background-color: #263238; /* 深灰色 */
+  
 }
 
 .btn-not-following {
-  background-color: blue; // 这是当 isFollowing 为 false 时的按钮颜色
-  color: black; // 文字颜色
+  /* 当 isFollowing 为 false 时的按钮颜色（柔和的蓝色） */
+  background-color: #5294e2; /* 柔和的蓝色 */
+
 }
 
 
