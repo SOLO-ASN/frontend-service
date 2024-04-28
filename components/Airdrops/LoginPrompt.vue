@@ -40,7 +40,7 @@ export default {
 
     function navigateToLogin() {
       dialog.value = false; // 关闭对话框
-      $router.push(link.login); // 假设您的登录路由是 '/login'
+      window.location.href = link.login; // 假设您的登录路由是 '/login'
     }
 
     function closeDialog() {
