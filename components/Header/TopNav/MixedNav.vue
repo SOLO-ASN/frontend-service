@@ -7,7 +7,7 @@
       <v-btn
         v-for="(item, index) in menuPrimary"
         :key="index"
-        :href="'#'+item.id"
+        :href="'/'+item.id"
         :class="{ active: activeMenu === item.name }"
         class="menu-link"
         variant="text"
