@@ -20,9 +20,11 @@
           class="paper"
         >
           <v-expansion-panel-title class="content">
-            <span class="heading">
-            <v-icon v-if="item.type == 'TWITTER'" class="mr-1">mdi-twitter</v-icon>
-            <v-icon v-else class="mr-1">mdi-earth</v-icon>
+            <span :style="{ transform: taskitem.credentialGroup.panel === number ? 'rotate(180deg)' : '' }">
+
+                <v-icon v-if="item.type == 'TWITTER'" class="mr-1 ml-1" >mdi-twitter</v-icon>
+                <v-icon v-else class="mr-1">mdi-earth</v-icon>
+
             </span>
             <span class="heading">
               {{ item.name }}

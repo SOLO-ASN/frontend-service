@@ -20,7 +20,7 @@ const { text, color, href } = defineProps({
   },
   href: {
     type: String,
-    default: '#',
+    default: '',
   },
   size: {
     type: String,
