@@ -31,9 +31,7 @@ import link from '@/assets/text/link';
 import ArrowButton from './Standard';
 import SingleCard from '../../Cards/Apps/SingleCard';
 import TitleMain from '../../Title';
-
 import url from '@/assets/text/url';
-import axios from 'axios';
 
 const router = useRouter();
 const { smAndDown: isMobile } = useDisplay();
