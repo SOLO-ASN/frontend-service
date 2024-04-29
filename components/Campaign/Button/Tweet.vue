@@ -9,7 +9,7 @@
               data-aos-delay="1100"
               data-aos-duration="500"
             >
-              <arrow-button style="width: 100%;" color="primary" :href="link.portfolio" :text="'Twitter'"/>
+              <arrow-button style="width: 100%;" color="primary" :href="href" :text="'Twitter'" @click="tweetFunc"/>
             </div>
 
 
@@ -39,4 +39,22 @@ onMounted(() => {
     once: true,
   });
 });
+
+const {tweetContent, href} = defineProps({
+  tweetContent: {
+    type: String,
+    required: true,
+  },
+  href: {
+    type: String,
+    default: '#',
+  },
+})
+
+function tweetFunc() {
+  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
+  const windowOptions = 'width=400,height=500,resizable=yes,scrollbars=yes';
+  window.open(tweetUrl, '_blank', windowOptions);
+}
+
 </script>
