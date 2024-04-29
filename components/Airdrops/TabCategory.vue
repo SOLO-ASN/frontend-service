@@ -9,7 +9,7 @@
       <v-tab class="tab-label" value="all">
         <span>all</span>
       </v-tab>
-      <v-tab class="tab-label" value="following">
+      <v-tab class="tab-label" value="follow">
         <span>following</span>
       </v-tab>
   <!--    <v-tab class="tab-label" value="collection">

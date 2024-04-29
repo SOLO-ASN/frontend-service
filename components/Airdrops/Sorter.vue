@@ -88,7 +88,7 @@ const { view, sortBySelected, resultLength, showVerified, showFilter, sortList }
           },
           {
             title: 'Most Followed',
-            value: 'followersCount',
+            value: 'followers',
             selected: false,
           }
         ]

@@ -70,6 +70,7 @@
 
 
                 <section id="verify" style="width: 100%;">
+
                   <verify
                       :input-url="link"
                   />

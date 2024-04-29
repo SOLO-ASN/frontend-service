@@ -128,12 +128,14 @@
               </v-col>
             </v-row>
           </div>
+          
           <div v-else-if="currentTab === 'leaderboard'">
             <!-- Leaderboard的内容 -->
             <v-container>
               <h1>Comming soon</h1>
             </v-container>
           </div>
+        
         </div>
       </div>
     </div>
@@ -298,8 +300,10 @@ const cardItems = ref(null);
 
 onMounted(async () => { 
   try {
+    const username = localStorage.getItem('username');
     const response = await axios.post(SERVER + '/api/space/query', {
-      id: id.value
+      id: id.value,
+      username: username
       });  
     data.value = response.data.data; 
     if(data.value.links.Github!=null) {
@@ -335,15 +339,24 @@ onBeforeUnmount(() => {
 })
 
 
+
 const handleFollowClick = async () => {
-  if(data.value.IsFollowing==false){
+  console.info(data.value.isFollowing);
+  console.info(data.value.id);
+  const username = localStorage.getItem('username');
+  if(data.value.isFollowing==false){
       try {
         const response = await axios.post(SERVER + '/api/spaces/follow', {
-          id: data.value.id
+          username: username,
+          spaceid: data.value.id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
         if(response.data.msg=="NOT_LOGIN") {
-          showLoginPrompt()
+          showLoginPrompt();
+        }else if(response.data.msg=="Follow Success") {
+          data.value.isFollowing = !data.value.isFollowing;
+        }else {
+          alert("follow error");
         }
       } catch (error) {
         console.error('请求详情失败', error);
@@ -351,12 +364,17 @@ const handleFollowClick = async () => {
     }else{
       try {
         const response = await axios.post(SERVER + '/api/spaces/unfollow', {
-          id: data.value.id
+          username: username,
+          spaceid: data.value.id
         });
-        // 根据返回数据执行后续操作，比如打开对话框显示详情
         if(response.data.msg=="NOT_LOGIN") {
-          showLoginPrompt()
+          showLoginPrompt();
+        }else if(response.data.msg=="UnFollow Success") {
+          data.value.isFollowing = !data.value.isFollowing;
+        }else {
+          alert("unfollow error");
         }
+        // 根据返回数据执行后续操作，比如打开对话框显示详情
       } catch (error) {
         console.error('请求详情失败', error);
       }
@@ -382,6 +400,7 @@ function handleSelectedTagsUpdate(group, value) {
 }
 
 async function fetchData() {
+  const username = localStorage.getItem('username');
   try {
     if(credSources.value.length===0) {
       credSources.value.push("all");
@@ -404,7 +423,8 @@ async function fetchData() {
         chains: chains.value,
         statuses: statuses.value,
         listType: listType.value, 
-        searchString: searchString.value
+        searchString: searchString.value,
+        username: username
       }
     );
     after.value = response.data.data.pageInfo.endCursor;
@@ -471,6 +491,7 @@ async function loadMoreData() {
     if(statuses.value.length===0) {
       statuses.value.push("all");
     }
+    const username = localStorage.getItem('username');
     const response = await axios.post(SERVER + '/api/campaigns/query', {
         first: 4,
         after: after.value,
@@ -480,7 +501,8 @@ async function loadMoreData() {
         chains: chains.value,
         statuses: statuses.value,
         listType: listType.value, 
-        searchString: searchString.value
+        searchString: searchString.value,
+        username: username
       }
     );
     after.value = response.data.data.pageInfo.endCursor;

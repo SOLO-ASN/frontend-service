@@ -21,17 +21,21 @@
 </style>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, defineProps } from 'vue';
 import { useDisplay } from 'vuetify';
 import AOS from 'aos';
+import axios from 'axios';
+//import cheerio from 'cheerio';
 import imgAPI from '@/assets/images/imgAPI';
 import link from '@/assets/text/link';
 import ArrowButton from './Standard';
 import SingleCard from '../../Cards/Apps/SingleCard';
 import TitleMain from '../../Title';
+
 import url from '@/assets/text/url';
 import axios from 'axios';
 
+const router = useRouter();
 const { smAndDown: isMobile } = useDisplay();
 const { sm: isTablet } = useDisplay();
 
