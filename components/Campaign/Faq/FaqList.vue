@@ -21,7 +21,7 @@
         >
           <v-expansion-panel-title class="content">
             <span class="heading">
-            <v-icon v-if="item.type == 'TWITTER'" class="mr-1">mdi-twitter</v-icon>
+            <v-icon v-if="item.type.startsWith('TWITTER')" class="mr-1">mdi-twitter</v-icon>
             <v-icon v-else class="mr-1">mdi-earth</v-icon>
             </span>
             <span class="heading">
@@ -33,7 +33,11 @@
               <span class="ml-11">
                 {{ item.description }}
               </span>
-              <v-btn @click="togglePanel(item.type, props.taskList.id)">Get it done</v-btn>
+              <v-btn v-if="item.credType==='WEB_BROWSE'" @click="togglePanel('WEB_BROWSE', item.referenceLink)">Get it done</v-btn>
+              <v-btn v-if="item.credType==='TWITTER_TWEET'" @click="togglePanel('TWITTER_TWEET', props.taskList.id)">Get it done</v-btn>
+              <v-btn v-if="item.credType==='TWITTER_FOLLOW'" @click="togglePanel('TWITTER_FOLLOW', item.referenceLink)">Get it done</v-btn>
+              <v-btn v-if="item.credType==='TWITTER_LIKE'" @click="togglePanel('TWITTER_LIKE', item.referenceLink)">Get it done</v-btn>
+              <v-btn v-if="item.credType==='TWITTER_RETWEET'" @click="togglePanel('TWITTER_RETWEET', item.referenceLink)">Get it done</v-btn>
             </span>
           </v-expansion-panel-text>
         </v-expansion-panel>
@@ -53,24 +57,36 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const togglePanel = (type, parameter) => {
-  // 根据 index 的值决定要跳转到的网页
+  // jump to the right page based on the type of credential
   let route;
   switch (type) {
-    case 'TWITTER':
+    case 'WEB_BROWSE':
+      window.open(parameter, '_blank');
+      break;
+    // todo refactor: we are here cause we are not bind twitter account with our account
+    case 'TWITTER_TWEET':
       route = { path: './campaign-twitter', query: { id: parameter } };
+      router.push(route);
       break;
-    case 'TWITTER111':
-      route = { path: '/page2', query: { number: parameter } };
+    case 'TWITTER_FOLLOW':
+      const screenName = parameter.split('follow?screen_name=')[1];
+      const tweetUlr = `https://twitter.com/intent/follow?screen_name=${screenName}`;
+      window.open(tweetUlr, '_blank');
       break;
-    case 'TWITTER333':
-      route = { path: '/page3', query: { number: parameter } };
+    case 'TWITTER_LIKE':
+      const tweetId = parameter.split('like?tweet_id=')[1];
+      const likeUrl = `https://twitter.com/intent/like?tweet_id=${tweetId}`;
+      window.open(likeUrl, '_blank');
       break;
-    // 可以根据需要添加更多的情况
+    case 'TWITTER_RETWEET':
+      const reTweetId = parameter.split('retweet?tweet_id=')[1];
+      const retweetUrl = `https://twitter.com/intent/retweet?tweet_id=${reTweetId}`;
+      window.open(retweetUrl, '_blank');
+      break;
     default:
       route = { path: '/', query: { number: parameter } };
+      router.push(route);
   }
-  // 导航到对应的网页
-  router.push(route);
 };
 
 const props = defineProps({
