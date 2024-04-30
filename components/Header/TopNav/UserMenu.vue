@@ -4,7 +4,7 @@
     <template v-if="!login">
       <v-btn
         v-if="isDesktop"
-        :href="link.login"
+        @click="openLoginWindow"
         variant="text"
       >
         {{ $t('login') }}
@@ -57,6 +57,7 @@ export default {
       login: false,
       link,
       loaded: false,
+      loginWindow: null,
     };
   },
   computed: {
@@ -70,14 +71,34 @@ export default {
     const username = query.get('username'); // 获取 'username' 参数
     if(username) this.login = true;
     if(localStorage.getItem('username')) this.login = true;
-    
     this.loaded = true;
+    window.addEventListener('message', this.handlePostMessage);
+  },
+  beforeDestroy() {
+    // 在组件销毁前移除事件监听器
+    window.removeEventListener('message', this.handlePostMessage);
   },
   methods: {
+    openLoginWindow() {
+      const currentPage = window.location.href;
+      const loginWindow = window.open(`http://localhost:58089/login.html?redirect=${encodeURIComponent(currentPage)}`, 'Login', 'width=600,height=400');
+    },
     handleLogout() {
       localStorage.removeItem('username');
       this.login = false;
     },
+    handlePostMessage(event) {
+      if (event.origin === 'http://localhost:58089') {
+        const data = event.data;
+        if (data.type === 'loginSuccess' && data.jwt) {
+          localStorage.setItem('jwt', data.jwt);
+          localStorage.setItem('username', data.username);
+          this.login = true;
+        }
+      }
+    },
   }
 };
+
+
 </script>
