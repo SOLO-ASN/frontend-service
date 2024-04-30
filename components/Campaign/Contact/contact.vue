@@ -117,7 +117,7 @@
                   </v-col>                  
                   <v-col v-if="group.isPoints" cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
-                      v-model="Points"
+                      v-model="group.Points"
                       variant="filled"
                       color="secondary"
                       required
@@ -158,7 +158,7 @@
                   </v-col>
                   <v-col cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
-                      v-model="title"
+                      v-model="group.title"
                       variant="filled"
                       color="secondary"
                       :rules="[v => !!v || 'Title is required']"
@@ -328,6 +328,8 @@ const credentialGroup = {
   isPoints: true,
   isNFT: false,
   isRole: false,
+  title: '',
+  Points: '',
   creds: [rowTask],
 }
 
@@ -368,7 +370,6 @@ export default {
     // 要改 等待进一步开发
     phone: '',
 
-    title: '',
     checkbox: false,
     Points: '',
 
@@ -385,18 +386,31 @@ export default {
       console.log(this.taskList)
     },
     addTask(index) {
-      var newTask = { ...rowTask};
+      var newTask = {
+        taskType: 'Information Browsing',
+        name: '',
+        detail: '',
+        herf: '',
+      };
       this.campaign.Group[index].creds.push(newTask);
       console.log(this.campaign.Group);
     },
     addGroup() {
+      var newTask = {
+        taskType: 'Information Browsing',
+        name: '',
+        detail: '',
+        herf: '',
+      };
       var newGroup = {
       description: '',
       isToken: false,
       isPoints: true,
       isNFT: false,
       isRole: false,
-      creds: [JSON.parse(JSON.stringify(rowTask))], // 每个新 group 都包含一个独立的 task
+      title: '',
+      Points: '',
+      creds: [newTask], // 每个新 group 都包含一个独立的 task
     };
       this.campaign.Group.push(newGroup);
       console.log(this.campaign.Group);
