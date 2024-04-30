@@ -48,252 +48,222 @@
                 ref="form"
                 v-model="valid"
               >
-              <v-row class="spacing6">
-                <v-col cols="12" sm="12" class="pb-0 px-6">
-                  <v-text-field
-                    v-model="name"
-                    :rules="nameRules"
-                    :label="'What is the name of your campaign? *'"
-                    required
-                    color="secondary"
-                    variant="filled"
-                  />
-                </v-col>
-                <v-col cols="12" class="pb-0  px-6">
-                  <v-textarea
-                    v-model="description"
-                    rows="6"
-                    color="secondary"
-                    variant="filled"
-                    :label="'Further description of your campaign'"
-                  />
-                </v-col>
-                <v-col cols="12" sm="12" class="pb-0 px-6">
-                  <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    :label="'What is the duration of your campaign? * Please enter it with the following format: YYYY/MM/DD-YYYY/MM/DD'"
-                    required
-                    color="secondary"
-                    variant="filled"
-                  />
-                </v-col>
-                <v-col cols="12" sm="12" class="pb-0 px-6">
-                  <p class="use-text-paragraph text-center mb-8">Select the award to be given for this activity and fill in the relevant information</p>
-                  <v-container align="center">
-                    <v-checkbox
-                      v-model="isPoints"
-                      class="pb-0 px-6"
+                <v-row class="spacing6">
+                  <v-col cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="name"
+                      :rules="nameRules"
+                      :label="'What is the name of your campaign? *'"
+                      required
                       color="secondary"
-                      :label="'Points'"
-                      style="display: inline-block;"
+                      variant="filled"
                     />
-                    <v-checkbox
-                      v-model="isNFT"
-                      class="mpb-0 px-6"
+                  </v-col>
+                  <v-col cols="12" class="pb-0  px-6">
+                    <v-textarea
+                      v-model="description"
+                      rows="6"
                       color="secondary"
-                      :label="'NFT'"
-                      style="display: inline-block;"
+                      variant="filled"
+                      :label="'Further description of your campaign'"
                     />
-                    <v-checkbox
-                      v-model="isToken"
-                      class="mpb-0 px-6"
+                  </v-col>
+                  <v-col cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="time"
+                      :rules="timeRules"
+                      :label="'What is the duration of your campaign? * Please enter it with the following format: YYYY/MM/DD-YYYY/MM/DD'"
+                      required
                       color="secondary"
-                      :label="'Token'"
-                      style="display: inline-block;"
+                      variant="filled"
                     />
-                    <v-checkbox
-                      v-model="isOAT"
-                      class="mpb-0 px-6"
-                      color="secondary"
-                      :label="'OAT'"
-                      style="display: inline-block;"
-                    />
-                    <v-checkbox
-                      v-model="isRole"
-                      class="mpb-0 px-6"
-                      color="secondary"
-                      :label="'Discord Role'"
-                      style="display: inline-block;"
-                    />
-                    <v-checkbox
-                      v-model="isMint"
-                      class="mpb-0 px-6"
-                      color="secondary"
-                      :label="'Mintlist'"
-                      style="display: inline-block;"
-                    />
-                    <v-checkbox
-                      v-model="isCustom"
-                      class="mpb-0 px-6"
-                      color="secondary"
-                      :label="'Custom Reward'"
-                      style="display: inline-block;"
-                    />
-                  </v-container>
-                </v-col>                  
-                <v-col v-if="isPoints" cols="12" sm="12" class="pb-0 px-6">
-                  <v-text-field
-                    v-model="Points"
-                    variant="filled"
-                    color="secondary"
-                    required
-                    :rules="pointsRules"
-                    :label="'Please enter the number of points a user can earn after completing all tasks *'"
-                  />
-                </v-col>
-                <v-col v-if="isNFT" cols="12" sm="12" class="pb-0 px-6">
-                  <v-text-field
-                    v-model="phone"
-                    variant="filled"
-                    color="secondary"
-                    :rules="pointsRules"
-                    :label="'To be further developed'"
-                  />
-                </v-col>
-                <v-col v-if="isToken" cols="12" sm="12" class="pb-0 px-6">
-                  <v-text-field
-                    v-model="phone"
-                    variant="filled"
-                    color="secondary"
-                    :rules="pointsRules"
-                    :label="'To be further developed'"
-                  />
-                </v-col>
-                <v-col v-if="isOAT" cols="12" sm="12" class="pb-0 px-6">
-                  <v-text-field
-                    v-model="phone"
-                    variant="filled"
-                    color="secondary"
-                    :rules="pointsRules"
-                    :label="'To be further developed'"
-                  />
-                </v-col>
-                <v-col v-if="isRole" cols="12" sm="12" class="pb-0 px-6">
-                  <v-text-field
-                    v-model="phone"
-                    variant="filled"
-                    color="secondary"
-                    :rules="pointsRules"
-                    :label="'To be further developed'"
-                  />
-                </v-col>
-                <v-col v-if="isMint" cols="12" sm="12" class="pb-0 px-6">
-                  <v-text-field
-                    v-model="phone"
-                    variant="filled"
-                    color="secondary"
-                    :rules="pointsRules"
-                    :label="'To be further developed'"
-                  />
-                </v-col>
-                <v-col v-if="isCustom" cols="12" sm="12" class="pb-0 px-6">
-                  <v-text-field
-                    v-model="phone"
-                    variant="filled"
-                    color="secondary"
-                    :rules="pointsRules"
-                    :label="'To be further developed'"
-                  />
-                </v-col>
-                
-                <v-col cols="12" sm="12" class="pb-0 px-6">
-                  <p class="use-text-paragraph text-center mb-8">Select the desired task type and fill in the task information to publish the task</p>        
-                </v-col>
-                <v-col cols="12" sm="12" class="pb-0 px-6">
-                  <v-text-field
-                    v-model="title"
-                    variant="filled"
-                    color="secondary"
-                    :rules="[v => !!v || 'Title is required']"
-                    :label="'Say something about your mission *'"
-                    required
-                  />
-                </v-col>
-                <v-row v-for="(row, index) in taskList" :key="index" class="pb-0 px-6">
-                  <v-radio-group v-model='row.taskType' align="center">
-                    <v-layout row wrap>
-                      <v-radio
+                  </v-col>
+                </v-row>
+
+                <!-- 任务group信息填写 -->
+                <v-row v-for="(group, index) in campaign.Group" :key="index" class="spacing6">
+                  <v-col cols="12" sm="12" class="pb-0 px-6">
+                    <p class="use-text-paragraph text-center mb-8">GROUP {{index + 1}}: Select the award to be given for this activity and fill in the relevant information</p>
+                    <v-container align="center">
+                      <v-checkbox
+                        v-model="group.isPoints"
                         class="pb-0 px-6"
                         color="secondary"
-                        value='Information Browsing'
-                        :label="'Information Browsing'"
+                        :label="'Points'"
+                        style="display: inline-block;"
                       />
-                      <v-radio
+                      <v-checkbox
+                        v-model="group.isNFT"
                         class="mpb-0 px-6"
                         color="secondary"
-                        value='Twitter Follow'
-                        :label="'Twitter Follow'"
+                        :label="'NFT'"
+                        style="display: inline-block;"
                       />
-                      <v-radio
+                      <v-checkbox
+                        v-model="group.isToken"
                         class="mpb-0 px-6"
                         color="secondary"
-                        value='Twitter Retweet'
-                        :label="'Twitter Retweet'"
+                        :label="'Token'"
+                        style="display: inline-block;"
                       />
-                      <v-radio
+                      <v-checkbox
+                        v-model="group.isRole"
                         class="mpb-0 px-6"
                         color="secondary"
-                        value='More'
-                        :label="'More task'"
+                        :label="'Discord Role'"
+                        style="display: inline-block;"
                       />
-                    </v-layout>
-                  </v-radio-group>
-
-                  <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
+                    </v-container>
+                  </v-col>                  
+                  <v-col v-if="group.isPoints" cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
-                      v-model="row.name"
-                      variant="filled"
-                      color="secondary" 
-                      :rules="[v => !!v || 'Description is required']"
-                      :label="'Please enter a description of the task *'"
-                      required
-                    />
-                  </v-col>
-                  <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
-                    <v-text-field
-                      v-model="row.detail"
+                      v-model="Points"
                       variant="filled"
                       color="secondary"
-                      :label="'More details can be entered'"
+                      required
+                      :rules="pointsRules"
+                      :label="'Please enter the number of points a user can earn after completing all tasks *'"
                     />
                   </v-col>
-                  <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
+                  <v-col v-if="group.isNFT" cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
-                      v-model="row.herf"
+                      v-model="phone"
                       variant="filled"
                       color="secondary"
-                      :rules="urlRules"
-                      :label="'Please enter the URL you want to jump to *'"
-                      required
+                      :rules="pointsRules"
+                      :label="'To be further developed'"
                     />
                   </v-col>
-                  <v-col v-if="row.taskType != 'Information Browsing'" cols="12" sm="12">
+                  <v-col v-if="group.isToken" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="phone"
+                      variant="filled"
+                      color="secondary"
+                      :rules="pointsRules"
+                      :label="'To be further developed'"
+                    />
+                  </v-col>
+                  <v-col v-if="group.isRole" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="phone"
+                      variant="filled"
+                      color="secondary"
+                      :rules="pointsRules"
+                      :label="'To be further developed'"
+                    />
+                  </v-col>
+                    
+                  <v-col cols="12" sm="12" class="pb-0 px-6">
+                    <p class="use-text-paragraph text-center mb-8">Select the desired task type and fill in the task information to publish the task</p>        
+                  </v-col>
+                  <v-col cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
                       v-model="title"
                       variant="filled"
                       color="secondary"
-                      :rules="urlRules"
-                      :label="'coming soon'"
+                      :rules="[v => !!v || 'Title is required']"
+                      :label="'Say something about your mission *'"
                       required
                     />
                   </v-col>
-                </v-row>
-              </v-row>
-                
+                  <v-row v-for="(row, num) in group.creds" :key="num" class="pb-0 px-6">
+                    <v-radio-group v-model='row.taskType' align="center">
+                      <v-layout row wrap>
+                        <v-radio
+                          class="pb-0 px-6"
+                          color="secondary"
+                          value='Information Browsing'
+                          :label="'Information Browsing'"
+                        />
+                        <v-radio
+                          class="mpb-0 px-6"
+                          color="secondary"
+                          value='Twitter Follow'
+                          :label="'Twitter Follow'"
+                        />
+                        <v-radio
+                          class="mpb-0 px-6"
+                          color="secondary"
+                          value='Twitter Retweet'
+                          :label="'Twitter Retweet'"
+                        />
+                        <v-radio
+                          class="mpb-0 px-6"
+                          color="secondary"
+                          value='More'
+                          :label="'More task'"
+                        />
+                      </v-layout>
+                    </v-radio-group>
 
-                  <div class="btn-area">
+                    <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
+                      <v-text-field
+                        v-model="row.name"
+                        variant="filled"
+                        color="secondary" 
+                        :rules="[v => !!v || 'Description is required']"
+                        :label="'Please enter a description of the task *'"
+                        required
+                      />
+                    </v-col>
+                    <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
+                      <v-text-field
+                        v-model="row.detail"
+                        variant="filled"
+                        color="secondary"
+                        :label="'More details can be entered'"
+                      />
+                    </v-col>
+                    <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
+                      <v-text-field
+                        v-model="row.herf"
+                        variant="filled"
+                        color="secondary"
+                        :rules="urlRules"
+                        :label="'Please enter the URL you want to jump to *'"
+                        required
+                      />
+                    </v-col>
+                    <v-col v-if="row.taskType != 'Information Browsing'" cols="12" sm="12">
+                      <v-text-field
+                        v-model="title"
+                        variant="filled"
+                        color="secondary"
+                        :rules="urlRules"
+                        :label="'coming soon'"
+                        required
+                      />
+                    </v-col>
+                  </v-row>
+                
+                  <!-- 按捏，用于添加更多的子任务 --> 
+                  <v-col class="btn-area" >
                     <v-btn
                       size="small"
                       color="primary"
                       block
-                      @click="addTask"
+                      @click="addTask(index)"
                       style="opacity: 0.2"
                     >
                       +
                     </v-btn>
-                  </div>
+                  </v-col>
+                </v-row>
+              
+                <!-- 按捏，用于添加更多的group --> 
+                <v-col class="btn-area" >
+                  <v-btn
+                    size="small"
+                    color="primary"
+                    block
+                    @click="addGroup(index)"
+                    style="opacity: 0.2"
+                  >
+                    +
+                  </v-btn>
+                </v-col>
 
+                <!-- 确认按钮，用于提交任务 --> 
                 <div class="form-control-label">
                   <v-checkbox
                     v-model="checkbox"
@@ -319,6 +289,7 @@
                     Create Campaign
                   </v-btn>
                 </div>
+
               </v-form>
             </div>
           </v-card>
@@ -349,6 +320,15 @@ const rowTask = {
   herf: '',
 }
 
+const credentialGroup = {
+  description: '',
+  isToken: false,
+  isPoints: true,
+  isNFT: false,
+  isRole: false,
+  creds: [rowTask],
+}
+
 export default {
   components: {
     GoogleMap,
@@ -365,19 +345,13 @@ export default {
     },
   },
   data: () => ({
-    currentLocation: {},
-    locations: [
-      {
-        lat: 44.933076,
-        lng: 15.629058,
-      },
-    ],
     valid: true,
     snackbar: false,
     name: '',
+    time: '',
+    description: '',
     nameRules: [v => !!v || 'Name is required'],
-    email: '',
-    emailRules: [
+    timeRules: [
       v => !!v || 'Date is required',
       v => /^(\d{4}\/\d{1,2}\/\d{1,2})-(\d{4}\/\d{1,2}\/\d{1,2})$/.test(v) || 'Date entered in wrong format',
     ],
@@ -389,20 +363,17 @@ export default {
       v => !!v || 'URL is required',
       v => /^((https|http):\/\/)(www.)?[a-zA-Z0-9@:%._\+~#?&//=]*$/.test(v) || 'Please enter a valid URL'
     ],
+    // 要改 是进一步开发
     phone: '',
-    company: '',
-    description: '',
+
     title: '',
     checkbox: false,
-    isToken: false,
-    isPoints: true,
     Points: '',
-    isNFT: false,
-    isOAT: false,
-    isRole: false,
-    isMint: false,
-    isCustom: false,
-    taskList: [rowTask],
+
+    campaign: {
+      
+      Group: [credentialGroup],
+    },
   }),
   methods: {
     validate() {
@@ -411,10 +382,15 @@ export default {
       }
       console.log(this.taskList)
     },
-    addTask() {
+    addTask(index) {
       var newTask = {...rowTask};
-      this.taskList.push(newTask);
-      console.log(this.taskList)
+      this.campaign.Group[index].creds.push(newTask);
+      console.log(this.campaign.Group);
+    },
+    addGroup() {
+      var newGroup = {...credentialGroup};
+      this.campaign.Group.push(newGroup);
+      console.log(this.campaign.Group);
     },
   },
 };
