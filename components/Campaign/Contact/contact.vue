@@ -236,17 +236,19 @@
                     </v-col>
                   </v-row>
                 
-                  <!-- 按捏，用于添加更多的子任务 --> 
-                  <v-col class="btn-area" >
-                    <v-btn
-                      size="small"
-                      color="primary"
-                      block
-                      @click="addTask(index)"
-                      style="opacity: 0.2"
-                    >
-                      +
-                    </v-btn>
+                  <v-col class="spacing6">
+                    <!-- 按捏，用于添加更多的子任务 --> 
+                    <v-row class="btn-area">
+                      <v-btn
+                        size="small"
+                        color="primary"
+                        block
+                        @click="addTask(index)"
+                        style="opacity: 0.4"
+                      >
+                        +gyufgyigiy
+                      </v-btn>
+                    </v-row>
                   </v-col>
                 </v-row>
               
@@ -256,10 +258,10 @@
                     size="small"
                     color="primary"
                     block
-                    @click="addGroup(index)"
-                    style="opacity: 0.2"
+                    @click="addGroup()"
+                    style="opacity: 0.6"
                   >
-                    +
+                    Add A New Group
                   </v-btn>
                 </v-col>
 
@@ -363,7 +365,7 @@ export default {
       v => !!v || 'URL is required',
       v => /^((https|http):\/\/)(www.)?[a-zA-Z0-9@:%._\+~#?&//=]*$/.test(v) || 'Please enter a valid URL'
     ],
-    // 要改 是进一步开发
+    // 要改 等待进一步开发
     phone: '',
 
     title: '',
@@ -383,12 +385,19 @@ export default {
       console.log(this.taskList)
     },
     addTask(index) {
-      var newTask = {...rowTask};
+      var newTask = { ...rowTask};
       this.campaign.Group[index].creds.push(newTask);
       console.log(this.campaign.Group);
     },
     addGroup() {
-      var newGroup = {...credentialGroup};
+      var newGroup = {
+      description: '',
+      isToken: false,
+      isPoints: true,
+      isNFT: false,
+      isRole: false,
+      creds: [JSON.parse(JSON.stringify(rowTask))], // 每个新 group 都包含一个独立的 task
+    };
       this.campaign.Group.push(newGroup);
       console.log(this.campaign.Group);
     },
