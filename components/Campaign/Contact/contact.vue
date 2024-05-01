@@ -51,7 +51,7 @@
                 <v-row class="spacing6">
                   <v-col cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
-                      v-model="name"
+                      v-model="campaign.name"
                       :rules="nameRules"
                       :label="'What is the name of your campaign? *'"
                       required
@@ -61,18 +61,20 @@
                   </v-col>
                   <v-col cols="12" class="pb-0  px-6">
                     <v-textarea
-                      v-model="description"
+                      v-model="campaign.description"
+                      :rules="descriptionRules"
+                      required
                       rows="6"
                       color="secondary"
                       variant="filled"
-                      :label="'Further description of your campaign'"
+                      :label="'Further description of your campaign *'"
                     />
                   </v-col>
                   <v-col cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
                       v-model="time"
                       :rules="timeRules"
-                      :label="'What is the duration of your campaign? * Please enter it with the following format: YYYY/MM/DD-YYYY/MM/DD'"
+                      :label="'What is the duration of your campaign? * Please enter it with the following format: YYYY/MM/DD hh:mm-YYYY/MM/DD hh:mm'"
                       required
                       color="secondary"
                       variant="filled"
@@ -158,7 +160,7 @@
                   </v-col>
                   <v-col cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
-                      v-model="group.title"
+                      v-model="group.description"
                       variant="filled"
                       color="secondary"
                       :rules="[v => !!v || 'Title is required']"
@@ -167,7 +169,7 @@
                     />
                   </v-col>
                   <v-row v-for="(row, num) in group.creds" :key="num" class="pb-0 px-6">
-                    <v-radio-group v-model='row.taskType' align="center">
+                    <v-radio-group v-model='row.credType' align="center">
                       <v-layout row wrap>
                         <v-radio
                           class="pb-0 px-6"
@@ -196,7 +198,7 @@
                       </v-layout>
                     </v-radio-group>
 
-                    <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
+                    <v-col v-if="row.credType == 'Information Browsing'" cols="12" sm="12">
                       <v-text-field
                         v-model="row.name"
                         variant="filled"
@@ -206,17 +208,17 @@
                         required
                       />
                     </v-col>
-                    <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
+                    <v-col v-if="row.credType == 'Information Browsing'" cols="12" sm="12">
                       <v-text-field
-                        v-model="row.detail"
+                        v-model="row.description"
                         variant="filled"
                         color="secondary"
                         :label="'More details can be entered'"
                       />
                     </v-col>
-                    <v-col v-if="row.taskType == 'Information Browsing'" cols="12" sm="12">
+                    <v-col v-if="row.credType == 'Information Browsing'" cols="12" sm="12">
                       <v-text-field
-                        v-model="row.herf"
+                        v-model="row.referenceLink"
                         variant="filled"
                         color="secondary"
                         :rules="urlRules"
@@ -224,7 +226,7 @@
                         required
                       />
                     </v-col>
-                    <v-col v-if="row.taskType != 'Information Browsing'" cols="12" sm="12">
+                    <v-col v-if="row.credType != 'Information Browsing'" cols="12" sm="12">
                       <v-text-field
                         v-model="title"
                         variant="filled"
@@ -236,9 +238,9 @@
                     </v-col>
                   </v-row>
                 
-                  <v-col class="spacing6">
+                  <v-col class="pb-0 px-6">
                     <!-- 按捏，用于添加更多的子任务 --> 
-                    <v-row class="btn-area">
+                    <v-row class="pb-0 px-6">
                       <v-btn
                         size="small"
                         color="primary"
@@ -246,7 +248,7 @@
                         @click="addTask(index)"
                         style="opacity: 0.4"
                       >
-                        +gyufgyigiy
+                        Add A New Task
                       </v-btn>
                     </v-row>
                   </v-col>
@@ -316,10 +318,10 @@ import {
 } from 'vue3-google-map';
 
 const rowTask = {
-  taskType: 'Information Browsing',
+  credType: 'Information Browsing',
   name: '',
-  detail: '',
-  herf: '',
+  description: '',
+  referenceLink: '',
 }
 
 const credentialGroup = {
@@ -351,13 +353,13 @@ export default {
   data: () => ({
     valid: true,
     snackbar: false,
-    name: '',
+    
     time: '',
-    description: '',
     nameRules: [v => !!v || 'Name is required'],
+    descriptionRules: [v => !!v || 'Description is required'],
     timeRules: [
       v => !!v || 'Date is required',
-      v => /^(\d{4}\/\d{1,2}\/\d{1,2})-(\d{4}\/\d{1,2}\/\d{1,2})$/.test(v) || 'Date entered in wrong format',
+      v => /^(\d{4}\/\d{1,2}\/\d{1,2}\s\d{1,2}:\d{2}-\d{4}\/\d{1,2}\/\d{1,2}\s\d{1,2}:\d{2})$/.test(v) || 'Date entered in wrong format',
     ],
     pointsRules: [
       v => !!v || 'The number of points is required',
@@ -374,33 +376,47 @@ export default {
     Points: '',
 
     campaign: {
-      
+      name: '',
+      description: '',
+      startTime: '',
+      endTime: '',
       Group: [credentialGroup],
     },
   }),
   methods: {
     validate() {
-      if (this.$refs.form.validate()) {
-        this.snackbar = true;
+      
+      // time数据处理
+      const campaignTime = this.time.split('-');
+      this.campaign.startTime = Date.parse(campaignTime[0]);
+      this.campaign.endTime = Date.parse(campaignTime[1]);
+      console.log(this.campaign)
+      // 检测时间有效性
+      if(isNaN(this.campaign.startTime) || isNaN(this.campaign.endTime)) {
+        alert('Please check the validity of the entered time.');
+        return;
+      } else if(this.campaign.startTime > this.campaign.endTime) {
+        alert('Please check the validity of the entered time.');
+        return;
       }
-      console.log(this.taskList)
+      console.log(this.campaign)
     },
     addTask(index) {
       var newTask = {
-        taskType: 'Information Browsing',
+        credType: 'Information Browsing',
         name: '',
-        detail: '',
-        herf: '',
+        description: '',
+        referenceLink: '',
       };
       this.campaign.Group[index].creds.push(newTask);
-      console.log(this.campaign.Group);
+      console.log(this.campaign);
     },
     addGroup() {
       var newTask = {
-        taskType: 'Information Browsing',
+        credType: 'Information Browsing',
         name: '',
-        detail: '',
-        herf: '',
+        description: '',
+        referenceLink: '',
       };
       var newGroup = {
       description: '',
@@ -413,7 +429,7 @@ export default {
       creds: [newTask], // 每个新 group 都包含一个独立的 task
     };
       this.campaign.Group.push(newGroup);
-      console.log(this.campaign.Group);
+      console.log(this.campaign);
     },
   },
 };
