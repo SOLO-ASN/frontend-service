@@ -83,43 +83,38 @@
                 </v-row>
 
                 <!-- 任务group信息填写 -->
-                <v-row v-for="(group, index) in campaign.Group" :key="index" class="spacing6">
+                <v-row v-for="(group, index) in campaign.credentialGroups" :key="index" class="spacing6">
                   <v-col cols="12" sm="12" class="pb-0 px-6">
                     <p class="use-text-paragraph text-center mb-8">GROUP {{index + 1}}: Select the award to be given for this activity and fill in the relevant information</p>
                     <v-container align="center">
                       <v-checkbox
-                        v-model="group.isPoints"
+                        v-model="group.rewards.isPoints"
                         class="pb-0 px-6"
                         color="secondary"
                         :label="'Points'"
                         style="display: inline-block;"
                       />
                       <v-checkbox
-                        v-model="group.isNFT"
-                        class="mpb-0 px-6"
-                        color="secondary"
-                        :label="'NFT'"
-                        style="display: inline-block;"
-                      />
-                      <v-checkbox
-                        v-model="group.isToken"
+                        v-model="group.rewards.isToken"
                         class="mpb-0 px-6"
                         color="secondary"
                         :label="'Token'"
                         style="display: inline-block;"
+                        @change="updateReward(index, 'isToken')"
                       />
                       <v-checkbox
-                        v-model="group.isRole"
+                        v-model="group.rewards.isRole"
                         class="mpb-0 px-6"
                         color="secondary"
                         :label="'Discord Role'"
                         style="display: inline-block;"
+                        @change="updateReward(index, 'isRole')"
                       />
                     </v-container>
                   </v-col>                  
-                  <v-col v-if="group.isPoints" cols="12" sm="12" class="pb-0 px-6">
+                  <v-col v-if="group.rewards.isPoints" cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
-                      v-model="group.Points"
+                      v-model="group.rewards.Points"
                       variant="filled"
                       color="secondary"
                       required
@@ -127,31 +122,90 @@
                       :label="'Please enter the number of points a user can earn after completing all tasks *'"
                     />
                   </v-col>
-                  <v-col v-if="group.isNFT" cols="12" sm="12" class="pb-0 px-6">
+                  <v-col v-if="group.rewards.isToken" cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
-                      v-model="phone"
+                      v-model="campaign.tokenReward.tokenDecimal"
                       variant="filled"
                       color="secondary"
-                      :rules="pointsRules"
-                      :label="'To be further developed'"
+                      required
+                      :rules="nameRules"
+                      :label="'Please enter the type of token *'"
                     />
                   </v-col>
-                  <v-col v-if="group.isToken" cols="12" sm="12" class="pb-0 px-6">
+                  <v-col v-if="group.rewards.isToken" cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
-                      v-model="phone"
+                      v-model="campaign.tokenReward.userTokenAmount"
                       variant="filled"
                       color="secondary"
+                      required
                       :rules="pointsRules"
-                      :label="'To be further developed'"
+                      :label="'Please enter the number of tokens the user will receive for completing the task *'"
                     />
                   </v-col>
-                  <v-col v-if="group.isRole" cols="12" sm="12" class="pb-0 px-6">
+                  <v-col v-if="group.rewards.isToken" cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
-                      v-model="phone"
+                      v-model="campaign.tokenReward.depositedTokenAmount"
                       variant="filled"
                       color="secondary"
+                      required
                       :rules="pointsRules"
-                      :label="'To be further developed'"
+                      :label="'Please enter the number of copies of the token to be issued *'"
+                    />
+                  </v-col>
+                  <v-col v-if="group.rewards.isToken" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="campaign.TokenRewardContract"
+                      variant="filled"
+                      color="secondary"
+                      :label="'Please enter the address of the smart contract'"
+                    />
+                  </v-col>
+                  <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="campaign.discordRole.roleName"
+                      variant="filled"
+                      color="secondary"
+                      required
+                      :rules="nameRules"
+                      :label="'Please enter the character name of the rewarded discordRole *'"
+                    />
+                  </v-col>
+                  <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="campaign.discordRole.roleId"
+                      variant="filled"
+                      color="secondary"
+                      required
+                      :rules="pointsRules"
+                      :label="'Please enter the role ID of the rewarded discordRole *'"
+                    />
+                  </v-col>
+                  <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="campaign.discordRole.roleimg"
+                      variant="filled"
+                      color="secondary"
+                      required
+                      :rules="urlRules"
+                      :label="'Please enter the link to the character picture for the bonus discordRole! *'"
+                    />
+                  </v-col>
+                  <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="campaign.discordRole.guildName"
+                      variant="filled"
+                      color="secondary"
+                      required
+                      :rules="nameRules"
+                      :label="'Please enter the moderator of the rewarded DiscordRole *'"
+                    />
+                  </v-col>
+                  <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
+                    <v-text-field
+                      v-model="campaign.discordRole.inviteLink"
+                      variant="filled"
+                      color="secondary"
+                      :label="'Please enter the invite link for the discord server'"
                     />
                   </v-col>
                     
@@ -171,34 +225,41 @@
                   <v-row v-for="(row, num) in group.creds" :key="num" class="pb-0 px-6">
                     <v-radio-group v-model='row.credType' align="center">
                       <v-layout row wrap>
+                        <!-- 支持的任务类型 -->
                         <v-radio
                           class="pb-0 px-6"
                           color="secondary"
-                          value='Information Browsing'
-                          :label="'Information Browsing'"
+                          value='WEB_BROWSE'
+                          :label="'Web Browsing'"
                         />
                         <v-radio
                           class="mpb-0 px-6"
                           color="secondary"
-                          value='Twitter Follow'
+                          value='TWITTER_FOLLOW'
                           :label="'Twitter Follow'"
                         />
                         <v-radio
                           class="mpb-0 px-6"
                           color="secondary"
-                          value='Twitter Retweet'
+                          value='TWITTER_RETWEET'
                           :label="'Twitter Retweet'"
                         />
                         <v-radio
                           class="mpb-0 px-6"
                           color="secondary"
-                          value='More'
-                          :label="'More task'"
+                          value='TWITTER_LIKE'
+                          :label="'Twitter Like'"
+                        />
+                        <v-radio
+                          class="mpb-0 px-6"
+                          color="secondary"
+                          value='TWITTER_TWEET'
+                          :label="'Twitter Tweet'"
                         />
                       </v-layout>
                     </v-radio-group>
-
-                    <v-col v-if="row.credType == 'Information Browsing'" cols="12" sm="12">
+                    <!-- 根据任务类型获取输入 -->
+                    <v-col cols="12" sm="12">
                       <v-text-field
                         v-model="row.name"
                         variant="filled"
@@ -208,7 +269,7 @@
                         required
                       />
                     </v-col>
-                    <v-col v-if="row.credType == 'Information Browsing'" cols="12" sm="12">
+                    <v-col cols="12" sm="12">
                       <v-text-field
                         v-model="row.description"
                         variant="filled"
@@ -216,7 +277,7 @@
                         :label="'More details can be entered'"
                       />
                     </v-col>
-                    <v-col v-if="row.credType == 'Information Browsing'" cols="12" sm="12">
+                    <v-col v-if="row.credType == 'WEB_BROWSE'" cols="12" sm="12">
                       <v-text-field
                         v-model="row.referenceLink"
                         variant="filled"
@@ -226,13 +287,43 @@
                         required
                       />
                     </v-col>
-                    <v-col v-if="row.credType != 'Information Browsing'" cols="12" sm="12">
+                    <v-col v-if="row.credType == 'TWITTER_FOLLOW'" cols="12" sm="12">
                       <v-text-field
-                        v-model="title"
+                        v-model="row.referenceLink"
+                        variant="filled"
+                        color="secondary"
+                        :rules="nameRules"
+                        :label="'Please enter the Twitter username you want to follow *'"
+                        required
+                      />
+                    </v-col>
+                    <v-col v-if="row.credType == 'TWITTER_RETWEET'" cols="12" sm="12">
+                      <v-text-field
+                        v-model="row.referenceLink"
                         variant="filled"
                         color="secondary"
                         :rules="urlRules"
-                        :label="'coming soon'"
+                        :label="'Please enter the URL to the tweet you want to retweet *'"
+                        required
+                      />
+                    </v-col>
+                    <v-col v-if="row.credType == 'TWITTER_LIKE'" cols="12" sm="12">
+                      <v-text-field
+                        v-model="row.referenceLink"
+                        variant="filled"
+                        color="secondary"
+                        :rules="urlRules"
+                        :label="'Please enter the URL to the tweet you want to like *'"
+                        required
+                      />
+                    </v-col>
+                    <v-col v-if="row.credType == 'TWITTER_TWEET'" cols="12" sm="12">
+                      <v-text-field
+                        v-model="row.referenceLink"
+                        variant="filled"
+                        color="secondary"
+                        :rules="descriptionRules"
+                        :label="'Please enter the text of the tweet to be sent *'"
                         required
                       />
                     </v-col>
@@ -318,7 +409,7 @@ import {
 } from 'vue3-google-map';
 
 const rowTask = {
-  credType: 'Information Browsing',
+  credType: 'WEB_BROWSE',
   name: '',
   description: '',
   referenceLink: '',
@@ -326,12 +417,12 @@ const rowTask = {
 
 const credentialGroup = {
   description: '',
-  isToken: false,
-  isPoints: true,
-  isNFT: false,
-  isRole: false,
-  title: '',
-  Points: '',
+  rewards: {
+    isToken: false,
+    isPoints: true,
+    isRole: false,
+    Points: '',
+  },
   creds: [rowTask],
 }
 
@@ -377,13 +468,50 @@ export default {
 
     campaign: {
       name: '',
+      space:'',
       description: '',
-      startTime: '',
-      endTime: '',
-      Group: [credentialGroup],
+      startTime: 0,
+      endTime: 0,
+      rewardTypes: '',
+      loyaltyPoints: 0,
+      TokenRewardContract: '',
+      tokenReward: {
+        userTokenAmount: '',
+        depositedTokenAmount: '',
+        tokenDecimal: '',
+      },
+      discordRole: {
+        roleName: '',
+        roleId: '',
+        roleimg: '',
+        guildName: '',
+        inviteLink: '',
+      },
+      credentialGroups: [credentialGroup],
     },
   }),
   methods: {
+    updateReward(index, rewardType) {
+      // 遍历所有 group
+      for(let i = 0; i < this.campaign.credentialGroups.length; ++i) {
+        if(i != index) {
+          if(rewardType == 'isToken') {
+            if(this.campaign.credentialGroups[i].rewards.isToken == true) {
+              this.campaign.credentialGroups[index].rewards.isToken = false;
+              alert('You can only select one Token or Discord Role among all groups.');
+              return;
+            }
+          }
+          if(rewardType == 'isRole') {
+            if(this.campaign.credentialGroups[i].rewards.isRole == true) {
+              this.campaign.credentialGroups[index].rewards.isRole = false;
+              alert('You can only select one Token or Discord Role among all groups.');
+              return;
+            }
+          }
+        }
+      }
+    },
     validate() {
       
       // time数据处理
@@ -403,32 +531,32 @@ export default {
     },
     addTask(index) {
       var newTask = {
-        credType: 'Information Browsing',
+        credType: 'WEB_BROWSE',
         name: '',
         description: '',
         referenceLink: '',
       };
-      this.campaign.Group[index].creds.push(newTask);
+      this.campaign.credentialGroups[index].creds.push(newTask);
       console.log(this.campaign);
     },
     addGroup() {
       var newTask = {
-        credType: 'Information Browsing',
+        credType: 'WEB_BROWSE',
         name: '',
         description: '',
         referenceLink: '',
       };
       var newGroup = {
       description: '',
-      isToken: false,
-      isPoints: true,
-      isNFT: false,
-      isRole: false,
-      title: '',
-      Points: '',
+      rewards: {
+        isToken: false,
+        isPoints: true,
+        isRole: false,
+        Points: '',
+      },
       creds: [newTask], // 每个新 group 都包含一个独立的 task
     };
-      this.campaign.Group.push(newGroup);
+      this.campaign.credentialGroups.push(newGroup);
       console.log(this.campaign);
     },
   },
