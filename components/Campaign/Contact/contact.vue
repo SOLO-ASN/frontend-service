@@ -365,12 +365,12 @@
                     class="ms-n2"
                     color="secondary"
                     :rules="[v => !!v || 'You must agree to continue!']"
-                    :label="$t('form_terms')"
+                    :label="'I have read and accept the Terms of Service & Privacy Policy *'"
                     required
                   />
                   <span>
                     <a href="#" class="link">
-                      {{ $t('form_privacy') }}
+                      See Service & Privacy Policy
                     </a>
                   </span>
                 </div>
@@ -639,6 +639,10 @@ export default {
       }
       // 去除结果字符串末尾的空格
       this.campaign.rewardTypes = this.campaign.rewardTypes.trim();
+      if(!this.checkbox) {
+        alert('Please review and agree to the Service & Privacy Policy!');
+        return;
+      }
       console.log(this.campaign)
     },
     addTask(index) {
