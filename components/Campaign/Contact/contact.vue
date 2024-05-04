@@ -513,7 +513,15 @@ export default {
       }
     },
     validate() {
-      
+      // 表格信息填写验证
+      if (!this.campaign.name) {
+        alert('Please check the name of the campaign.');
+        return;
+      } 
+      if (!this.campaign.description) {
+        alert('Please check the description of the campaign.');
+        return;
+      } 
       // time数据处理
       const campaignTime = this.time.split('-');
       this.campaign.startTime = Date.parse(campaignTime[0]);
@@ -527,6 +535,110 @@ export default {
         alert('Please check the validity of the entered time.');
         return;
       }
+      // 处理任务填写的信息
+      var addPoints = false;
+      var addToken = false;
+      var addRole = false;
+      this.campaign.rewardTypes = '';
+      this.campaign.credentialGroups.forEach(group => {
+        // 检查group描述
+        if(!group.description) {
+          alert('Please check the description of the group.');
+          return;
+        }
+        // 检查文本奖励
+        if(group.rewards.isPoints) {
+          if(!group.rewards.Points) {
+            alert('Please check the number of point rewards in the group.');
+            return;
+          }
+          addPoints = true;
+          this.campaign.loyaltyPoints += parseInt(group.rewards.Points);
+        }
+        if(group.rewards.isToken) {
+          if(!this.campaign.tokenReward.depositedTokenAmount) {
+            alert('Please check the number of copies of the token award in the group.');
+            return;
+          }
+          if(!this.campaign.tokenReward.userTokenAmount) {
+            alert('Please check the number of tokens a user can get for completing a task in a group.');
+            return;
+          }
+          if(!this.campaign.tokenReward.depositedTokenAmount) {
+            alert('Please check the number of copies of the token award in the group.');
+            return;
+          }
+          addToken = true;
+        }
+        if(group.rewards.isRole) {
+          if(!this.campaign.discordRole.roleName) {
+            alert('Please check the name of the discord role.');
+            return;
+          }
+          if(!this.campaign.discordRole.roleId) {
+            alert('Please check the discord id of the discord role.');
+            return;
+          }
+          if(!this.campaign.discordRole.roleimg) {
+            alert('Please check the link to the discord character\'s presentation poster');
+            return;
+          }
+          addRole = true;
+        }
+        // 防止奖励没有选
+        if(!group.rewards.isPoints && !group.rewards.isToken && !group.rewards.isRole) {
+          alert('Please check that the reward type in the group is not null.');
+          return;
+        }
+        // 检查任务填写的信息
+        group.creds.forEach(task => {
+          if(!task.name) {
+            alert('Please check the name of the task.');
+            return;
+          }
+          if(!task.description) {
+            alert('Please check the description of the task.');
+            return;
+          }
+          if(!task.referenceLink) {
+            if(task.credType == 'WEB_BROWSE') {
+              alert('Please check the URL of the task you want to jump to.');
+              return;
+            }
+            if(task.credType == 'TWITTER_FOLLOW') {
+              alert('Please check the name of the Twitter user to follow in the task.');
+              return;
+            }
+            if(task.credType == 'TWITTER_RETWEET') {
+              alert('Please check the task for the link to the tweet that needs to be retweeted!');
+              return;
+            }
+            if(task.credType == 'TWITTER_LIKE') {
+              alert('Please check the task for the link to the tweet that needs to be likeed!');
+              return;
+            }
+            if(task.credType == 'TWITTER_TWEET') {
+              alert('Please check the text of the tweet that needs to be tweeted in the task!');
+              return;
+            }
+          }
+        });
+      });
+      // 完善rewardTypes
+      if(addToken) {
+        this.campaign.rewardTypes += 'Token ';
+        addToken = false;
+      }
+      if(addRole) {
+        this.campaign.rewardTypes += 'Role ';
+        addRole = false;
+      }
+      if(addPoints) {
+        this.campaign.rewardTypes += 'Points ';
+        addPoints = false;
+      }
+      // 去除结果字符串末尾的空格
+      this.campaign.rewardTypes = this.campaign.rewardTypes.trim();
       console.log(this.campaign)
     },
     addTask(index) {
