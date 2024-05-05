@@ -401,6 +401,7 @@
 <script>
 import ClayDeco from '../../Artworks/ClayDeco';
 import Title from '../../Title';
+import axios from 'axios';
 import {
   GoogleMap,
   Marker,
@@ -468,7 +469,7 @@ export default {
 
     campaign: {
       name: '',
-      space:'',
+      space:"106",
       description: '',
       startTime: 0,
       endTime: 0,
@@ -644,6 +645,16 @@ export default {
         return;
       }
       console.log(this.campaign)
+      // 提交表单
+      axios.post(`http://172.31.100.142:18080/api/campaign/create`, this.campaign).then((response) => {
+      //this.items = response.data
+        console.log(response.data)
+        if(response.data.data == 'SECCESSED') {
+          alert('Campaign form submitted successfully');
+        } else {
+          alert('The campaign form failed to submit, please check if the form information is incorrect and resubmit it later.');
+        }
+      })
     },
     addTask(index) {
       var newTask = {
