@@ -11,7 +11,7 @@
       </v-btn>
       <v-btn
         v-if="isDesktop"
-        :href="link.register"
+        @click="openRegisterWindow"
         color="primary"
         variant="flat"
       >
@@ -81,7 +81,11 @@ export default {
   methods: {
     openLoginWindow() {
       const currentPage = window.location.href;
-      const loginWindow = window.open(`http://localhost:58089/login.html?redirect=${encodeURIComponent(currentPage)}`, 'Login', 'width=600,height=400');
+      const loginWindow = window.open(`http://localhost:58089/login.html?redirect=${encodeURIComponent(currentPage)}`, 'Login', 'width=600,height=600');
+    },
+    openRegisterWindow() {
+      const currentPage = window.location.href;
+      const loginWindow = window.open(`http://localhost:58089/register.html?redirect=${encodeURIComponent(currentPage)}`, 'Register', 'width=600,height=600');
     },
     handleLogout() {
       localStorage.removeItem('username');
