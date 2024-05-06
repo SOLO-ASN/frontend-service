@@ -1,7 +1,7 @@
 const url = {
-   fidoUrl: "http://localhost:58089",
+   fidoUrl: "https://asn.aspark.space",
    serverUrl: "http://172.31.100.142:18080",
-   asnUrl: "http://localhost:58089",
+   asnUrl: "http://asn.aspark.space",
 };
 export default url;
   
