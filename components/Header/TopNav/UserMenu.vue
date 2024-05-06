@@ -47,6 +47,7 @@
 <script>
 import link from '@/assets/text/link';
 import Settings from './Settings';
+import url from '@/assets/text/url';
 
 export default {
   components: {
@@ -81,11 +82,11 @@ export default {
   methods: {
     openLoginWindow() {
       const currentPage = window.location.href;
-      const loginWindow = window.open(`http://localhost:58089/login.html?redirect=${encodeURIComponent(currentPage)}`, 'Login', 'width=600,height=600');
+      const loginWindow = window.open(url.fidoUrl + `/login.html?redirect=${encodeURIComponent(currentPage)}`, 'Login', 'width=600,height=600');
     },
     openRegisterWindow() {
       const currentPage = window.location.href;
-      const loginWindow = window.open(`http://localhost:58089/register.html?redirect=${encodeURIComponent(currentPage)}`, 'Register', 'width=600,height=600');
+      const loginWindow = window.open(url.fidoUrl + `/register.html?redirect=${encodeURIComponent(currentPage)}`, 'Register', 'width=600,height=600');
     },
     handleLogout() {
       localStorage.removeItem('username');

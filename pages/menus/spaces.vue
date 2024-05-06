@@ -6,6 +6,7 @@
       <div class="inner-page">
         <login-prompt
           v-model="showLoginDialog"
+          @update:value="showLoginDialog = $event"
         />
         <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
           <v-card class="cyber">
@@ -209,7 +210,13 @@ function handleCloseFilter() {
 }
 
 function toggleCreateDialog() {
-  createDialog.value = !createDialog.value;
+  const username = localStorage.getItem('username');
+  if(username) {
+    createDialog.value = !createDialog.value;
+  }else {
+    showLoginPrompt();
+  }
+  
 }
 
 
@@ -305,7 +312,7 @@ const handleFollowClick = async (item) => {
 async function fetchData() {
   const username = localStorage.getItem('username');
   try {
-    isLoading.value = true; // 开始加载数据   https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io
+    isLoading.value = true; 
     after.value = 0;
     const response = await axios.post(SERVER + '/api/spaces/query', {
       first:9,
