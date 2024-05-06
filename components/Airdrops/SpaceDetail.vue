@@ -70,18 +70,18 @@
         
         </div>
         <h4 class="use-text-title2">
+        <div class="d-flex align-center">
           <span class="use-text-subtitle use-text-secondary-color">
             {{detailData.name}}
             <v-icon size="x-small">mdi-check-decagram</v-icon>
-            <v-btn
+          </span>
+           <v-btn
               @click="onButtonClick"
               :class="detailData.isFollowing ? 'btn-following' : 'btn-not-following'"
-              variant="tonal"
             >
               {{ $t('+ follow') }}
             </v-btn>
-          </span>
-            
+        </div>
           <div class="left-align">
             <tag :categories="detailData.categories"/>
           </div>
@@ -137,16 +137,16 @@
 .left-align {
   padding-top: 1rem;
 }
-.btn-following {
-  /* 当 isFollowing 为 true 时的按钮颜色（灰色） */
-  background-color: #263238; /* 深灰色 */
-  
+.btn-not-following {
+  /* 当 isFollowing 为 true 时的按钮颜色（暗蓝色） */
+  background-color: #0052cc; /* 暗蓝色 */
+  color: #ffffff; /* 白色文字，根据需要调整 */
 }
 
-.btn-not-following {
-  /* 当 isFollowing 为 false 时的按钮颜色（柔和的蓝色） */
-  background-color: #5294e2; /* 柔和的蓝色 */
-
+.btn-following {
+  /* 当 isFollowing 为 false 时的按钮颜色（浅蓝色） */
+  background-color: #b3d1ff; /* 浅蓝色 */
+  color: #263238; /* 深灰色文字，根据需要调整 */
 }
 
 

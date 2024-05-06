@@ -4,7 +4,10 @@
     <blur-gradient />
     <div class="container-front container-wrap">
       <div class="inner-page">
-        <login-prompt v-model="showLoginDialog" />
+        <login-prompt 
+          v-model="showLoginDialog"
+          @update:value="showLoginDialog = $event"
+        />
           <v-dialog
             v-model="dialog"
             fullscreen

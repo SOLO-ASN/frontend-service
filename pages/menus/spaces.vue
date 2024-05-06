@@ -6,6 +6,7 @@
       <div class="inner-page">
         <login-prompt
           v-model="showLoginDialog"
+          @update:value="showLoginDialog = $event"
         />
         <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
           <v-card class="cyber">
@@ -24,6 +25,18 @@
             <div class="pt-3">
               <!-- Filter content goes here -->
             </div>
+          </v-card>
+        </v-dialog>
+       <v-dialog v-model="createDialog" fullscreen hide-overlay transition="dialog-transition">
+          <v-toolbar v-if="createDialog" flat dense>
+            <v-btn icon large @click="toggleCreateDialog" style="position: absolute; right: 20px; top: 20px;">
+              <v-icon size="25">mdi-close</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <v-card>
+            <v-card-text>
+              <space-create @close-dialog="handleCloseDialog"/>
+            </v-card-text>
           </v-card>
         </v-dialog>
         <v-container>
@@ -47,11 +60,11 @@
             </v-col>
             
           </v-row>
-          <!--
+
           <v-row class="pl-0" :style="isDesktop ? 'position: absolute; top: 125px; left: 250px;' : 'margin-top: 20px;'">
-            <v-btn color="primary" @click=showLoginPrompt>Create space</v-btn>
+            <v-btn color="primary" @click=toggleCreateDialog>Create space</v-btn>
           </v-row>   
-          -->
+
         </v-container>
         <v-container>
           <div class="mt-md-5 mt-xs-2 mt-sm-3 mx-xs-2">
@@ -121,6 +134,7 @@ import Sorter from '@/components/Airdrops/Sorter';
 import ClaimButton from '@/components/Airdrops/ClaimButton.vue';
 import brand from '@/assets/text/brand';
 import link from '@/assets/text/link';
+import SpaceCreate from '@/components/Airdrops/SpaceCreate.vue'
 import collection from '@/assets/api/collection';
 import creator from '@/assets/api/creator';
 import url from '@/assets/text/url';
@@ -167,6 +181,7 @@ const sortBySelected = ref({
 const filterTag = ref(['tag-one', 'tag-two', 'tag-three', 'tag-four'])
 const cardItems = ref([])
 const isLoading = ref(true);
+const createDialog = ref(false);
 const showLoginDialog = ref(false);
 const after = ref(0);
 const hasNextPage = ref(true);
@@ -193,6 +208,18 @@ function handleOpenFilter() {
 function handleCloseFilter() {
   dialog.value = false; 
 }
+
+function toggleCreateDialog() {
+  const username = localStorage.getItem('username');
+  if(username) {
+    createDialog.value = !createDialog.value;
+  }else {
+    showLoginPrompt();
+  }
+  
+}
+
+
 
 function handleCollectTag(val) {
   filterTag.value = val;
@@ -231,6 +258,9 @@ function handleScroll() {
     }
 }
 
+function handleCloseDialog() {
+  createDialog.value = false;
+}
 
 const handleFollowClick = async (item) => {
   console.info(item.isFollowing);
@@ -282,7 +312,7 @@ const handleFollowClick = async (item) => {
 async function fetchData() {
   const username = localStorage.getItem('username');
   try {
-    isLoading.value = true; // 开始加载数据   https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io
+    isLoading.value = true; 
     after.value = 0;
     const response = await axios.post(SERVER + '/api/spaces/query', {
       first:9,
@@ -327,7 +357,9 @@ async function loadMoreData() {
   }
   isLoading.value = true;
   try {
+    const username = localStorage.getItem('username');
     const response = await axios.post(SERVER + '/api/spaces/query', {
+      username: username,
       first:9,
       after:after.value,
       spaceListType: sortBy.value,
@@ -348,7 +380,7 @@ async function loadMoreData() {
         status: item.status,
         id: item.id,
         alias: item.alias,
-        isFollowing: item.IsFollowing
+        isFollowing: item.isFollowing
       })));
     } else {
       // Handle the case where response.data.list is not an array
