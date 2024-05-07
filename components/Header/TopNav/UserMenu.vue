@@ -93,6 +93,7 @@ export default {
     },
     handleLogout() {
       localStorage.removeItem('username');
+      localStorage.removeItem('jwt');
       this.login = false;
       // todo: find another way
       window.location.reload();
