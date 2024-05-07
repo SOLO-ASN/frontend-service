@@ -36,6 +36,7 @@
     </template>
 
     <setting-menu v-if="loaded" />
+    <avatar-menu v-if="login"/>
   </nav>
 </template>
 
@@ -48,10 +49,12 @@
 import link from '@/assets/text/link';
 import Settings from './Settings';
 import url from '@/assets/text/url';
+import Avatar from '@/pages/id/avatar.vue';
 
 export default {
   components: {
     'setting-menu': Settings,
+    'avatar-menu': Avatar,
   },
   data() {
     return {

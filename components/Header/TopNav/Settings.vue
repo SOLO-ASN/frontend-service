@@ -36,35 +36,35 @@
           </div>
         </v-list-item>
       </div>
-      <v-divider />
-      <div class="lang-menu">
-        <v-list-subheader>{{ $t('header_language') }}</v-list-subheader>
-        <v-list-item
-          v-for="(lang, index) in langList"
-          :key="index"
-          :value="lang.code"
-          :to="switchLocalePath(lang.code)"
-          nuxt
-          @click="switchLang(lang.code)"
-        >
-          <template #prepend>
-            <v-avatar class="flag">
-              <i :class="lang.code" />
-            </v-avatar>
-          </template>
-          <v-list-item-title class="lang-opt">
-            {{ $t(lang.code) }}
-          </v-list-item-title>
-          <template #append>
-            <v-icon
-              v-if="lang.code === curLang"
-              color="primary"
-            >
-              mdi-check
-            </v-icon>
-          </template>
-        </v-list-item>
-      </div>
+<!--      <v-divider />-->
+<!--      <div class="lang-menu">-->
+<!--        <v-list-subheader>{{ $t('header_language') }}</v-list-subheader>-->
+<!--        <v-list-item-->
+<!--          v-for="(lang, index) in langList"-->
+<!--          :key="index"-->
+<!--          :value="lang.code"-->
+<!--          :to="switchLocalePath(lang.code)"-->
+<!--          nuxt-->
+<!--          @click="switchLang(lang.code)"-->
+<!--        >-->
+<!--          <template #prepend>-->
+<!--            <v-avatar class="flag">-->
+<!--              <i :class="lang.code" />-->
+<!--            </v-avatar>-->
+<!--          </template>-->
+<!--          <v-list-item-title class="lang-opt">-->
+<!--            {{ $t(lang.code) }}-->
+<!--          </v-list-item-title>-->
+<!--          <template #append>-->
+<!--            <v-icon-->
+<!--              v-if="lang.code === curLang"-->
+<!--              color="primary"-->
+<!--            >-->
+<!--              mdi-check-->
+<!--            </v-icon>-->
+<!--          </template>-->
+<!--        </v-list-item>-->
+<!--      </div>-->
     </v-list>
   </v-menu>
 </template>
