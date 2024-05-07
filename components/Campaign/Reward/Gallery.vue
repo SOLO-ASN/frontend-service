@@ -5,23 +5,37 @@
         <v-row class="{ 'spacing4': !isMobile }">
           <v-col md="4" cols="12">
             <v-row :class="{ spacing4: betweenTablet }">
-              <template v-for="(item, index) in combinedData" :key="index">
                   <div
-                    v-if="item.type === 'media'"
                     class="photo-card"
                     data-aos="fade-up"
                     data-aos-delay="400"
                     data-duration-delay="300"
                   >
                     <photo-card
-                      :img="item.img"
-                      :title="item.title"
-                      :link="item.link"
-                      :href="item.href"
-                      :size="item.size"
+                      v-if="props.rewardDetail.rewardType == 'Points'"
+                      :img="'https://cdn.galxe.com/galaxy/kiiblockchain/407b7c84-ccc2-4255-adea-36a2657349ba.png'"
+                      :title="`${props.rewardDetail.loyaltyPoints} Points`"
+                      :link="'total: Infinity'"
+                      :href="''"
+                      :size="'short'"
+                    />
+                    <photo-card
+                      v-if="props.rewardDetail.rewardType == 'Token'"
+                      :img="props.rewardDetail.tokenReward.tokenLogo"
+                      :title="`${props.rewardDetail.tokenReward.userTokenAmount} ${props.rewardDetail.tokenReward.tokenDecimal}`"
+                      :link="`total: ${props.rewardDetail.tokenReward.depositedTokenAmount}`"
+                      :href="''"
+                      :size="'short'"
+                    />
+                    <photo-card
+                      v-if="props.rewardDetail.rewardType == 'Role'"
+                      :img="props.rewardDetail.roleRward.roleimg"
+                      :title="props.rewardDetail.roleRward.roleName"
+                      :link="`id: ${props.rewardDetail.roleRward.roleId}`"
+                      :href="''"
+                      :size="'short'"
                     />
                   </div>
-              </template>
             </v-row>
           </v-col>
         </v-row>
@@ -35,7 +49,7 @@
 </style>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, defineProps } from 'vue';
 import { useDisplay } from 'vuetify';
 import AOS from 'aos';
 import PlaylistCard from '../../Cards/Media/PlaylistCard';
@@ -65,6 +79,10 @@ function handleChange(category) {
     }
   }, 10);
 }
+
+const props = defineProps({
+  rewardDetail: Object
+})
 
 onMounted(() => {
   const result = [];

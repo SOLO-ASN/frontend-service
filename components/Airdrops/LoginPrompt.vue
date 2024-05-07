@@ -25,6 +25,8 @@
 <script>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import link from '@/assets/text/link';
+import url from '@/assets/text/url';
 
 export default {
   props: {
@@ -36,10 +38,12 @@ export default {
   setup(props, { emit }) {
     const router = useRouter();
     const dialog = ref(props.value);
-
+    const fidoServer = url.fidoUrl;
     function navigateToLogin() {
       dialog.value = false; // 关闭对话框
-      router.push('/menus/login'); // 假设您的登录路由是 '/login'
+      const currentPage = window.location.href;
+      const loginWindow = window.open(fidoServer + `/login.html?redirect=${encodeURIComponent(currentPage)}`, 'Login', 'width=600,height=600');
+      emit('update:value', false); // 更新 v-model 绑定的值
     }
 
     function closeDialog() {

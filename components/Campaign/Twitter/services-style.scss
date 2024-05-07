@@ -1,0 +1,252 @@
+.root {
+  position: relative;
+  @include breakpoints-down(md) {
+    overflow: hidden;
+    text-align: center
+  }
+}
+
+.carousel-header {
+  position: relative;
+  z-index: 3;
+  @include breakpoints-up(sm) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+  }
+  @include breakpoints-down(sm) {
+    text-align: center
+  }
+}
+
+.view-all {
+  padding: 6px 24px;
+  @include use-theme(color, $palette-primary-main, $palette-secondary-light);
+  @include breakpoints-down(md) {
+    margin-bottom: 32px;
+  }
+}
+
+.icon {
+  @include margin-left($spacing1);
+  @include rtl-flip;
+  svg {
+    width: 36px;
+  }
+}
+
+.slider-wrap {
+  position: relative;
+}
+
+.floating-text {
+  position: absolute;
+  width: 300px;
+  height: 100%;
+  display: flex;
+  padding-top: $spacing3;
+  @include padding-left($spacing6);
+  line-height: 24px;
+  left: 0;
+  p {
+    font-size: 22px;
+    line-height: 34px;
+  }
+}
+
+.props {
+  @include breakpoints-down(md) {
+    display: none !important
+  }
+  > div {
+    width: 350px;
+    height: 2px;
+  }
+  &:focus {
+    outline: none
+  }
+}
+
+.carousel {
+  position: relative;
+  z-index: 5;
+  :deep(.splide__pagination){
+    @include pagination-splide;
+  }
+}
+
+.item {
+  padding: spacing(0, 1.5);
+  &:focus {
+    outline: none;
+    margin: 0 auto
+  }
+  > div {
+    width: 320px
+  }
+}
+
+.link {
+  padding: 0;
+  span {
+    text-transform: none;
+    font-weight: $font-regular
+  }
+}
+
+.nav {
+  position: absolute;
+  top: 32%;
+  border-radius: $rounded-small;
+  width: 48px;
+  height: 100px;
+  padding: 0px;
+  min-width: 0px;
+  z-index: 10;
+  background: $palette-primary-main;
+  @include shadow1;
+  @include use-rtl-ltr(transform, scale(-1.6), scale(1.6));
+  &:hover {
+    background: $palette-primary-dark;
+  }
+  i {
+    color: $palette-common-white;
+  }
+  @include breakpoints-down(md) {
+    display: none
+  }
+}
+
+.prev {
+  left: -2px
+}
+
+.next {
+  right: 2px
+}
+
+.desc {
+  position: relative;
+  z-index: 60
+}
+
+.item-text {
+  position: relative;
+  margin-bottom: $spacing10;
+  @include breakpoints-up(md) {
+    min-height: 320px;
+    margin-bottom: $spacing15
+  }
+  @include breakpoints-down(md) {
+    text-align: center
+  }
+  h6 {
+    margin-bottom: $spacing4
+  }
+  &.last {
+    margin-bottom: $spacing5;
+    @include breakpoints-down(sm) {
+      margin-bottom: 0
+    }
+  }
+}
+
+.illustration {
+  position: relative;
+  display: inline-block;
+  border-radius: $rounded-big;
+  width: 280px;
+  height: 280px;
+  @include breakpoints-up(lg) {
+    margin: spacing(0, 5)
+  }
+  @include breakpoints-down(md) {
+    width: 180px;
+    height: 180px;
+  }
+  &.primary {
+    background-image: linear-gradient(120deg, rgba(0, 0, 0, 0) 30%, $palette-primary-main 130%);
+  }
+  &.secondary {
+    background-image: linear-gradient(120deg, rgba(0, 0, 0, 0) 30%, $palette-secondary-main 130%);
+  }
+  &.accent {
+    background-image: linear-gradient(120deg, rgba(0, 0, 0, 0) 30%, $palette-accent-main 130%);
+  }
+  > div {
+    position: absolute;
+    top: 10px;
+    @include left(-50px);
+    font-size: 100px;
+    transform-origin: center left;
+    transform: scale(2);
+    @include breakpoints-up(md) {
+      transform: scale(3.5)
+    }
+  }
+}
+
+.progress {
+  flex: 1;
+  margin-bottom: $spacing10;
+  &.last {
+    margin-bottom: 0
+  }
+  .text {
+    display: flex;
+    justify-content: space-between;
+    margin-top: $spacing1;
+    p {
+      font-size: 18px;
+      font-weight: $font-medium;
+    }
+    h3 {
+      font-weight: $font-medium;
+      font-size: 36px;
+      span {
+        font-size: 22px;
+      }
+    }
+  }
+}
+
+.progress-bg {
+  border-radius: 10px;
+  @include use-theme(background, $light-divider, $dark-divider);
+  height: 10px;
+  :deep(.v-progress-linear__determinate) {
+    border-radius: 10px;
+    background-image: linear-gradient(120deg, $palette-secondary-main, $palette-primary-main);
+  }
+}
+
+.range {
+  border-radius: 10px;
+  height: 100%;
+  position: relative;
+  background-image: $gradient-triple-light;
+  transition: width 0.5s ease-out;
+  @include use-rtl(transform, translateX(50%));
+  span {
+    position: absolute;
+    font-weight: $font-medium;
+    font-size: 18px;
+    top: -300%;
+    &:first-of-type {
+      transform: translateX(-50%)
+    }
+    &:last-child {
+      @include right(0);
+      transform: translateX(50%);
+    }
+  }
+}
+
+.action {
+  @include breakpoints-up(md) {
+    height: 100%;
+  }
+  @include breakpoints-down(sm) {
+    margin: spacing(3, 0)
+  }
+}

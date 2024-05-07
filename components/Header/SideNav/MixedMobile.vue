@@ -4,16 +4,17 @@
       <v-list-item
         v-for="(item, index) in menuPrimary"
         :key="index"
-        :href="'#'+item.id"
+        :href="'/'+item.id"
         :class="{ current: curURL === (curOrigin+langPath+item.id)}"
         link
       >
         <div>
           <v-list-item-title class="menu-list">
-            {{ $t(prefix+'.header_'+item.name) }}
+            {{ item.name }}
           </v-list-item-title>
         </div>
       </v-list-item>
+      <!-- 
       <v-list-group class="group-child">
         <template #activator="{props}">
           <v-list-item v-bind="props">
@@ -43,6 +44,7 @@
           </div>
         </v-list>
       </v-list-group>
+      -->
     </v-list>
     <v-divider class="my-5" />
     <v-list dense>
@@ -61,6 +63,7 @@
       </v-list-item>
     </v-list>
   </div>
+  
 </template>
 
 <style scoped lang="scss">
@@ -68,6 +71,7 @@
 </style>
 
 <script>
+import link from '@/assets/text/link';
 export default {
   props: {
     menuPrimary: {
@@ -92,6 +96,7 @@ export default {
     };
   },
   mounted() {
+    console.info(link);
     this.curURL = window.location.href;
     this.curOrigin = window.location.origin;
     this.langPath = '/' + this.$i18n.locale;

@@ -38,6 +38,7 @@
               class="use-text-subtitle use-text-primary"
             >
               {{ tag }}
+              <span v-if="index !== tags.length - 1">&</span>
             </h6>
           </div>
         </div>
