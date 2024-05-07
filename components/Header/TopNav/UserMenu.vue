@@ -96,7 +96,7 @@ export default {
       this.login = false;
     },
     handlePostMessage(event) {
-      if (event.origin === 'http://localhost:58089') {
+      if (event.origin === url.fidoUrl) {
         const data = event.data;
         if (data.type === 'loginSuccess' && data.jwt) {
           localStorage.setItem('jwt', data.jwt);
