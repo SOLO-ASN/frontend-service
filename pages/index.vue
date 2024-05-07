@@ -74,7 +74,7 @@ import brand from '@/assets/text/brand';
 import { useHead, useRouter, useCookie } from '#app';
 
 useHead({
-  title: brand.name + ' - AI Home Pages',
+  title: brand.name + ' - Home Pages',
 });
 
 // push route to the stored cookie languages only for index page
