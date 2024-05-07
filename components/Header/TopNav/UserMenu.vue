@@ -94,6 +94,8 @@ export default {
     handleLogout() {
       localStorage.removeItem('username');
       this.login = false;
+      // todo: find another way
+      window.location.reload();
     },
     handlePostMessage(event) {
       if (event.origin === url.fidoUrl) {
