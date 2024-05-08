@@ -59,6 +59,22 @@
                       variant="filled"
                     />
                   </v-col>
+                  <v-col cols="12" sm="12" class="pb-0 px-6">
+                    <div class="file-upload">
+                      <v-text-field
+                        v-model="imgPoster"
+                        :rules="imgRules"
+                        :label="'Click and upload a beautiful campaign poster for your campaign! *'"
+                        :readonly="true"
+                        :filled="imgPoster !== ''"
+                        required
+                        outlined
+                        @click="imgPosterinput"
+                      >
+                      </v-text-field>
+                      <input type="file" @change="handleFileUpload('Poster')" ref="posterInput" accept="image/*" style="display: none">
+                    </div>
+                  </v-col>
                   <v-col cols="12" class="pb-0  px-6">
                     <v-textarea
                       v-model="campaign.description"
@@ -169,6 +185,22 @@
                       :rules="nameRules"
                       :label="'Please enter the character name of the rewarded discordRole *'"
                     />
+                  </v-col>
+                  <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
+                    <div class="file-upload">
+                      <v-text-field
+                        v-model="imgRole"
+                        :rules="imgRules"
+                        :label="'Click and upload a beautiful campaign poster for your campaign! *'"
+                        :readonly="true"
+                        :filled="imgRole !== ''"
+                        required
+                        outlined
+                        @click="imgRoleinput(index)"
+                      >
+                      </v-text-field>
+                      <input type="file" @change="handleFileUpload('Role')" ref="roleInput" accept="image/*" style="display: none">
+                    </div>
                   </v-col>
                   <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
@@ -445,9 +477,13 @@ export default {
   data: () => ({
     valid: true,
     snackbar: false,
-    
+    imgPoster: null, // 保存上传的图片文件
+    imgRole: null,
+    posterUrl: null, // 保存Poster图片的 Base64 编码
+    roleUrl: null,
     time: '',
     nameRules: [v => !!v || 'Name is required'],
+    imgRules: [v => !!v || 'Image is required'],
     descriptionRules: [v => !!v || 'Description is required'],
     timeRules: [
       v => !!v || 'Date is required',
@@ -492,6 +528,35 @@ export default {
     },
   }),
   methods: {
+    handleFileUpload(type) {
+      // 获取用户选择的图片文件
+      const file = event.target.files[0];
+      if (file) {
+        if(type == 'Poster') {
+          this.imgPoster = file.name;
+        } else if(type == 'Role') {
+          this.imgRole = file.name;;
+        }
+        // 使用 FileReader 将图片文件转换为 Base64 编码
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          if (type == 'Poster') {
+            this.posterUrl = reader.result;
+            console.log(this.posterUrl)
+          } else if(type == 'Role') {
+            this.roleUrl = reader.result;
+            console.log(this.roleUrl)
+          }
+        };
+      }
+    },
+    imgPosterinput() {
+      this.$refs.posterInput.click();
+    },
+    imgRoleinput(index) {
+      this.$refs.roleInput[index].click();
+    },
     updateReward(index, rewardType) {
       // 遍历所有 group
       for(let i = 0; i < this.campaign.credentialGroups.length; ++i) {

@@ -3,6 +3,19 @@
   display: flex;
 }
 
+.file-upload {
+  display: flex;
+  align-items: center; /* 垂直居中 */
+}
+
+.file-upload input[type="file"] {
+  display: none; /* 隐藏文件输入框 */
+}
+
+.file-upload v-btn {
+  margin-left: 10px; /* 添加一些间距 */
+}
+
 .page-wrap {
   text-align: center;
   min-height: 100%;
