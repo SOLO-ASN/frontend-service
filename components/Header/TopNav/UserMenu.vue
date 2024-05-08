@@ -91,14 +91,16 @@ export default {
     handleLogout() {
       localStorage.removeItem('username');
       this.login = false;
+      window.location.reload();
     },
     handlePostMessage(event) {
-      if (event.origin === 'http://localhost:58089') {
+      if (event.origin === url.fidoUrl) {
         const data = event.data;
         if (data.type === 'loginSuccess' && data.jwt) {
           localStorage.setItem('jwt', data.jwt);
           localStorage.setItem('username', data.username);
           this.login = true;
+          window.location.reload();
         }
       }
     },

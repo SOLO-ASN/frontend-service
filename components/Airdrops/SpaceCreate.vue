@@ -237,6 +237,7 @@ import ClayDeco from '../Artworks/ClayDeco';
 import Title from '../Title';
 import axios from 'axios';
 import url from '@/assets/text/url';
+
 import {
   GoogleMap,
   Marker,
@@ -276,7 +277,7 @@ export default {
         lng: 15.629058,
       },
     ],
-    thumbnail: "https://d257b89266utxb.cloudfront.net/galaxy/images/wormhole/wormhole-logo-1643680450.jpeg",
+    thumbnail: "",
     valid: true,
     snackbar: false,
     name: '',
@@ -386,7 +387,6 @@ export default {
       console.log(this.taskList)
     },
     async httpRequest(data) {
-      console.log("自定义上传", data);
       // 封装FormData对象
       var formData = new FormData();
       formData.append("file", data.file);
@@ -394,11 +394,15 @@ export default {
       // 调用后端接口
       const response = await axios.post(SERVER + '/api/images/upload', formData);
       if(response.data.msg=="SUCCESSED") {
-        this.thumbnail = response.data.data.url;
+        this.thumbnail = response.data.data;
       }
     },
     beforeAvatarUpload(file) {
-      console.info("fdsa", file);
+      const isLt1M = file.size / 1024 / 1024 < 1; // 检查文件大小是否小于1MB
+      if (!isLt1M) {
+        alert("image size limit to 1M");
+      }
+      return isLt1M; // 如果文件大小符合要求，则返回true，否则返回false
     }
   },
   computed: {
@@ -417,11 +421,6 @@ export default {
       return categoriesDict;
     },
   },
-  generateLinksDict() {
-     
-      console.info(links)
-      return links;
-    },
 };
 
 </script>
