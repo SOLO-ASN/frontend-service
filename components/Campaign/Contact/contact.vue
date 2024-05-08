@@ -191,7 +191,7 @@
                       <v-text-field
                         v-model="imgRole"
                         :rules="imgRules"
-                        :label="'Click and upload a beautiful campaign poster for your campaign! *'"
+                        :label="'Click and upload the character picture for the bonus discordRole! *'"
                         :readonly="true"
                         :filled="imgRole !== ''"
                         required
@@ -214,22 +214,10 @@
                   </v-col>
                   <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
-                      v-model="campaign.discordRole.roleimg"
-                      variant="filled"
-                      color="secondary"
-                      required
-                      :rules="urlRules"
-                      :label="'Please enter the link to the character picture for the bonus discordRole! *'"
-                    />
-                  </v-col>
-                  <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
-                    <v-text-field
                       v-model="campaign.discordRole.guildName"
                       variant="filled"
                       color="secondary"
-                      required
-                      :rules="nameRules"
-                      :label="'Please enter the moderator of the rewarded DiscordRole *'"
+                      :label="'Please enter the moderator of the rewarded DiscordRole'"
                     />
                   </v-col>
                   <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
@@ -477,10 +465,8 @@ export default {
   data: () => ({
     valid: true,
     snackbar: false,
-    imgPoster: null, // 保存上传的图片文件
-    imgRole: null,
-    posterUrl: null, // 保存Poster图片的 Base64 编码
-    roleUrl: null,
+    imgPoster: '', // 保存上传的图片文件
+    imgRole: '',
     time: '',
     nameRules: [v => !!v || 'Name is required'],
     imgRules: [v => !!v || 'Image is required'],
@@ -507,6 +493,7 @@ export default {
       name: '',
       space:"106",
       description: '',
+      thumbnail: '',
       startTime: 0,
       endTime: 0,
       rewardTypes: '',
@@ -537,18 +524,20 @@ export default {
         } else if(type == 'Role') {
           this.imgRole = file.name;;
         }
-        // 使用 FileReader 将图片文件转换为 Base64 编码
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
+        // 创建一个 FormData 对象
+        const formData = new FormData();
+        // 将文件添加到 FormData 中
+        formData.append('file', file);
+        axios.post('https://airdrop.aspark.space/api/images/upload', formData).then((response) => {
+          console.log(response);
           if (type == 'Poster') {
-            this.posterUrl = reader.result;
-            console.log(this.posterUrl)
+            this.campaign.thumbnail = response.data.data;;
+            console.log(this.campaign.thumbnail);
           } else if(type == 'Role') {
-            this.roleUrl = reader.result;
-            console.log(this.roleUrl)
+            this.campaign.discordRole.roleimg = response.data.data;;
+            console.log(this.campaign.discordRole.roleimg);
           }
-        };
+        })
       }
     },
     imgPosterinput() {
@@ -582,6 +571,10 @@ export default {
       // 表格信息填写验证
       if (!this.campaign.name) {
         alert('Please check the name of the campaign.');
+        return;
+      } 
+      if (!this.campaign.thumbnail) {
+        alert('Please check the campaign\'s poster');
         return;
       } 
       if (!this.campaign.description) {
@@ -711,7 +704,7 @@ export default {
       }
       console.log(this.campaign)
       // 提交表单
-      axios.post(`http://172.31.100.142:18080/api/campaign/create`, this.campaign).then((response) => {
+      axios.post('https://airdrop.aspark.space/api/campaign/create', this.campaign).then((response) => {
       //this.items = response.data
         console.log(response.data)
         if(response.data.data == 'SECCESSED') {
