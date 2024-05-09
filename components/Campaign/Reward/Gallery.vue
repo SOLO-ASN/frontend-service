@@ -21,7 +21,7 @@
                     />
                     <photo-card
                       v-if="props.rewardDetail.rewardType == 'Token'"
-                      :img="props.rewardDetail.tokenReward.tokenLogo"
+                      :img="`https://cdn.galxe.com/galaxy/routerprotocol/b9e27a31-c0ef-4f98-ac5b-893e81c7b9d4.png`"
                       :title="`${props.rewardDetail.tokenReward.userTokenAmount} ${props.rewardDetail.tokenReward.tokenDecimal}`"
                       :link="`total: ${props.rewardDetail.tokenReward.depositedTokenAmount}`"
                       :href="''"

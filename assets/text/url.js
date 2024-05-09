@@ -1,7 +1,7 @@
 const url = {
-   fidoUrl: "http://localhost:58089",
+   fidoUrl: "https://asn.aspark.space",
    serverUrl: "https://airdrop.aspark.space",
-   asnUrl: "http://localhost:58089",
+   asnUrl: "http://asn.aspark.space",
 };
 export default url;
   
