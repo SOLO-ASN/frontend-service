@@ -95,7 +95,9 @@ export default {
       localStorage.removeItem('username');
       localStorage.removeItem('jwt');
       this.login = false;
+
       // todo: find another way
+
       window.location.reload();
     },
     handlePostMessage(event) {
@@ -105,6 +107,7 @@ export default {
           localStorage.setItem('jwt', data.jwt);
           localStorage.setItem('username', data.username);
           this.login = true;
+          window.location.reload();
         }
       }
     },
