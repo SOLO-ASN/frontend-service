@@ -40,6 +40,9 @@
           </v-card>
         </v-dialog>
         <v-container>
+          <v-btn color="primary" @click=toggleCreateDialog>Create space</v-btn>
+        </v-container>
+        <v-container>
           <v-row align="start" justify="start" :class="{'spacing-xs': !isDesktop, 'spacing-lg': isDesktop}">
             <v-col :cols="isDesktop ? 8 : 12" class="px-0">
               <search v-model="keyword" @input="onInput" />
@@ -60,11 +63,11 @@
             </v-col>
             
           </v-row>
-
+<!--
           <v-row class="pl-0" :style="isDesktop ? 'position: absolute; top: 125px; left: 250px;' : 'margin-top: 20px;'">
             <v-btn color="primary" @click=toggleCreateDialog>Create space</v-btn>
           </v-row>   
-
+-->
         </v-container>
         <v-container>
           <div class="mt-md-5 mt-xs-2 mt-sm-3 mx-xs-2">
