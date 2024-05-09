@@ -79,10 +79,12 @@
                     :show-file-list="false"
                     :http-request="httpRequest"
                     :before-upload="beforeAvatarUpload"
+                    accept="image/png, image/jpeg, image/gif, image/jpg"
                   >
                     <img v-if="thumbnail" :src="thumbnail" class="avatar" />
-                    <el-icon v-else class="avatar-uploader-icon">+</el-icon>
+                    <el-icon v-else class="avatar-uploader-icon"></el-icon>
                   </el-upload>
+                  <div v-if="!thumbnailValid" class="error-message" style="color: red;">Please upload a thumbnail image.</div>
                 </v-col>
                
                 <v-col cols="12" class="pb-0  px-6">
@@ -278,6 +280,7 @@ export default {
       },
     ],
     thumbnail: "",
+    thumbnailValid: true,
     valid: true,
     snackbar: false,
     name: '',
@@ -342,6 +345,10 @@ export default {
   }),
   methods: {
     async validate() {
+      if (!this.thumbnail) {
+        this.thumbnailValid = false; // 设置为 false 以显示错误提示
+        return;
+      }
       if (this.$refs.form.validate()) {
         const categories = this.categories;
         const name = this.name;
@@ -398,6 +405,13 @@ export default {
       }
     },
     beforeAvatarUpload(file) {
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
+      const isImage = allowedTypes.includes(file.type);
+      if (!isImage) {
+        alert('Only JPEG, PNG, or GIF images are allowed.');
+        return false; // 不允许上传
+      }
+
       const isLt1M = file.size / 1024 / 1024 < 1; // 检查文件大小是否小于1MB
       if (!isLt1M) {
         alert("image size limit to 1M");
