@@ -491,7 +491,7 @@ export default {
 
     campaign: {
       name: '',
-      space:"106",
+      space: '',
       description: '',
       thumbnail: '',
       startTime: 0,
@@ -568,6 +568,12 @@ export default {
       }
     },
     validate() {
+      // 获取space id
+      const url = window.location.href;
+      const params = url.split('?')[1];
+      const searchParams = new URLSearchParams(params);
+      const spaceId = searchParams.get('id');
+      this.campaign.space = spaceId;
       // 表格信息填写验证
       if (!this.campaign.name) {
         alert('Please check the name of the campaign.');
