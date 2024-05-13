@@ -28,7 +28,7 @@
       <v-btn
         v-if="isDesktop"
         @click="handleLogout"
-       
+
         variant="text"
       >
         {{ $t('logout') }}
@@ -93,10 +93,12 @@ export default {
     },
     handleLogout() {
       localStorage.removeItem('username');
+      localStorage.removeItem('jwt');
       this.login = false;
+      window.location.reload();
     },
     handlePostMessage(event) {
-      if (event.origin === 'http://localhost:58089') {
+      if (event.origin === url.fidoUrl) {
         const data = event.data;
         if (data.type === 'loginSuccess' && data.jwt) {
           localStorage.setItem('jwt', data.jwt);

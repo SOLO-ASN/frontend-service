@@ -10,7 +10,6 @@
             <section id="banner">
               <!--              <profile-banner-->
               <v-row
-                  class="spacing2"
                   :class="isMobile ? 'spacing2' : 'spacing6'"
                   id="big"
                   justify="center"
@@ -107,4 +106,6 @@ useHead({
 });
 
 const { smAndUp: isTablet } = useDisplay();
+const { lgAndUp: isDesktop } = useDisplay();
+const { smAndDown: isMobile } = useDisplay();
 </script>

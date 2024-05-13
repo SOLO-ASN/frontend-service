@@ -638,17 +638,8 @@ export const tokensData = [
 
 export const nftData = [
   {
-    type: 'post',
-    title: 'Aenean facilisis vitae purus',
-    text: 'Sed imperdiet enim ligula.',
-    img: imgAPI.photosL[1],
-  },
-  {
-    type: 'post',
-    title: 'Aenean facilisis vitae purus',
-    text: 'Sed imperdiet enim ligula, vitae viverra justo porta vel. Duis eget felis bibendum, pretium mi sed, placerat ante.',
-    img: imgAPI.photosL[2],
-  },
+    type: 'nft',
+  }
 ]
 
 export const txsData = [
@@ -656,6 +647,27 @@ export const txsData = [
     type: 'tx',
   }
 ]
+
+export const profileData = [
+  {
+    type: 'profile'
+  }
+]
+
+export const walletData = [
+  {
+    type: 'wallet'
+  }
+]
+
+
+export const socialData = [
+  {
+    type: 'social'
+  }
+]
+
+
 
 function getLongestArray(...arrays) {
   let longestArray = arrays[0]; // Assume the first array is the longest
@@ -679,5 +691,8 @@ export default {
   tokensData,
   nftData,
   txsData,
-  longestArray
+  longestArray,
+  profileData,
+  walletData,
+  socialData
 };

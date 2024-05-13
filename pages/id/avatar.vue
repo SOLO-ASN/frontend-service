@@ -41,26 +41,27 @@
 import imgAPI from '@/assets/images/imgAPI';
 import { useRouter } from 'vue-router';
 import { useSwitchLocalePath } from 'vue-i18n-routing';
-import Settings from '@/components/Airdrops/profile/Settings.vue';
+
+import AccountSettings from '~/pages/id/accountSettings.vue';
 
 export default {
+  components: {
+    AccountSettings
+  },
   props: {
     invert: {
       type: Boolean,
       default: false,
     },
   },
-  components: {
-    "account-settings": Settings
-  },
   setup() {
     let router = useRouter();
 
     const routeConvert = (name, path) => {
       switch (name) {
-        case 'View on Etherscan':
+        case 'View on Explorer':
           let p = path + localStorage.getItem('mainRewardAddress');
-          if (localStorage.getItem('mainRewardAddress') === "") {
+          if (localStorage.getItem('mainRewardAddress') === null) {
             alert("You need to include a new primary reward address.");
             break; }
           window.open(p, "_blank");
@@ -69,12 +70,12 @@ export default {
           handleLogout(); // Make sure you have handleLogout method defined
           break;
         default:
-          router.push({ path: path});
+          router.push({ path: path });
       }
     };
 
     const gotoProfile = () => {
-      router.push({ path: '/id/profile' });
+      router.push({ path: '/en/id/profile' });
     };
 
     const switchLocalePath = useSwitchLocalePath();
@@ -94,17 +95,17 @@ export default {
     },
     listItems() {
       return [{
-        name: 'View on Etherscan',
+        name: 'View on Explorer',
         path: 'https://etherscan.io/address/'
       },{
         name: 'Watchlist',
         path: ''
       },{
         name: 'Settings',
-        path: '/en/accountSetting'
+        path: '/id/accountSettings'
       },{
         name: 'Campaign Transactions',
-        path: '/en/recentTransactions'
+        path: '/en/id/recentTransactions'
       }]
     },
   },

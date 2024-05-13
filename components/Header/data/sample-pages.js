@@ -125,6 +125,14 @@ const sample = [
       {
         name: 'profile',
         link: link.userProfile
+      },
+      {
+        name: 'accountSetting',
+        link: link.accountSetting
+      },
+      {
+        name: 'recentTransactions',
+        link: link.recentTransactions
       }
     ]
   }
