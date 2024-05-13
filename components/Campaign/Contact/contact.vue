@@ -59,6 +59,22 @@
                       variant="filled"
                     />
                   </v-col>
+                  <v-col cols="12" sm="12" class="pb-0 px-6">
+                    <div class="file-upload">
+                      <v-text-field
+                        v-model="imgPoster"
+                        :rules="imgRules"
+                        :label="'Click and upload a beautiful campaign poster for your campaign! *'"
+                        :readonly="true"
+                        :filled="imgPoster !== ''"
+                        required
+                        outlined
+                        @click="imgPosterinput"
+                      >
+                      </v-text-field>
+                      <input type="file" @change="handleFileUpload('Poster')" ref="posterInput" accept="image/*" style="display: none">
+                    </div>
+                  </v-col>
                   <v-col cols="12" class="pb-0  px-6">
                     <v-textarea
                       v-model="campaign.description"
@@ -171,6 +187,22 @@
                     />
                   </v-col>
                   <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
+                    <div class="file-upload">
+                      <v-text-field
+                        v-model="imgRole"
+                        :rules="imgRules"
+                        :label="'Click and upload the character picture for the bonus discordRole! *'"
+                        :readonly="true"
+                        :filled="imgRole !== ''"
+                        required
+                        outlined
+                        @click="imgRoleinput(index)"
+                      >
+                      </v-text-field>
+                      <input type="file" @change="handleFileUpload('Role')" ref="roleInput" accept="image/*" style="display: none">
+                    </div>
+                  </v-col>
+                  <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
                       v-model="campaign.discordRole.roleId"
                       variant="filled"
@@ -182,22 +214,10 @@
                   </v-col>
                   <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
                     <v-text-field
-                      v-model="campaign.discordRole.roleimg"
-                      variant="filled"
-                      color="secondary"
-                      required
-                      :rules="urlRules"
-                      :label="'Please enter the link to the character picture for the bonus discordRole! *'"
-                    />
-                  </v-col>
-                  <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
-                    <v-text-field
                       v-model="campaign.discordRole.guildName"
                       variant="filled"
                       color="secondary"
-                      required
-                      :rules="nameRules"
-                      :label="'Please enter the moderator of the rewarded DiscordRole *'"
+                      :label="'Please enter the moderator of the rewarded DiscordRole'"
                     />
                   </v-col>
                   <v-col v-if="group.rewards.isRole" cols="12" sm="12" class="pb-0 px-6">
@@ -445,9 +465,11 @@ export default {
   data: () => ({
     valid: true,
     snackbar: false,
-    
+    imgPoster: '', // 保存上传的图片文件
+    imgRole: '',
     time: '',
     nameRules: [v => !!v || 'Name is required'],
+    imgRules: [v => !!v || 'Image is required'],
     descriptionRules: [v => !!v || 'Description is required'],
     timeRules: [
       v => !!v || 'Date is required',
@@ -469,8 +491,9 @@ export default {
 
     campaign: {
       name: '',
-      space:"106",
+      space: '',
       description: '',
+      thumbnail: '',
       startTime: 0,
       endTime: 0,
       rewardTypes: '',
@@ -492,6 +515,37 @@ export default {
     },
   }),
   methods: {
+    handleFileUpload(type) {
+      // 获取用户选择的图片文件
+      const file = event.target.files[0];
+      if (file) {
+        if(type == 'Poster') {
+          this.imgPoster = file.name;
+        } else if(type == 'Role') {
+          this.imgRole = file.name;;
+        }
+        // 创建一个 FormData 对象
+        const formData = new FormData();
+        // 将文件添加到 FormData 中
+        formData.append('file', file);
+        axios.post('https://airdrop.aspark.space/api/images/upload', formData).then((response) => {
+          console.log(response);
+          if (type == 'Poster') {
+            this.campaign.thumbnail = response.data.data;;
+            console.log(this.campaign.thumbnail);
+          } else if(type == 'Role') {
+            this.campaign.discordRole.roleimg = response.data.data;;
+            console.log(this.campaign.discordRole.roleimg);
+          }
+        })
+      }
+    },
+    imgPosterinput() {
+      this.$refs.posterInput.click();
+    },
+    imgRoleinput(index) {
+      this.$refs.roleInput[index].click();
+    },
     updateReward(index, rewardType) {
       // 遍历所有 group
       for(let i = 0; i < this.campaign.credentialGroups.length; ++i) {
@@ -514,9 +568,19 @@ export default {
       }
     },
     validate() {
+      // 获取space id
+      const url = window.location.href;
+      const params = url.split('?')[1];
+      const searchParams = new URLSearchParams(params);
+      const spaceId = searchParams.get('id');
+      this.campaign.space = spaceId;
       // 表格信息填写验证
       if (!this.campaign.name) {
         alert('Please check the name of the campaign.');
+        return;
+      } 
+      if (!this.campaign.thumbnail) {
+        alert('Please check the campaign\'s poster');
         return;
       } 
       if (!this.campaign.description) {
@@ -646,7 +710,7 @@ export default {
       }
       console.log(this.campaign)
       // 提交表单
-      axios.post(`http://172.31.100.142:18080/api/campaign/create`, this.campaign).then((response) => {
+      axios.post('https://airdrop.aspark.space/api/campaign/create', this.campaign).then((response) => {
       //this.items = response.data
         console.log(response.data)
         if(response.data.data == 'SECCESSED') {

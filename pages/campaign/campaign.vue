@@ -82,7 +82,7 @@ const SERVER = url.serverUrl;
 
 // 用于将unixTimestamp转化为2024/03/05 22:00 GMT+8的格式
 function formatTimestamp(unixTimestamp) {
-  const date = new Date(unixTimestamp * 1000);
+  const date = new Date(unixTimestamp);
 
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -142,7 +142,9 @@ onMounted(() => {
   const params = url.split('?')[1]
   const searchParams = new URLSearchParams(params)
   const campaignId = searchParams.get('id')
+
   axios.post(SERVER+'/api/campaign/query', {"id": campaignId}).then((response) => {
+
     //this.items = response.data
     // 将任务列表传给fap_list
     taskList.value = {
