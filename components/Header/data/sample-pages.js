@@ -74,10 +74,6 @@ const sample = [
         link: link.productDetail
       },
       {
-        name: 'space',
-        link: link.space
-      },
-      {
         name: 'services',
         link: link.services
       },
@@ -119,6 +115,24 @@ const sample = [
       {
         name: 'error',
         link: '/error'
+      }
+    ]
+  },
+  {
+    id: 'user',
+    name:'user',
+    child:[
+      {
+        name: 'profile',
+        link: link.userProfile
+      },
+      {
+        name: 'accountSetting',
+        link: link.accountSetting
+      },
+      {
+        name: 'recentTransactions',
+        link: link.recentTransactions
       }
     ]
   }

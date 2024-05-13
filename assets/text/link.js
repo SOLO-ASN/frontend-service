@@ -1,3 +1,5 @@
+import url from '@/assets/text/url';
+
 const link = {
   home: '/en',
   about: '/company/about',
@@ -7,11 +9,12 @@ const link = {
   blog: '/blog',
   blogGrid: '/blog/grid',
   blogDetail: '/blog/detail-blog',
-  login: '/menus/login',
-  register: '/menus/register',
+  login: url.asnUrl + '/login.html',
+  register: url.asnUrl + '/register.html',
   contact: '/forms/contact',
   spaces: '/menus/spaces',
   space: '/spaces/space',
+  explore: '/menus/explore',
   product: '/collection/products',
   productDetail: '/collection/product-detail',
   services: '/collection/services',
@@ -20,6 +23,9 @@ const link = {
   portfolioDetail: '/collection/portfolio-detail',
   pricing: '/utils/pricing',
   faq: '/utils/faq',
+  userProfile: '/id/profile',
+  accountSetting: '/id/accountSetting',
+  recentTransactions: '/id/recentTransactions',
   maintenance: '/utils/maintenance',
   comingSoon: '/utils/coming-soon',
   blockchain: '/blockchain',

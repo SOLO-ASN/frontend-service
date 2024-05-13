@@ -1,0 +1,423 @@
+@keyframes slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-80px)
+  }
+  to {
+    opacity: 1;
+    transform: none
+  }
+}
+
+.header {
+  transition: opacity 0.5s ease-out;
+  @include palette-text-primary;
+  z-index: 11;
+  box-shadow: none;
+  position: fixed;
+  height: auto !important;
+  top: 0 !important;
+  background: transparent;
+  @include breakpoints-up(lg) {
+    visibility: hidden;
+    opacity: 0;
+  }
+  &.open-drawer {
+    @include breakpoints-up(sm) {
+      background: none !important;
+      backdrop-filter: none !important;
+    }
+  }
+  :deep(.v-toolbar__content) {
+    height: auto !important;
+    margin: 4px 0
+  }
+  .container {
+    #main-wrap & {
+      @include breakpoints-down(md) {
+        padding-left: 0
+      }
+      @include breakpoints-down(sm) {
+        padding-right: 0
+      }
+    }
+  }
+  .logo {
+    a {
+      color: transparent;
+      font-size: 0
+    }
+    img {
+      height: 48px;
+      width: 48px;
+      margin-bottom: 0
+    }
+  }
+  nav {
+    width: 100%;
+    transition: all 0.5s ease-out;
+    ul {
+      padding: 0
+    }
+  }
+  &.fixed {
+    position: fixed;
+    visibility: visible;
+    opacity: 1;
+    backdrop-filter: saturate(180%) blur(20px);
+    @include use-theme(background, rgba($light-background-paper, 0.8), rgba($dark-background-paper, 0.8));
+    nav {
+      .button {
+        padding: spacing(0.5, 2)
+      }
+    }
+    .mobile-menu .bar {
+      @include palette-background-text-secondary;
+      &:after, &:before {
+        @include palette-background-text-secondary
+      }
+    }
+  }
+  &.open-drawer {
+    .logo {
+      a {
+        @include palette-text-primary
+      }
+    }
+  }
+}
+
+.v-toolbar__content, .v-toolbar__extension {
+  padding: 0
+}
+
+.header-content {
+  nav {
+    align-items: center;
+    display: flex;
+  }
+}
+
+.v-application .v-application--wrap .logo {
+  a {
+    @include breakpoints-down('sm') {
+      color: $palette-common-white
+    }
+  }
+}
+
+.logo {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  a {
+    margin-top: 4px;
+    font-size: 16px;
+    font-weight: $font-medium;
+    position: relative;
+    margin: spacing(0, 1);
+    text-decoration: none
+  }
+  img {
+    transition: all 0.3s ease-out;
+    max-width: 64px;
+    height: 64px;
+    width: 64px;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: $spacing1;
+    @include breakpoints-down(sm) {
+      height: 48px;
+      width: 48px;
+    }
+  }
+}
+
+.nav-logo {
+  .logo {
+    a {
+      display: block;
+      color: $palette-common-white;
+    }
+  }
+  &.invert .logo a{
+    @include palette-text-primary
+  }
+  &.mobile-menu {
+    .bar {
+      @include breakpoints-down(sm) {
+        background: $palette-common-white;
+        &:after, &:before {
+          background: $palette-common-white;
+        }
+      }
+    }
+  }
+}
+
+.button {
+  width: $spacing20
+}
+
+nav.nav-menu {
+  a {
+    color: $palette-common-white;
+    margin: spacing(0, 1);
+    position: relative;
+    font-size: 16px;
+    box-shadow: none;
+    margin-top: 4px;
+    font-weight: $font-medium;
+  }
+  &.invert {
+    ul li a {
+      transition: all 0.3s ease-out;
+      @include palette-text-primary;
+    }
+    .icon.v-icon {
+      @include palette-text-primary;
+    }
+    .mobile-menu .bar {
+      @include palette-background-text-primary;
+      &:after, &:before {
+        @include palette-background-text-primary;
+      }
+    }
+  }
+  .scrollactive-nav {
+    list-style: none;
+    display: block;
+    li {
+      @include breakpoints-up(lg) {
+        margin: spacing(0, 1)
+      }
+      list-style: none;
+      position: relative;
+      display: inline-block;
+      .v-btn  {
+        color: $palette-common-white;
+        text-transform: capitalize;
+        font-size: 16px;
+        font-weight: $font-medium;
+        background: none !important;
+        box-shadow: none;
+        position: relative;
+        padding: 6px;
+        margin: spacing(0, 1);
+        margin-top: $spacing1 * 0.5;
+        min-width: 0;
+        &:after {
+          content: '';
+          height: 5px;
+          position: absolute;
+          border-radius: 5px;
+          width: 0%;
+          margin: 0 auto;
+          bottom: -5px;
+          transition: all 0.2s cubic-bezier(0.42, 0.16, 0.21, 0.93)
+        }
+        &:hover {
+          transition: all 0.3s ease-out;
+          opacity: 0.5;
+          &:after {
+            width: 20px;
+            background: $palette-common-white
+          }
+        }
+        &.active {
+          color: $palette-secondary-light;
+          &:after {
+            background: $palette-common-white;
+            width: 20px
+          }
+        }
+      }
+    }
+  }
+}
+
+.title-menu {
+  text-transform: capitalize
+}
+
+.v-list-item__content {
+  padding: 0
+}
+
+.paper-nav {
+  @include use-theme(background, rgba($light-background-paper, 0.8), rgba($dark-background-paper, 0.8));
+  backdrop-filter: saturate(180%) blur(20px);
+  width: 100%;
+  //position: fixed;
+  z-index: 50;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.mobile-menu {
+  transform: scale(-1);
+  .bar {
+    background-color: $palette-common-white;
+    &:after, &:before {
+      background-color: $palette-common-white;
+    }
+  }
+  &.active {
+    .bar {
+      @include palette-background-text-secondary;
+      &:after, &:before {
+        @include palette-background-text-secondary;
+      }
+    }
+  }
+};
+
+.mobile-nav {
+  z-index: 90;
+  //min-width: 300px;
+  @include breakpoints-down(sm) {
+    width: 100% !important
+  }
+  .menu {
+    padding: spacing(0, 5, 2, 0);
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    list-style: none;
+    li {
+      animation-name: slide-right;
+      animation-timing-function: ease;
+      :deep(.v-btn) {
+        font-size: 16px;
+        @include palette-text-primary;
+        padding: spacing(2, 4);
+        height: auto;
+        &:before {
+          content: "";
+          position: absolute;
+          @include left(0);
+          top: 8px;
+          opacity: 0.2;
+          border-radius: $rounded-medium;
+          overflow: hidden;
+          background: linear-gradient(120deg, $palette-secondary-main, $palette-primary-main);
+          height: 75%;
+          width: 0;
+          transition: all 0.2s cubic-bezier(0, 0, 0.14, 0.97);
+        }
+        &:hover {
+          color: $palette-primary-main;
+          background: none;
+          &:before {
+            width: 125%
+          }
+        }
+      }
+    }
+    &.menu-open {
+      a {
+        animation-name: slide-right;
+        animation-timing-function: ease;
+      }
+    }
+  }
+  .divider-sidebar {
+    background: rgba(255, 255, 255, 0.2);
+    margin: spacing(3, 0)
+  }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
+}
+
+.root-menu {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin-top: 30px;
+}
+.logo-name {
+  @include palette-text-secondary;
+  @include breakpoints-down(md) {
+    margin-top: $spacing5
+  }
+  img {
+    filter: grayscale(1) contrast(0.5) brightness(1.5);
+    width: 80px;
+    margin-bottom: $spacing2
+  }
+  h4 {
+    text-transform: uppercase
+  }
+}
+.margin {
+  margin: $spacing2
+}
+.socmed {
+  margin: spacing(3, 0);
+  @include margin-left($spacing2 * -1);
+  button {
+    margin: $spacing1;
+    width: 36px;
+    height: 36px;
+  }
+  i {
+    font-size: 24px
+  }
+}
+.contact {
+  @include palette-text-secondary;
+}
+.divider {
+  margin: $spacing3;
+  border: none;
+  background: none
+}
+.download {
+  margin: spacing(2, 0)
+}
+.name-deco {
+  margin: 0;
+  padding: 0;
+  transform: rotate(-90deg);
+  transform-origin: top right;
+  letter-spacing: 10px;
+  position: absolute;
+  font-weight: $font-bold;
+  text-transform: uppercase;
+  color: $palette-primary-light;
+  top: 0;
+  left: -50%;
+  font-size: 18px;
+  opacity: 0.7;
+  z-index: 20
+}
+.detail {
+  position: relative;
+  padding: spacing(0, 4);
+  text-align: left;
+  @include breakpoints-up(sm) {
+    margin-top: 30px;
+  }
+  @include breakpoints-up(xs) {
+    padding-bottom: $spacing5
+  }
+}
+.tw {
+  color: #20B1D1
+}
+.fb {
+  color: #193CCC
+}
+.in {
+  color: #0050FF
+}
+.ig {
+  color: #A418E6
+}

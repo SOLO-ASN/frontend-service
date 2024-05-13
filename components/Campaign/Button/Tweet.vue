@@ -9,7 +9,7 @@
               data-aos-delay="1100"
               data-aos-duration="500"
             >
-              <arrow-button @click="openTweetDialog" style="width: 100%;" color="primary" :text="'Twitter'"/>
+              <arrow-button style="width: 100%;" color="primary" :href="href" :text="'Twitter'" @click="tweetFunc"/>
             </div>
 
 
@@ -34,21 +34,27 @@ import TitleMain from '../../Title';
 const { smAndDown: isMobile } = useDisplay();
 const { sm: isTablet } = useDisplay();
 
-const openTweetDialog = () => {
-  // 推文内容
-  const tweetText = "This is the content of the tweet to be sent.";
-
-  // 创建推文 URL
-  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
-
-  // 打开推文对话框，指定窗口大小和其他参数
-  const windowFeatures = 'width=400,height=600,toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no';
-  window.open(tweetUrl, 'Twitter Dialog', windowFeatures);
-}
-
 onMounted(() => {
   AOS.init({
     once: true,
   });
 });
+
+const {tweetContent, href} = defineProps({
+  tweetContent: {
+    type: String,
+    required: true,
+  },
+  href: {
+    type: String,
+    default: '#',
+  },
+})
+
+function tweetFunc() {
+  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
+  const windowOptions = 'width=400,height=500,resizable=yes,scrollbars=yes';
+  window.open(tweetUrl, '_blank', windowOptions);
+}
+
 </script>

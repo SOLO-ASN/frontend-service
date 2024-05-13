@@ -72,12 +72,14 @@ const i18nLocale = useI18n();
 const { smAndDown: isMobile } = useDisplay();
 const { mdAndUp: isTablet } = useDisplay();
 const { lgAndUp: isDesktop } = useDisplay();
-  
+
 const defaultLocale = '/' + i18nLocale.fallbackLocale.value;
 onMounted(() => {
   const rootUrl = document.location.pathname === '/' || document.location.pathname === defaultLocale;
   if (storedLang.value && rootUrl) {
     router.push({ path: `/${storedLang.value}` });
+  } else {
+    router.push({ path: defaultLocale });
   }
 });
 </script>
