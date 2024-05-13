@@ -75,7 +75,11 @@
             <!-- Home的内容 -->
             <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing2'" class="mx-1">
               <!-- 侧边栏 -->
-              <v-col :cols="10" md="1" lg="2" class="sidebar" style="margin-top: 50px;">
+              
+              <v-col :cols="10" md="3" lg="2" class="sidebar" style="margin-top: 50px;">
+                <v-row v-if="data && data.isOwner === true" class="pl-0" style="margin-bottom: 30px;">
+                  <v-btn color="primary" @click=createCampaign>Create Campaign</v-btn>
+                </v-row>   
                 <filter-side
                   v-if="!isTablet"
                   :selectedTags1="credSources"
@@ -89,8 +93,9 @@
                   @update:selectedTags4="handleSelectedTagsUpdate"
                 />
               </v-col>
+              
               <!-- 内容区域 -->
-              <v-col :cols="10" md="6" lg="7" class="mx-14 content">
+              <v-col :cols="10" md="7" lg="7" class="mx-14 content">
                 <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'">
                   <v-col md="8" sm="12" class="px-0" cols="12">
                     <search v-model="keyword" @input="onInput" />
@@ -109,6 +114,7 @@
                     </div>
                   </v-col>
                 </v-row>
+
                 <el-button @click="selectAllTags" round color="black">All</el-button>
                 <el-button @click="clearAllTags" round color="black">Clear all</el-button>
                 <!-- 将 gallery 放置在内容区域的 v-row 内 -->
@@ -142,6 +148,7 @@
         </div>
       </div>
     </div>
+    
     <div class="space-top-short">
       <main-footer />
     </div>
@@ -232,6 +239,7 @@ import brand from '@/assets/text/brand';
 import url from '@/assets/text/url';
 import { useHead } from '#app';
 import { useDisplay } from 'vuetify';
+import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 import axios from 'axios';
 
@@ -239,6 +247,7 @@ const { smAndDown: isTablet } = useDisplay();
 const currentTab = ref('home');
 
 const childRef = ref(null);
+const router = useRouter();
 const showLoginDialog = ref(false);
 const credSources = ref([]);
 const rewardTypes = ref([]);
@@ -282,6 +291,10 @@ function handleSortBy(e) {
 function onInput() {
   searchString.value = event.target.value;
 };
+
+function createCampaign() {
+  router.push(`/campaign/campaign-create?id=${data.value.id}`);
+}
 
 const selectAllTags = () => {
   rewardTypes.value = [
@@ -388,16 +401,12 @@ const handleFollowClick = async () => {
 function handleSelectedTagsUpdate(group, value) {
   // 处理 selectedTags 的更新
   if(group==="selectedTags1"){
-    console.log(group ,'更新了:', value);
     credSources.value = value;
   }else if(group==="selectedTags2"){
-    console.log(group, '更新了:', value);
     rewardTypes.value = value;
   }else if(group==="selectedTags3"){
-    console.log(group ,'更新了:', value);
     chains.value = value;
   }else if(group==="selectedTags4"){
-    console.log(group ,'更新了:', value);
     statuses.value = value;
   }
 }

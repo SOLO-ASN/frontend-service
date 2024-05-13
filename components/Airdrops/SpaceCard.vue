@@ -8,7 +8,9 @@
   >
     <v-card class="profile-card" :class="first ? 'first' : ''">
       <div class="inner">
-        <img :src="thumbnail" :alt="name" class="card-image">
+        <div class="card-image-container">
+          <img :src="thumbnail" :alt="name" class="card-image">
+        </div>
         <div class="properties">
           <h5 class="title">
             {{ name }}
@@ -75,12 +77,20 @@
   transform: translateY(-10px); /* 鼠标悬停时向上移动 */
 }
 
+.card-image-container {
+  width: 100px;  /* 容器宽度，确保与高度相等 */
+  height: 100px; /* 容器高度，确保与宽度相等 */
+  border-radius: 50%; /* 使容器呈圆形 */
+  overflow: hidden; /* 隐藏溢出的部分 */
+  display: flex;
+  justify-content: center; /* 水平居中图片 */
+  align-items: center; /* 垂直居中图片 */
+}
+
 .card-image {
-  max-width: 100px; /* Smaller width */
-  max-height: 100px; /* Smaller height */
-  border-radius: 50%; /* Makes the image round */
-  object-fit: cover;
-  margin: 0 auto 16px; /* Centers the image and adds spacing below */
+  min-width: 100%; /* 确保图片至少填满容器的宽度 */
+  min-height: 100%; /* 确保图片至少填满容器的高度 */
+  object-fit: cover; /* 裁剪超出容器部分的图片 */
 }
 </style>
 
