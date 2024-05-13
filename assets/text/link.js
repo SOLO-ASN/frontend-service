@@ -24,6 +24,8 @@ const link = {
   pricing: '/utils/pricing',
   faq: '/utils/faq',
   userProfile: '/id/profile',
+  accountSetting: '/id/accountSetting',
+  recentTransactions: '/id/recentTransactions',
   maintenance: '/utils/maintenance',
   comingSoon: '/utils/coming-soon',
   blockchain: '/blockchain',

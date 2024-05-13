@@ -28,7 +28,7 @@
       <v-btn
         v-if="isDesktop"
         @click="handleLogout"
-       
+
         variant="text"
       >
         {{ $t('logout') }}
@@ -95,9 +95,7 @@ export default {
       localStorage.removeItem('username');
       localStorage.removeItem('jwt');
       this.login = false;
-
       // todo: find another way
-
       window.location.reload();
     },
     handlePostMessage(event) {

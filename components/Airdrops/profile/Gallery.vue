@@ -14,9 +14,6 @@
         <v-tab class="tab-label" value="nft">
           <span>NFTs</span>
         </v-tab>
-        <v-tab class="tab-label" value="collection">
-          <span>Collection</span>
-        </v-tab>
         <v-tab class="tab-label" value="tx">
           <span>Tx History</span>
         </v-tab>
@@ -46,7 +43,7 @@
               <token-card />
             </div>
             <div v-if="item.type === 'nft'" class="nft-card">
-              <token-card />
+              <nft-card />
             </div>
             <div v-if="item.type === 'tx'" class="news-card">
               <txs-card />

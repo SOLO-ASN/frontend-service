@@ -5,7 +5,7 @@
       :href="href"
   >
     <span class="figure">
-      <img :src="img" alt="post card image" />
+<!--      <img :src="img" alt="" />-->
     </span>
     <span class="property">
       <span class="title" :class="small ? 'small' : 'big'">

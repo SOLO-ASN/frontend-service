@@ -85,7 +85,8 @@ const i18nLocale = useI18n();
 const { mdAndDown: isTablet} = useDisplay();
 const { smAndDown: isMobile} = useDisplay();
 
-const defaultLocale = '/' + i18nLocale.fallbackLocale.value;
+// const defaultLocale = '/' + i18nLocale.fallbackLocale.value;
+const defaultLocale = '/' + 'en';
 onMounted(() => {
   const rootUrl = document.location.pathname === '/' || document.location.pathname === defaultLocale;
   if (storedLang.value && rootUrl) {

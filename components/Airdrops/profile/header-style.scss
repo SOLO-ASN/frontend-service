@@ -248,7 +248,7 @@ nav.nav-menu {
   @include use-theme(background, rgba($light-background-paper, 0.8), rgba($dark-background-paper, 0.8));
   backdrop-filter: saturate(180%) blur(20px);
   width: 100%;
-  position: fixed;
+  //position: fixed;
   z-index: 50;
   height: 100%;
   overflow-y: auto;
@@ -275,7 +275,7 @@ nav.nav-menu {
 
 .mobile-nav {
   z-index: 90;
-  min-width: 300px;
+  //min-width: 300px;
   @include breakpoints-down(sm) {
     width: 100% !important
   }
@@ -289,7 +289,7 @@ nav.nav-menu {
       animation-name: slide-right;
       animation-timing-function: ease;
       :deep(.v-btn) {
-        font-size: 24px;
+        font-size: 16px;
         @include palette-text-primary;
         padding: spacing(2, 4);
         height: auto;
@@ -340,7 +340,7 @@ nav.nav-menu {
   display: block;
   width: 100%;
   height: 100%;
-  margin-top: 100px;
+  margin-top: 30px;
 }
 .logo-name {
   @include palette-text-secondary;
@@ -403,7 +403,7 @@ nav.nav-menu {
   padding: spacing(0, 4);
   text-align: left;
   @include breakpoints-up(sm) {
-    margin-top: 100px;
+    margin-top: 30px;
   }
   @include breakpoints-up(xs) {
     padding-bottom: $spacing5
