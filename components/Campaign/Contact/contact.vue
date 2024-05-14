@@ -255,6 +255,12 @@
                         <v-radio
                           class="mpb-0 px-6"
                           color="secondary"
+                          value='TELEGRAM'
+                          :label="'Telegram'"
+                        />
+                        <v-radio
+                          class="mpb-0 px-6"
+                          color="secondary"
                           value='TWITTER_FOLLOW'
                           :label="'Twitter Follow'"
                         />
@@ -304,6 +310,26 @@
                         color="secondary"
                         :rules="urlRules"
                         :label="'Please enter the URL you want to jump to *'"
+                        required
+                      />
+                    </v-col>
+                    <v-col v-if="row.credType == 'TELEGRAM'" cols="12" sm="12">
+                      <v-text-field
+                        v-model="campaign.telegramBotAPI"
+                        variant="filled"
+                        color="secondary"
+                        :rules="urlRules"
+                        :label="'Please enter the API of your telegram robot *'"
+                        required
+                      />
+                    </v-col>
+                    <v-col v-if="row.credType == 'TELEGRAM'" cols="12" sm="12">
+                      <v-text-field
+                        v-model="campaign.telegramChatId"
+                        variant="filled"
+                        color="secondary"
+                        :rules="pointsRules"
+                        :label="'Please enter the ID of your telegram chat *'"
                         required
                       />
                     </v-col>
@@ -498,6 +524,8 @@ export default {
       endTime: 0,
       rewardTypes: '',
       loyaltyPoints: 0,
+      telegramBotAPI: '',
+      telegramChatId: '',
       TokenRewardContract: '',
       tokenReward: {
         userTokenAmount: '',
@@ -669,6 +697,17 @@ export default {
             if(task.credType == 'WEB_BROWSE') {
               alert('Please check the URL of the task you want to jump to.');
               return;
+            }
+            if(task.credType == 'TELEGRAM') {
+              if(!this.campaign.telegramBotAPI) {
+                alert('Please check the API of your telegram robot.');
+                return;
+              }
+              if(!this.campaign.telegramChatId) {
+                alert('Please check the ID of your telegram chat.');
+                return;
+              }
+              task.referenceLink = this.campaign.telegramBotAPI + " " + this.campaign.telegramChatId;
             }
             if(task.credType == 'TWITTER_FOLLOW') {
               alert('Please check the name of the Twitter user to follow in the task.');

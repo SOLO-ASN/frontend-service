@@ -139,6 +139,7 @@ onMounted(() => {
   const searchParams = new URLSearchParams(params)
   const campaignId = searchParams.get('id')
   axios.post('https://airdrop.aspark.space/api/campaign/query', {"id": campaignId}).then((response) => {
+    console.log(response.data.data);
     //this.items = response.data
     // 将任务列表传给fap_list
     taskList.value = {
