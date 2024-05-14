@@ -40,7 +40,7 @@
       <v-list-item
         v-for="(item, index) in ['login', 'register']"
         :key="index"
-        :href="'/'+item"
+        :href="'/menus/'+item"
         :class="{ current: curURL === (curOrigin+langPath+item)}"
         link
       >

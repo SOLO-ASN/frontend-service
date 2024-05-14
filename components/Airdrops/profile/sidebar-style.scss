@@ -1,0 +1,74 @@
+.sidebar {
+  margin-top: $spacing5;
+  position: relative;
+  z-index: 2;
+  @include breakpoints-up(md) {
+    padding: spacing(0, 3);
+    margin: spacing(3, 0, 5);
+    position: sticky;
+    top: -550px;
+  }
+  @include breakpoints-between(sm, md) {
+    display: flex;
+    > div {
+      padding: $spacing3;
+      width: 50%
+    }
+  }
+}
+
+.property {
+  margin: spacing(5, 0, 10);
+  list-style: none;
+  padding: 0;
+  li {
+    list-style: none;
+    margin-bottom: $spacing1;
+    display: flex;
+    span {
+      flex: 1
+    }
+  }
+}
+
+.tags {
+  @include breakpoints-up(md) {
+    margin-bottom: $spacing10;
+  }
+  @include breakpoints-down(sm) {
+    margin-bottom: $spacing10
+  }
+  > span {
+    display: inline-block;
+    line-height: normal;
+    font-weight: $font-medium;
+    margin: spacing(0.5);
+    line-height: 30px;
+    font-size: 12px;
+  }
+}
+
+.profile-list {
+  padding: 0;
+  font-weight: $font-medium;
+  li {
+    @include padding-left(0);
+    :deep(v-btn) {
+      font-size: 8px;
+    }
+  }
+}
+
+.avatar {
+  margin: 10px;
+}
+
+.btn-area {
+  @include text-align(right);
+  margin-top: $spacing5;
+  button, a {
+    margin: spacing(0, 0.5);
+    @include use-theme(background, $palette-primary-light, $palette-primary-dark);
+    @include use-theme(color, $palette-primary-dark, $palette-primary-light);
+  }
+}

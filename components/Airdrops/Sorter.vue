@@ -14,7 +14,7 @@
       @update:model-value="(e) => handleSortBy(e)"
     />
     <v-btn
-      v-if="isTablet"
+      v-if="isTablet && showFilter"
       small
       color="black"
       class="mx-2"
@@ -25,6 +25,16 @@
         mdi-filter-variant
       </v-icon>
       Filter
+    </v-btn>
+    <v-btn
+      v-if="showVerified"
+      small
+      class="claim-button"
+      :color="isSelected ? 'primary' : 'grey lighten-1'"
+      outlined
+      @click="handleVerifiedChange"
+    >
+      Verified
     </v-btn>
     <v-btn-toggle
       v-if="!isMobile"
@@ -47,7 +57,7 @@
 <script setup>
 import { useDisplay } from 'vuetify';
 
-const { view, sortBySelected, resultLength } = defineProps({
+const { view, sortBySelected, resultLength, showVerified, showFilter, sortList } = defineProps({
   view: {
     type: Number,
     default: 0,
@@ -60,29 +70,45 @@ const { view, sortBySelected, resultLength } = defineProps({
     type: Number,
     required: true,
   },
+  showVerified: {
+    type: Boolean,
+    default: true,
+  },
+  showFilter: {
+    type: Boolean,
+    default: true,
+  },
+  sortList: {
+    type: Array,
+    default: [
+          {
+            title: 'Newest',
+            value: 'created_at',
+            selected: false,
+          },
+          {
+            title: 'Most Followed',
+            value: 'followers',
+            selected: false,
+          }
+        ]
+  }
 });
 
-const sortList = [
-  {
-    title: 'Trending',
-    value: 'trending-asc',
-  },
-  {
-    title: 'Newest',
-    value: 'newest-asc',
-  },
-  {
-    title: 'Most Followed',
-    value: 'follow-asc',
-  },
-];
+
 
 const { smAndDown: isTablet } = useDisplay();
 const { xs: isMobile } = useDisplay();
 const emit = defineEmits(['switch-view', 'sort-by', 'open-filter']);
+const isSelected = ref(false);
 
 function switchView(view) {
   emit('switch-view', view);
+}
+
+function handleVerifiedChange() {
+  isSelected.value = !isSelected.value;
+  emit('update:isSelected', isSelected.value); // 发射事件并传递isSelected的当前值
 }
 
 function handleSortBy(sortBySelected) {

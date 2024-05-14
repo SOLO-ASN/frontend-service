@@ -134,3 +134,9 @@ dist
 
 # idea
 .idea/
+
+#.output
+.output/
+
+#.nuxt
+.nuxt/

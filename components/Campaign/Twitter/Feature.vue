@@ -18,7 +18,9 @@
                 </p>
 
                 <section id="twitter" style="width: 100%;">
-                  <twitter />
+                  <tweet
+                      :tweet-content='getTweetMessage()'
+                  />
                 </section>
 
               </div>
@@ -54,7 +56,7 @@
                 <p class="use-text-subtitle2" :class="isMobile ? 'text-center' : 'text-first'">
                   On your tweet, find the share button. Copy link and paste it here. Click the button to verify your account
                 </p>
-                
+
                 <div cols="12" sm="12" class="pt-9 px-0 pr-10">
                   <v-text-field
                       v-model="link"
@@ -68,7 +70,10 @@
 
 
                 <section id="verify" style="width: 100%;">
-                  <verify :link='link'/>
+
+                  <verify
+                      :input-url="link"
+                  />
                 </section>
 
               </div>
@@ -82,7 +87,7 @@
                   data-aos-duration="500"
                 >
                   <div :class="isMobile ? 'text-center' : 'text-start'">
-                    
+
                     <img :src="step2" alt="twitter-step2" style="width: 85%; height: auto;"/>
 
                   </div>
@@ -111,16 +116,20 @@ import Icons3d from '../../Icons3d';
 import TitleSecondary from '../../Title/TitleSecondary';
 import step1 from '@/assets/images/twitter-step1.png';
 import step2 from '@/assets/images/twitter-step2.png';
-import Twitter from '@/components/Campaign/Button/Twitter';
+import Tweet from '@/components/Campaign/Button/Tweet';
 import Verify from '@/components/Campaign/Button/Verify';
 
 const { lgAndUp: isDesktop } = useDisplay();
 const { smAndUp: isTablet } = useDisplay();
 const { xs: isMobile } = useDisplay();
 
-const link = ref('');
+let link = ref('');
 const linkRules = [v => !!v || 'Link is required'];
 
+function getTweetMessage() {
+  // todo refactor
+  return 'Verifying my Twitter account for my #SoloMissionID\nsid:8qDNZNN4apHmjc5n7orXMX\r@SoloMission\n';
+}
 
 onMounted(() => {
   AOS.init({

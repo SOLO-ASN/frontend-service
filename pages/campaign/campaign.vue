@@ -60,6 +60,7 @@ import Gallery from '@/components/Campaign/Reward/Gallery';
 import Single from '@/components/Campaign/Button/Single';
 import Detail from '@/components/Campaign/Product/Detail';
 import brand from '@/assets/text/brand';
+import url from '@/assets/text/url';
 import { useHead } from '#app';
 
 import axios from 'axios';
@@ -75,6 +76,9 @@ const taskList = ref({});
 const taskDetail = ref({});
 const taskReward = ref({});
 const rewardDetail = ref({});
+
+// for server request use
+const SERVER = url.serverUrl;
 
 // 用于将unixTimestamp转化为2024/03/05 22:00 GMT+8的格式
 function formatTimestamp(unixTimestamp) {
@@ -138,8 +142,9 @@ onMounted(() => {
   const params = url.split('?')[1]
   const searchParams = new URLSearchParams(params)
   const campaignId = searchParams.get('id')
-  axios.post('https://airdrop.aspark.space/api/campaign/query', {"id": campaignId}).then((response) => {
-    console.log(response.data.data);
+
+  axios.post(SERVER+'/api/campaign/query', {"id": campaignId}).then((response) => {
+
     //this.items = response.data
     // 将任务列表传给fap_list
     taskList.value = {

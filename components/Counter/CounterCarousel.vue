@@ -26,7 +26,7 @@
         </splide>
       </div>
     </div>
-    <counter
+    <Counter
       :text-first="{ title: $t('about_counter1'), count: 123, prefix: '+', suffix: 'M' }"
       :text-middle="{ title: $t('about_counter2'), count: 456, prefix: '+', suffix: 'K' }"
       :text-last="{ title: $t('about_counter3'), count: 789, prefix: '+' }"
@@ -41,7 +41,7 @@
 <script setup>
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import imgAPI from '@/assets/images/imgAPI';
-import counter from './counter';
+import Counter from './Counter';
 
 const { cover, title, desc } = defineProps({
   cover: {

@@ -15,8 +15,8 @@
         class="image-detail"
         height="200px"
         width="200px"
-        style="border-radius: 50%;" 
-      />     
+        style="border-radius: 50%;"
+      />
     </v-col>
     <v-col md="6" sm="7" cols="12">
       <div class="text">
@@ -71,10 +71,10 @@
               </div>
               <div class="left-align">
                 <readmore :info="detailData.info"/>
-              </div>    
+              </div>
               <div class="spacer"></div>
               <div class="left-align" >
-                <statistic 
+                <statistic
                 :followersCount="detailData.followersCount"
                 :token="detailData.token"
                 :backers="detailData.backers"
@@ -85,7 +85,7 @@
       </div>
     </v-col>
   </v-row>
-  
+
 </template>
 
 <style lang="scss" scoped>
@@ -113,7 +113,7 @@ import { ref, onMounted } from 'vue';
 import { useDisplay, useTheme } from 'vuetify';
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 import imgAPI from '@/assets/images/imgAPI';
-import CountDown from '../../Counter/CountDown';
+import CountDown from '../../Counter/Countdown';
 import Tag from '@/components/Branding/Tag/Tag';
 import Readmore from '@/components/Branding/Tag/readmore';
 import Statistic from '@/components/Branding/Tag/Statistic';
@@ -130,9 +130,9 @@ const {detailData} = defineProps({
   },
 });
 
-onMounted(() => { 
-  
-});  
+onMounted(() => {
+
+});
 
 const imgs = [
   imgAPI.photosP[7],

@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="main-wrap">
-      <main-header home :menu="singleMenu.ai" />
+      <main-header home :menu="singleMenu.inner" />
       <div class="container-wrap scroll-nav-content">
         <div id="home">
           <banner-slider />
         </div>
+        <!--  暂时注释
         <section id="about" :class="isTablet ? 'space-top-short' : 'space-top'">
           <about />
         </section>
@@ -30,6 +31,7 @@
         <section id="call-action" :class="isTablet ? 'space-top-short space-bottom-short' : 'space-top space-bottom'">
           <call-action />
         </section>
+        -->
       </div>
       <footer-deco>
         <main-footer />
@@ -72,7 +74,7 @@ import brand from '@/assets/text/brand';
 import { useHead, useRouter, useCookie } from '#app';
 
 useHead({
-  title: brand.name + ' - AI Home Pages',
+  title: brand.name + ' - Home Pages',
 });
 
 // push route to the stored cookie languages only for index page
@@ -83,7 +85,8 @@ const i18nLocale = useI18n();
 const { mdAndDown: isTablet} = useDisplay();
 const { smAndDown: isMobile} = useDisplay();
 
-const defaultLocale = '/' + i18nLocale.fallbackLocale.value;
+// const defaultLocale = '/' + i18nLocale.fallbackLocale.value;
+const defaultLocale = '/' + 'en';
 onMounted(() => {
   const rootUrl = document.location.pathname === '/' || document.location.pathname === defaultLocale;
   if (storedLang.value && rootUrl) {

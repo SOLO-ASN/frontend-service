@@ -9,9 +9,8 @@
               data-aos-delay="1100"
               data-aos-duration="500"
             >
-              <arrow-button @click="checkTweet" style="width: 100%;" color="primary" :text="'Verify'"/>
+              <arrow-button style="width: 100%;" color="primary" :text="'Verify'" @click="sendVerify"/>
             </div>
-
 
     </v-row>
   </v-container>
@@ -32,42 +31,58 @@ import link from '@/assets/text/link';
 import ArrowButton from './Standard';
 import SingleCard from '../../Cards/Apps/SingleCard';
 import TitleMain from '../../Title';
-import { useRouter } from 'vue-router';
+import url from '@/assets/text/url';
 
 const router = useRouter();
 const { smAndDown: isMobile } = useDisplay();
 const { sm: isTablet } = useDisplay();
 
-const props = defineProps({
-  link: String
-})
-
-const checkTweet = async () => {
-  console.log(props.link);
-  const tweetId = extractTweetId(props.link);
-  // 使用 crossorigin.me 作为 CORS 代理
-
-  // 获取当前网页的URL
-  const url = window.location.href
-  const params = url.split('?')[1]
-  const searchParams = new URLSearchParams(params)
-  const campaignId = searchParams.get('id')
-  // 验证成功返回原来的campaign页面
-  let route = { path: './campaign', query: { id: campaignId } };
-  // 导航到对应的网页
-  router.push(route);
-}
-
-// 从推特分享链接中提取推文 ID
-const extractTweetId = (tweetUrl) => {
-  // 从链接中提取最后一个斜杠后的字符串作为推文 ID
-  const parts = tweetUrl.split('/');
-  return parts[parts.length - 1];
-}
+// for server request use
+const SERVER = url.serverUrl;
 
 onMounted(() => {
   AOS.init({
     once: true,
   });
 });
+
+const props = defineProps({
+  inputUrl: {
+    type: String,
+    default: '',
+  }
+});
+
+// todo here we want to toast that the url is valid
+let verified = ref(false);
+
+function sendVerify() {
+  // check if the tweet url is valid
+  if (!isVaildTweetURL(props.inputUrl)) {
+    console.log('Invalid Tweet URL', props.inputUrl);
+    return;
+  }
+
+  // todo add address or jwt
+  postDataToAPI(SERVER+'/api/user/checkTwitterAccount', {
+    address: "",
+    tweetURL: props.inputUrl,
+  });
+}
+
+function postDataToAPI(url, data) {
+  axios.post(url, data)
+      .then((res) => {
+        verified = data.verified;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+}
+
+function isVaildTweetURL(url) {
+  const pattern = /^https:\/\/x\.com\/.*\/status\/.*$/;
+  return pattern.test(url);
+}
+
 </script>

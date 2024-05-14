@@ -2,114 +2,105 @@
   <div class="main-wrap">
     <main-header :menu="singleMenu.inner" />
     <blur-gradient />
-    <div class="container-fron container-wrap">
+    <div class="container-front container-wrap">
       <div class="inner-page">
-        <v-dialog
-          v-model="dialog"
-          fullscreen
-          hide-overlay
-          transition="dialog-bottom-transition"
-        >
+        <login-prompt
+          v-model="showLoginDialog"
+          @update:value="showLoginDialog = $event"
+        />
+        <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
           <v-card class="cyber">
-            <v-toolbar
-              dark
-              flat
-              class="header-filter"
-            >
-              <v-btn
-                icon
-                dark
-                @click="handleCloseFilter"
-              >
+            <v-toolbar dark flat class="header-filter">
+              <v-btn icon dark @click="handleCloseFilter">
                 <v-icon>mdi-close</v-icon>
               </v-btn>
               <v-toolbar-title>Filter</v-toolbar-title>
               <v-spacer />
               <v-toolbar-items>
-                <v-btn
-                  dark
-                  text
-                  @click="handleCloseFilter"
-                >
+                <v-btn dark text @click="handleCloseFilter">
                   Done
                 </v-btn>
               </v-toolbar-items>
             </v-toolbar>
             <div class="pt-3">
-             
+              <!-- Filter content goes here -->
             </div>
           </v-card>
         </v-dialog>
+       <v-dialog v-model="createDialog" fullscreen hide-overlay transition="dialog-transition">
+          <v-toolbar v-if="createDialog" flat dense>
+            <v-btn icon large @click="toggleCreateDialog" style="position: absolute; right: 20px; top: 20px;">
+              <v-icon size="25">mdi-close</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <v-card>
+            <v-card-text>
+              <space-create @close-dialog="handleCloseDialog"/>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
         <v-container>
-          <v-row align="start" justify="start" :class="isDesktop ? 'spacing2' : 'spacing1'">
-
-            <v-col md="8" sm="12" class="px-0" cols="12">
+          <v-btn color="primary" @click=toggleCreateDialog>Create space</v-btn>
+        </v-container>
+        <v-container>
+          <v-row align="start" justify="start" :class="{'spacing-xs': !isDesktop, 'spacing-lg': isDesktop}">
+            <v-col :cols="isDesktop ? 8 : 12" class="px-0">
               <search v-model="keyword" @input="onInput" />
             </v-col>
-            <v-col md="2" sm="6" class="px-0">
+           <v-col md="4" sm="12" class="px-0" cols="12">
               <div class="ps-md-3">
                 <sorter
+                  :showFilter=false
                   :view="toggleView"
                   :sort-by-selected="sortBySelected"
                   :result-length="filteredItems.length"
                   @switch-view="handleToggleView"
                   @sort-by="handleSortBy"
                   @open-filter="handleOpenFilter"
-                />
-              </div>
-              
-            </v-col>
-            <v-col md="2" sm="12" class="px-0">
-              <div class="ps-md-4">
-                <claim-button @update:isSelected="handleVerifiedChange"/>
+                  @update:isSelected="handleVerifiedChange"
+                />  
               </div>
             </v-col>
+            
           </v-row>
-          <v-row class="pl-0" style="position: absolute; top: 125px; left: 250px;">
-            <v-btn color="primary">Create space</v-btn>
-          </v-row>
-          </v-container>
-          <v-container>
+<!--
+          <v-row class="pl-0" :style="isDesktop ? 'position: absolute; top: 125px; left: 250px;' : 'margin-top: 20px;'">
+            <v-btn color="primary" @click=toggleCreateDialog>Create space</v-btn>
+          </v-row>   
+-->
+        </v-container>
+        <v-container>
           <div class="mt-md-5 mt-xs-2 mt-sm-3 mx-xs-2">
-            <v-row :class="{ spacing3: isDesktop }">
-              <v-col md="15" cols="15">
+            <v-row :class="{ 'spacing-lg': isDesktop, 'spacing-sm': !isDesktop }">
+              <v-col cols="12">
                 <tab-category
                   :switch-tab="handleChangeGroup"
                   :value="group"
                   :total="cardItems.length"
-                />
-                 <v-container v-if="isLoading" style="display: flex; justify-content: center; align-items: center; height: 30vh;">
-                  <span style="font-size: 50px; font-weight: bold;">loading!</span>
-                </v-container>
-                <!-- 原有的内容保持不变 -->
-                <div v-if="!isLoading">
-                  <!-- 数据加载完成后的展示内容 -->
-                <v-row id="profile" class="mt-sm-5 mt-xs-2 spacing3">
-                  <v-col v-if="cardItems.length < 1" sm="12">
-                      <h3>Not found</h3>
-                    </v-col>
-                  <v-col
-                    v-for="(item, index) in cardItems"
-                    :key="index"
-                    sm="4"
-                    cols="12"
-                  >
+                />        
+                <v-row id="profile" class="mt-sm-5 mt-xs-2" :class="{'spacing-sm': !isDesktop, 'spacing-lg': isDesktop}">
+                  <v-col v-for="(item, index) in cardItems" :key="index.id" :cols="isDesktop ? 4 : 12">
                     <space-card
                       :name="item.name"
                       :isVerified="item.isVerified"
                       :thumbnail="item.thumbnail"
                       :activeCampaignCount="item.activeCampaignCount"
-                      :followersCount="item.followersCount"
-              
+                      :followersCount="item.followers"
                       :status="item.status"
+                      :alias="item.alias"
                       :id="item.id"
-                      :tokenSymbol="item.tokenSymbol"
                       :isFollowing="item.isFollowing"
-                      @follow-click="handleFollowClick"
+                      @follow-click="handleFollowClick(item)"
                     />
                   </v-col>
+                  <v-container v-if="isLoading" class="loading-container">
+                    <span class="loading-text">loading!</span>
+                  </v-container>
+                  <v-container v-if="!hasNextPage" class="loading-container">
+                    <span class="loading-text">Data loading complete!</span>
+                  </v-container>
                 </v-row>
-                  </div>
+                
               </v-col>
             </v-row>
           </div>
@@ -121,6 +112,7 @@
     </div>
   </div>
 </template>
+
 
 <style scoped lang="scss">
 @import '@/assets/scss/pages';
@@ -139,13 +131,16 @@ import CardProducts from '@/components/Cards/Product/ProductCard';
 import PlaylistCard from '@/components/Cards/Media/PlaylistCard';
 import SpaceCard from '@/components/Airdrops/SpaceCard';
 import Search from '@/components/Filter/Search';
+import LoginPrompt from '@/components/Airdrops/LoginPrompt'
 import TabCategory from '@/components/Airdrops/TabCategory';
 import Sorter from '@/components/Airdrops/Sorter';
 import ClaimButton from '@/components/Airdrops/ClaimButton.vue';
 import brand from '@/assets/text/brand';
 import link from '@/assets/text/link';
+import SpaceCreate from '@/components/Airdrops/SpaceCreate.vue'
 import collection from '@/assets/api/collection';
 import creator from '@/assets/api/creator';
+import url from '@/assets/text/url';
 import products from '@/assets/api/products';
 import { useHead } from '#app';
 import axios from 'axios'
@@ -161,7 +156,7 @@ const checkItems = [
 
 
 const dialog = ref(false);
-const sortBy = ref('Trening')
+const sortBy = ref('followers')
 const sortFrom = ref(-1);
 const sortTo = ref(1);
 const toggleView = ref(0);
@@ -172,6 +167,7 @@ const filterCheck = ref(checkItems);
 const group = ref('all');
 const verified = ref(false);
 const keyword = ref('');
+const SERVER = url.serverUrl;
 
 const { mdAndUp: isDesktop } = useDisplay();
 
@@ -181,16 +177,31 @@ const range = ref({
 });
 
 const sortBySelected = ref({
-  title: 'Trending',
-  value: 'trending-asc',
+  title: 'Most followed',
+  value: 'followers',
 });
 
 const filterTag = ref(['tag-one', 'tag-two', 'tag-three', 'tag-four'])
 const cardItems = ref([])
 const isLoading = ref(true);
+const createDialog = ref(false);
+const showLoginDialog = ref(false);
+const after = ref(0);
+const hasNextPage = ref(true);
+const username = ref(null);
+
+
+function showLoginPrompt() {
+  showLoginDialog.value = true;
+}
 
 onMounted(() => {
   fetchData();
+  window.addEventListener('scroll', handleScroll);
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll);
 })
 
 function handleOpenFilter() {
@@ -200,6 +211,18 @@ function handleOpenFilter() {
 function handleCloseFilter() {
   dialog.value = false; 
 }
+
+function toggleCreateDialog() {
+  const username = localStorage.getItem('username');
+  if(username) {
+    createDialog.value = !createDialog.value;
+  }else {
+    showLoginPrompt();
+  }
+  
+}
+
+
 
 function handleCollectTag(val) {
   filterTag.value = val;
@@ -231,23 +254,57 @@ const filteredItems = computed(() => {
 })
 
 
-const handleFollowClick = async (id, isFollowing) => {
-  console.info(isFollowing);
-  console.info(id);
-  if(isFollowing==false){
+function handleScroll() {
+    const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+    if (nearBottom && !isLoading.value  && hasNextPage.value==true) {  // 确保每次都是完整的数据组
+        loadMoreData();
+    }
+}
+
+function handleCloseDialog() {
+  createDialog.value = false;
+}
+
+const handleFollowClick = async (item) => {
+  console.info(item.isFollowing);
+  console.info(item.id);
+  const username = localStorage.getItem('username');
+  if(item.isFollowing==false){
       try {
-        const response = await axios.post('https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io/api/spaces/follow', {
-          id: id
+        const response = await axios.post(SERVER + '/api/spaces/follow', {
+          username: username,
+          spaceid: item.id
         });
         // 根据返回数据执行后续操作，比如打开对话框显示详情
+        if(response.data.msg=="NOT_LOGIN") {
+          showLoginPrompt();
+        }else if(response.data.msg=="Follow Success") {
+          // 更新对应卡片的 `isFollowing` 状态
+          
+          item.isFollowing = !item.isFollowing;
+        
+        }else {
+          alert("follow error");
+        }
       } catch (error) {
         console.error('请求详情失败', error);
       }
     }else{
       try {
-        const response = await axios.post('https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io/api/spaces/unfollow', {
-          id: id
+        const response = await axios.post(SERVER + '/api/spaces/unfollow', {
+          username: username,
+          spaceid: item.id
         });
+        if(response.data.msg=="NOT_LOGIN") {
+          showLoginPrompt();
+        }else if(response.data.msg=="UnFollow Success") {
+          // 更新对应卡片的 `isFollowing` 状态
+          
+          item.isFollowing = !item.isFollowing;
+        
+        }else {
+          alert("unfollow error");
+        }
         // 根据返回数据执行后续操作，比如打开对话框显示详情
       } catch (error) {
         console.error('请求详情失败', error);
@@ -256,26 +313,32 @@ const handleFollowClick = async (id, isFollowing) => {
 };
 
 async function fetchData() {
+  const username = localStorage.getItem('username');
   try {
-    isLoading.value = true; // 开始加载数据   https://955b2b67-7c5f-4421-9eb6-d6cf6c3871ae.mock.pstmn.io
-    const response = await axios.post('https://88b11a64-0002-481a-a6ed-8b8a7b558108.mock.pstmn.io/api/spaces/query', {
+    isLoading.value = true; 
+    after.value = 0;
+    const response = await axios.post(SERVER + '/api/spaces/query', {
+      first:9,
+      after:after.value,
       spaceListType: sortBy.value,
       filter: group.value,
       verifiedOnly: verified.value,
       searchString: keyword.value,
+      username: username
     });
-    console.info(response.data.data);
-    if (response.data.data.list && Array.isArray(response.data.data.list)) {
-      cardItems.value = response.data.data.list.map(item => ({
+
+    after.value = response.data.data.pageInfo.endCursor;
+    hasNextPage.value = response.data.data.pageInfo.hasNextPage;
+    if (response.data.data.Spaces && Array.isArray(response.data.data.Spaces)) {
+      cardItems.value = response.data.data.Spaces.map(item => ({
         name: item.name,
         isVerified: item.isVerified,
         thumbnail: item.thumbnail,
         activeCampaignCount: item.activeCampaignCount,
-        tokenSymbol: item.tokenSymbol,
-        followersCount: item.followersCount,
+        followers: item.followers,
         status: item.status,
         id: item.id,
-        href: '/collection/campaign' + '?alias=Galxe', // Removed the quotes around the template string
+        alias: item.alias,
         isFollowing: item.isFollowing
       }));
     } else {
@@ -283,10 +346,55 @@ async function fetchData() {
       console.error('List is not an array:', response.data.data);
       cardItems.value = []; // Reset cardItems or set it to a default value
     }
-    isLoading.value = false;
   } catch (error) {
     console.error('请求失败', error);
     cardItems.value = []; // Reset cardItems or set it to a default value in case of an error
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+async function loadMoreData() {
+  if (isLoading.value) {
+    return; // 如果已经在加载中，则直接返回
+  }
+  isLoading.value = true;
+  try {
+    const username = localStorage.getItem('username');
+    const response = await axios.post(SERVER + '/api/spaces/query', {
+      username: username,
+      first:9,
+      after:after.value,
+      spaceListType: sortBy.value,
+      filter: group.value,
+      verifiedOnly: verified.value,
+      searchString: keyword.value,
+    });
+
+    after.value = response.data.data.pageInfo.endCursor;
+    hasNextPage.value = response.data.data.pageInfo.hasNextPage;
+    if (response.data.data.Spaces && Array.isArray(response.data.data.Spaces)) {
+      cardItems.value.push(...response.data.data.Spaces.map(item => ({
+        name: item.name,
+        isVerified: item.isVerified,
+        thumbnail: item.thumbnail,
+        activeCampaignCount: item.activeCampaignCount,
+        followers: item.followers,
+        status: item.status,
+        id: item.id,
+        alias: item.alias,
+        isFollowing: item.isFollowing
+      })));
+    } else {
+      // Handle the case where response.data.list is not an array
+      console.error('List is not an array:', response.data.data);
+      cardItems.value = []; // Reset cardItems or set it to a default value
+    }
+
+  } catch (error) {
+    console.error('请求失败', error);
+    cardItems.value = []; // Reset cardItems or set it to a default value in case of an error
+  }finally {
     isLoading.value = false;
   }
 }
