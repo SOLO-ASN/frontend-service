@@ -1,5 +1,5 @@
 <template>
-  <div v-application style="display: initial">
+<!--  <div v-application style="display: initial">-->
     <div class="network-more-box mt-3">
       <div class="flex-all-center">
         <img
@@ -28,7 +28,7 @@
 
     </div>
 
-  </div>
+<!--  </div>-->
 
 
 
