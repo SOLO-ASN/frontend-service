@@ -248,30 +248,34 @@ async function fetchUsername() {
 }
 
 async function storeTgInfo(tgInfo) {
-  axios.post(SERVER + '/api/user/update/socialAccount', {
-    "username": username.value,
-    "telegramAccount": {
-    "id": tgInfo.id.toString(),
-      "name":tgInfo.username
-    }}).then((response) => {
-    console.log(response.data);
-  }).catch(error => {
-    console.log(error);
-  })
+  try{
+    await axios.post(SERVER + '/api/user/update/socialAccount', {
+      "username": username.value,
+      "telegramAccount": {
+      "id": tgInfo.id.toString(),
+        "name":tgInfo.username
+      }});
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 async function decodeTgAuthResult() {
   const url = new URL(window.location.href);
+  const oriPath = url.origin + url.pathname;
   const hash = url.hash.substring(1); // removes "#"
   const jsonObjectStr = decodeURIComponent(hash.substring(13)); // removes "tgAuthResult=" and decode
   if (jsonObjectStr.length > 0) {
     const tgInfo = JSON.parse(atob(jsonObjectStr));
     console.log(tgInfo);
 
+    try {
+      await storeTgInfo(tgInfo);
+    } catch (e) {
+      console.error("Failed to store Telegram info: ", e);
+    }
 
-    await storeTgInfo(tgInfo);
-
-    window.close();
+    window.open(oriPath, "_self");
   }
 }
 
