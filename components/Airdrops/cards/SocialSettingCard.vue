@@ -125,7 +125,7 @@ function verifyEmail(){
 
 function verifySocialTag(name) {
   if (name === "Telegram") {
-    window.open('https://oauth.telegram.org/auth?bot_id=7165645088&origin=https%3A%2F%2Fairdrop.aspark.space&request_access=write&return_to=https%3A%2F%2Fairdrop.aspark.space/id/accountSettings', '_blank', 'width=600,height=600');
+    window.open('https://oauth.telegram.org/auth?bot_id=7165645088&origin=https://airdrop.aspark.space&request_access=write&return_to=https://airdrop.aspark.space/id/accountSettings', '_self', 'width=600,height=600');
     dialog.currentTag = name;
     dialog.activeHolder[name] = false;
   } else {
