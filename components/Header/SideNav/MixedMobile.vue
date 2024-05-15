@@ -47,17 +47,32 @@
       -->
     </v-list>
     <v-divider class="my-5" />
-    <v-list dense>
+    <v-list v-if='!login' dense>
       <v-list-item
-        v-for="(item, index) in ['login', 'register']"
+        v-for="(item, index) in ['login']"
         :key="index"
-        :href="'/menus/' + item"
+        @click="openLoginWindow"
         :class="{ current: curURL === (curOrigin+langPath+item)}"
         link
       >
         <div>
           <v-list-item-title class="menu-list">
             {{ $t('header_'+item) }}
+          </v-list-item-title>
+        </div>
+      </v-list-item>
+    </v-list>
+    <v-list v-if='login' dense>
+      <v-list-item
+        v-for="(item, index) in ['logout']"
+        :key="index"
+        @click="handleLogout"
+        :class="{ current: curURL === (curOrigin+langPath+item)}"
+        link
+      >
+        <div>
+          <v-list-item-title class="menu-list">
+            {{ item }}
           </v-list-item-title>
         </div>
       </v-list-item>
@@ -72,6 +87,7 @@
 
 <script>
 import link from '@/assets/text/link';
+import url from '@/assets/text/url';
 export default {
   props: {
     menuPrimary: {
@@ -87,12 +103,45 @@ export default {
       required: true,
     }
   },
+  beforeDestroy() {
+    // 在组件销毁前移除事件监听器
+    window.removeEventListener('message', this.handlePostMessage);
+  },
+  methods: {
+    openLoginWindow() {
+      const currentPage = window.location.href;
+      const loginWindow = window.open(url.fidoUrl + `/login.html?redirect=${encodeURIComponent(currentPage)}`, 'Login', 'width=600,height=600');
+    },
+    openRegisterWindow() {
+      const currentPage = window.location.href;
+      const loginWindow = window.open(url.fidoUrl + `/register.html?redirect=${encodeURIComponent(currentPage)}`, 'Register', 'width=600,height=600');
+    },
+    handleLogout() {
+      localStorage.removeItem('username');
+      this.login = false;
+    },
+    handlePostMessage(event) {
+      if (event.origin === 'fidoUrl') {
+        const data = event.data;
+        if (data.type === 'loginSuccess' && data.jwt) {
+          localStorage.setItem('jwt', data.jwt);
+          localStorage.setItem('username', data.username);
+          this.login = true;
+        }
+      }
+    },
+  },
   data() {
     return {
+      fidoUrl: url.fidoUrl + "/login.html",
       isOpen: false,
       curURL: '',
       curOrigin: '',
       langPath: '',
+      login: false,
+      link,
+      loaded: false,
+      loginWindow: null,
     };
   },
   mounted() {
@@ -100,6 +149,14 @@ export default {
     this.curURL = window.location.href;
     this.curOrigin = window.location.origin;
     this.langPath = '/' + this.$i18n.locale;
+    const query = new URLSearchParams(window.location.search);
+    const username = query.get('username'); // 获取 'username' 参数
+    if(username) this.login = true;
+    if(localStorage.getItem('username')) this.login = true;
+    this.loaded = true;
+    window.addEventListener('message', this.handlePostMessage);
   },
 };
+
+
 </script>
