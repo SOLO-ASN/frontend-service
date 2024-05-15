@@ -70,7 +70,7 @@
                     <br/>
                     <div class="" id="profile">
                       <profile-setting-card
-                          name="myname"
+                          :name="username"
                       />
                     </div>
 
@@ -171,6 +171,8 @@ import ProfileSettingCard from '@/components/Airdrops/cards/ProfileSettingCard.v
 import WalletSettingCard from '@/components/Airdrops/cards/WalletSettingCard.vue'
 import SocialSettingCard from '@/components/Airdrops/cards/SocialSettingCard.vue'
 
+import url from '@/assets/text/url';
+import axios from 'axios';
 
 import {
   collectionData, blogData, postData,
@@ -183,6 +185,9 @@ import {useRouter} from "#app";
 
 const { mdAndDown: isMobile } = useDisplay();
 const { lgAndDown: isTablet } = useDisplay();
+
+// for server request use
+const SERVER = url.serverUrl;
 
 
 // const { invert, menu } = defineProps({
@@ -237,6 +242,39 @@ function createListing(name) {
   return { name };
 }
 
+let username = ref("");
+async function fetchUsername() {
+  username.value = localStorage.getItem('username');
+}
+
+async function storeTgInfo(tgInfo) {
+  axios.post(SERVER + '/api/user/update/socialAccount', {
+    "username": username.value,
+    "telegramAccount": {
+    "id": tgInfo.id.toString(),
+      "name":tgInfo.username
+    }}).then((response) => {
+    console.log(response.data);
+  }).catch(error => {
+    console.log(error);
+  })
+}
+
+async function decodeTgAuthResult() {
+  const url = new URL(window.location.href);
+  const hash = url.hash.substring(1); // removes "#"
+  const jsonObjectStr = decodeURIComponent(hash.substring(13)); // removes "tgAuthResult=" and decode
+  if (jsonObjectStr.length > 0) {
+    const tgInfo = JSON.parse(atob(jsonObjectStr));
+    console.log(tgInfo);
+
+
+    await storeTgInfo(tgInfo);
+
+    window.close();
+  }
+}
+
 onMounted(() => {
   const result = [];
   /*for (let i = 0; i < longestArray.length; i += 1) {
@@ -267,6 +305,13 @@ onMounted(() => {
       createListing("wallet"),
       createListing("social")
   ];
+
+  // get username from local storage
+  fetchUsername();
+
+  // redirected from telegram, decode the result and close the window
+  decodeTgAuthResult();
+
 
 });
 </script>

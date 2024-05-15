@@ -102,7 +102,7 @@ export default {
         path: ''
       },{
         name: 'Settings',
-        path: '/id/accountSettings'
+        path: '/en/id/accountSettings'
       },{
         name: 'Campaign Transactions',
         path: '/en/id/recentTransactions'
