@@ -81,7 +81,10 @@
 
                     <br/> <v-divider /> <br/>
                     <div class="" id="social">
-                      <social-setting-card />
+                      <social-setting-card
+                          v-if="userSocialAccounts"
+                          :social-account-object="userSocialAccounts"
+                      />
                     </div>
 
 <!--                  </div>-->
@@ -244,7 +247,9 @@ function createListing(name) {
 
 let username = ref("");
 async function fetchUsername() {
+
   username.value = localStorage.getItem('username');
+  console.log("fetching data", username.value);
 }
 
 async function storeTgInfo(tgInfo) {
@@ -278,6 +283,47 @@ async function decodeTgAuthResult() {
     window.open(oriPath, "_self");
   }
 }
+
+
+const userSocialAccounts = ref(null);
+async function fetchAndPackData(username) {
+  try {
+    const userInfo = await axios.post(SERVER + '/api/user/info/' + username, {});
+    console.log(userInfo.data);
+    if (userInfo.data.msg === "success") {
+      const newSocialAccounts = {};
+      let _userInfo = userInfo.data.data.addressInfo;
+      if (_userInfo.xAccountId !== "") {
+        newSocialAccounts["X"] = {
+        "id": _userInfo.xAccountId,
+        "name": _userInfo.xAccountName,
+      }}
+      if (_userInfo.githubAccountId !== "") {
+        newSocialAccounts["Github"] = {
+          "id": _userInfo.githubAccountId,
+          "name": _userInfo.githubAccountName,
+        }
+      }
+      if (_userInfo.discordAccountId !== "") {
+        newSocialAccounts["Discord"] = {
+          "id": _userInfo.discordAccountId,
+          "name": _userInfo.discordAccountName,
+        }
+      }
+      if (_userInfo.telegramAccountId !== "") {
+        newSocialAccounts["Telegram"] = {
+          "id": _userInfo.telegramAccountId,
+          "name": _userInfo.telegramAccountName,
+        }
+      }
+      userSocialAccounts.value = {...userSocialAccounts.value, ...newSocialAccounts};
+    }
+
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 
 onMounted(() => {
   const result = [];
@@ -316,6 +362,7 @@ onMounted(() => {
   // redirected from telegram, decode the result and close the window
   decodeTgAuthResult();
 
+  fetchAndPackData(username.value);
 
 });
 </script>
