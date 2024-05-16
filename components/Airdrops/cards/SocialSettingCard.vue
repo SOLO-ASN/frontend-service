@@ -11,7 +11,7 @@
           <template v-slot:append>
             <span style="color: #4d59d5;" @click="sendEmailCode"><strong>Send a code</strong></span>
           </template>
-<!--          <span style="color: #1a237e;" @click="sendEmailCode">Send a code</span>-->
+<!--          <span style="colgor: #1a237e;" @click="sendEmailCode">Send a code</span>-->
         </v-text-field>
 <!--        <span style="color: #1a237e;" @click="sendEmailCode"><strong>Send a code</strong></span>-->
         <v-text-field v-model="userEmailCode" label="Enter Code" type="email" >
@@ -23,9 +23,8 @@
 
       <h4 style="font-size: 12px; margin-top: 30px;"> Link your social tags </h4>
 
-
       <div
-          v-for="(item, index) in socialTags"
+          v-for="(item, index) in btnEntries"
           :key="index"
           style="margin: 15px 0 15px"
       >
@@ -47,7 +46,7 @@
               <v-card-text>
                 <v-row dense>
                   <v-col cols="12" md="12" sm="12">
-                    <v-text-field :label="`${dialog.currentTag} Account*`" required></v-text-field>
+                    <v-text-field :label="`${dialog.currentTag} Account* ${socialAccountObject} `" required></v-text-field>
                   </v-col>
                 </v-row>
               </v-card-text>
@@ -74,6 +73,19 @@
         </v-dialog>
       </div>
 
+      <div
+          v-for="(item, index) in textEntries"
+          :key="index"
+          style="margin: 15px 0 15px"
+      >
+        <div style="margin-top: 10px">
+          <p style="font-size: 12px; margin-top: 30px;"> {{index}} Account </p>
+        <v-text-field :label="item.name" type="" :placeholder="item.name">
+        </v-text-field>
+      </div>
+
+      </div>
+
     </v-container>
 
   </v-card>
@@ -93,12 +105,28 @@
 
 <script setup>
 
-import {reactive, ref} from "vue";
+import {defineProps, watch, reactive, ref} from "vue";
+import url from '@/assets/text/url';
+import axios from 'axios';
+
+const props = defineProps({
+  socialAccountObject: {
+    type: Object,
+    required: true,
+  }
+})
+
+const sao = ref(props.socialAccountObject);
+
+// for server request use
+const SERVER = url.serverUrl;
 
 import f from '@/public/social/social_discord_icon.svg';
 
 const socialTags = ref([]);
-const rowsListing = ref([]);
+const btnEntries = ref([]);
+// const textEntries = ref([]);
+const textEntries = ref({});
 const dialog = reactive({
   activeHolder: {},
   currentTag: null,
@@ -143,6 +171,7 @@ function closeDialog() {
 
 onMounted(() => {
 
+  // all social tags
   socialTags.value = [
       createListing("X", "social/social_twitter_icon.png"),
       createListing("Telegram", "social/social_telegram_icon.png"),
@@ -150,12 +179,20 @@ onMounted(() => {
       createListing("Github", "social/social_github_icon.png"),
   ];
 
-  const entries = socialTags.value.map((value, index) => {
+  // pick text and button entries
+  for (const value of socialTags.value) {
+    if (sao.value[value.name]) {
+      textEntries.value[value.name] = sao.value[value.name];
+    } else {
+      btnEntries.value.push(value);
+    }
+  }
+
+  // show btn entries
+  const entries = btnEntries.value.map((value, index) => {
     return [value.name, false];
   });
   dialog.activeHolder = Object.fromEntries(entries);
-  console.log(dialog.activeHolder);
-
 })
 
 </script>
