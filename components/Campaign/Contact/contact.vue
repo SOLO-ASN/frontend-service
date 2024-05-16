@@ -333,6 +333,16 @@
                         required
                       />
                     </v-col>
+                    <v-col v-if="row.credType == 'TELEGRAM'" cols="12" sm="12">
+                      <v-text-field
+                        v-model="row.referenceLink"
+                        variant="filled"
+                        color="secondary"
+                        :rules="urlRules"
+                        :label="'Please enter a share link for your telegraph chatroom *'"
+                        required
+                      />
+                    </v-col>
                     <v-col v-if="row.credType == 'TWITTER_FOLLOW'" cols="12" sm="12">
                       <v-text-field
                         v-model="row.referenceLink"
@@ -707,7 +717,8 @@ export default {
                 alert('Please check the ID of your telegram chat.');
                 return;
               }
-              task.referenceLink = this.campaign.telegramBotAPI + " " + this.campaign.telegramChatId;
+              alert('Please check the share link for your telegraph chatroom');
+              return;
             }
             if(task.credType == 'TWITTER_FOLLOW') {
               alert('Please check the name of the Twitter user to follow in the task.');
