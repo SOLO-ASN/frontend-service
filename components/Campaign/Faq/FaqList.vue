@@ -41,8 +41,10 @@
               <!--网页跳转任务-->
               <v-btn v-if="item.credType==='WEB_BROWSE'" @click="togglePanel('WEB_BROWSE', item.referenceLink)">Get it done</v-btn>
               <!--telegram任务-->
-              <v-icon v-if="item.credType==='TELEGRAM'" @click="refreshTask('TELEGRAM', item)">mdi-refresh</v-icon>
-              <v-btn v-if="item.credType==='TELEGRAM'" class="ml-3" @click="togglePanel('TELEGRAM', item)">Get it done</v-btn>
+              <span style="display: flex; align-items: center;">
+                <v-icon v-if="item.credType==='TELEGRAM'" @click="refreshTask('TELEGRAM', item)">mdi-refresh</v-icon>
+                <v-btn v-if="item.credType==='TELEGRAM'" class="ml-3" @click="togglePanel('TELEGRAM', item)">Get it done</v-btn>
+              </span>
               <!--twitter任务-->
               <v-btn v-if="item.credType==='TWITTER_TWEET'" @click="togglePanel('TWITTER_TWEET', props.taskList.id)">Get it done</v-btn>
               <v-btn v-if="item.credType==='TWITTER_FOLLOW'" @click="togglePanel('TWITTER_FOLLOW', item.referenceLink)">Get it done</v-btn>
