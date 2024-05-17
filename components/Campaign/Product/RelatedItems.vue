@@ -7,12 +7,10 @@
           :text="$t('explore more')"
           :align="isMobile ? 'center' : 'left'"
         />
-        <v-btn
-          href="#"
-          variant="text"
-          size="large"
-          class="view-all"
-        >
+        <v-btn variant="text" 
+               size="large" 
+               class="view-all" 
+               @click="navigateToExplore">
           see more
           <v-icon class="icon ms-1">mdi-arrow-right</v-icon>
         </v-btn>
@@ -46,6 +44,16 @@ import { useDisplay } from 'vuetify';
 import imgAPI from '@/assets/images/imgAPI';
 import TitleMain from '../../Title';
 import ProductNftCard from '../Card/NftCard';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const navigateToExplore = () => {
+  console.log('Button clicked');
+  // jump to the right page based on the type of credential
+  let route = { path: '../menus/explore'};
+  router.push(route);
+};
 
 const nftList = [
   {

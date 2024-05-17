@@ -373,7 +373,7 @@
 
 .carousel-header {
   position: relative;
-  z-index: 3;
+  z-index: 300;
   @include breakpoints-up(sm) {
     display: flex;
     justify-content: space-between;
