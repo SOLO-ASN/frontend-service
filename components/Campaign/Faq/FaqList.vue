@@ -27,7 +27,7 @@
                 <v-icon v-if="item.credType == 'TWITTER_LIKE'" class="mr-1 ml-1" >mdi-twitter</v-icon>
                 <v-icon v-if="item.credType == 'TWITTER_RETWEET'" class="mr-1 ml-1" >mdi-twitter</v-icon>
                 <v-icon v-if="item.credType == 'TELEGRAM'" class="mr-1 ml-1" >mdi-send</v-icon>
-                <v-icon v-else class="mr-1">mdi-earth</v-icon>
+                <v-icon v-if="item.credType == 'WEB_BROWSE'" class="mr-1 ml-1" >mdi-earth</v-icon>
             </span>
             <span class="heading">
               {{ item.name }}
