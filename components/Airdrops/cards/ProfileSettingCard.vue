@@ -5,7 +5,7 @@
         <v-col sm="4">
           <div class="avatar">
             <figure>
-              <img alt="avatar" src="https://source.boringavatars.com/marble/120/ + {{name}}"/>
+              <img alt="avatar" :src="`https://source.boringavatars.com/marble/120/${name}`" />
             </figure>
           </div>
         </v-col>

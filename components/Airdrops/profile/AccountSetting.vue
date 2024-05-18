@@ -9,20 +9,7 @@
               <v-row class="spacing2">
                 <v-col sm="3">
                   <div class="root-menu">
-<!--                    <ul class="menu">-->
-<!--                      <li-->
-<!--                          v-for="(item, index) in menu"-->
-<!--                          :key="index"-->
-<!--                          :style="{ 'animation-duration': index * 0.15 + 's' }"-->
-<!--                      >-->
-<!--                        <v-btn-->
-<!--                            :class="{ active: activeMenu === item.name }"-->
-<!--                            variant="text"-->
-<!--                            @click="scrollToMyEl(item.name)"-->
-<!--                            v-text="$t('setting_'+item.name)"-->
-<!--                        />-->
-<!--                      </li>-->
-<!--                    </ul>-->
+
                     <v-tab
                         v-for="(item, index) in menu"
                         :key="index"
@@ -35,37 +22,6 @@
 
                 </v-col>
                 <v-col sm="9">
-<!--&lt;!&ndash;                  <div class="detail">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="logo-name">&ndash;&gt;-->
-<!--&lt;!&ndash;                      <h3 class="use-text-title">&ndash;&gt;-->
-<!--&lt;!&ndash;                        {{ brand.name }}&ndash;&gt;-->
-<!--&lt;!&ndash;                      </h3>&ndash;&gt;-->
-<!--&lt;!&ndash;                      <h4 class="use-text-subtitle">&ndash;&gt;-->
-<!--&lt;!&ndash;                        {{ brand.title }}&ndash;&gt;-->
-<!--&lt;!&ndash;                      </h4>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-
-
-
-<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
-
-<!--                  <v-row :class="isMobile ? 'spacing2' : 'spacing4'">-->
-
-<!--                  <div-->
-<!--                      v-for="(item, index) in combinedData"-->
-<!--                      :key="index"-->
-<!--                      cols="12"-->
-<!--                  >-->
-<!--                    &lt;!&ndash;                <playlist-card&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    v-if="item.type === 'collection'"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    text-center&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    :bgcolor="item.bgColor"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    :title="item.title"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    :desc="item.desc"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    :href="item.href"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    :count="item.count"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    :items="item.items"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                />&ndash;&gt;-->
 
                     <br/>
                     <div class="" id="profile">
@@ -76,8 +32,26 @@
 
                     <br/> <v-divider /> <br/>
                     <div class="" id="wallet">
-                      <wallet-setting-card />
+                      <wallet-setting-card
+                          v-if="userChainAddresses"
+                          :username="username"
+                          :user-chain-addresses="userChainAddresses"
+                      />
                     </div>
+
+                    <h3 style="color: #4d59d5;"> Add Address</h3>
+
+                    <v-container class="wallet-address-setting-container">
+                      <v-row>
+                        <v-col cols="12" style="">
+
+                          <wallet-network-more-box
+                              :username="username"
+                          />
+                        </v-col>
+                      </v-row>
+
+                    </v-container>
 
                     <br/> <v-divider /> <br/>
                     <div class="" id="social">
@@ -87,8 +61,6 @@
                       />
                     </div>
 
-<!--                  </div>-->
-<!--                                </v-row>-->
                 </v-col>
               </v-row>
             </v-container>
@@ -96,62 +68,6 @@
         </div>
       </transition>
 
-<!--      <v-row>-->
-<!--        <v-col :cols="3">-->
-<!--          <v-tabs-->
-<!--              :align-tabs="isTablet ? 'center' : 'left'"-->
-<!--              :show-arrows="isTablet"-->
-<!--              v-model="valtab"-->
-<!--              direction="vertical"-->
-<!--              @update:model-value="handleChange"-->
-<!--              class="tabs"-->
-<!--          >-->
-<!--            <v-tab class="tab-label mt2" value="profile">-->
-<!--              <span>Profile Setting</span>-->
-<!--            </v-tab>-->
-<!--            <v-tab class="tab-label" value="wallet">-->
-<!--              <span>Wallet Address</span>-->
-<!--            </v-tab>-->
-<!--            <v-tab class="tab-label" value="social">-->
-<!--              <span>Social Accounts</span>-->
-<!--            </v-tab>-->
-<!--            &lt;!&ndash;        <v-tab class="tab-label" value="blog">&ndash;&gt;-->
-<!--            &lt;!&ndash;          <span>Blog</span>&ndash;&gt;-->
-<!--            &lt;!&ndash;        </v-tab>&ndash;&gt;-->
-<!--          </v-tabs>-->
-<!--        </v-col>-->
-<!--        <v-col :cols="9">-->
-<!--&lt;!&ndash;          <div class="mt-5">&ndash;&gt;-->
-<!--            <v-row :class="isMobile ? 'spacing2' : 'spacing4'">-->
-<!--              <v-col-->
-<!--                  v-for="(item, index) in combinedData"-->
-<!--                  :key="index"-->
-<!--                  cols="12"-->
-<!--              >-->
-<!--&lt;!&ndash;                <playlist-card&ndash;&gt;-->
-<!--&lt;!&ndash;                    v-if="item.type === 'collection'"&ndash;&gt;-->
-<!--&lt;!&ndash;                    text-center&ndash;&gt;-->
-<!--&lt;!&ndash;                    :bgcolor="item.bgColor"&ndash;&gt;-->
-<!--&lt;!&ndash;                    :title="item.title"&ndash;&gt;-->
-<!--&lt;!&ndash;                    :desc="item.desc"&ndash;&gt;-->
-<!--&lt;!&ndash;                    :href="item.href"&ndash;&gt;-->
-<!--&lt;!&ndash;                    :count="item.count"&ndash;&gt;-->
-<!--&lt;!&ndash;                    :items="item.items"&ndash;&gt;-->
-<!--&lt;!&ndash;                />&ndash;&gt;-->
-<!--                <div v-if="item.type === 'profile'" class="">-->
-<!--                  <profile-setting-card />-->
-<!--                </div>-->
-<!--                <div v-if="item.type === 'wallet'" class="">-->
-<!--                  <wallet-setting-card />-->
-<!--                </div>-->
-<!--                <div v-if="item.type === 'social'" class="">-->
-<!--                  <social-setting-card />-->
-<!--                </div>-->
-<!--              </v-col>-->
-<!--            </v-row>-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--        </v-col>-->
-<!--      </v-row>-->
     </div>
   </div>
 </template>
@@ -164,11 +80,6 @@
 <script setup>
 import { onMounted, inject, ref } from 'vue';
 import { useDisplay } from 'vuetify';
-import link from '@/assets/text/link';
-import PlaylistCard from '../../Cards/Media/PlaylistCard';
-import TokenCard from '../cards/token-card';
-import NftCard from '../cards/nft-card';
-import TxsCard from '../cards/txs-card';
 
 import ProfileSettingCard from '@/components/Airdrops/cards/ProfileSettingCard.vue'
 import WalletSettingCard from '@/components/Airdrops/cards/WalletSettingCard.vue'
@@ -185,24 +96,13 @@ import {
 import brand from "assets/text/brand";
 import Hidden from "~/components/Utils/Hidden/Hidden.vue";
 import {useRouter} from "#app";
+import WalletNetworkMoreBox from "~/components/Airdrops/cards/WalletNetworkMoreBox.vue";
 
 const { mdAndDown: isMobile } = useDisplay();
 const { lgAndDown: isTablet } = useDisplay();
 
 // for server request use
 const SERVER = url.serverUrl;
-
-
-// const { invert, menu } = defineProps({
-//   invert: {
-//     type: Boolean,
-//     default: false,
-//   },
-//   menu: {
-//     type: Array,
-//     required: true,
-//   },
-// });
 
 const valtab = ref('all');
 const combinedData = ref([]);
@@ -286,12 +186,14 @@ async function decodeTgAuthResult() {
 
 
 const userSocialAccounts = ref(null);
+const userChainAddresses = ref(null);
 async function fetchAndPackData(username) {
   try {
     const userInfo = await axios.post(SERVER + '/api/user/info/' + username, {});
     console.log(userInfo.data);
     if (userInfo.data.msg === "success") {
       const newSocialAccounts = {};
+      const newChainAddresses = {};
       let _userInfo = userInfo.data.data.addressInfo;
       if (_userInfo.xAccountId !== "") {
         newSocialAccounts["X"] = {
@@ -317,6 +219,12 @@ async function fetchAndPackData(username) {
         }
       }
       userSocialAccounts.value = {...userSocialAccounts.value, ...newSocialAccounts};
+
+      // bind new chain addresses
+      if (_userInfo.mainAddr !== "") {
+        newChainAddresses["eth"] = _userInfo.mainAddr;
+      }
+      userChainAddresses.value = {...userChainAddresses.value,...newChainAddresses};
     }
 
   } catch (e) {
