@@ -348,8 +348,8 @@
                         v-model="row.referenceLink"
                         variant="filled"
                         color="secondary"
-                        :rules="nameRules"
-                        :label="'Please enter the Twitter username you want to follow *'"
+                        :rules="urlRules"
+                        :label="'Please enter the Twitter URL you want to follow *'"
                         required
                       />
                     </v-col>
@@ -378,8 +378,8 @@
                         v-model="row.referenceLink"
                         variant="filled"
                         color="secondary"
-                        :rules="descriptionRules"
-                        :label="'Please enter the text of the tweet to be sent *'"
+                        :rules="urlRules"
+                        :label="'Please enter the URL of the tweet to be sent *'"
                         required
                       />
                     </v-col>
@@ -721,7 +721,7 @@ export default {
               return;
             }
             if(task.credType == 'TWITTER_FOLLOW') {
-              alert('Please check the name of the Twitter user to follow in the task.');
+              alert('Please check the URL of the Twitter user to follow in the task.');
               return;
             }
             if(task.credType == 'TWITTER_RETWEET') {
@@ -733,7 +733,7 @@ export default {
               return;
             }
             if(task.credType == 'TWITTER_TWEET') {
-              alert('Please check the text of the tweet that needs to be tweeted in the task!');
+              alert('Please check the URL of the tweet that needs to be tweeted in the task!');
               return;
             }
           }
