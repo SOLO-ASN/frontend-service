@@ -25,55 +25,21 @@
 
     </div>
 
-    <br/>
 
-    <h3 style="color: #4d59d5;"> Add Address</h3>
+<!--    <h3 style="color: #4d59d5;"> Add Address</h3>-->
 
-    <v-container class="wallet-address-setting-container">
-      <v-row>
-        <v-col cols="12" style="">
+<!--    <v-container class="wallet-address-setting-container">-->
+<!--      <v-row>-->
+<!--        <v-col cols="12" style="">-->
 
-          <wallet-network-more-box
+<!--          <wallet-network-more-box-->
+<!--            :username="username"-->
+<!--          />-->
+<!--        </v-col>-->
+<!--      </v-row>-->
 
-          />
-        </v-col>
+<!--    </v-container>-->
 
-      </v-row>
-
-    </v-container>
-
-<!--    <>-->
-
-<!--    <v-table class="table">-->
-<!--      <thead>-->
-<!--      <tr>-->
-<!--        <th class="text-left">Token</th>-->
-<!--        <th class="text-center">Price</th>-->
-<!--        <th class="text-center">Amount</th>-->
-<!--        <th class="text-right">Value</th>-->
-<!--      </tr>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--      <tr v-for="(row, index) in rowsListing" :key="index">-->
-<!--        <td class="text-left">-->
-<!--          <div style="display: flex; align-items: center;">-->
-<!--            <img src='https://b.galxestatic.com/w/s/3ad3b3d/img/default-token.706cf78.png' class="icon" />-->
-<!--            <strong>{{ row.token }}</strong>-->
-<!--          </div>-->
-<!--        </td>-->
-<!--        <td class="text-center">-->
-<!--          <strong>{{ row.price }}</strong>-->
-<!--        </td>-->
-<!--        <td class="text-center">-->
-<!--          <strong>{{ row.qty }}</strong>-->
-<!--        </td>-->
-<!--        <td class="text-right">-->
-<!--          <strong>{{ row.value }}</strong>-->
-<!--        </td>-->
-<!--        &lt;!&ndash;        <td align="left"><a href="#">{{ row.from }}</a></td>&ndash;&gt;-->
-<!--      </tr>-->
-<!--      </tbody>-->
-<!--    </v-table>-->
   </v-card>
 </template>
 
@@ -96,13 +62,26 @@
 
 <script setup>
 
-import {ref} from "vue";
+import {defineProps, ref} from "vue";
 import WalletNetworkBox from "./WalletNetworkBox.vue";
 import WalletNetworkMoreBox from "./WalletNetworkMoreBox.vue";
 
-const rowsListing = ref([]);
 const addresses = ref([]);
 const networks = ref([]);
+
+const props = defineProps({
+  username: {
+    type: String,
+    required: true,
+  },
+  userChainAddresses:{
+    type: Object,
+    required: true,
+  }
+});
+
+const _username = ref(props.username);
+const _userChainAddresses = ref(props.userChainAddresses);
 
 function createListing(token, price, qty, value) {
   const v = Number(price)*Number(qty);
@@ -113,22 +92,22 @@ function createListing(token, price, qty, value) {
 }
 
 onMounted(() => {
-  rowsListing.value = [
-    createListing("ETH", 3180.09, 0.345, ''),
-    createListing("GNO", 361.26, 2, ''),
-    createListing("ZRX", 0.55, 400, ''),
-  ];
-
-  addresses.value = [
-    {network: 'EVM Chain', address: '0xaF1dE9C5F0199C61cbBcd354Ce98bEFA235f519E', url:'https://b.galxestatic.com/w/c/43aad15/img/eth-logo.6d29ff1.svg'},
-    {network: 'BTC', address: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa', url: 'https://b.galxestatic.com/w/s/43aad15/img/bitcoin.16830aa.svg'}
-  ];
-  //
-  // addresses.value = [];
-
+  // addresses.value = [
+  //   {network: 'EVM Chain', address: '0xaF1dE9C5F0199C61cbBcd354Ce98bEFA235f519E', url:'https://b.galxestatic.com/w/c/43aad15/img/eth-logo.6d29ff1.svg'},
+  //   {network: 'BTC', address: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa', url: 'https://b.galxestatic.com/w/s/43aad15/img/bitcoin.16830aa.svg'}
+  // ];
   networks.value = [
-      { network: "eth", url: "https://b.galxestatic.com/w/c/43aad15/img/eth-logo.6d29ff1.svg" },
+    { network: "eth", url: "https://b.galxestatic.com/w/c/43aad15/img/eth-logo.6d29ff1.svg" },
   ]
+
+
+  for (const value of networks.value) {
+    if (_userChainAddresses.value[value.network]) {
+      addresses.value = [...addresses.value, {network: 'EVM Chain', address: _userChainAddresses.value[value.network], url: value.url}];
+    };
+  }
+
+
 
 })
 
