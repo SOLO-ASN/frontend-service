@@ -32,6 +32,9 @@
             <span class="heading">
               {{ item.name }}
             </span>
+            <span v-if="item.lastUpdate == true" :style="{ transform: taskitem.credentialGroup.panel === number ? 'rotate(180deg)' : '' }">
+              <v-icon color="green">mdi-check-circle</v-icon>
+            </span>
           </v-expansion-panel-title>
           <v-expansion-panel-text class="detail">
             <span class="flex-container">
@@ -135,11 +138,26 @@ const refreshTask = (type, parameter) => {
 }
 
 const props = defineProps({
-  taskList: Array
+  taskList: Object
 })
 
-const isMobile = () => {
-  return display.value.smAndDown;
-};
+// 监听 props 变化
+watch(() => props.taskList.list, (tasklist) => {
+  // 读取username
+  const username = localStorage.getItem('username');
+  for (const taskitem of tasklist) {
+    for (const item of taskitem.credentialGroup.creds) {
+      axios.post(SERVER+'/api/campaign/isCredentialComplete', {"credentialid": item.id, "username": username}).then((response) => {
+        console.log(response);
+        // 用户没有加入
+        if(response.data.data == "COMPLETE") {
+          item.lastUpdate = true;
+        } else {
+          item.lastUpdate = false;
+        }
+      })
+    }
+  }
+}, { deep: true });
 
 </script>
