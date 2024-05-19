@@ -45,6 +45,8 @@
 .space-button {
   margin-top: -150px;
   margin-right: -180px;
+  position: relative;
+  z-index: 40;
   @include breakpoints-down(lg) {
     margin-top: section-margin(4px);
   }
@@ -53,6 +55,7 @@
   margin-bottom: -450px;
   margin-top: -250px;
   margin-left: 50px;
+  position: relative;
   @include breakpoints-down(lg) {
     margin-top: section-margin(4px);
   }

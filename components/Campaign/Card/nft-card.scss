@@ -3,6 +3,7 @@
   margin-bottom: $spacing2;
   overflow: hidden;
   position: relative;
+  z-index: 40;
   background: #424242;
   @include shadow8;
   display: flex;
@@ -74,14 +75,20 @@
   position: relative;
   margin-bottom: $spacing1;
   display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-clamp: 2; // 显示的行数
+  -webkit-line-clamp: 2; // 显示的行数
   &.small {
-    font-size: 18px;
+    font-size: 14px;
     line-height: 24px;
   }
   &.big {
-    font-size: 24px;
+    font-size: 18px;
     @include breakpoints-down(sm) {
-      font-size: 18px;
+      font-size: 14px;
       line-height: 24px;
     }
   }
@@ -89,6 +96,9 @@
 
 .name {
   display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-weight: $font-regular;
 }
 
