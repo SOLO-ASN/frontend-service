@@ -17,15 +17,15 @@
       </v-container>
       <v-container>
         <v-row class="spacing2 scroll-tablet">
-          <v-col v-for="(item, index) in nftList" :key="index" md="3" sm="4" cols="10">
+          <v-col v-for="(item, index) in campaignList" :key="index" md="3" sm="4" cols="10">
             <div class="card-related">
               <product-nft-card
-                :img="item.img"
-                :avatar="item.avatar"
-                :name="item.name"
-                :title="item.title"
-                :href="item.href"
-                :verified="item.verified"
+                :img="item.Campaign.thumbnail"
+                :avatar="item.Space.thumbnail"
+                :name="item.Space.name"
+                :title="item.Campaign.name"
+                :href="'../campaign/campaign?id=' + item.Campaign.id"
+                :verified="item.Space.isVerified"
               />
             </div>
           </v-col>
@@ -45,8 +45,15 @@ import imgAPI from '@/assets/images/imgAPI';
 import TitleMain from '../../Title';
 import ProductNftCard from '../Card/NftCard';
 import { useRouter } from 'vue-router';
+import url from '@/assets/text/url';
+import axios from 'axios';
+import {ref} from 'vue';
+
+const campaignList = ref([]);
 
 const router = useRouter();
+// for server request use
+const SERVER = url.serverUrl;
 
 const navigateToExplore = () => {
   console.log('Button clicked');
@@ -113,6 +120,24 @@ const nftList = [
     verified: false,
   }
 ];
+
+onMounted(() => {
+  axios.post(SERVER+'/api/explore/query', {
+    "first": 8,
+    "after": 0,
+    "credSources": ["all"],
+    "rewardTypes": ["all"],
+    "chains": ["all"],
+    "statuses": ["all"],
+    "listType": "",
+    "searchString": ""})
+    .then((response) => {
+      console.log(response.data.data.Explore);
+      campaignList.value = response.data.data.Explore;
+//this.items = response.data
+
+  })
+})
 
 const { xs: isMobile } = useDisplay();
 </script>
