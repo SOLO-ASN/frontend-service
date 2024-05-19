@@ -20,7 +20,7 @@
 
 
       <div>
-        <v-text-field v-model="username">
+        <v-text-field v-model="username" disabled>
           <template v-slot:label > Enter New Username... </template>
         </v-text-field>
         <v-btn @click="saveUsername"> Save </v-btn>

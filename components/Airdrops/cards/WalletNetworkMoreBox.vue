@@ -143,7 +143,7 @@
     }).catch((error) => {
       return;
     });
-    if (_result && _result.data.message ==='success') {
+    if (_result && _result.data.msg ==='success') {
       router.push({ name: '/id/accountSettings' });
     }
   }
