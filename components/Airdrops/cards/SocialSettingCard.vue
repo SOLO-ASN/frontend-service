@@ -3,9 +3,17 @@
 
     <h3 style="color: #4d59d5;"> Social Accounts </h3>
 
+
+
     <v-container style="display: initial">
       <h4 style="font-size: 12px;"> Email Address (Only visible to you) </h4>
-
+      <div v-if="_userEmail !== ''">
+        <div style="margin-top: 10px">
+          <v-text-field :label="_userEmail" type="text" disabled>
+          </v-text-field>
+        </div>
+      </div>
+      <div v-else>
       <div style="margin-top: 10px">
         <v-text-field v-model="userEmail" label="Enter Email" type="email" >
           <template v-slot:append>
@@ -20,6 +28,8 @@
         </v-text-field>
         <v-btn @click="verifyEmail" style="width: 100%"> Verify </v-btn>
       </div>
+
+    </div>
 
       <h4 style="font-size: 12px; margin-top: 30px;"> Link your social tags </h4>
 
@@ -80,7 +90,7 @@
       >
         <div style="margin-top: 10px">
           <p style="font-size: 12px; margin-top: 30px;"> {{index}} Account </p>
-        <v-text-field :label="item.name" type="" :placeholder="item.name">
+        <v-text-field :label="item.name" type="" :placeholder="item.name" disabled>
         </v-text-field>
       </div>
 
@@ -108,20 +118,34 @@
 import {defineProps, watch, reactive, ref} from "vue";
 import url from '@/assets/text/url';
 import axios from 'axios';
+import {useRouter} from "#app";
 
 const props = defineProps({
   socialAccountObject: {
     type: Object,
     required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  userEmail: {
+    type: String,
+    required: false,
   }
 })
 
 const sao = ref(props.socialAccountObject);
+const _username = ref(props.username);
+const _userEmail = ref(props.userEmail);
 
 // for server request use
 const SERVER = url.serverUrl;
 
+const router = useRouter();
+
 import f from '@/public/social/social_discord_icon.svg';
+
 
 const socialTags = ref([]);
 const btnEntries = ref([]);
@@ -142,12 +166,28 @@ const open = ref(false);
 const userEmail = ref( "" );
 const userEmailCode = ref( "" );
 function sendEmailCode() {
-  //todo send code to the email
+  axios.post(SERVER + '/api/user/email/sendCode', {
+    email: userEmail.value
+  }).then(res => {
+    console.log(res);
+  }).catch(err => {
+    console.log(err);
+  })
 }
 
 function verifyEmail(){
-  //todo send email and code to backend
-  console.log(userEmail.value);
+  axios.post(SERVER + '/api/user/email/verifyCode', {
+    username: _username.value,
+    email: userEmail.value,
+    code: userEmailCode.value
+  }).then(res => {
+    console.log(res);
+    if (res.data.msg === "success") {
+      router.push('/id/accountSettings');
+    }
+  }).catch(err => {
+    console.error(err);
+  })
 }
 
 

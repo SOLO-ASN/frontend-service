@@ -57,6 +57,8 @@
                     <div class="" id="social">
                       <social-setting-card
                           v-if="userSocialAccounts"
+                          :username="username"
+                          :user-email="userEmail"
                           :social-account-object="userSocialAccounts"
                       />
                     </div>
@@ -146,6 +148,7 @@ function createListing(name) {
 }
 
 let username = ref("");
+let userEmail = ref("");
 async function fetchUsername() {
 
   username.value = localStorage.getItem('username');
@@ -225,6 +228,9 @@ async function fetchAndPackData(username) {
         newChainAddresses["eth"] = _userInfo.mainAddr;
       }
       userChainAddresses.value = {...userChainAddresses.value,...newChainAddresses};
+
+      // set user email
+      userEmail.value = _userInfo.email;
     }
 
   } catch (e) {
