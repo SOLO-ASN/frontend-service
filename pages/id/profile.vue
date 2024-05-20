@@ -102,6 +102,7 @@ import link from '@/assets/text/link';
 import imgAPI from '@/assets/images/imgAPI';
 import { useHead } from '#app';
 import {ref} from "vue";
+import axios from "axios";
 
 let username = ref("");
 let mainAddress = ref("");
@@ -109,7 +110,7 @@ let done = ref(false);
 async function fetchUsernameAndAddress() {
 
   username.value = localStorage.getItem('username');
-  mainAddress.value = localStorage.getItem('mainRewardAddress')
+  mainAddress.value = localStorage.getItem('mainRewardAddress');
   if (mainAddress.value === '' || mainAddress.value === null) {
     mainAddress.value = "needs to be set";
   }
@@ -120,9 +121,27 @@ async function fetchUsernameAndAddress() {
   done.value = true;
 }
 
+async function fetchAndPackData(username) {
+  try {
+    const userInfo = await axios.post(SERVER + '/api/user/info/' + username, {});
+    console.log(userInfo.data);
+    if (userInfo.data.msg === "success") {
+      let _userInfo = userInfo.data.data.addressInfo;
+      if (_userInfo.mainAddr !== '' || _userInfo.mainAddr !== null) {
+        localStorage.setItem('mainRewardAddress', _userInfo.mainAddr);
+        mainAddress.value = _userInfo.mainAddr;
+      }
+    }
+
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+
 onMounted(() => {
   fetchUsernameAndAddress();
-
+  fetchAndPackData(username.value);
 });
 
 function imgUrl(name) {
