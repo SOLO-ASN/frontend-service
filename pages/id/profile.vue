@@ -19,7 +19,7 @@
                       :href="link.profile"
                       :avatar="imgAPI.avatar[26]"
                       size="small"
-                      name="John Doe"
+                      :name="username"
                       title="Founder & CEO"
                       desc="Cras convallis lacus orci, tristique tincidunt magna consequat in. In vel pulvinar est, at euismod libero. Quisque ut metus sit amet augue rutrum feugiat."
                       :socmed="['facebook', 'linkedin', 'twitter', 'instagram']"
@@ -53,9 +53,10 @@
               </v-col>
               <v-col class="px-6" md="4" cols="12">
                 <sidebar
+                    v-if="done"
                     campaignViews="156"
                     memberSince="2024"
-                    main-address="0x6fff85ab83bc14fd6c7f5b2326cf091fcc76e39d"
+                    :main-address="mainAddress"
                     max-length="12"
                     watching-topics='Web3, NFTs, Solana, Ethereum'
                 />
@@ -100,6 +101,33 @@ import brand from '@/assets/text/brand';
 import link from '@/assets/text/link';
 import imgAPI from '@/assets/images/imgAPI';
 import { useHead } from '#app';
+import {ref} from "vue";
+
+let username = ref("");
+let mainAddress = ref("");
+let done = ref(false);
+async function fetchUsernameAndAddress() {
+
+  username.value = localStorage.getItem('username');
+  mainAddress.value = localStorage.getItem('mainRewardAddress')
+  if (mainAddress.value === '' || mainAddress.value === null) {
+    mainAddress.value = "needs to be set";
+  }
+  console.log("fetching data", username.value, mainAddress.value);
+  if (username.value === '' || username.value === null) {
+    router.push('/menus/explore');
+  }
+  done.value = true;
+}
+
+onMounted(() => {
+  fetchUsernameAndAddress();
+
+});
+
+function imgUrl(name) {
+  return "boring"
+}
 
 useHead({
   title: brand.name + ' - Profile',

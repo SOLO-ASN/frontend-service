@@ -131,6 +131,9 @@ async function _addChainAddress(_signed) {
     alert('Please Login.');
     return;
   }
+  // add to the local storage
+  localStorage.setItem('mainRewardAddress', currentAddress.value);
+  // store to the backend
   const _result = await axios.post(SERVER + '/api/user/update/address', {
     address: currentAddress.value,
     username: props.username,

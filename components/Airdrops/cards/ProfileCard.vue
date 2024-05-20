@@ -100,8 +100,7 @@
         <span />
       </div>
       <figure>
-        <img :src="avatar" alt="avatar" img=""/>
-<!--        <img alt="avatar" src="https://source.boringavatars.com/marble/120/ + {{name}}"/>-->
+        <img alt="avatar" :src="`https://source.boringavatars.com/marble/120/${name}`" />
       </figure>
     </div>
     <div class="property">
