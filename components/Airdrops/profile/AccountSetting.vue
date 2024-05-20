@@ -103,6 +103,8 @@ import WalletNetworkMoreBox from "~/components/Airdrops/cards/WalletNetworkMoreB
 const { mdAndDown: isMobile } = useDisplay();
 const { lgAndDown: isTablet } = useDisplay();
 
+const router = useRouter();
+
 // for server request use
 const SERVER = url.serverUrl;
 
@@ -153,6 +155,9 @@ async function fetchUsername() {
 
   username.value = localStorage.getItem('username');
   console.log("fetching data", username.value);
+  if (username.value === '' || username.value === null) {
+    router.push('/menus/explore');
+  }
 }
 
 async function storeTgInfo(tgInfo) {
