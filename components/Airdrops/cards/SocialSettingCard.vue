@@ -3,33 +3,24 @@
 
     <h3 style="color: #4d59d5;"> Social Accounts </h3>
 
-
-
     <v-container style="display: initial">
       <h4 style="font-size: 12px;"> Email Address (Only visible to you) </h4>
-      <div v-if="_userEmail !== ''">
+      <div v-if="userEmail">
         <div style="margin-top: 10px">
-          <v-text-field :label="_userEmail" type="text" disabled>
-          </v-text-field>
+          <v-text-field :label="userEmail" type="text" disabled> </v-text-field>
         </div>
       </div>
       <div v-else>
-      <div style="margin-top: 10px">
-        <v-text-field v-model="userEmail" label="Enter Email" type="email" >
-          <template v-slot:append>
-            <span style="color: #4d59d5;" @click="sendEmailCode"><strong>Send a code</strong></span>
-          </template>
-<!--          <span style="colgor: #1a237e;" @click="sendEmailCode">Send a code</span>-->
-        </v-text-field>
-<!--        <span style="color: #1a237e;" @click="sendEmailCode"><strong>Send a code</strong></span>-->
-        <v-text-field v-model="userEmailCode" label="Enter Code" type="email" >
-
-          <!--          <span style="color: #1a237e;" @click="sendEmailCode">Send a code</span>-->
-        </v-text-field>
-        <v-btn @click="verifyEmail" style="width: 100%"> Verify </v-btn>
+        <div style="margin-top: 10px">
+          <v-text-field v-model="_userEmail" label="Enter Email" type="email" >
+            <template v-slot:append>
+              <span style="color: #4d59d5;" @click="sendEmailCode"><strong>Send a code</strong></span>
+            </template>
+          </v-text-field>
+          <v-text-field v-model="userEmailCode" label="Enter Code" type="email" > </v-text-field>
+          <v-btn @click="verifyEmail" style="width: 100%"> Verify </v-btn>
+        </div>
       </div>
-
-    </div>
 
       <h4 style="font-size: 12px; margin-top: 30px;"> Link your social tags </h4>
 
@@ -77,7 +68,7 @@
               </v-card-actions>
 
             </v-card>
-            </div>
+          </div>
 
 
         </v-dialog>
@@ -90,9 +81,9 @@
       >
         <div style="margin-top: 10px">
           <p style="font-size: 12px; margin-top: 30px;"> {{index}} Account </p>
-        <v-text-field :label="item.name" type="" :placeholder="item.name" disabled>
-        </v-text-field>
-      </div>
+          <v-text-field :label="item.name" type="" :placeholder="item.name" disabled>
+          </v-text-field>
+        </div>
 
       </div>
 
@@ -114,8 +105,7 @@
 </style>
 
 <script setup>
-
-import {defineProps, watch, reactive, ref} from "vue";
+import {defineProps, watch, reactive, ref, onMounted} from "vue";
 import url from '@/assets/text/url';
 import axios from 'axios';
 import {useRouter} from "#app";
@@ -133,7 +123,7 @@ const props = defineProps({
     type: String,
     required: false,
   }
-})
+});
 
 const sao = ref(props.socialAccountObject);
 const _username = ref(props.username);
@@ -144,12 +134,8 @@ const SERVER = url.serverUrl;
 
 const router = useRouter();
 
-import f from '@/public/social/social_discord_icon.svg';
-
-
 const socialTags = ref([]);
 const btnEntries = ref([]);
-// const textEntries = ref([]);
 const textEntries = ref({});
 const dialog = reactive({
   activeHolder: {},
@@ -163,22 +149,22 @@ function createListing(name, path) {
 }
 
 const open = ref(false);
-const userEmail = ref( "" );
-const userEmailCode = ref( "" );
+const userEmail = ref(props.userEmail || "");  // Ensure default value
+const userEmailCode = ref("");
 function sendEmailCode() {
   axios.post(SERVER + '/api/user/email/sendCode', {
-    email: userEmail.value
+    email: _userEmail.value
   }).then(res => {
     console.log(res);
   }).catch(err => {
     console.log(err);
-  })
+  });
 }
 
 function verifyEmail(){
   axios.post(SERVER + '/api/user/email/verifyCode', {
     username: _username.value,
-    email: userEmail.value,
+    email: _userEmail.value,
     code: userEmailCode.value
   }).then(res => {
     console.log(res);
@@ -187,9 +173,8 @@ function verifyEmail(){
     }
   }).catch(err => {
     console.error(err);
-  })
+  });
 }
-
 
 function verifySocialTag(name) {
   if (name === "Telegram") {
@@ -206,20 +191,17 @@ function closeDialog() {
   console.log(dialog.activeHolder);
   dialog.activeHolder[dialog.currentTag] = false;
   console.log(dialog.activeHolder);
-
 }
 
 onMounted(() => {
 
-  // all social tags
   socialTags.value = [
-      createListing("X", "social/social_twitter_icon.png"),
-      createListing("Telegram", "social/social_telegram_icon.png"),
-      createListing("Discord", "social/social_discord_icon.png"),
-      createListing("Github", "social/social_github_icon.png"),
+    createListing("X", "social/social_twitter_icon.png"),
+    createListing("Telegram", "social/social_telegram_icon.png"),
+    createListing("Discord", "social/social_discord_icon.png"),
+    createListing("Github", "social/social_github_icon.png"),
   ];
 
-  // pick text and button entries
   for (const value of socialTags.value) {
     if (sao.value[value.name]) {
       textEntries.value[value.name] = sao.value[value.name];
@@ -228,11 +210,9 @@ onMounted(() => {
     }
   }
 
-  // show btn entries
   const entries = btnEntries.value.map((value, index) => {
     return [value.name, false];
   });
   dialog.activeHolder = Object.fromEntries(entries);
-})
-
+});
 </script>
