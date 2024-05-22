@@ -5,10 +5,8 @@
       <!--      <blue-gradient />-->
       <div class="container-wrap container-wrap">
         <div class="inner-page">
-          <!--          <div class="mt-5">-->
           <v-container>
             <section id="banner">
-              <!--              <profile-banner-->
               <v-row
                   :class="isMobile ? 'spacing2' : 'spacing6'"
                   id="big"
@@ -16,40 +14,23 @@
               >
                 <v-col md="9" cols="12">
                   <profile-card
-                      :href="link.profile"
-                      :avatar="imgAPI.avatar[26]"
                       size="small"
                       :name="username"
-                      title="Founder & CEO"
-                      desc="Cras convallis lacus orci, tristique tincidunt magna consequat in. In vel pulvinar est, at euismod libero. Quisque ut metus sit amet augue rutrum feugiat."
                       :socmed="['facebook', 'linkedin', 'twitter', 'instagram']"
                   />
                 </v-col>
 
               </v-row>
-              <!--              <profile-card-->
-              <!--                :avatar="imgAPI.avatar[26]"-->
-              <!--                :cover="imgAPI.photosL[34]"-->
-              <!--                :name="brand.profileName"-->
-              <!--                :desc="'this is a test desc.'"-->
-              <!--                :following="123"-->
-              <!--                :followers="456"-->
-              <!--                :posts="78"-->
-              <!--                :socmed="['facebook', 'twitter', 'linkedin', 'instagram']"-->
-              <!--                :friends="[imgAPI.avatar[10], imgAPI.avatar[11], imgAPI.avatar[3], imgAPI.avatar[4], imgAPI.logos[12], imgAPI.avatar[20], imgAPI.logos[8], imgAPI.avatar[1], imgAPI.avatar[3]]"-->
-              <!--              >-->
-              <!--                <template v-slot:decoration>-->
-              <!--                  <parallax-deco type="scroll" />-->
-              <!--                </template>-->
-              <!--              </profile-card>-->
-              <!--              </profile-banner>-->
             </section>
           </v-container>
-          <!--          </div>-->
+
           <v-container>
             <v-row class="spacing2">
               <v-col class="px-0" md="8" cols="12">
-                <gallery />
+                <gallery
+                    v-if="done"
+                    :main-address="mainAddress"
+                />
               </v-col>
               <v-col class="px-6" md="4" cols="12">
                 <sidebar
@@ -68,9 +49,6 @@
       <footer-deco>
         <main-footer />
       </footer-deco>
-<!--      <hidden point="smDown">-->
-<!--        <corner :menu="singleMenu.inner" />-->
-<!--      </hidden>-->
       <hidden point="mdDown">
         <notification />
       </hidden>
@@ -103,6 +81,10 @@ import imgAPI from '@/assets/images/imgAPI';
 import { useHead } from '#app';
 import {ref} from "vue";
 import axios from "axios";
+import url from '@/assets/text/url';
+
+// for server request use
+const SERVER = url.serverUrl;
 
 let username = ref("");
 let mainAddress = ref("");
@@ -118,7 +100,7 @@ async function fetchUsernameAndAddress() {
   if (username.value === '' || username.value === null) {
     router.push('/menus/explore');
   }
-  done.value = true;
+
 }
 
 async function fetchAndPackData(username) {
@@ -136,6 +118,7 @@ async function fetchAndPackData(username) {
   } catch (e) {
     console.error(e);
   }
+  done.value = true;
 }
 
 
