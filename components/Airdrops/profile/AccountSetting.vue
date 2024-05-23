@@ -63,6 +63,18 @@
                       />
                     </div>
 
+
+                    <br/> <v-divider /> <br/>
+                    <h3 style="color: #4d59d5;"> Add Fido</h3>
+
+                    <v-container class="fido-list-setting-container">
+                      <v-row>
+                        <v-col cols="12" style="">
+                          <fido-list-card/>
+                          
+                        </v-col>
+                      </v-row>
+                    </v-container>
                 </v-col>
               </v-row>
             </v-container>
@@ -86,6 +98,7 @@ import { useDisplay } from 'vuetify';
 import ProfileSettingCard from '@/components/Airdrops/cards/ProfileSettingCard.vue'
 import WalletSettingCard from '@/components/Airdrops/cards/WalletSettingCard.vue'
 import SocialSettingCard from '@/components/Airdrops/cards/SocialSettingCard.vue'
+import FidoListCard from '@/components/Airdrops/cards/FidoListCard.vue'
 
 import url from '@/assets/text/url';
 import axios from 'axios';
@@ -272,7 +285,8 @@ onMounted(() => {
   menu.value = [
       createListing("profile"),
       createListing("wallet"),
-      createListing("social")
+      createListing("social"),
+      createListing("fido"),
   ];
 
   // get username from local storage
