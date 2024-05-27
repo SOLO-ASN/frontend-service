@@ -114,30 +114,47 @@ export default {
       showDeleteConfirm: false,
       tableData: [
       ],
-      currentFidoId: '0xa401030339010020100201002010020',
+      currentFidoId: '',
       deleteFidoId: '',
     };
   },
   mounted() {
-    const parseJwt = url.serverUrl + "/api/user/parseFidoList";
-    const jwt = localStorage.getItem("jwt");
-    axios.post(parseJwt, {}, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': jwt,
-        }
-    })
-    .then(response => {
-        console.info(response.data);
-        this.tableData = response.data.data.claims.fidolist.map(item => ({fidoId: item}));
-        this.currentFidoId = response.data.data.claims.fidoPublicKey;
-    })
-    .catch(error => {
-    console.error('Error:', error);
-    });
-    window.addEventListener('message', this.handlePostMessage);
+    this.updatefido();
+    // 确保 handlePostMessage 方法存在
+    if (this.handlePostMessage) {
+        window.addEventListener('message', this.handlePostMessage);
+    } else {
+        console.error('handlePostMessage method is not defined');
+    }
   },
   methods: {
+    updatefido() {
+        // 第二个 axios 请求
+    axios.get(url.fidoUrl + "/api/credential/list", { withCredentials: true })
+    .then(response => {
+        const { code, message, data } = response.data;
+        if (code !== 1) throw new Error(message);
+        return data;
+    })
+    .then(data => {
+        console.info(data);
+        this.tableData = data.map(item => ({ fidoId: item }));
+    })
+    .catch(error => console.error(error));
+
+    // 第三个 axios 请求
+    axios.get(url.fidoUrl + "/api/userInfo", { withCredentials: true })
+    .then(response => {
+        const { code, message, data } = response.data;
+        if (code !== 1) throw new Error(message);
+        return data;
+    })
+    .then(data => {
+        console.info(data);
+        this.currentFidoId = data.fidoPublicKey;
+    })
+    .catch(error => console.error(error));
+    },
     addFidoDevice() {
       // Add Fido device logic
       this.showAddConfirm = false;
@@ -159,7 +176,7 @@ export default {
         const data = event.data;
         if (data.type === 'Success' && data.msg && data.fidolist) {
           alert(data.msg);
-          this.tableData = fidolist;
+          this.updatefido();
         }
       }
     },
