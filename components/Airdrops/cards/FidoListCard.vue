@@ -1,28 +1,75 @@
 <template>
   <div id="app" v-cloak>
-    <div class="up-app">
+<!--    <div class="up-app">-->
       <div id="page-send" class="page-sign page">
-        <!-- Table header -->
-        <div class="table-header">
-          <div class="table-cell">FIDO ID</div>
-          <div class="table-cell" style="text-align: right;">OPERATION</div>
-        </div>
-        <!-- Table body -->
-        <div class="table-container">
-          <div class="table-row" v-for="(item, index) in tableData" :key="item.fidoId">
+        <v-table class="table">
+        <thead>
+        <tr >
+          <th style="font-weight: bold">FIDO ID</th>
+          <th class="text-right" style="font-weight: bold"></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr v-for="(item, index) in tableData" :key="item.fidoId">
+          <td>
             <div class="table-cell fido-id" :title="item.fidoId">{{ item.fidoId }}</div>
+          </td>
+          <td>
             <div class="table-cell" style="text-align: right;">
-              <div v-if="item.fidoId !== currentFidoId" class="delete-button" @click="handleDelete(index, item)">delete</div>
-              <div v-else class="current-device">当前设备</div>
+              <div v-if="item.fidoId !== currentFidoId" class="">
+                <v-chip
+                    class="text-uppercase"
+                    size="small"
+                    color="warning"
+                    @click="handleDelete(index, item)"
+                >
+                  Drop Device
+                </v-chip>
+              </div>
+              <v-chip
+                  v-else
+                  class="text-uppercase"
+                  size="small"
+                  color="success"
+                  prepend-icon="mdi-checkbox-marked-circle"
+              >
+               Current Device
+              </v-chip>
             </div>
-          </div>
-          <!-- Add button row -->
-          <div class="table-row">
-            <div class="table-cell" style="text-align: center;" colspan="2">
-              <button class="add-button" @click="showAddConfirm = true">Add</button>
-            </div>
-          </div>
-        </div>
+          </td>
+        </tr>
+        </tbody>
+
+        </v-table>
+        <v-btn
+            style="border-radius: 8px; color: #4d59d5; margin: 15px 0 15px; width: 100%"
+            @click="showAddConfirm = true"
+        >
+          Add New Fido Device
+        </v-btn>
+
+        <!-- Table header -->
+<!--        <div class="table-header">-->
+<!--          <div class="table-cell">FIDO ID</div>-->
+<!--          <div class="table-cell" style="text-align: right;">OPERATION</div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Table body &ndash;&gt;-->
+<!--        <div class="table-container">-->
+<!--          <div class="table-row" v-for="(item, index) in tableData" :key="item.fidoId">-->
+<!--            <div class="table-cell fido-id" :title="item.fidoId">{{ item.fidoId }}</div>-->
+<!--            <div class="table-cell" style="text-align: right;">-->
+<!--              <div v-if="item.fidoId !== currentFidoId" class="delete-button" @click="handleDelete(index, item)">delete</div>-->
+<!--              <div v-else class="current-device">当前设备</div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          &lt;!&ndash; Add button row &ndash;&gt;-->
+<!--          <div class="table-row">-->
+<!--            <div class="table-cell" style="text-align: center;" colspan="2">-->
+<!--              <button class="add-button" @click="showAddConfirm = true">Add</button>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
 
       <!-- Add Confirm Dialog -->
@@ -52,7 +99,7 @@
       </div>
 
     </div>
-  </div>
+<!--  </div>-->
 </template>
 
 <script>
@@ -125,8 +172,8 @@ export default {
 .page-sign {
   background-color: transparent;
   color: inherit;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 0px;
+  border-radius: 0px;
 }
 
 /* Table header styles */

@@ -67,14 +67,12 @@
                     <br/> <v-divider /> <br/>
                     <h3 style="color: #4d59d5;"> Add Fido</h3>
 
-                    <v-container class="fido-list-setting-container">
                       <v-row>
                         <v-col cols="12" style="">
                           <fido-list-card/>
-                          
+
                         </v-col>
                       </v-row>
-                    </v-container>
                 </v-col>
               </v-row>
             </v-container>
